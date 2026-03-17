@@ -1,0 +1,97 @@
+<% title = product.name %>
+
+<div class="container py-5">
+  <div class="row g-5 align-items-center">
+    <div class="col-md-6 text-center">
+      <div class="bg-white p-2 rounded-4">
+        <img src="<%= product.imageUrl %>" class="img-fluid rounded-4" alt="<%= product.name %>">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h2 class="fw-bold display-6"><%= product.name %></h2>
+      <h3 class="text-info fw-bold mb-3">$<%= product.salePrice %></h3>
+      
+      <!-- Thông tin chi tiết sản phẩm dạng lưới ngang -->
+      <div class="row g-3 mb-4">
+        <div class="col-sm-6">
+          <p class="mb-1"><strong>Category:</strong></p>
+          <p class="text-muted"><%= product.category || 'N/A' %></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="mb-1"><strong>Brand:</strong></p>
+          <p class="text-muted"><%= product.brand || 'N/A' %></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="mb-1"><strong>Age Range:</strong></p>
+          <p class="text-muted"><%= product.ageRange || 'N/A' %></p>
+        </div>
+        <div class="col-sm-6">
+          <p class="mb-1"><strong>Gender:</strong></p>
+          <p class="text-muted"><%= product.gender || 'Unisex' %></p>
+        </div>
+      </div>
+
+     
+
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <div class="input-group flex-nowrap shadow-sm rounded-pill overflow-hidden border" style="width: 130px;">
+          <button class="btn btn-white border-0 px-3" onclick="updateQty(-1)">-</button>
+          <input type="text" id="qty" class="form-control border-0 text-center bg-white fw-bold" value="1" readonly>
+          <button class="btn btn-white border-0 px-3" onclick="updateQty(1)">+</button>
+        </div>
+        
+        <button class="btn btn-info text-white rounded-pill px-5 py-2 fw-bold shadow-sm add-to-cart" data-id="<%= product._id %>" data-qty="1">
+          <i class="fa-solid fa-cart-shopping me-2"></i> Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mô tả chi tiết -->
+  <div class="mt-5 border-0 shadow-sm rounded-4 bg-white p-4">
+    <h5 class="fw-bold mb-3">Description</h5>
+    <div class="text-muted">
+      <p><%= product.description || 'No description available.' %></p>
+    </div>
+  </div>
+
+  <!-- Sản phẩm liên quan -->
+  <div class="mt-5">
+    <h3 class="text-center fw-bold mb-4">Related products</h3>
+    <div class="row g-4">
+      <% related.forEach(p => { %>
+        <div class="col-6 col-md-3">
+          <div class="card h-100 border-light-subtle rounded-4 shadow-sm overflow-hidden border-0 p-2 position-relative">
+            <% if (p.discount > 0) { %>
+              <span class="badge bg-danger position-absolute top-0 start-0 m-3 shadow-sm" style="z-index:1;">SALE</span>
+            <% } %>
+            <a href="/products/<%= p._id %>">
+              <img src="<%= p.imageUrl %>" class="card-img-top p-2 rounded-4" alt="<%= p.name %>">
+            </a>
+            <div class="card-body p-2 text-center d-flex flex-column">
+              <h6 class="fw-bold mb-1 text-truncate"><%= p.name %></h6>
+              <div class="mb-1">
+                <span class="<%= p.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= p.salePrice %></span>
+                <% if (p.discount > 0) { %>
+                  <small class="text-muted text-decoration-line-through ms-1 small">$<%= p.originalPrice %></small>
+                <% } %>
+              </div>
+              <button class="btn btn-dark btn-sm rounded-pill py-2 mt-auto w-100 fw-bold add-to-cart" data-id="<%= p._id %>">
+                <i class="fa-solid fa-cart-shopping me-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<script>
+function updateQty(val) {
+  let qty = document.getElementById('qty');
+  let current = parseInt(qty.value);
+  if (current + val >= 1) qty.value = current + val;
+}
+</script>

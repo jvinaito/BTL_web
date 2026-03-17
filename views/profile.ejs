@@ -1,0 +1,47 @@
+<% title = 'My Profile' %>
+
+<div class="container py-5 d-flex justify-content-center">
+  <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm w-100" style="max-width: 800px;">
+    <h5 class="text-info fw-bold mb-4">Edit Your Profile</h5>
+    
+    <form method="POST" action="/orders/profile?_method=PUT">
+      <div class="row mb-3">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <label class="form-label fw-medium small mb-2">First Name</label>
+          <input type="text" name="firstName" class="form-control bg-light border-0 rounded-3 py-2 px-3" value="<%= user.firstName %>" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium small mb-2">Last Name</label>
+          <input type="text" name="lastName" class="form-control bg-light border-0 rounded-3 py-2 px-3" value="<%= user.lastName %>" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <label class="form-label fw-medium small mb-2">Email</label>
+          <input type="email" class="form-control bg-light border-0 rounded-3 py-2 px-3" value="<%= user.email %>" readonly>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-medium small mb-2">Phone</label>
+          <input type="text" name="phone" class="form-control bg-light border-0 rounded-3 py-2 px-3" value="<%= user.phone || '' %>">
+        </div>
+      </div>
+
+      <h6 class="fw-bold mb-3">Password Changes</h6>
+      <div class="mb-3">
+        <input type="password" name="currentPassword" class="form-control bg-light border-0 rounded-3 py-2 px-3" placeholder="Current Password">
+      </div>
+      <div class="mb-3">
+        <input type="password" name="newPassword" class="form-control bg-light border-0 rounded-3 py-2 px-3" placeholder="New Password">
+      </div>
+      <div class="mb-4">
+        <input type="password" class="form-control bg-light border-0 rounded-3 py-2 px-3" placeholder="Confirm New Password">
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center gap-4 mt-5">
+        <a href="/" class="text-dark fw-medium text-decoration-none link-info">Cancel</a>
+        <button type="submit" class="btn btn-info text-white rounded-3 py-2 px-4 fw-bold border-0 shadow-sm">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>

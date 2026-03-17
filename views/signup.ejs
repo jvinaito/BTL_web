@@ -1,0 +1,69 @@
+<% title = 'Sign Up' %>
+
+<div class="container-fluid p-0">
+  <div class="row g-0 min-vh-100">
+    <div class="col-lg-5 d-flex flex-column justify-content-center px-5 py-4">
+      <a class="navbar-brand d-flex align-items-center fw-bold cursor-pointer mb-5" href="/" style="font-family: 'Luckiest Guy', cursive; font-size: 2.2rem; letter-spacing: 2px;">
+        <span class="text-primary">T</span>
+        <span class="text-danger">O</span>
+        <span class="text-warning">Y</span>
+        <span class="text-success">S</span>
+      </a>
+
+      <div class="mx-auto mx-lg-0" style="max-width: 450px; width: 100%;">
+        <h2 class="fw-bold mb-2">Sign up</h2>
+        <p class="text-secondary small mb-4">Let's get you all set up so you can access your personal account.</p>
+
+        <form method="POST" action="/auth/signup">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold text-secondary">First Name</label>
+              <input type="text" name="firstName" class="form-control py-2 shadow-none border-secondary-subtle focus-ring focus-ring-info" placeholder="First Name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold text-secondary">Last Name</label>
+              <input type="text" name="lastName" class="form-control py-2 shadow-none border-secondary-subtle focus-ring focus-ring-info" placeholder="Last Name" required>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold text-secondary">Email</label>
+              <input type="email" name="email" class="form-control py-2 shadow-none border-secondary-subtle focus-ring focus-ring-info" placeholder="john.doe@gmail.com" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold text-secondary">Phone Number</label>
+              <input type="text" name="phone" class="form-control py-2 shadow-none border-secondary-subtle focus-ring focus-ring-info" placeholder="Phone Number">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold text-secondary">Password</label>
+            <input type="password" name="password" class="form-control py-2 shadow-none border-secondary-subtle focus-ring focus-ring-info" placeholder="••••••••••••" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold text-secondary">Confirm Password</label>
+            <input type="password" name="confirmPassword" class="form-control py-2 shadow-none border-secondary-subtle focus-ring focus-ring-info" placeholder="••••••••••••" required>
+          </div>
+
+          <div class="form-check mb-4">
+            <input class="form-check-input shadow-none border-secondary-subtle" type="checkbox" id="terms" required>
+            <label class="form-check-label small" for="terms">
+              I agree to all the <a href="#" class="text-info text-decoration-none fw-bold">Terms</a> and <a href="#" class="text-info text-decoration-none fw-bold">Privacy Policies</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm mb-3">Create account</button>
+
+          <p class="text-center small">Already have an account? <a href="/auth/login" class="text-info text-decoration-none fw-bold">Login</a></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-7 d-none d-lg-block">
+      <img src="https://img.freepik.com/free-photo/happy-baby-playing-with-toy_23-2148530372.jpg" 
+           class="w-100 vh-100 object-fit-cover" alt="Baby">
+    </div>
+  </div>
+</div>

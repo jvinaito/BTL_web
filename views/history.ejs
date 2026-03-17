@@ -1,0 +1,79 @@
+<% title = 'Order History' %>
+
+<div class="container py-5">
+  <div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+      <h2 class="fw-bold mb-4">History</h2>
+
+      <% if (orders.length === 0) { %>
+        <p class="text-muted">No orders yet.</p>
+      <% } else { %>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr class="text-secondary small text-uppercase">
+                <th class="border-0 py-3">Order ID</th>
+                <th class="border-0 py-3">Date</th>
+                <th class="border-0 py-3">Total</th>
+                <th class="border-0 py-3 text-center">Status</th>
+                <th class="border-0 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% orders.forEach(order => { %>
+              <tr>
+                <td class="fw-bold"><%= order.orderId %></td>
+                <td class="small"><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                <td class="fw-bold">$<%= order.total.toFixed(2) %></td>
+                <td class="text-center">
+                  <span class="badge rounded-pill 
+                    <%= order.status === 'Complete' ? 'bg-success-subtle text-success' : 
+                       order.status === 'Shipping' ? 'bg-info-subtle text-info' : 
+                       order.status === 'Reject' ? 'bg-danger-subtle text-danger' : 
+                       'bg-warning-subtle text-warning' %> px-3">
+                    <%= order.status %>
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#orderDetail<%= order._id %>">View</button>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- Modal xem chi tiết đơn hàng (có thể lặp) -->
+<% orders.forEach(order => { %>
+<div class="modal fade" id="orderDetail<%= order._id %>" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Order <%= order.orderId %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Date:</strong> <%= new Date(order.createdAt).toLocaleString() %></p>
+        <p><strong>Status:</strong> <%= order.status %></p>
+        <p><strong>Shipping to:</strong> <%= order.shippingAddress?.street %>, <%= order.shippingAddress?.city %></p>
+        <hr>
+        <h6>Products</h6>
+        <ul class="list-group">
+          <% order.products.forEach(item => { %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= item.product.name %> (x<%= item.quantity %>)
+            <span>$<%= (item.price * item.quantity).toFixed(2) %></span>
+          </li>
+          <% }) %>
+        </ul>
+        <hr>
+        <p class="text-end fw-bold">Total: $<%= order.total.toFixed(2) %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<% }) %>

@@ -1,0 +1,75 @@
+<% title = 'Shop' %>
+
+<div class="container py-5">
+  <div class="row g-4">
+    <aside class="col-lg-3">
+      <div class="mb-5">
+        <h5 class="fw-bold mb-3 border-bottom pb-2">Product categories</h5>
+        <ul class="list-unstyled">
+          <% categories.forEach(cat => { %>
+            <li>
+              <a href="/products?category=<%= cat %>" class="d-block py-1 text-decoration-none <%= query.category === cat ? 'text-info fw-bold' : 'text-dark fw-medium' %> link-info transition-all">
+                + <%= cat %>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <div class="p-4 rounded-4 bg-light border">
+        <h5 class="fw-bold mb-3">Filter by price</h5>
+        <form method="GET" action="/products">
+          <input type="hidden" name="category" value="<%= query.category || '' %>">
+          <div class="d-flex align-items-center gap-2 mt-2">
+            <input type="number" name="min" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Min" value="<%= query.min || 0 %>">
+            <span class="text-muted">-</span>
+            <input type="number" name="max" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Max" value="<%= query.max || 100 %>">
+          </div>
+          <button type="submit" class="btn btn-info text-white w-100 mt-3 fw-bold rounded-pill shadow-sm">Apply</button>
+        </form>
+      </div>
+    </aside>
+
+    <main class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0"><%= query.category || 'All Products' %></h2>
+        <div class="d-flex align-items-center gap-2">
+          <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3 shadow-none" style="width: 160px;" onchange="location = this.value;">
+            <option value="/products?sort=default" <%= !query.sort || query.sort==='default' ? 'selected' : '' %>>Default sorting</option>
+            <option value="/products?sort=price_asc" <%= query.sort==='price_asc' ? 'selected' : '' %>>Price: Low to High</option>
+            <option value="/products?sort=price_desc" <%= query.sort==='price_desc' ? 'selected' : '' %>>Price: High to Low</option>
+          </select>
+          <span class="small text-muted text-nowrap">Showing <%= products.length %> results</span>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <% products.forEach(product => { %>
+          <div class="col-md-4 col-6">
+            <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 bg-white hover-card">
+              <% if (product.discount > 0) { %>
+                <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">SALE</span>
+              <% } %>
+              <a href="/products/<%= product._id %>">
+                <img src="<%= product.imageUrl %>" class="card-img-top p-2 rounded-4">
+              </a>
+              <div class="card-body p-2 text-center d-flex flex-column">
+                <p class="mb-1 fw-bold small text-truncate"><%= product.name %></p>
+                <div class="mb-1 small">
+                  <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= product.salePrice %></span>
+                  <% if (product.discount > 0) { %>
+                    <small class="text-muted text-decoration-line-through ms-1">$<%= product.originalPrice %></small>
+                  <% } %>
+                </div>
+                <div class="text-warning mb-2" style="font-size: 10px">★★★★★</div>
+                <button class="btn btn-dark btn-sm rounded-pill py-1 w-100 mt-auto add-to-cart" data-id="<%= product._id %>">
+                  <i class="fa-solid fa-cart-shopping me-1"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </main>
+  </div>
+</div>

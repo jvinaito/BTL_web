@@ -1,0 +1,127 @@
+<% title = 'Checkout' %>
+
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">Check out</h2>
+
+  <div class="row g-5">
+    <!-- Cột bên trái: Thông tin giao hàng và nút đặt hàng -->
+    <div class="col-lg-7">
+      <h5 class="fw-bold mb-4">Delivery info</h5>
+      <form id="checkout-form" method="POST" action="/orders/checkout">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">First name *</label>
+            <input type="text" name="firstName" class="form-control" value="<%= user.firstName %>" required readonly>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Last name *</label>
+            <input type="text" name="lastName" class="form-control" value="<%= user.lastName %>" required readonly>
+          </div>
+          <div class="col-12">
+            <label class="form-label small fw-bold">Street address *</label>
+            <input type="text" name="street" class="form-control" placeholder="Nhập địa chỉ (ví dụ: 123 Đường Láng, Hà Nội)" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Town / City *</label>
+            <input type="text" name="city" class="form-control" placeholder="City" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold">Phone *</label>
+            <input type="tel" name="phone" class="form-control" value="<%= user.phone %>" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-info text-white w-100 py-3 rounded-pill fw-bold shadow-sm mt-4">
+          Place order
+        </button>
+      </form>
+    </div>
+
+    <!-- Cột bên phải: Tóm tắt đơn hàng -->
+    <div class="col-lg-5">
+      <div class="order-box p-4 rounded-4 shadow-sm">
+        <h5 class="fw-bold mb-4">Your order</h5>
+
+        <div class="mb-4">
+          <% 
+            let subtotal = 0;
+            cart.forEach(item => {
+              subtotal += item.product.salePrice * item.quantity;
+          %>
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="d-flex align-items-center gap-3">
+                <img src="<%= item.product.imageUrl %>" style="width: 50px; height:50px; object-fit:contain;" class="rounded-3">
+                <span class="small fw-bold"><%= item.product.name %> (x<%= item.quantity %>)</span>
+              </div>
+              <span class="small fw-bold">$<%= (item.product.salePrice * item.quantity).toFixed(2) %></span>
+            </div>
+          <% }) %>
+        </div>
+
+        <div class="pt-3 border-top">
+          <!-- Tạm tính -->
+          <div class="d-flex justify-content-between mb-2">
+            <span class="fw-bold">Subtotal</span>
+            <span class="fw-bold" id="subtotal-amount">$<%= subtotal.toFixed(2) %></span>
+          </div>
+
+          <!-- Discount nếu có -->
+          <% if (discount > 0) { %>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="fw-bold">Discount</span>
+            <span class="fw-bold text-success" id="discount-amount">-$<%= discount.toFixed(2) %></span>
+          </div>
+          <% } %>
+
+          <!-- Phí vận chuyển (cập nhật động) -->
+          <div class="d-flex justify-content-between mb-2">
+            <span class="fw-bold">Shipping</span>
+            <span class="fw-bold" id="shipping-cost">$50.00</span>
+          </div>
+
+          <!-- Tổng cộng -->
+          <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+            <span class="fw-bold fs-5">Total</span>
+            <span class="fw-bold fs-4 text-info" id="total-amount">$<%= subtotal.toFixed(2) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Hàm loại bỏ dấu tiếng Việt
+    function removeVietnameseTones(str) {
+      str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
+      str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
+      str = str.replace(/[ìíịỉĩ]/g, 'i');
+      str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, 'o');
+      str = str.replace(/[ùúụủũưừứựửữ]/g, 'u');
+      str = str.replace(/[ỳýỵỷỹ]/g, 'y');
+      str = str.replace(/đ/g, 'd');
+      str = str.replace(/Đ/g, 'D');
+      return str;
+    }
+
+    const subtotal = <%= subtotal %>;
+    const discount = <%= discount %>; // discount từ server
+    const shippingEl = document.getElementById('shipping-cost');
+    const totalEl = document.getElementById('total-amount');
+    const cityInput = document.querySelector('input[name="city"]');
+
+    function updateTotal() {
+      let city = cityInput ? cityInput.value.toLowerCase() : '';
+      city = removeVietnameseTones(city);
+      let shipping = city.includes('ha noi') ? 30 : 50;
+      shippingEl.textContent = '$' + shipping.toFixed(2);
+      let total = subtotal + shipping - discount;
+      totalEl.textContent = '$' + total.toFixed(2);
+    }
+
+    if (cityInput) {
+      cityInput.addEventListener('input', updateTotal);
+      updateTotal(); // cập nhật lần đầu
+    }
+  })();
+</script>

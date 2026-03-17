@@ -1,0 +1,60 @@
+<% title = 'Login' %>
+
+<div class="container-fluid p-0">
+  <div class="row g-0 min-vh-100">
+    <div class="col-lg-5 d-flex flex-column justify-content-center px-5 py-4">
+      <a class="navbar-brand d-flex align-items-center fw-bold cursor-pointer mb-5" href="/" style="font-family: 'Luckiest Guy', cursive; font-size: 2.2rem; letter-spacing: 2px;">
+        <span class="text-primary">T</span>
+        <span class="text-danger">O</span>
+        <span class="text-warning">Y</span>
+        <span class="text-success">S</span>
+      </a>
+
+      <div class="mb-3">
+        <a href="javascript:history.back()" class="text-decoration-none text-info fw-bold">
+          <i class="fa-solid fa-arrow-left me-1"></i>Back
+        </a>
+      </div>
+
+      <div class="mx-auto mx-lg-0" style="max-width: 400px; width: 100%;">
+        <h2 class="fw-bold mb-1">Login</h2>
+        <p class="text-secondary small mb-4">Login to access your account</p>
+
+        <form method="POST" action="/auth/login">
+          <div class="mb-3">
+            <label class="form-label small fw-semibold text-secondary">Email</label>
+            <input type="email" name="email" class="form-control py-2 shadow-none" placeholder="john.doe@gmail.com" required>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label small fw-semibold text-secondary">Password</label>
+            <div class="input-group">
+              <input type="password" name="password" class="form-control py-2 shadow-none border-end-0" required>
+              <span class="input-group-text bg-white border-start-0 text-muted">
+                <i class="fa-regular fa-eye-slash toggle-password"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-4 small">
+            <div class="form-check">
+              <input class="form-check-input shadow-none" type="checkbox" id="remember">
+              <label class="form-check-label" for="remember">Remember me</label>
+            </div>
+            <a href="/auth/forgot" class="text-info text-decoration-none">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm mb-3" style="background-color: #3f51b5; border: none;">
+            Login
+          </button>
+          
+          <p class="text-center small mb-4">Don't have an account? <a href="/auth/signup" class="text-info text-decoration-none fw-bold">Sign up</a></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-7 d-none d-lg-block">
+      <img src="https://i.ibb.co/zH2NWrtL/image.png" class="w-100 vh-100 object-fit-cover" alt="Baby">
+    </div>
+  </div>
+</div>

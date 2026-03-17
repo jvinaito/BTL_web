@@ -1,0 +1,111 @@
+<% title = 'Dashboard' %>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="p-4 rounded-4 shadow-sm border-0" style="background-color: #f0f4ff;">
+      <p class="text-muted small mb-1 fw-bold text-uppercase">User</p>
+      <h2 class="fw-bold mb-0"><%= totalUsers %></h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="p-4 rounded-4 shadow-sm border-0" style="background-color: #fff0f6;">
+      <p class="text-muted small mb-1 fw-bold text-uppercase">Order</p>
+      <h2 class="fw-bold mb-0"><%= totalOrders %></h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="p-4 rounded-4 shadow-sm border-0" style="background-color: #f0fff4;">
+      <p class="text-muted small mb-1 fw-bold text-uppercase">Kho</p>
+      <h2 class="fw-bold mb-0"><%= totalProducts %></h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="p-4 rounded-4 shadow-sm border-0" style="background-color: #fff9f0;">
+      <p class="text-muted small mb-1 fw-bold text-uppercase">Income</p>
+      <h2 class="fw-bold mb-0">$<%= totalIncome.toFixed(2) %></h2>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <!-- Cột trái: New Users -->
+  <div class="col-md-8">
+    <div class="bg-white p-4 rounded-5 shadow-sm h-100">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0 text-info">New users</h5>
+        <a href="/admin/users" class="btn btn-light btn-sm">View all</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-borderless align-middle">
+          <thead>
+            <tr class="text-muted small border-bottom">
+              <th class="pb-3 fw-normal">User</th>
+              <th class="pb-3 fw-normal">Date</th>
+              <th class="pb-3 fw-normal text-end">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="small">
+            <% recentUsers.forEach(user => { %>
+            <tr class="border-bottom border-light">
+              <td class="py-3">
+                <div class="d-flex align-items-center gap-2">
+                  <img src="https://i.pravatar.cc/150?u=<%= user._id %>" class="rounded-circle" width="30">
+                  <span><%= user.firstName %> <%= user.lastName %></span>
+                </div>
+              </td>
+              <td class="text-muted"><%= new Date(user.createdAt).toLocaleDateString() %></td>
+              <td class="text-end fw-bold">$<%= user.totalSpent.toFixed(2) %></td>
+            </tr>
+            <% }) %>
+            <% if (recentUsers.length === 0) { %>
+            <tr>
+              <td colspan="3" class="text-center py-4">No new users</td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cột phải: Best Sellers và New Arrivals -->
+  <div class="col-md-4">
+    <!-- Best Sellers -->
+    <div class="bg-white p-4 rounded-5 shadow-sm mb-4">
+      <h6 class="fw-bold mb-4">Best sellers</h6>
+      <div class="d-flex flex-column gap-3">
+        <% bestSellers.forEach(product => { %>
+        <div class="d-flex align-items-center gap-3">
+          <img src="<%= product.imageUrl %>" class="rounded-3 bg-light" width="45" height="45" style="object-fit: cover;">
+          <div class="small">
+            <div class="fw-bold"><%= product.name %></div>
+            <div class="text-muted" style="font-size: 11px;"><%= product.sold %> units sold</div>
+          </div>
+        </div>
+        <% }) %>
+        <% if (bestSellers.length === 0) { %>
+        <p class="text-muted small">No sales data</p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- New Arrivals (đã load từ database) -->
+    <div class="bg-white p-4 rounded-5 shadow-sm">
+      <h6 class="fw-bold mb-4">New arrivals</h6>
+      <div class="d-flex flex-column gap-3">
+        <% newArrivals.forEach(product => { %>
+        <div class="d-flex align-items-center gap-3">
+          <img src="<%= product.imageUrl %>" class="rounded-3 bg-light" width="45" height="45" style="object-fit: cover;">
+          <div class="small">
+            <div class="fw-bold"><%= product.name %></div>
+            <div class="text-muted" style="font-size: 11px;">Added <%= new Date(product.createdAt).toLocaleDateString() %></div>
+          </div>
+        </div>
+        <% }) %>
+        <% if (newArrivals.length === 0) { %>
+        <p class="text-muted small">No new products</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

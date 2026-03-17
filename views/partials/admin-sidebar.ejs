@@ -1,0 +1,32 @@
+<nav class="position-fixed top-0 start-0 vh-100 shadow bg-admin-blue" style="width: 260px; z-index: 1030;">
+  <div class="p-4 text-white fw-bold fs-5 border-bottom border-white border-opacity-10 mb-3">
+    <a class="navbar-brand d-flex align-items-center fw-bold cursor-pointer" href="/" style="font-family: 'Luckiest Guy', cursive; font-size: 2.2rem; letter-spacing: 2px;">
+      <span class="text-primary">T</span>
+      <span class="text-danger">O</span>
+      <span class="text-warning">Y</span>
+      <span class="text-success">S</span>
+    </a>
+  </div>
+  
+  <div class="nav flex-column gap-1">
+    <% 
+      // Kiểm tra biến currentPage có tồn tại không, nếu không thì gán bằng chuỗi rỗng
+      const page = typeof currentPage !== 'undefined' ? currentPage : ''; 
+    %>
+    <a class="nav-link py-3 px-4 <%= page === 'dashboard' ? 'active' : '' %>" href="/admin/dashboard">
+      <i class="fa-solid fa-chart-line me-2"></i> Dashboard
+    </a>
+    <a class="nav-link py-3 px-4 <%= page === 'users' ? 'active' : '' %>" href="/admin/users">
+      <i class="fa-solid fa-user-group me-2"></i> User
+    </a>
+    <a class="nav-link py-3 px-4 <%= page === 'orders' ? 'active' : '' %>" href="/admin/orders">
+      <i class="fa-solid fa-file-invoice-dollar me-2"></i> Order
+    </a>
+    <a class="nav-link py-3 px-4 <%= page === 'products' ? 'active' : '' %>" href="/admin/products">
+      <i class="fa-solid fa-boxes-stacked me-2"></i> Product
+    </a>
+    <a class="nav-link py-3 px-4" href="/auth/logout">
+      <i class="fa-solid fa-sign-out-alt me-2"></i> Logout
+    </a>
+  </div>
+</nav>

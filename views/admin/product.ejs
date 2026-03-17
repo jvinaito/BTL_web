@@ -1,0 +1,80 @@
+<% title = 'Manage Products' %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex align-items-center gap-3">
+    <span class="fw-bold">All Products (<%= products.length %>)</span>
+    <a href="/admin/products/add" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold">
+      ADD NEW +
+    </a>
+  </div>
+  <div class="d-flex gap-3 align-items-center">
+    <!-- Form tìm kiếm -->
+    <form method="GET" action="/admin/products" class="d-flex gap-2">
+      <div class="input-group input-group-sm" style="width: 250px;">
+        <input type="text" name="search" class="form-control border-end-0 shadow-none" placeholder="Search by product name..." value="<%= search %>">
+        <button class="btn btn-light border-start-0" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </form>
+    <!-- Bộ lọc trạng thái -->
+    <select class="form-select form-select-sm" style="width: 150px;" onchange="location = '/admin/products?status=' + this.value + '&search=<%= search %>';">
+      <option value="all" <%= status === 'all' ? 'selected' : '' %>>All Status</option>
+      <option value="Active" <%= status === 'Active' ? 'selected' : '' %>>Active</option>
+      <option value="Out of Stock" <%= status === 'Out of Stock' ? 'selected' : '' %>>Out of Stock</option>
+    </select>
+    <i class="fa-solid fa-filter"></i>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr class="text-muted small">
+        <th class="fw-normal py-3">Product</th>
+        <th class="fw-normal">Category</th>
+        <th class="fw-normal text-center">Stock</th>
+        <th class="fw-normal">Price</th>
+        <th class="fw-normal">Status</th>
+        <th class="fw-normal text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(p => { %>
+      <tr>
+        <td>
+          <div class="d-flex align-items-center gap-2">
+            <img src="<%= p.imageUrl %>" style="width: 40px; height: 40px; object-fit: contain;" class="rounded-3 border">
+            <span class="fw-bold small"><%= p.name %></span>
+          </div>
+        </td>
+        <td><%= p.category %></td>
+        <td class="text-center"><%= p.stock %></td>
+        <td>$<%= p.salePrice %></td>
+        <td>
+          <span class="badge rounded-pill <%= p.status === 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' %> px-3">
+            <%= p.status %>
+          </span>
+        </td>
+        <td class="text-center">
+          <div class="d-flex gap-2 justify-content-center">
+            <a href="/admin/products/edit/<%= p._id %>" class="btn btn-sm btn-outline-secondary">
+              <i class="fa-solid fa-pen"></i>
+            </a>
+            <form action="/admin/products/<%= p._id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this product?')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <% }) %>
+      <% if (products.length === 0) { %>
+      <tr>
+        <td colspan="6" class="text-center py-4">No products found.</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>

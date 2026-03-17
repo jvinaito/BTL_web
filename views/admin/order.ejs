@@ -1,0 +1,171 @@
+<% title = 'Manage Orders' %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex align-items-center gap-3">
+    <span class="fw-bold">All Orders (<%= orders.length %>)</span>
+  </div>
+  <div class="d-flex gap-3 align-items-center">
+    <!-- Form tìm kiếm -->
+    <form method="GET" action="/admin/orders" class="d-flex gap-2">
+      <div class="input-group input-group-sm" style="width: 250px;">
+        <input type="text" name="search" class="form-control border-end-0 shadow-none" placeholder="Search by Order ID, Customer..." value="<%= typeof search !== 'undefined' ? search : '' %>">
+        <button class="btn btn-light border-start-0" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </form>
+    <!-- Bộ lọc trạng thái -->
+    <select class="form-select form-select-sm" style="width: 150px;" onchange="location = this.value;">
+      <option value="/admin/orders?status=all" <%= (!status || status === 'all') ? 'selected' : '' %>>All Status</option>
+      <option value="/admin/orders?status=Pending" <%= status === 'Pending' ? 'selected' : '' %>>Pending</option>
+      <option value="/admin/orders?status=Shipping" <%= status === 'Shipping' ? 'selected' : '' %>>Shipping</option>
+      <option value="/admin/orders?status=Complete" <%= status === 'Complete' ? 'selected' : '' %>>Complete</option>
+      <option value="/admin/orders?status=Reject" <%= status === 'Reject' ? 'selected' : '' %>>Reject</option>
+    </select>
+    <i class="fa-solid fa-filter"></i>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr class="text-muted small border-bottom">
+        <th class="fw-normal py-3">Order ID</th>
+        <th class="fw-normal">Customer</th>
+        <th class="fw-normal">Date</th>
+        <th class="fw-normal">Total</th>
+        <th class="fw-normal">Status</th>
+        <th class="fw-normal text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="small">
+      <% orders.forEach(order => { %>
+      <tr>
+        <td class="fw-bold"><%= order.orderId %></td>
+        <td><%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'N/A' %></td>
+        <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+        <td>$<%= order.total.toFixed(2) %></td>
+        <td>
+          <span class="badge rounded-pill 
+            <%= order.status === 'Complete' ? 'bg-success-subtle text-success' : 
+               order.status === 'Shipping' ? 'bg-info-subtle text-info' : 
+               order.status === 'Reject' ? 'bg-danger-subtle text-danger' : 
+               'bg-warning-subtle text-warning' %> px-3">
+            <%= order.status %>
+          </span>
+        </td>
+        <td class="text-center">
+          <div class="d-flex gap-2 justify-content-center">
+            <!-- Nút xem chi tiết -->
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#orderDetailModal<%= order._id %>">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <!-- Dropdown cập nhật trạng thái (chỉ hiển thị các lựa chọn hợp lệ) -->
+            <div class="dropdown">
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" <%= order.status === 'Complete' || order.status === 'Reject' ? 'disabled' : '' %>>
+                <i class="fa-solid fa-gear"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <% if (order.status === 'Pending') { %>
+                  <li>
+                    <form action="/admin/orders/<%= order._id %>?_method=PUT" method="POST">
+                      <input type="hidden" name="status" value="Shipping">
+                      <button type="submit" class="dropdown-item">Shipping</button>
+                    </form>
+                  </li>
+                  <li>
+                    <form action="/admin/orders/<%= order._id %>?_method=PUT" method="POST">
+                      <input type="hidden" name="status" value="Reject">
+                      <button type="submit" class="dropdown-item">Reject</button>
+                    </form>
+                  </li>
+                <% } else if (order.status === 'Shipping') { %>
+                  <li>
+                    <form action="/admin/orders/<%= order._id %>?_method=PUT" method="POST">
+                      <input type="hidden" name="status" value="Complete">
+                      <button type="submit" class="dropdown-item">Complete</button>
+                    </form>
+                  </li>
+                <% } else { %>
+                  <li><span class="dropdown-item-text text-muted">No actions</span></li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <% }) %>
+      <% if (orders.length === 0) { %>
+      <tr>
+        <td colspan="6" class="text-center py-4">No orders found.</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modals chi tiết đơn hàng -->
+<% orders.forEach(order => { %>
+<div class="modal fade" id="orderDetailModal<%= order._id %>" tabindex="-1" aria-labelledby="orderDetailModalLabel<%= order._id %>" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderDetailModalLabel<%= order._id %>">Order Details - <%= order.orderId %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <p><strong>Customer:</strong> <%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'N/A' %></p>
+            <p><strong>Email:</strong> <%= order.user ? order.user.email : 'N/A' %></p>
+            <p><strong>Phone:</strong> <%= order.shippingAddress ? order.shippingAddress.phone : 'N/A' %></p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Order Date:</strong> <%= new Date(order.createdAt).toLocaleString() %></p>
+            <p><strong>Status:</strong> 
+              <span class="badge 
+                <%= order.status === 'Complete' ? 'bg-success' : 
+                   order.status === 'Shipping' ? 'bg-info' : 
+                   order.status === 'Reject' ? 'bg-danger' : 
+                   'bg-warning' %>">
+                <%= order.status %>
+              </span>
+            </p>
+            <p><strong>Shipping Address:</strong> <%= order.shippingAddress ? order.shippingAddress.street + ', ' + order.shippingAddress.city : 'N/A' %></p>
+          </div>
+        </div>
+        <h6 class="fw-bold mb-3">Products</h6>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order.products.forEach(item => { %>
+            <tr>
+              <td><%= item.product ? item.product.name : 'Unknown' %></td>
+              <td>$<%= item.price.toFixed(2) %></td>
+              <td><%= item.quantity %></td>
+              <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3" class="text-end">Total:</th>
+              <th>$<%= order.total.toFixed(2) %></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% }) %>
