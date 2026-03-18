@@ -14,23 +14,31 @@
       
       <!-- Thông tin chi tiết sản phẩm dạng lưới ngang -->
       <div class="row g-3 mb-4">
-        <div class="col-sm-6">
-          <p class="mb-1"><strong>Category:</strong></p>
-          <p class="text-muted"><%= product.category || 'N/A' %></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="mb-1"><strong>Brand:</strong></p>
-          <p class="text-muted"><%= product.brand || 'N/A' %></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="mb-1"><strong>Age Range:</strong></p>
-          <p class="text-muted"><%= product.ageRange || 'N/A' %></p>
-        </div>
-        <div class="col-sm-6">
-          <p class="mb-1"><strong>Gender:</strong></p>
-          <p class="text-muted"><%= product.gender || 'Unisex' %></p>
-        </div>
-      </div>
+  <div class="col-sm-6">
+    <p class="mb-1"><strong>Category:</strong></p>
+    <p class="text-muted"><%= product.category ? product.category.name : 'N/A' %></p>
+  </div>
+  <div class="col-sm-6">
+    <p class="mb-1"><strong>Brand:</strong></p>
+    <p class="text-muted">
+      <% if (typeof product.brand === 'string') { %>
+        <%= product.brand %>
+      <% } else if (product.brand && product.brand.name) { %>
+        <%= product.brand.name %>
+      <% } else { %>
+        N/A
+      <% } %>
+    </p>
+  </div>
+  <div class="col-sm-6">
+    <p class="mb-1"><strong>Age Range:</strong></p>
+    <p class="text-muted"><%= product.ageRange || 'N/A' %></p>
+  </div>
+  <div class="col-sm-6">
+    <p class="mb-1"><strong>Gender:</strong></p>
+    <p class="text-muted"><%= product.gender || 'Unisex' %></p>
+  </div>
+</div>
 
      
 

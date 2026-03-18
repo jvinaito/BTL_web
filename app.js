@@ -29,7 +29,10 @@ app.use(session({
 
 // Flash messages
 app.use(flash());
-
+app.use((req, res, next) => {
+  res.locals.search = req.query.search || '';
+  next();
+});
 // Global variables cho flash và user
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success');

@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div class="d-flex align-items-center gap-3">
-    <span class="fw-bold">All Users (<%= users.length %>)</span>
+    <span class="fw-bold">All Users (<%= totalUsers %>)</span>
     <button class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addUserModal">
       ADD NEW +
     </button>
@@ -18,11 +18,11 @@
       </div>
     </form>
     <!-- Bộ lọc level -->
-    <select class="form-select form-select-sm" style="width: 150px;" onchange="location = '/admin/users?level=' + this.value + '&search=<%= search %>';">
-      <option value="all" <%= level === 'all' ? 'selected' : '' %>>All Levels</option>
-      <option value="Admin" <%= level === 'Admin' ? 'selected' : '' %>>Admin</option>
-      <option value="Vip" <%= level === 'Vip' ? 'selected' : '' %>>Vip</option>
-      <option value="Normal" <%= level === 'Normal' ? 'selected' : '' %>>Normal</option>
+    <select class="form-select form-select-sm" style="width: 150px;" onchange="location = this.value;">
+      <option value="/admin/users?level=all&search=<%= encodeURIComponent(search) %>" <%= level === 'all' ? 'selected' : '' %>>All Levels</option>
+      <option value="/admin/users?level=Admin&search=<%= encodeURIComponent(search) %>" <%= level === 'Admin' ? 'selected' : '' %>>Admin</option>
+      <option value="/admin/users?level=Vip&search=<%= encodeURIComponent(search) %>" <%= level === 'Vip' ? 'selected' : '' %>>Vip</option>
+      <option value="/admin/users?level=Normal&search=<%= encodeURIComponent(search) %>" <%= level === 'Normal' ? 'selected' : '' %>>Normal</option>
     </select>
     <i class="fa-solid fa-filter"></i>
   </div>
@@ -58,19 +58,17 @@
           </span>
         </td>
         <td class="text-center">
-  <div class="d-flex gap-2 justify-content-center">
-    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal<%= user._id %>">
-      <i class="fa-solid fa-pen"></i>
-    </button>
-
-    <form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST" style="display:inline;">
-      <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this user?')">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-    </form>
-  </div>
-</td>
-        
+          <div class="d-flex gap-2 justify-content-center">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal<%= user._id %>">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this user?')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </td>
       </tr>
       <% }) %>
       <% if (users.length === 0) { %>
@@ -81,6 +79,34 @@
     </tbody>
   </table>
 </div>
+
+<!-- Phân trang -->
+<% if (totalPages > 1) { %>
+<div class="d-flex justify-content-between align-items-center mt-4 small text-muted">
+  <div>
+    Showing <%= (currentPage - 1) * limit + 1 %> to <%= Math.min(currentPage * limit, totalUsers) %> of <%= totalUsers %> entries
+  </div>
+  <nav>
+    <ul class="pagination pagination-sm mb-0">
+      <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+        <a class="page-link" href="?page=<%= currentPage - 1 %><%= search ? '&search=' + encodeURIComponent(search) : '' %><%= level && level !== 'all' ? '&level=' + encodeURIComponent(level) : '' %>">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+      </li>
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+          <a class="page-link" href="?page=<%= i %><%= search ? '&search=' + encodeURIComponent(search) : '' %><%= level && level !== 'all' ? '&level=' + encodeURIComponent(level) : '' %>"><%= i %></a>
+        </li>
+      <% } %>
+      <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+        <a class="page-link" href="?page=<%= currentPage + 1 %><%= search ? '&search=' + encodeURIComponent(search) : '' %><%= level && level !== 'all' ? '&level=' + encodeURIComponent(level) : '' %>">
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<% } %>
 
 <!-- Modal thêm user -->
 <div class="modal fade" id="addUserModal" tabindex="-1">

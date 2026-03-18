@@ -4,7 +4,7 @@
   <div class="bg-white p-5 rounded-5 shadow-sm">
     <h4 class="fw-bold text-info mb-4"><%= product ? 'Edit' : 'Add new' %> product</h4>
     
-    <form method="POST" action="<%= product ? '/admin/products/' + product._id + '?_method=PUT' : '/admin/products' %>">
+    <form id="productForm" method="POST" action="<%= product ? '/admin/products/' + product._id + '?_method=PUT' : '/admin/products' %>">
       <div class="row g-4">
         <div class="col-md-6">
           <div class="mb-4">
@@ -17,7 +17,7 @@
           </div>
           <div class="mb-4">
             <label class="form-label fw-bold small">Discount (%)</label>
-            <input type="number" name="discount" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.discount : '0' %>" placeholder="0">
+            <input type="number" name="discount" id="discount" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.discount : '0' %>" placeholder="0" min="0" max="100">
           </div>
           <div class="mb-4">
             <label class="form-label fw-bold small">Brand</label>
@@ -32,21 +32,20 @@
         <div class="col-md-6">
           <div class="mb-4">
             <label class="form-label fw-bold small">Category</label>
-            <select name="category" class="form-select border-0 bg-light py-2 rounded-3">
+            <select name="category" class="form-select border-0 bg-light py-2 rounded-3" required>
               <option value="">Select category</option>
-              <option value="Playsets" <%= product && product.category === 'Playsets' ? 'selected' : '' %>>Playsets</option>
-              <option value="Educational Toys" <%= product && product.category === 'Educational Toys' ? 'selected' : '' %>>Educational Toys</option>
-              <option value="Eco-Friendly Toys" <%= product && product.category === 'Eco-Friendly Toys' ? 'selected' : '' %>>Eco-Friendly Toys</option>
+              <% categories.forEach(cat => { %>
+                <option value="<%= cat._id %>" <%= product && product.category && product.category._id == cat._id ? 'selected' : '' %>>
+                  <%= cat.name %>
+                </option>
+              <% }) %>
             </select>
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Original price</label>
-            <input type="text" name="originalPrice" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.originalPrice : '' %>" placeholder="$0.00" required>
+            <label class="form-label fw-bold small">Original price ($)</label>
+            <input type="number" step="0.01" name="originalPrice" id="originalPrice" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.originalPrice : '' %>" placeholder="0.00" required>
           </div>
-          <div class="mb-4">
-            <label class="form-label fw-bold small">Sale price</label>
-            <input type="text" name="salePrice" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.salePrice : '' %>" placeholder="$0.00" required>
-          </div>
+          
           <div class="mb-4">
             <label class="form-label fw-bold small">Gender</label>
             <select name="gender" class="form-select border-0 bg-light py-2 rounded-3">
@@ -61,6 +60,9 @@
           </div>
         </div>
       </div>
+
+      <!-- Input ẩn để gửi salePrice -->
+      <input type="hidden" name="salePrice" id="salePriceHidden" value="<%= product ? product.salePrice : '' %>">
 
       <div class="row mt-4 align-items-end">
         <div class="col-md-5">
@@ -81,3 +83,46 @@
     </form>
   </div>
 </div>
+
+<script>
+  (function() {
+    const form = document.getElementById('productForm');
+    const originalPriceInput = document.getElementById('originalPrice');
+    const discountInput = document.getElementById('discount');
+    const salePriceHidden = document.getElementById('salePriceHidden');
+
+    form.addEventListener('submit', function(e) {
+      // Lấy giá trị
+      let original = parseFloat(originalPriceInput.value);
+      let discount = parseFloat(discountInput.value);
+
+      // Kiểm tra originalPrice
+      if (isNaN(original) || original <= 0) {
+        e.preventDefault();
+        alert('Original price phải là số dương lớn hơn 0.');
+        return;
+      }
+
+      // Kiểm tra discount, nếu không hợp lệ hoặc rỗng thì gán 0
+      if (isNaN(discount) || discount < 0) {
+        discount = 0;
+      }
+      if (discount > 100) {
+        e.preventDefault();
+        alert('Discount không được vượt quá 100%.');
+        return;
+      }
+
+      // Tính salePrice
+      let salePrice = original * (1 - discount / 100);
+      // Làm tròn 2 chữ số thập phân
+      salePrice = Math.round(salePrice * 100) / 100;
+
+      // Đảm bảo salePrice không âm
+      if (salePrice < 0) salePrice = 0;
+
+      // Gán vào input ẩn
+      salePriceHidden.value = salePrice;
+    });
+  })();
+</script>

@@ -1,0 +1,78 @@
+<% title = 'Manage Categories' %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h4 class="fw-bold">Categories</h4>
+  <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addCategoryModal">+ Add Category</button>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr class="text-muted small">
+        <th>Name</th>
+        <th>Created At</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(cat => { %>
+      <tr>
+        <td><%= cat.name %></td>
+        <td><%= new Date(cat.createdAt).toLocaleDateString() %></td>
+        <td class="text-center">
+          <i class="fa-solid fa-pen text-muted me-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#editCategoryModal<%= cat._id %>"></i>
+          <form action="/admin/categories/<%= cat._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-link p-0 text-muted" onclick="return confirm('Delete this category?')">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal thêm category -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/categories" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals sửa category -->
+<% categories.forEach(cat => { %>
+<div class="modal fade" id="editCategoryModal<%= cat._id %>" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/categories/<%= cat._id %>?_method=PUT" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input type="text" name="name" class="form-control" value="<%= cat.name %>" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% }) %>

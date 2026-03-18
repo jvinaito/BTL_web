@@ -6,10 +6,23 @@
       <div class="mb-5">
         <h5 class="fw-bold mb-3 border-bottom pb-2">Product categories</h5>
         <ul class="list-unstyled">
-          <% categories.forEach(cat => { %>
+          <% categories.forEach(cat => { 
+            const isActive = query.category && query.category === cat._id.toString();
+            // Xây dựng params cho link category
+            const linkParams = { 
+              ...query, 
+              page: 1, // reset page về 1 khi chọn category
+              category: isActive ? undefined : cat._id // nếu đang active thì bỏ category
+            };
+            // Xóa các tham số rỗng hoặc undefined
+            Object.keys(linkParams).forEach(key => {
+              if (linkParams[key] === '' || linkParams[key] === undefined) delete linkParams[key];
+            });
+            const url = '/products?' + new URLSearchParams(linkParams).toString();
+          %>
             <li>
-              <a href="/products?category=<%= cat %>" class="d-block py-1 text-decoration-none <%= query.category === cat ? 'text-info fw-bold' : 'text-dark fw-medium' %> link-info transition-all">
-                + <%= cat %>
+              <a href="<%= url %>" class="d-block py-1 text-decoration-none <%= isActive ? 'text-info fw-bold' : 'text-dark fw-medium' %>">
+                + <%= cat.name %>
               </a>
             </li>
           <% }) %>
@@ -19,7 +32,20 @@
       <div class="p-4 rounded-4 bg-light border">
         <h5 class="fw-bold mb-3">Filter by price</h5>
         <form method="GET" action="/products">
-          <input type="hidden" name="category" value="<%= query.category || '' %>">
+          <% 
+            // Giữ lại các tham số hiện tại trong form filter, nhưng không có min/max vì chúng sẽ được nhập
+            const hiddenParams = { ...query, page: 1 }; // reset page
+            delete hiddenParams.min;
+            delete hiddenParams.max;
+            delete hiddenParams.page; // sẽ được set lại nếu cần? thực tế page sẽ về 1 sau filter, nhưng form không có page
+            // Xóa các tham số rỗng
+            Object.keys(hiddenParams).forEach(key => {
+              if (hiddenParams[key] === '' || hiddenParams[key] === undefined) delete hiddenParams[key];
+            });
+          %>
+          <% for (let [key, value] of Object.entries(hiddenParams)) { %>
+            <input type="hidden" name="<%= key %>" value="<%= value %>">
+          <% } %>
           <div class="d-flex align-items-center gap-2 mt-2">
             <input type="number" name="min" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Min" value="<%= query.min || 0 %>">
             <span class="text-muted">-</span>
@@ -32,12 +58,21 @@
 
     <main class="col-lg-9">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0"><%= query.category || 'All Products' %></h2>
+        <h2 class="fw-bold mb-0"><%= query.category ? categories.find(c => c._id.toString() === query.category)?.name : 'All Products' %></h2>
         <div class="d-flex align-items-center gap-2">
           <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3 shadow-none" style="width: 160px;" onchange="location = this.value;">
-            <option value="/products?sort=default" <%= !query.sort || query.sort==='default' ? 'selected' : '' %>>Default sorting</option>
-            <option value="/products?sort=price_asc" <%= query.sort==='price_asc' ? 'selected' : '' %>>Price: Low to High</option>
-            <option value="/products?sort=price_desc" <%= query.sort==='price_desc' ? 'selected' : '' %>>Price: High to Low</option>
+            <% 
+              // Tạo base params cho sort (giữ nguyên search, min, max, category, nhưng bỏ sort và page)
+              const sortBaseParams = { ...query, page: 1 };
+              delete sortBaseParams.sort;
+              delete sortBaseParams.page;
+              Object.keys(sortBaseParams).forEach(key => {
+                if (sortBaseParams[key] === '' || sortBaseParams[key] === undefined) delete sortBaseParams[key];
+              });
+            %>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams }).toString() %>" <%= !query.sort || query.sort === 'default' ? 'selected' : '' %>>Default sorting</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_asc' }).toString() %>" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Price: Low to High</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_desc' }).toString() %>" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Price: High to Low</option>
           </select>
           <span class="small text-muted text-nowrap">Showing <%= products.length %> results</span>
         </div>
@@ -61,7 +96,6 @@
                     <small class="text-muted text-decoration-line-through ms-1">$<%= product.originalPrice %></small>
                   <% } %>
                 </div>
-                <div class="text-warning mb-2" style="font-size: 10px">★★★★★</div>
                 <button class="btn btn-dark btn-sm rounded-pill py-1 w-100 mt-auto add-to-cart" data-id="<%= product._id %>">
                   <i class="fa-solid fa-cart-shopping me-1"></i> Add to Cart
                 </button>
@@ -70,6 +104,37 @@
           </div>
         <% }) %>
       </div>
+
+      <!-- Phân trang -->
+      <% if (totalPages > 1) { %>
+        <nav aria-label="Page navigation" class="mt-5">
+          <ul class="pagination justify-content-center">
+            <% 
+              // Tạo base params cho phân trang (giữ nguyên search, min, max, category, sort)
+              const pageBaseParams = { ...query };
+              delete pageBaseParams.page;
+              Object.keys(pageBaseParams).forEach(key => {
+                if (pageBaseParams[key] === '' || pageBaseParams[key] === undefined) delete pageBaseParams[key];
+              });
+            %>
+            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage - 1 }).toString() %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+              <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: i }).toString() %>"><%= i %></a>
+              </li>
+            <% } %>
+            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage + 1 }).toString() %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      <% } %>
     </main>
   </div>
 </div>
