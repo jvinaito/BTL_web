@@ -20,10 +20,10 @@
         <td><%= cat.name %></td>
         <td><%= new Date(cat.createdAt).toLocaleDateString() %></td>
         <td class="text-center">
-          <i class="fa-solid fa-pen text-muted me-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#editCategoryModal<%= cat._id %>"></i>
+          <i class="fa-solid fa-pen btn btn-sm btn-outline-secondary text-muted me-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#editCategoryModal<%= cat._id %>"></i>
           <form action="/admin/categories/<%= cat._id %>?_method=DELETE" method="POST" style="display:inline;">
             <button type="submit" class="btn btn-link p-0 text-muted" onclick="return confirm('Delete this category?')">
-              <i class="fa-solid fa-trash"></i>
+              <i class="fa-solid fa-trash btn btn-sm btn-outline-danger"></i>
             </button>
           </form>
         </td>
