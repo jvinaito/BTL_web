@@ -113,7 +113,7 @@
     function updateTotal() {
       let city = cityInput ? cityInput.value.toLowerCase() : '';
       city = removeVietnameseTones(city);
-      let shipping = city.includes('ha noi') ? 30 : 50;
+      let shipping = city.includes('ha noi') ? 0 : 50;
       shippingEl.textContent = '$' + shipping.toFixed(2);
       let total = subtotal + shipping - discount;
       totalEl.textContent = '$' + total.toFixed(2);

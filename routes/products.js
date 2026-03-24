@@ -61,14 +61,35 @@ router.get('/', async (req, res) => {
 });
 
 // Chi tiết sản phẩm
+// Chi tiết sản phẩm
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('category');
     if (!product) return res.redirect('/products');
-    const related = await Product.find({
+
+    // Lấy sản phẩm cùng category (tối đa 2)
+    const sameCategory = await Product.find({
       category: product.category,
       _id: { $ne: product._id }
-    }).limit(4);
+    }).limit(2);
+
+    // Danh sách ID đã có (sản phẩm hiện tại + các sản phẩm cùng loại đã lấy)
+    const excludeIds = [product._id, ...sameCategory.map(p => p._id)];
+
+    // Tính số lượng cần lấy ngẫu nhiên để tổng = 4
+    const neededRandom = 4 - sameCategory.length;
+
+    let randomProducts = [];
+    if (neededRandom > 0) {
+      randomProducts = await Product.aggregate([
+        { $match: { _id: { $nin: excludeIds } } },
+        { $sample: { size: neededRandom } }
+      ]);
+    }
+
+    // Gộp kết quả
+    const related = [...sameCategory, ...randomProducts];
+
     res.render('detail', { product, related, layout: 'layouts/main' });
   } catch (err) {
     console.error(err);

@@ -50,8 +50,8 @@ router.get('/dashboard', isAdmin, async (req, res) => {
       totalSpent: userSpent[user._id.toString()] || 0
     }));
 
-    const bestSellers = await Product.find().sort({ sold: -1 }).limit(5);
-    const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(5);
+    const bestSellers = await Product.find().sort({ sold: -1 }).limit(3);
+    const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(3);
 
     res.render('admin/dashboard', {
       totalUsers,

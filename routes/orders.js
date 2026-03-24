@@ -116,7 +116,7 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
     };
     if (removeTones(cityLower).includes('ha noi')) {
-      shipping = 30;
+      shipping = 0;
     }
 
     let discount = 0;
