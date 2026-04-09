@@ -1,9 +1,22 @@
 const mongoose = require('mongoose');
 
+// Hàm loại bỏ dấu tiếng Việt
+function removeVietnameseTones(str) {
+  str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
+  str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
+  str = str.replace(/[ìíịỉĩ]/g, 'i');
+  str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, 'o');
+  str = str.replace(/[ùúụủũưừứựửữ]/g, 'u');
+  str = str.replace(/[ỳýỵỷỹ]/g, 'y');
+  str = str.replace(/đ/g, 'd');
+  str = str.replace(/Đ/g, 'D');
+  return str.toLowerCase();
+}
+
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  // models/Product.js
-category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  searchName: { type: String, required: true, index: true },
   stock: { type: Number, default: 0 },
   originalPrice: { type: Number, required: true },
   salePrice: { type: Number, required: true },
@@ -18,4 +31,10 @@ category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: tru
   createdAt: { type: Date, default: Date.now }
 });
 
+// Middleware tự động tạo searchName từ name trước khi lưu
+productSchema.pre('save', async function() {
+  if (this.isModified('name')) {
+    this.searchName = removeVietnameseTones(this.name);
+  }
+});
 module.exports = mongoose.model('Product', productSchema);

@@ -32,7 +32,7 @@
   <div class="col-md-8">
     <div class="bg-white p-4 rounded-5 shadow-sm h-100">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h5 class="fw-bold mb-0 text-info">New users</h5>
+        <h5 class="fw-bold mb-0 text-info">Top user - <%= new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' }) %></h5>
         <a href="/admin/users" class="btn btn-light btn-sm">View all</a>
       </div>
       <div class="table-responsive">
@@ -53,7 +53,7 @@
                   <span><%= user.firstName %> <%= user.lastName %></span>
                 </div>
               </td>
-              <td class="text-muted"><%= new Date(user.createdAt).toLocaleDateString() %></td>
+             <td class="text-muted"><%= formatDate(user.createdAt) %></td>
               <td class="text-end fw-bold">$<%= user.totalSpent.toFixed(2) %></td>
             </tr>
             <% }) %>
@@ -69,28 +69,34 @@
   </div>
 
   <!-- Cột phải: Best Sellers và New Arrivals -->
-  <div class="col-md-4">
-    <!-- Best Sellers -->
-    <div class="bg-white p-4 rounded-5 shadow-sm mb-4">
-      <h6 class="fw-bold mb-4">Best sellers</h6>
-      <div class="d-flex flex-column gap-3">
+ <!-- Best Sellers - dạng bảng ngang có ảnh -->
+<div class="col-md 4">
+  <h6 class="fw-bold mb-4">Best sellers</h6>
+  <div class="table-responsive">
+    <table class="table table-sm table-borderless align-middle">
+      <thead>
+        <tr class="text-muted small">
+          <th style="width: 40px;">Ảnh</th>
+          <th>Tên sản phẩm</th>
+          <th class="text-end">Đã bán</th>
+        </tr>
+      </thead>
+      <tbody>
         <% bestSellers.forEach(product => { %>
-        <div class="d-flex align-items-center gap-3">
-          <img src="<%= product.imageUrl %>" class="rounded-3 bg-light" width="45" height="45" style="object-fit: cover;">
-          <div class="small">
-            <div class="fw-bold"><%= product.name %></div>
-            <div class="text-muted" style="font-size: 11px;"><%= product.sold %> units sold</div>
-          </div>
-        </div>
+        <tr>
+          <td><img src="<%= product.imageUrl %>" style="width: 35px; height: 35px; object-fit: cover;" class="rounded-3"></td>
+          <td class="fw-bold"><%= product.name %></td>
+          <td class="text-end"><%= product.sold %></td>
+        </tr>
         <% }) %>
         <% if (bestSellers.length === 0) { %>
-        <p class="text-muted small">No sales data</p>
+        <tr><td colspan="3" class="text-muted small">Chưa có dữ liệu</td></tr>
         <% } %>
-      </div>
-    </div>
+      </tbody>
+    </table>
+  </div>
 
-    <!-- New Arrivals (đã load từ database) -->
-    <div class="bg-white p-4 rounded-5 shadow-sm">
+  <div class="bg-white p-4 rounded-5 shadow-sm">
       <h6 class="fw-bold mb-4">New arrivals</h6>
       <div class="d-flex flex-column gap-3">
         <% newArrivals.forEach(product => { %>
@@ -98,7 +104,7 @@
           <img src="<%= product.imageUrl %>" class="rounded-3 bg-light" width="45" height="45" style="object-fit: cover;">
           <div class="small">
             <div class="fw-bold"><%= product.name %></div>
-            <div class="text-muted" style="font-size: 11px;">Added <%= new Date(product.createdAt).toLocaleDateString() %></div>
+            <div class="text-muted" style="font-size: 11px;">Added <%= formatDate(product.createdAt) %></div>
           </div>
         </div>
         <% }) %>
@@ -108,4 +114,8 @@
       </div>
     </div>
   </div>
+</div>
+
+  
+    
 </div>

@@ -4,7 +4,7 @@
   <h2 class="fw-bold mb-4">Check out</h2>
 
   <div class="row g-5">
-    <!-- Cột bên trái: Thông tin giao hàng và nút đặt hàng -->
+    <!-- Cột trái: thông tin giao hàng -->
     <div class="col-lg-7">
       <h5 class="fw-bold mb-4">Delivery info</h5>
       <form id="checkout-form" method="POST" action="/orders/checkout">
@@ -17,26 +17,46 @@
             <label class="form-label small fw-bold">Last name *</label>
             <input type="text" name="lastName" class="form-control" value="<%= user.lastName %>" required readonly>
           </div>
+
           <div class="col-12">
-            <label class="form-label small fw-bold">Street address *</label>
-            <input type="text" name="street" class="form-control" placeholder="Nhập địa chỉ (ví dụ: 123 Đường Láng, Hà Nội)" required>
+            <label class="form-label small fw-bold">Địa chỉ cụ thể *</label>
+            <input type="text" name="street" class="form-control" placeholder="Số nhà, tên đường" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-bold">Town / City *</label>
-            <input type="text" name="city" class="form-control" placeholder="City" required>
+
+          <div class="col-md-4">
+            <label class="form-label small fw-bold">Tỉnh/Thành phố *</label>
+            <select id="province" name="province" class="form-select" required>
+              <option value="">-- Đang tải... --</option>
+            </select>
           </div>
+
+          <div class="col-md-4">
+            <label class="form-label small fw-bold">Quận/Huyện *</label>
+            <select id="district" name="district" class="form-select" disabled required>
+              <option value="">-- Chọn tỉnh trước --</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label small fw-bold">Phường/Xã *</label>
+            <select id="ward" name="ward" class="form-select" disabled required>
+              <option value="">-- Chọn quận/huyện trước --</option>
+            </select>
+          </div>
+
           <div class="col-md-6">
             <label class="form-label small fw-bold">Phone *</label>
             <input type="tel" name="phone" class="form-control" value="<%= user.phone %>" required>
           </div>
         </div>
+        <input type="hidden" name="fullAddress" id="fullAddress">
         <button type="submit" class="btn btn-info text-white w-100 py-3 rounded-pill fw-bold shadow-sm mt-4">
           Place order
         </button>
       </form>
     </div>
 
-    <!-- Cột bên phải: Tóm tắt đơn hàng -->
+    <!-- Cột phải: tóm tắt đơn hàng -->
     <div class="col-lg-5">
       <div class="order-box p-4 rounded-4 shadow-sm">
         <h5 class="fw-bold mb-4">Your order</h5>
@@ -58,30 +78,23 @@
         </div>
 
         <div class="pt-3 border-top">
-          <!-- Tạm tính -->
           <div class="d-flex justify-content-between mb-2">
             <span class="fw-bold">Subtotal</span>
             <span class="fw-bold" id="subtotal-amount">$<%= subtotal.toFixed(2) %></span>
           </div>
-
-          <!-- Discount nếu có -->
           <% if (discount > 0) { %>
           <div class="d-flex justify-content-between mb-2">
             <span class="fw-bold">Discount</span>
-            <span class="fw-bold text-success" id="discount-amount">-$<%= discount.toFixed(2) %></span>
+            <span class="fw-bold text-success">-$<%= discount.toFixed(2) %></span>
           </div>
           <% } %>
-
-          <!-- Phí vận chuyển (cập nhật động) -->
           <div class="d-flex justify-content-between mb-2">
             <span class="fw-bold">Shipping</span>
             <span class="fw-bold" id="shipping-cost">$50.00</span>
           </div>
-
-          <!-- Tổng cộng -->
           <div class="d-flex justify-content-between align-items-center pt-2 border-top">
             <span class="fw-bold fs-5">Total</span>
-            <span class="fw-bold fs-4 text-info" id="total-amount">$<%= subtotal.toFixed(2) %></span>
+            <span class="fw-bold fs-4 text-info" id="total-amount">$<%= (subtotal - discount + 50).toFixed(2) %></span>
           </div>
         </div>
       </div>
@@ -90,38 +103,114 @@
 </div>
 
 <script>
-  (function() {
-    // Hàm loại bỏ dấu tiếng Việt
-    function removeVietnameseTones(str) {
-      str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
-      str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
-      str = str.replace(/[ìíịỉĩ]/g, 'i');
-      str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, 'o');
-      str = str.replace(/[ùúụủũưừứựửữ]/g, 'u');
-      str = str.replace(/[ỳýỵỷỹ]/g, 'y');
-      str = str.replace(/đ/g, 'd');
-      str = str.replace(/Đ/g, 'D');
-      return str;
-    }
+  // Hàm loại bỏ dấu tiếng Việt
+  function removeVietnameseTones(str) {
+    str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
+    str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
+    str = str.replace(/[ìíịỉĩ]/g, 'i');
+    str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, 'o');
+    str = str.replace(/[ùúụủũưừứựửữ]/g, 'u');
+    str = str.replace(/[ỳýỵỷỹ]/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    str = str.replace(/Đ/g, 'D');
+    return str.toLowerCase();
+  }
 
+  const provinceSelect = document.getElementById('province');
+  const districtSelect = document.getElementById('district');
+  const wardSelect = document.getElementById('ward');
+
+  // Load danh sách tỉnh/thành phố
+  fetch('https://provinces.open-api.vn/api/p/')
+    .then(res => res.json())
+    .then(data => {
+      provinceSelect.innerHTML = '<option value="">-- Chọn tỉnh/thành phố --</option>';
+      data.forEach(prov => {
+        const option = document.createElement('option');
+        option.value = prov.name;        // giá trị gửi lên server là tên
+        option.setAttribute('data-code', prov.code); // lưu mã để gọi API
+        option.textContent = prov.name;
+        provinceSelect.appendChild(option);
+      });
+    })
+    .catch(err => {
+      console.error('Lỗi tải tỉnh/thành phố:', err);
+      provinceSelect.innerHTML = '<option value="">Lỗi tải dữ liệu</option>';
+    });
+
+  // Khi chọn tỉnh/thành phố -> load quận/huyện
+  provinceSelect.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const provinceCode = selectedOption.getAttribute('data-code');
+    districtSelect.disabled = true;
+    wardSelect.disabled = true;
+    districtSelect.innerHTML = '<option value="">-- Chọn quận/huyện --</option>';
+    wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+    if (!provinceCode) return;
+
+    fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.districts) {
+          districtSelect.disabled = false;
+          data.districts.forEach(dist => {
+            const option = document.createElement('option');
+            option.value = dist.name;
+            option.setAttribute('data-code', dist.code);
+            option.textContent = dist.name;
+            districtSelect.appendChild(option);
+          });
+        }
+      })
+      .catch(err => console.error('Lỗi tải quận/huyện:', err));
+  });
+
+  // Khi chọn quận/huyện -> load phường/xã
+  districtSelect.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const districtCode = selectedOption.getAttribute('data-code');
+    wardSelect.disabled = true;
+    wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+    if (!districtCode) return;
+
+    fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.wards) {
+          wardSelect.disabled = false;
+          data.wards.forEach(ward => {
+            const option = document.createElement('option');
+            option.value = ward.name;
+            option.textContent = ward.name;
+            wardSelect.appendChild(option);
+          });
+        }
+      })
+      .catch(err => console.error('Lỗi tải phường/xã:', err));
+  });
+
+  // Cập nhật phí ship khi chọn tỉnh/thành phố
+  function updateShipping() {
+    const provinceName = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+    const normalized = removeVietnameseTones(provinceName);
+    const shipping = normalized.includes('ha noi') ? 0 : 50;
     const subtotal = <%= subtotal %>;
-    const discount = <%= discount %>; // discount từ server
-    const shippingEl = document.getElementById('shipping-cost');
-    const totalEl = document.getElementById('total-amount');
-    const cityInput = document.querySelector('input[name="city"]');
+    const discount = <%= discount %>;
+    const total = subtotal - discount + shipping;
+    document.getElementById('shipping-cost').textContent = '$' + shipping.toFixed(2);
+    document.getElementById('total-amount').textContent = '$' + total.toFixed(2);
+  }
 
-    function updateTotal() {
-      let city = cityInput ? cityInput.value.toLowerCase() : '';
-      city = removeVietnameseTones(city);
-      let shipping = city.includes('ha noi') ? 0 : 50;
-      shippingEl.textContent = '$' + shipping.toFixed(2);
-      let total = subtotal + shipping - discount;
-      totalEl.textContent = '$' + total.toFixed(2);
-    }
+  provinceSelect.addEventListener('change', updateShipping);
+  updateShipping();
 
-    if (cityInput) {
-      cityInput.addEventListener('input', updateTotal);
-      updateTotal(); // cập nhật lần đầu
-    }
-  })();
+  // Ghép địa chỉ đầy đủ trước khi submit
+  document.getElementById('checkout-form').addEventListener('submit', function(e) {
+    const street = document.querySelector('input[name="street"]').value;
+    const province = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+    const district = districtSelect.options[districtSelect.selectedIndex]?.text || '';
+    const ward = wardSelect.options[wardSelect.selectedIndex]?.text || '';
+    const full = `${street}, ${ward}, ${district}, ${province}`;
+    document.getElementById('fullAddress').value = full;
+  });
 </script>

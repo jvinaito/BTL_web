@@ -23,7 +23,7 @@
               <% orders.forEach(order => { %>
               <tr>
                 <td class="fw-bold"><%= order.orderId %></td>
-                <td class="small"><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                <td class="small"><%= formatDate(order.createdAt) %></td>
                 <td class="fw-bold">$<%= order.total.toFixed(2) %></td>
                 <td class="text-center">
                   <span class="badge rounded-pill 
@@ -59,7 +59,7 @@
       <div class="modal-body">
         <p><strong>Date:</strong> <%= new Date(order.createdAt).toLocaleString() %></p>
         <p><strong>Status:</strong> <%= order.status %></p>
-        <p><strong>Shipping to:</strong> <%= order.shippingAddress?.street %>, <%= order.shippingAddress?.city %></p>
+        <p><strong>Shipping to:</strong>  <%= order.shippingAddress?.city %></p>
         <hr>
         <h6>Products</h6>
         <ul class="list-group">

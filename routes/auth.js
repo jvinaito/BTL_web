@@ -72,36 +72,36 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Quên mật khẩu (giả lập – chỉ hiển thị form)
-router.get('/forgot', (req, res) => {
-  res.render('forgotpass', { layout: 'layouts/main' });
-});
+// // Quên mật khẩu (giả lập – chỉ hiển thị form)
+// router.get('/forgot', (req, res) => {
+//   res.render('forgotpass', { layout: 'layouts/main' });
+// });
 
-router.post('/forgot', async (req, res) => {
-  // Giả lập gửi email, ở đây chỉ redirect sang verify
-  req.flash('success', 'Mã xác thực đã gửi đến email (demo)');
-  res.redirect('/auth/verify');
-});
+// router.post('/forgot', async (req, res) => {
+//   // Giả lập gửi email, ở đây chỉ redirect sang verify
+//   req.flash('success', 'Mã xác thực đã gửi đến email (demo)');
+//   res.redirect('/auth/verify');
+// });
 
-// Xác thực mã (demo)
-router.get('/verify', (req, res) => {
-  res.render('verify', { layout: 'layouts/main' });
-});
+// // Xác thực mã (demo)
+// router.get('/verify', (req, res) => {
+//   res.render('verify', { layout: 'layouts/main' });
+// });
 
-router.post('/verify', (req, res) => {
-  res.redirect('/auth/setpass');
-});
+// router.post('/verify', (req, res) => {
+//   res.redirect('/auth/setpass');
+// });
 
-// Đặt lại mật khẩu (demo)
-router.get('/setpass', (req, res) => {
-  res.render('setpass', { layout: 'layouts/main' });
-});
+// // Đặt lại mật khẩu (demo)
+// router.get('/setpass', (req, res) => {
+//   res.render('setpass', { layout: 'layouts/main' });
+// });
 
-router.post('/setpass', async (req, res) => {
-  // Ở demo này ta chỉ redirect về login
-  req.flash('success', 'Mật khẩu đã được đặt lại (demo)');
-  res.redirect('/auth/login');
-});
+// router.post('/setpass', async (req, res) => {
+//   // Ở demo này ta chỉ redirect về login
+//   req.flash('success', 'Mật khẩu đã được đặt lại (demo)');
+//   res.redirect('/auth/login');
+// });
 
 // Đăng xuất
 router.get('/logout', (req, res) => {

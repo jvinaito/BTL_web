@@ -19,7 +19,8 @@
     "express-session": "^1.19.0",
     "method-override": "^3.0.0",
     "mongoose": "^9.3.0",
-    "multer": "^2.1.1"
+    "multer": "^2.1.1",
+    "new-vn-provinces": "^3.0.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

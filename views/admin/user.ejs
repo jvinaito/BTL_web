@@ -18,12 +18,20 @@
       </div>
     </form>
     <!-- Bộ lọc level -->
-    <select class="form-select form-select-sm" style="width: 150px;" onchange="location = this.value;">
-      <option value="/admin/users?level=all&search=<%= encodeURIComponent(search) %>" <%= level === 'all' ? 'selected' : '' %>>All Levels</option>
-      <option value="/admin/users?level=Admin&search=<%= encodeURIComponent(search) %>" <%= level === 'Admin' ? 'selected' : '' %>>Admin</option>
-      <option value="/admin/users?level=Vip&search=<%= encodeURIComponent(search) %>" <%= level === 'Vip' ? 'selected' : '' %>>Vip</option>
-      <option value="/admin/users?level=Normal&search=<%= encodeURIComponent(search) %>" <%= level === 'Normal' ? 'selected' : '' %>>Normal</option>
-    </select>
+ <!-- Bộ lọc level -->
+<select class="form-select form-select-sm" style="width: 150px;" onchange="location = this.value;">
+  <option value="/admin/users?level=all&search=<%= encodeURIComponent(search) %>" <%= level === 'all' ? 'selected' : '' %>>All Levels</option>
+  <option value="/admin/users?level=Admin&search=<%= encodeURIComponent(search) %>" <%= level === 'Admin' ? 'selected' : '' %>>Admin</option>
+  <option value="/admin/users?level=Vip&search=<%= encodeURIComponent(search) %>" <%= level === 'Vip' ? 'selected' : '' %>>Vip</option>
+  <option value="/admin/users?level=Normal&search=<%= encodeURIComponent(search) %>" <%= level === 'Normal' ? 'selected' : '' %>>Normal</option>
+</select>
+
+<!-- Thêm dropdown sắp xếp amount -->
+<select class="form-select form-select-sm" style="width: 180px;" onchange="location = this.value;">
+  <option value="/admin/users?sort=amount_desc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'amount_desc' ? 'selected' : '' %>>Amount (cao → thấp)</option>
+  <option value="/admin/users?sort=amount_asc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'amount_asc' ? 'selected' : '' %>>Amount (thấp → cao)</option>
+  <option value="/admin/users?sort=date_desc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'date_desc' ? 'selected' : '' %>>Date (mới nhất)</option>
+</select>
     <i class="fa-solid fa-filter"></i>
   </div>
 </div>
@@ -38,17 +46,16 @@
         <th class="fw-normal">Phone</th>
         <th class="fw-normal">Email</th>
         <th class="fw-normal">Level</th>
+        <th class="fw-normal text-end">Amount</th>
         <th class="fw-normal text-center">Actions</th>
-      </tr>
+       </tr>
     </thead>
     <tbody class="small">
       <% users.forEach(user => { %>
       <tr>
-        <td>
-          <img src="https://i.pravatar.cc/150?u=<%= user._id %>" class="rounded-circle shadow-sm" width="35" height="35">
-        </td>
+        <td><img src="https://i.pravatar.cc/150?u=<%= user._id %>" class="rounded-circle shadow-sm" width="35" height="35"></td>
         <td><%= user.firstName %> <%= user.lastName %></td>
-        <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+        <td><%= formatDate(user.createdAt) %></td>
         <td><%= user.phone || '—' %></td>
         <td><%= user.email %></td>
         <td>
@@ -57,6 +64,7 @@
             <%= user.level %>
           </span>
         </td>
+        <td class="text-end fw-bold">$<%= user.totalSpent.toFixed(2) %></td>
         <td class="text-center">
           <div class="d-flex gap-2 justify-content-center">
             <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal<%= user._id %>">
@@ -73,14 +81,16 @@
       <% }) %>
       <% if (users.length === 0) { %>
       <tr>
-        <td colspan="7" class="text-center py-4">No users found.</td>
+        <td colspan="8" class="text-center py-4">No users found.</td>
       </tr>
       <% } %>
     </tbody>
   </table>
 </div>
 
-<!-- Phân trang -->
+
+<i class="fa-solid fa-filter"></i>
+<!-- Phân trang (giữ nguyên) -->
 <% if (totalPages > 1) { %>
 <div class="d-flex justify-content-center mt-4">
   <nav>

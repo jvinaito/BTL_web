@@ -64,14 +64,12 @@
             </button>
           </div>
         </form>
-        <a href="/orders/cart" class="text-dark position-relative">
-          <i class="fa-solid fa-cart-shopping fs-4"></i>
-          <% if (user && user.cartCount) { %>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              <%= user.cartCount %>
-            </span>
-            <% } %>
-        </a>
+    <a href="/orders/cart" class="text-dark position-relative">
+  <i class="fa-solid fa-cart-shopping fs-4"></i>
+  <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
+    <%= cartCount || 0 %>
+  </span>
+</a>
       </div>
     </div>
   </nav>

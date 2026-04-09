@@ -7,7 +7,8 @@ const path = require('path');
 const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
-
+const addressRoutes = require('./routes/address');
+app.use('/address', addressRoutes);
 // Kết nối MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
@@ -42,6 +43,9 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
+  const cart = req.session.cart || [];
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  res.locals.cartCount = cartCount;
   if (res.locals.user) {
     const crypto = require('crypto');
     const emailHash = crypto.createHash('md5').update(res.locals.user.email.trim().toLowerCase()).digest('hex');
@@ -51,6 +55,14 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.locals.formatDate = function(date) {
+  if (!date) return '';
+  const d = new Date(date);
+  const day = d.getDate().toString().padStart(2, '0');
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const year = d.getFullYear(); // lấy 4 số
+  return `${day}/${month}/${year}`;
+};
 // Thiết lập view engine EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

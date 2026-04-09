@@ -43,7 +43,7 @@
       <tr>
         <td class="fw-bold"><%= order.orderId %></td>
         <td><%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'N/A' %></td>
-        <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+       <td><%= formatDate(order.createdAt) %></td>
         <td>$<%= order.total.toFixed(2) %></td>
         <td>
           <span class="badge rounded-pill 
@@ -62,9 +62,9 @@
             </button>
             <!-- Dropdown cập nhật trạng thái (chỉ hiển thị các lựa chọn hợp lệ) -->
             <div class="dropdown">
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" <%= order.status === 'Complete' || order.status === 'Reject' ? 'disabled' : '' %>>
-                <i class="fa-solid fa-gear"></i>
-              </button>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport">
+  <i class="fa-solid fa-gear"></i>
+</button>
               <ul class="dropdown-menu">
                 <% if (order.status === 'Pending') { %>
                   <li>
@@ -131,7 +131,7 @@
                 <%= order.status %>
               </span>
             </p>
-            <p><strong>Shipping Address:</strong> <%= order.shippingAddress ? order.shippingAddress.street + ', ' + order.shippingAddress.city : 'N/A' %></p>
+            <p><strong>Shipping Address:</strong> <%= order.shippingAddress ? order.shippingAddress.city : 'N/A' %></p>
           </div>
         </div>
         <h6 class="fw-bold mb-3">Products</h6>

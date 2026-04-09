@@ -11,19 +11,25 @@ function isLoggedIn(req, res, next) {
   res.redirect('/auth/login');
 }
 
-// Xem giỏ hàng (lưu trong session)
+// Lấy số lượng sản phẩm trong giỏ (dùng để cập nhật badge)
+router.get('/cart/count', (req, res) => {
+  const cart = req.session.cart || [];
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  res.json({ count });
+});
+
+// Xem giỏ hàng
 router.get('/cart', (req, res) => {
   const cart = req.session.cart || [];
   res.render('cart', { cart, layout: 'layouts/main' });
 });
 
-// Thêm vào giỏ
+// Thêm vào giỏ (AJAX)
 router.post('/cart/add/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      req.flash('error', 'Sản phẩm không tồn tại');
-      return res.redirect('back');
+      return res.status(404).json({ success: false, message: 'Sản phẩm không tồn tại' });
     }
     if (!req.session.cart) req.session.cart = [];
     const existing = req.session.cart.find(item => item.product._id == product._id);
@@ -40,22 +46,25 @@ router.post('/cart/add/:id', async (req, res) => {
         quantity: 1
       });
     }
-    req.flash('success', 'Đã thêm vào giỏ hàng');
-    res.redirect('back');
+    res.json({ success: true, message: 'Đã thêm vào giỏ hàng' });
   } catch (err) {
     console.error(err);
-    res.redirect('back');
+    res.status(500).json({ success: false, message: 'Có lỗi xảy ra' });
   }
 });
 
-// Cập nhật số lượng
+// Cập nhật số lượng (AJAX, trả về JSON)
 router.post('/cart/update/:id', (req, res) => {
   const { quantity } = req.body;
   const cart = req.session.cart || [];
   const item = cart.find(i => i.product._id == req.params.id);
-  if (item) item.quantity = parseInt(quantity);
-  req.session.cart = cart;
-  res.redirect('/orders/cart');
+  if (item) {
+    item.quantity = parseInt(quantity);
+    req.session.cart = cart;
+    const cartTotal = cart.reduce((sum, i) => sum + i.product.salePrice * i.quantity, 0);
+    return res.json({ success: true, cartTotal });
+  }
+  res.json({ success: false });
 });
 
 // Xóa khỏi giỏ
@@ -94,8 +103,9 @@ router.get('/checkout', isLoggedIn, (req, res) => {
 });
 
 // Xử lý thanh toán
+// Xử lý thanh toán
 router.post('/checkout', isLoggedIn, async (req, res) => {
-  const { street, city, phone } = req.body;
+  const { street, province, district, ward, phone, fullAddress } = req.body;
   const cart = req.session.cart || [];
   if (cart.length === 0) {
     req.flash('error', 'Giỏ hàng trống');
@@ -103,31 +113,33 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
   }
 
   try {
-    let subtotal = 0;
-    for (let item of cart) {
-      subtotal += item.product.salePrice * item.quantity;
+    // Lấy địa chỉ đầy đủ: ưu tiên fullAddress từ client, nếu không thì tự ghép
+    let finalAddress = fullAddress;
+    if (!finalAddress) {
+      finalAddress = `${street ? street + ', ' : ''}${ward ? ward + ', ' : ''}${district ? district + ', ' : ''}${province || ''}`;
     }
 
-    // Phí ship: 30 nếu thành phố là Hà Nội, ngược lại 50
+    // Tính phí ship dựa trên province (Hà Nội = 0)
     let shipping = 50;
-    const cityLower = (city || '').toLowerCase();
-    // Loại bỏ dấu tiếng Việt đơn giản
+    const provinceLower = (province || '').toLowerCase();
     const removeTones = (str) => {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
     };
-    if (removeTones(cityLower).includes('ha noi')) {
+    if (removeTones(provinceLower).includes('ha noi')) {
       shipping = 0;
     }
 
+    // Tính subtotal, discount, total
+    let subtotal = 0;
+    for (let item of cart) subtotal += item.product.salePrice * item.quantity;
+
     let discount = 0;
-    if (req.session.user.level === 'Vip') {
-      discount = subtotal * 0.2;
-    } else if (req.session.user.level === 'Admin') {
-      discount = subtotal;
-    }
+    if (req.session.user.level === 'Vip') discount = subtotal * 0.2;
+    else if (req.session.user.level === 'Admin') discount = subtotal;
 
     const total = subtotal + shipping - discount;
 
+    // Kiểm tra tồn kho và cập nhật stock, sold
     const orderProducts = [];
     for (let item of cart) {
       const product = await Product.findById(item.product._id);
@@ -138,7 +150,6 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
       product.stock -= item.quantity;
       product.sold += item.quantity;
       await product.save();
-
       orderProducts.push({
         product: product._id,
         quantity: item.quantity,
@@ -153,7 +164,11 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
       products: orderProducts,
       total,
       status: 'Pending',
-      shippingAddress: { street, city, phone }
+      shippingAddress: {
+        street: street || '',
+        city: finalAddress,         // lưu địa chỉ đầy đủ vào city
+        phone: phone || ''
+      }
     });
     await order.save();
 

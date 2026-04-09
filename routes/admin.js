@@ -16,13 +16,27 @@ function isAdmin(req, res, next) {
   res.redirect('/auth/login');
 }
 
-// Cấu hình multer cho upload ảnh (giữ lại nếu sau này dùng)
+// Hàm loại bỏ dấu tiếng Việt
+function removeVietnameseTones(str) {
+  str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
+  str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
+  str = str.replace(/[ìíịỉĩ]/g, 'i');
+  str = str.replace(/[òóọỏõôồốộổỗơờớợởỡ]/g, 'o');
+  str = str.replace(/[ùúụủũưừứựửữ]/g, 'u');
+  str = str.replace(/[ỳýỵỷỹ]/g, 'y');
+  str = str.replace(/đ/g, 'd');
+  str = str.replace(/Đ/g, 'D');
+  return str.toLowerCase();
+}
+
+// Cấu hình multer (giữ lại nếu sau này dùng upload)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'public/uploads/'),
   filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
 });
 const upload = multer({ storage });
 
+// ==================== DASHBOARD ====================
 // ==================== DASHBOARD ====================
 router.get('/dashboard', isAdmin, async (req, res) => {
   try {
@@ -35,21 +49,41 @@ router.get('/dashboard', isAdmin, async (req, res) => {
     ]);
     const totalIncome = totalIncomeAgg[0]?.total || 0;
 
-    // 5 người dùng mới nhất + tổng tiền đã chi
-    const recentUsers = await User.find().sort({ createdAt: -1 }).limit(5);
+    // --- Lấy 5 user có doanh thu cao nhất tháng ---
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
+    // Lấy tất cả user (hoặc có thể giới hạn nhưng không cần)
+    const allUsers = await User.find();
+
+    // Lấy đơn hàng hoàn thành trong tháng
+    const completedOrdersThisMonth = await Order.find({
+      status: 'Complete',
+      createdAt: { $gte: startOfMonth, $lte: endOfMonth }
+    }).populate('user');
+
+    // Tính tổng tiền cho từng user
     const userSpent = {};
-    const completedOrders = await Order.find({ status: 'Complete' }).populate('user');
-    completedOrders.forEach(order => {
+    completedOrdersThisMonth.forEach(order => {
       if (order.user) {
         const userId = order.user._id.toString();
         userSpent[userId] = (userSpent[userId] || 0) + order.total;
       }
     });
-    const recentUsersWithSpent = recentUsers.map(user => ({
+
+    // Gắn totalSpent vào user và lọc user có totalSpent > 0 (tùy chọn)
+    const usersWithSpent = allUsers.map(user => ({
       ...user.toObject(),
       totalSpent: userSpent[user._id.toString()] || 0
     }));
 
+    // Sắp xếp giảm dần theo totalSpent, lấy 5 user đầu
+    const recentUsers = usersWithSpent
+      .sort((a, b) => b.totalSpent - a.totalSpent)
+      .slice(0, 5);
+
+    // --- Các phần khác giữ nguyên ---
     const bestSellers = await Product.find().sort({ sold: -1 }).limit(3);
     const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(3);
 
@@ -58,7 +92,7 @@ router.get('/dashboard', isAdmin, async (req, res) => {
       totalOrders,
       totalProducts,
       totalIncome,
-      recentUsers: recentUsersWithSpent,
+      recentUsers,
       bestSellers,
       newArrivals,
       currentPage: 'dashboard',
@@ -70,11 +104,11 @@ router.get('/dashboard', isAdmin, async (req, res) => {
     res.redirect('/admin/dashboard');
   }
 });
-
 // ==================== USER ====================
+// Trong route /users (đoạn thay thế)
 router.get('/users', isAdmin, async (req, res) => {
   try {
-    const { search, level } = req.query;
+    const { search, level, sort = 'date_desc' } = req.query;
     let query = {};
 
     if (search) {
@@ -85,24 +119,51 @@ router.get('/users', isAdmin, async (req, res) => {
         { phone: { $regex: search, $options: 'i' } }
       ];
     }
+    if (level && level !== 'all') query.level = level;
 
-    if (level && level !== 'all') {
-      query.level = level;
+    // Lấy tất cả user thỏa mãn (chưa phân trang) để tính totalSpent và sắp xếp
+    let users = await User.find(query).sort({ createdAt: -1 });
+    const totalUsers = users.length;
+
+    // Lấy danh sách user ID
+    const userIds = users.map(u => u._id);
+    // Lấy tất cả đơn hàng hoàn thành của các user này
+    const completedOrders = await Order.find({ user: { $in: userIds }, status: 'Complete' });
+    const userSpent = {};
+    completedOrders.forEach(order => {
+      const userId = order.user.toString();
+      userSpent[userId] = (userSpent[userId] || 0) + order.total;
+    });
+
+    // Gắn totalSpent vào user
+    users = users.map(user => ({
+      ...user.toObject(),
+      totalSpent: userSpent[user._id.toString()] || 0
+    }));
+
+    // Sắp xếp theo yêu cầu
+    if (sort === 'amount_desc') {
+      users.sort((a, b) => b.totalSpent - a.totalSpent);
+    } else if (sort === 'amount_asc') {
+      users.sort((a, b) => a.totalSpent - b.totalSpent);
+    } else {
+      // date_desc (mới nhất) – đã sắp xếp trong query, nhưng sắp lại cho chắc
+      users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
+    // Phân trang
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
-    const skip = (page - 1) * limit;
-
-    const users = await User.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit);
-    const totalUsers = await User.countDocuments(query);
-    const totalPages = Math.ceil(totalUsers / limit);
+    const start = (page - 1) * limit;
+    const paginatedUsers = users.slice(start, start + limit);
+    const totalPages = Math.ceil(users.length / limit);
 
     res.render('admin/user', {
-      users,
+      users: paginatedUsers,
       search: search || '',
       level: level || 'all',
-      currentPage: 'users',
+      sort: sort,
+      currentPage: page,
       totalPages,
       limit,
       totalUsers,
@@ -169,7 +230,14 @@ router.get('/products', isAdmin, async (req, res) => {
   try {
     const { search, status } = req.query;
     let query = {};
-    if (search) query.name = { $regex: search, $options: 'i' };
+
+    if (search) {
+      const normalizedSearch = removeVietnameseTones(search);
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { searchName: { $regex: normalizedSearch, $options: 'i' } }
+      ];
+    }
     if (status && status !== 'all') query.status = status;
 
     const page = parseInt(req.query.page) || 1;
@@ -189,7 +257,7 @@ router.get('/products', isAdmin, async (req, res) => {
       products,
       search: search || '',
       status: status || 'all',
-      currentPage: 'products',
+      currentPage: page,
       totalPages,
       limit,
       totalProducts,
@@ -217,15 +285,16 @@ router.get('/products/add', isAdmin, async (req, res) => {
 router.post('/products', isAdmin, async (req, res) => {
   try {
     const { name, category, stock, originalPrice, salePrice, discount, brand, ageRange, gender, description, imageUrl } = req.body;
-
     const categoryExists = await Category.findById(category);
     if (!categoryExists) {
       req.flash('error', 'Category không hợp lệ');
       return res.redirect('/admin/products/add');
     }
 
+    const searchName = removeVietnameseTones(name);
     const newProduct = new Product({
       name,
+      searchName,
       category,
       stock: parseInt(stock) || 0,
       originalPrice: parseFloat(originalPrice) || 0,
@@ -267,7 +336,6 @@ router.get('/products/edit/:id', isAdmin, async (req, res) => {
 router.put('/products/:id', isAdmin, async (req, res) => {
   try {
     const { name, category, stock, originalPrice, salePrice, discount, brand, ageRange, gender, description, imageUrl } = req.body;
-
     if (category) {
       const categoryExists = await Category.findById(category);
       if (!categoryExists) {
@@ -289,6 +357,9 @@ router.put('/products/:id', isAdmin, async (req, res) => {
       description,
       status: parseInt(stock) > 0 ? 'Active' : 'Out of Stock'
     };
+    if (name) {
+      updateData.searchName = removeVietnameseTones(name);
+    }
     if (imageUrl) updateData.imageUrl = imageUrl;
 
     await Product.findByIdAndUpdate(req.params.id, updateData);
@@ -316,36 +387,41 @@ router.delete('/products/:id', isAdmin, async (req, res) => {
 router.get('/orders', isAdmin, async (req, res) => {
   try {
     const { search, status } = req.query;
-    let query = {};
-    if (search) {
-      query.$or = [
-        { orderId: { $regex: search, $options: 'i' } },
-        { 'user.firstName': { $regex: search, $options: 'i' } },
-        { 'user.lastName': { $regex: search, $options: 'i' } },
-        { 'user.email': { $regex: search, $options: 'i' } }
-      ];
-    }
-    if (status && status !== 'all') query.status = status;
-
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
-    const skip = (page - 1) * limit;
 
-    const orders = await Order.find(query)
+    // Lấy tất cả orders (có thể lọc theo status trước để giảm dữ liệu)
+    let filter = {};
+    if (status && status !== 'all') filter.status = status;
+
+    let orders = await Order.find(filter)
       .populate('user', 'firstName lastName email')
       .populate('products.product')
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+      .sort({ createdAt: -1 });
 
-    const totalOrders = await Order.countDocuments(query);
+    // Nếu có search, lọc thủ công theo orderId, user.firstName, user.lastName, user.email
+    if (search) {
+      const searchLower = search.toLowerCase();
+      orders = orders.filter(order => {
+        const matchOrderId = order.orderId.toLowerCase().includes(searchLower);
+        const matchFirstName = order.user && order.user.firstName.toLowerCase().includes(searchLower);
+        const matchLastName = order.user && order.user.lastName.toLowerCase().includes(searchLower);
+        const matchEmail = order.user && order.user.email.toLowerCase().includes(searchLower);
+        return matchOrderId || matchFirstName || matchLastName || matchEmail;
+      });
+    }
+
+    // Phân trang thủ công
+    const totalOrders = orders.length;
     const totalPages = Math.ceil(totalOrders / limit);
+    const start = (page - 1) * limit;
+    const paginatedOrders = orders.slice(start, start + limit);
 
     res.render('admin/order', {
-      orders,
+      orders: paginatedOrders,
       search: search || '',
       status: status || 'all',
-      currentPage: 'orders',
+      currentPage: page,
       totalPages,
       limit,
       totalOrders,
@@ -391,9 +467,29 @@ router.put('/orders/:id', isAdmin, async (req, res) => {
 });
 
 // ==================== CATEGORY ====================
+// ==================== CATEGORY ====================
 router.get('/categories', isAdmin, async (req, res) => {
   try {
-    const categories = await Category.find().sort({ name: 1 });
+    // Dùng aggregate để lấy danh sách categories kèm số lượng sản phẩm
+    const categories = await Category.aggregate([
+      {
+        $lookup: {
+          from: 'products',
+          localField: '_id',
+          foreignField: 'category',
+          as: 'products'
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          createdAt: 1,
+          productCount: { $size: '$products' }
+        }
+      },
+      { $sort: { name: 1 } }
+    ]);
+
     res.render('admin/category', {
       categories,
       currentPage: 'categories',
@@ -405,7 +501,6 @@ router.get('/categories', isAdmin, async (req, res) => {
     res.redirect('/admin/dashboard');
   }
 });
-
 router.post('/categories', isAdmin, async (req, res) => {
   try {
     const { name } = req.body;
