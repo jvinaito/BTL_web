@@ -1,0 +1,66 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["xin chào", "hello", "hi", "chào bot", "hey", "chào", "alo"],
+      "responses": ["Xin chào! 👋 Tôi có thể tư vấn đồ chơi cho bạn. Hãy thử hỏi về sản phẩm bán chạy, theo độ tuổi hoặc giá nhé!"]
+    },
+    {
+      "tag": "bestseller",
+      "patterns": ["sản phẩm bán chạy", "best seller", "top sản phẩm", "nổi bật", "bán chạy", "bán nhiều nhất", "phổ biến nhất"],
+      "responses": ["🏆 Top sản phẩm bán chạy nhất hiện tại:"]
+    },
+    {
+      "tag": "age",
+      "patterns": [
+        "đồ chơi cho bé {age} tuổi",
+        "cho trẻ {age} tuổi",
+        "độ tuổi {age}",
+        "bé {age} tuổi",
+        "trẻ {age} tuổi",
+        "{age} tuổi"
+      ],
+      "responses": ["Dưới đây là sản phẩm phù hợp với độ tuổi {age}:"]
+    },
+    {
+      "tag": "gender",
+      "patterns": [
+        "đồ chơi cho bé trai",
+        "cho con trai",
+        "boy",
+        "đồ chơi nam",
+        "đồ chơi cho bé gái",
+        "cho con gái",
+        "girl",
+        "đồ chơi nữ",
+        "bé gái",
+        "bé trai"
+      ],
+      "responses": ["Các sản phẩm dành cho:"]
+    },
+    {
+      "tag": "price",
+      "patterns": [
+        "dưới {price} đô",
+        "giá dưới {price}",
+        "rẻ hơn {price}",
+        "không quá {price}",
+        "tầm {price}",
+        "dưới {price}$",
+        "dưới {price} usd"
+      ],
+      "responses": ["Sản phẩm có giá dưới {price} USD:"]
+    },
+    {
+      "tag": "category",
+      "patterns": [
+        "đồ chơi {category}",
+        "loại {category}",
+        "thể loại {category}",
+        "danh mục {category}",
+        "tìm {category}"
+      ],
+      "responses": ["Sản phẩm thuộc danh mục {category}:"]
+    }
+  ]
+}

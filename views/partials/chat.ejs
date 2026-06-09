@@ -1,0 +1,167 @@
+<!-- Chat Icon -->
+<div id="chat-icon" class="chat-fab position-fixed bottom-0 end-0 m-4 shadow-lg"
+     title="Tư vấn sản phẩm">
+  <i class="fa-regular fa-message text-white fs-4"></i>
+  <span class="chat-badge">1</span>
+</div>
+
+<!-- Chat Box -->
+<div id="chat-box" class="chat-box position-fixed bottom-0 end-0 m-4 bg-white shadow-lg">
+  <!-- Header -->
+  <div class="chat-header d-flex justify-content-between align-items-center px-3 py-2">
+    <div class="d-flex align-items-center gap-2">
+      <div class="chat-avatar">
+        <i class="fa-solid fa-robot fs-5 text-white"></i>
+      </div>
+      <div>
+        <div class="fw-semibold text-white lh-1" style="font-size:0.95rem;">Trợ lý Rainbow</div>
+        <small class="text-white opacity-75" style="font-size:0.72rem;">
+          <span class="online-dot"></span> Đang hoạt động
+        </small>
+      </div>
+    </div>
+    <button id="close-chat" class="btn-close btn-close-white opacity-75" aria-label="Đóng"></button>
+  </div>
+
+  <!-- Messages -->
+  <div id="chat-messages" class="chat-messages flex-grow-1 p-3 overflow-auto">
+    <!-- Welcome message -->
+    <div class="msg-row bot-row">
+      <div class="msg-bubble bot-bubble">
+        Xin chào! Tôi là trợ lý tư vấn của Rainbow Rattles 🎉<br>
+        Tôi có thể giúp bạn tìm đồ chơi theo <strong>độ tuổi</strong>, <strong>giới tính</strong>, <strong>giá</strong> hoặc <strong>danh mục</strong>.
+      </div>
+    </div>
+    <!-- Quick replies -->
+    <div id="quick-replies" class="quick-replies mt-2 d-flex flex-wrap gap-2">
+      <button class="quick-btn" data-msg="Sản phẩm bán chạy">🏆 Bán chạy nhất</button>
+      <button class="quick-btn" data-msg="Đồ chơi cho bé trai">👦 Cho bé trai</button>
+      <button class="quick-btn" data-msg="Đồ chơi cho bé gái">👧 Cho bé gái</button>
+      <button class="quick-btn" data-msg="Giá dưới 20 đô">💰 Dưới $20</button>
+    </div>
+  </div>
+
+  <!-- Typing indicator (hidden by default) -->
+  <div id="typing-indicator" class="px-3 pb-1" style="display:none;">
+    <div class="msg-bubble bot-bubble typing-bubble d-inline-flex align-items-center gap-1 py-2 px-3">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="chat-footer p-2 border-top">
+    <div class="input-group">
+      <input type="text" id="chat-input" class="form-control border-0 bg-light rounded-pill"
+             placeholder="Nhập câu hỏi của bạn..." autocomplete="off" style="font-size:0.88rem;">
+      <button id="send-btn" class="btn btn-send ms-2 rounded-circle" title="Gửi">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── FAB Icon ── */
+.chat-fab {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #0dcaf0, #0a8fa8);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 1050; transition: transform .2s, box-shadow .2s;
+  position: relative;
+}
+.chat-fab:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(13,202,240,.45) !important; }
+.chat-badge {
+  position: absolute; top: -3px; right: -3px;
+  background: #e74c3c; color: #fff; font-size: .65rem;
+  font-weight: 700; width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff;
+}
+
+/* ── Chat Box ── */
+.chat-box {
+  width: 340px; height: 500px;
+  border-radius: 18px; overflow: hidden;
+  display: none; flex-direction: column;
+  z-index: 1050; border: none;
+  animation: slideUp .25s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.chat-header {
+  background: linear-gradient(135deg, #0dcaf0, #0a8fa8);
+  flex-shrink: 0;
+}
+.chat-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.online-dot {
+  display: inline-block; width: 7px; height: 7px;
+  border-radius: 50%; background: #2ecc71; margin-right: 4px;
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ── Messages ── */
+.chat-messages { background: #f4f6f9; }
+.msg-row { display: flex; margin-bottom: 8px; }
+.bot-row  { justify-content: flex-start; }
+.user-row { justify-content: flex-end; }
+.msg-bubble {
+  max-width: 82%; padding: 9px 13px;
+  border-radius: 16px; font-size: .875rem; line-height: 1.45;
+  word-break: break-word;
+}
+.bot-bubble  {
+  background: #fff; color: #333;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.user-bubble {
+  background: linear-gradient(135deg, #0dcaf0, #0a8fa8);
+  color: #fff; border-bottom-right-radius: 4px;
+}
+.msg-time {
+  font-size: .68rem; opacity: .55; margin-top: 3px;
+  text-align: right;
+}
+
+/* ── Quick Replies ── */
+.quick-replies { padding-left: 0; }
+.quick-btn {
+  border: 1px solid #0dcaf0; background: #fff; color: #0a8fa8;
+  border-radius: 20px; padding: 5px 12px; font-size: .78rem;
+  cursor: pointer; transition: background .15s, color .15s;
+}
+.quick-btn:hover { background: #0dcaf0; color: #fff; }
+
+/* ── Typing dots ── */
+.typing-bubble { background: #e9ecef !important; box-shadow: none !important; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #aaa;
+  animation: bounce 1.2s infinite;
+}
+.dot:nth-child(2) { animation-delay: .2s; }
+.dot:nth-child(3) { animation-delay: .4s; }
+@keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+/* ── Input / Footer ── */
+.chat-footer { background: #fff; }
+.btn-send {
+  width: 38px; height: 38px; padding: 0;
+  background: linear-gradient(135deg, #0dcaf0, #0a8fa8);
+  color: #fff; border: none; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .15s;
+}
+.btn-send:hover { transform: scale(1.1); color: #fff; }
+#chat-input:focus { box-shadow: none; outline: none; }
+</style>
+
+<script src="/js/chat.js"></script>
