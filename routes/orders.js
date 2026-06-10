@@ -24,7 +24,7 @@ router.get('/cart', (req, res) => {
   res.render('cart', { cart, layout: 'layouts/main' });
 });
 
-// Thêm vào giỏ (AJAX)
+// Thêm vào giỏ (AJAX) – có ghi nhận click để cập nhật gợi ý
 router.post('/cart/add/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -46,6 +46,9 @@ router.post('/cart/add/:id', async (req, res) => {
         quantity: 1
       });
     }
+    // Ghi nhận click để cập nhật gợi ý
+    if (!req.session.clickedProducts) req.session.clickedProducts = [];
+    req.session.clickedProducts = [req.params.id, ...req.session.clickedProducts.filter(id => id !== req.params.id)].slice(0, 20);
     res.json({ success: true, message: 'Đã thêm vào giỏ hàng' });
   } catch (err) {
     console.error(err);
@@ -73,7 +76,7 @@ router.post('/cart/remove/:id', (req, res) => {
   res.redirect('/orders/cart');
 });
 
-/// Trang thanh toán
+// Trang thanh toán
 router.get('/checkout', isLoggedIn, (req, res) => {
   const cart = req.session.cart || [];
   if (cart.length === 0) {
@@ -93,9 +96,7 @@ router.get('/checkout', isLoggedIn, (req, res) => {
     discount = subtotal;
   }
 
-  // Lấy địa chỉ từ session (do chatbot lưu)
   const checkoutAddress = req.session.checkoutAddress || '';
-  // Xoá ngay sau khi lấy để tránh dùng lại lần sau
   delete req.session.checkoutAddress;
 
   res.render('checkout', {
@@ -103,11 +104,11 @@ router.get('/checkout', isLoggedIn, (req, res) => {
     subtotal,
     discount,
     user: req.session.user,
-    checkoutAddress: checkoutAddress,   // ← truyền sang view
+    checkoutAddress: checkoutAddress,
     layout: 'layouts/main'
   });
 });
-// Xử lý thanh toán
+
 // Xử lý thanh toán
 router.post('/checkout', isLoggedIn, async (req, res) => {
   const { street, province, district, ward, phone, fullAddress } = req.body;
@@ -118,23 +119,18 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
   }
 
   try {
-    // Lấy địa chỉ đầy đủ: ưu tiên fullAddress từ client, nếu không thì tự ghép
     let finalAddress = fullAddress;
     if (!finalAddress) {
       finalAddress = `${street ? street + ', ' : ''}${ward ? ward + ', ' : ''}${district ? district + ', ' : ''}${province || ''}`;
     }
 
-    // Tính phí ship dựa trên province (Hà Nội = 0)
     let shipping = 50;
     const provinceLower = (province || '').toLowerCase();
     const removeTones = (str) => {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
     };
-    if (removeTones(provinceLower).includes('ha noi')) {
-      shipping = 0;
-    }
+    if (removeTones(provinceLower).includes('ha noi')) shipping = 0;
 
-    // Tính subtotal, discount, total
     let subtotal = 0;
     for (let item of cart) subtotal += item.product.salePrice * item.quantity;
 
@@ -144,7 +140,6 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
 
     const total = subtotal + shipping - discount;
 
-    // Kiểm tra tồn kho và cập nhật stock, sold
     const orderProducts = [];
     for (let item of cart) {
       const product = await Product.findById(item.product._id);
@@ -171,7 +166,7 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
       status: 'Pending',
       shippingAddress: {
         street: street || '',
-        city: finalAddress,         // lưu địa chỉ đầy đủ vào city
+        city: finalAddress,
         phone: phone || ''
       }
     });

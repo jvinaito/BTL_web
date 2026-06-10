@@ -16,7 +16,9 @@ function removeVietnameseTones(str) {
   return str.toLowerCase();
 }
 
+// ──────────────────────────────────────────────────────────────
 // Lấy danh sách brand duy nhất (cho dropdown lọc)
+// ──────────────────────────────────────────────────────────────
 router.get('/brands', async (req, res) => {
   try {
     const brands = await Product.distinct('brand', { status: 'Active' });
@@ -28,7 +30,9 @@ router.get('/brands', async (req, res) => {
   }
 });
 
-// Trang danh sách sản phẩm (shop)
+// ──────────────────────────────────────────────────────────────
+// Trang danh sách sản phẩm (shop) – có lọc nâng cao
+// ──────────────────────────────────────────────────────────────
 router.get('/', async (req, res) => {
   try {
     const {
@@ -128,13 +132,15 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Trang chi tiết sản phẩm
+// ──────────────────────────────────────────────────────────────
+// Trang chi tiết sản phẩm – có gợi ý sản phẩm tương tự (random + cùng danh mục)
+// ──────────────────────────────────────────────────────────────
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('category');
     if (!product) return res.redirect('/products');
 
-    // Lấy 2 sản phẩm cùng danh mục
+    // Lấy 2 sản phẩm cùng danh mục (ưu tiên)
     const sameCategory = await Product.find({
       category: product.category,
       _id: { $ne: product._id }
@@ -143,7 +149,7 @@ router.get('/:id', async (req, res) => {
     // Loại trừ các ID đã lấy
     const excludeIds = [product._id, ...sameCategory.map(p => p._id)];
 
-    // Số lượng cần lấy ngẫu nhiên để đủ 4 sản phẩm
+    // Số lượng cần lấy ngẫu nhiên để đủ 4 sản phẩm (có thể tăng lên 8-12 nếu muốn)
     const neededRandom = 4 - sameCategory.length;
     let randomProducts = [];
     if (neededRandom > 0) {
