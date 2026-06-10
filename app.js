@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
+const ttsProxy = require('./tts-proxy');
 
 // Kết nối MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -86,6 +87,7 @@ app.use('/orders', require('./routes/orders'));
 app.use('/admin', require('./routes/admin'));
 app.use('/address', require('./routes/address'));
 app.use('/api/chatbot', require('./routes/chatbot')); // ← chatbot cần session
+app.use('/api', ttsProxy);   // thêm dòng này TRƯỚC các route khác (hoặc cuối cùng cũng được)
 
 // 404 handler
 app.use((req, res) => {
