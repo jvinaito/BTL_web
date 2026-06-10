@@ -73,7 +73,7 @@ router.post('/cart/remove/:id', (req, res) => {
   res.redirect('/orders/cart');
 });
 
-// Trang thanh toán
+/// Trang thanh toán
 router.get('/checkout', isLoggedIn, (req, res) => {
   const cart = req.session.cart || [];
   if (cart.length === 0) {
@@ -93,15 +93,20 @@ router.get('/checkout', isLoggedIn, (req, res) => {
     discount = subtotal;
   }
 
+  // Lấy địa chỉ từ session (do chatbot lưu)
+  const checkoutAddress = req.session.checkoutAddress || '';
+  // Xoá ngay sau khi lấy để tránh dùng lại lần sau
+  delete req.session.checkoutAddress;
+
   res.render('checkout', {
     cart,
     subtotal,
     discount,
     user: req.session.user,
+    checkoutAddress: checkoutAddress,   // ← truyền sang view
     layout: 'layouts/main'
   });
 });
-
 // Xử lý thanh toán
 // Xử lý thanh toán
 router.post('/checkout', isLoggedIn, async (req, res) => {

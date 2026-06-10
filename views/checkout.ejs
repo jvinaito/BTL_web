@@ -19,8 +19,9 @@
           </div>
 
           <div class="col-12">
-            <label class="form-label small fw-bold">Địa chỉ cụ thể *</label>
-            <input type="text" name="street" class="form-control" placeholder="Số nhà, tên đường" required>
+            <label class="form-label small fw-bold">Địa chỉ cụ thể (số nhà, đường) *</label>
+            <input type="text" name="street" id="street" class="form-control" placeholder="Số nhà, tên đường" 
+                   value="<%= checkoutAddress ? checkoutAddress.split(',')[0] : '' %>" required>
           </div>
 
           <div class="col-md-4">
@@ -45,7 +46,7 @@
           </div>
 
           <div class="col-md-6">
-            <label class="form-label small fw-bold">Phone *</label>
+            <label class="form-label small fw-bold">Số điện thoại *</label>
             <input type="tel" name="phone" class="form-control" value="<%= user.phone %>" required>
           </div>
         </div>
@@ -120,25 +121,24 @@
   const districtSelect = document.getElementById('district');
   const wardSelect = document.getElementById('ward');
 
-  // Load danh sách tỉnh/thành phố
+  // ── 1. Tải danh sách tỉnh/thành phố ──
   fetch('https://provinces.open-api.vn/api/p/')
     .then(res => res.json())
     .then(data => {
       provinceSelect.innerHTML = '<option value="">-- Chọn tỉnh/thành phố --</option>';
       data.forEach(prov => {
         const option = document.createElement('option');
-        option.value = prov.name;        // giá trị gửi lên server là tên
-        option.setAttribute('data-code', prov.code); // lưu mã để gọi API
+        option.value = prov.name;
+        option.setAttribute('data-code', prov.code);
         option.textContent = prov.name;
         provinceSelect.appendChild(option);
       });
+      // Sau khi tải xong, thử tự động chọn tỉnh từ địa chỉ cũ
+      autoSelectFromAddress();
     })
-    .catch(err => {
-      console.error('Lỗi tải tỉnh/thành phố:', err);
-      provinceSelect.innerHTML = '<option value="">Lỗi tải dữ liệu</option>';
-    });
+    .catch(err => console.error('Lỗi tải tỉnh/thành phố:', err));
 
-  // Khi chọn tỉnh/thành phố -> load quận/huyện
+  // ── 2. Khi chọn tỉnh → load quận/huyện ──
   provinceSelect.addEventListener('change', function() {
     const selectedOption = this.options[this.selectedIndex];
     const provinceCode = selectedOption.getAttribute('data-code');
@@ -160,12 +160,14 @@
             option.textContent = dist.name;
             districtSelect.appendChild(option);
           });
+          // Sau khi load quận/huyện, thử tự động chọn quận từ địa chỉ cũ
+          autoSelectDistrictFromAddress();
         }
       })
       .catch(err => console.error('Lỗi tải quận/huyện:', err));
   });
 
-  // Khi chọn quận/huyện -> load phường/xã
+  // ── 3. Khi chọn quận/huyện → load phường/xã ──
   districtSelect.addEventListener('change', function() {
     const selectedOption = this.options[this.selectedIndex];
     const districtCode = selectedOption.getAttribute('data-code');
@@ -184,12 +186,65 @@
             option.textContent = ward.name;
             wardSelect.appendChild(option);
           });
+          // Sau khi load phường/xã, thử tự động chọn phường từ địa chỉ cũ
+          autoSelectWardFromAddress();
         }
       })
       .catch(err => console.error('Lỗi tải phường/xã:', err));
   });
 
-  // Cập nhật phí ship khi chọn tỉnh/thành phố
+  // ── Tự động chọn tỉnh từ địa chỉ cũ (nếu có) ──
+  function autoSelectFromAddress() {
+    const fullAddress = '<%= typeof checkoutAddress !== "undefined" && checkoutAddress ? checkoutAddress.replace(/'/g, "\\'") : "" %>';
+    if (!fullAddress) return;
+    // Parse địa chỉ dạng: "Số 10 Trần Phú Hà Đồng, Xã Tân Đoàn, Huyện Văn Quan, Tỉnh Lạng Sơn"
+    const parts = fullAddress.split(',').map(s => s.trim());
+    let province = parts.length >= 4 ? parts[3] : (parts.length === 3 ? parts[2] : '');
+    // Loại bỏ từ "Tỉnh " nếu có
+    province = province.replace(/^(Tỉnh|Thành phố)\s+/i, '');
+    if (province) {
+      // Đợi provinceSelect có dữ liệu
+      const interval = setInterval(() => {
+        const options = Array.from(provinceSelect.options);
+        const matched = options.find(opt => opt.text === province);
+        if (matched) {
+          provinceSelect.value = matched.value;
+          provinceSelect.dispatchEvent(new Event('change'));
+          clearInterval(interval);
+        }
+      }, 200);
+      // Lưu lại district và ward để sau khi load xong sẽ chọn
+      window._savedDistrict = parts.length >= 3 ? parts[2].replace(/^(Quận|Huyện|Thị xã)\s+/i, '') : '';
+      window._savedWard = parts.length >= 2 ? parts[1].replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : '';
+    }
+  }
+
+  function autoSelectDistrictFromAddress() {
+    if (!window._savedDistrict) return;
+    const interval = setInterval(() => {
+      const options = Array.from(districtSelect.options);
+      const matched = options.find(opt => opt.text === window._savedDistrict);
+      if (matched) {
+        districtSelect.value = matched.value;
+        districtSelect.dispatchEvent(new Event('change'));
+        clearInterval(interval);
+      }
+    }, 200);
+  }
+
+  function autoSelectWardFromAddress() {
+    if (!window._savedWard) return;
+    const interval = setInterval(() => {
+      const options = Array.from(wardSelect.options);
+      const matched = options.find(opt => opt.text === window._savedWard);
+      if (matched) {
+        wardSelect.value = matched.value;
+        clearInterval(interval);
+      }
+    }, 200);
+  }
+
+  // ── Cập nhật phí ship khi chọn tỉnh ──
   function updateShipping() {
     const provinceName = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
     const normalized = removeVietnameseTones(provinceName);
@@ -204,9 +259,14 @@
   provinceSelect.addEventListener('change', updateShipping);
   updateShipping();
 
-  // Ghép địa chỉ đầy đủ trước khi submit
+  // ── Ghép địa chỉ đầy đủ trước khi submit ──
   document.getElementById('checkout-form').addEventListener('submit', function(e) {
-    const street = document.querySelector('input[name="street"]').value;
+    const street = document.getElementById('street').value.trim();
+    if (!street) {
+      e.preventDefault();
+      alert('Vui lòng nhập địa chỉ cụ thể (số nhà, tên đường).');
+      return;
+    }
     const province = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
     const district = districtSelect.options[districtSelect.selectedIndex]?.text || '';
     const ward = wardSelect.options[wardSelect.selectedIndex]?.text || '';

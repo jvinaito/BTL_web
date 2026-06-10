@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title ? title + ' - ' : '' %>Rainbow Rattles</title>
+  <title>
+    <%= title ? title + ' - ' : '' %>Rainbow Rattles
+  </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Quicksand:wght@400;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <%- include('../partials/header') %>
 
-  <main id="content-viewport">
-    <% if (success_msg && success_msg.length > 0) { %>
-      <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
-        <%= success_msg %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    <% } %>
-    <% if (error_msg && error_msg.length > 0) { %>
-      <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
-        <%= error_msg %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    <% } %>
-    <%- body %>
-  </main>
+    <main id="content-viewport">
+      <% if (success_msg && success_msg.length> 0) { %>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            if (window.showToast) window.showToast('<%= success_msg %>', 'success');
+          });
+        </script>
+        <% } %>
+          <% if (error_msg && error_msg.length> 0) { %>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                if (window.showToast) window.showToast('<%= error_msg %>', 'error');
+              });
+            </script>
+            <% } %>
+              <%- body %>
+    </main>
 
-  <%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/main.js"></script>
-<%- include('../partials/chat') %>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="/js/main.js"></script>
+      <%- include('../partials/chat') %>
 </body>
 <!-- Toast thông báo -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -46,4 +53,5 @@
     </div>
   </div>
 </div>
+
 </html>

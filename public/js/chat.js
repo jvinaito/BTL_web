@@ -7,9 +7,60 @@ document.addEventListener('DOMContentLoaded', function () {
   const messagesDiv    = document.getElementById('chat-messages');
   const typingIndicator = document.getElementById('typing-indicator');
   const chatBadge      = document.querySelector('.chat-badge');
-  const quickReplies   = document.getElementById('quick-replies');
 
   let isOpen = false;
+
+  // ── Toast thông báo (màu xanh theme) ──
+// ── Toast thông báo (màu xanh theme, không trùng icon) ──
+function showToast(message, type = 'success') {
+  let container = document.getElementById('global-toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'global-toast-container';
+    container.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    `;
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast-notification ${type}`;
+  const bgColor = type === 'success' ? '#00bcd4' : (type === 'error' ? '#dc3545' : '#ffc107');
+  toast.style.cssText = `
+    background: ${bgColor};
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideInRight 0.3s ease;
+    max-width: 350px;
+  `;
+
+  // Chỉ thêm icon nếu message chưa có sẵn
+  let icon = '';
+  if (type === 'success' && !message.startsWith('✅')) icon = '✅ ';
+  else if (type === 'error' && !message.startsWith('❌')) icon = '⚠️ ';
+  toast.innerHTML = `<span>${icon}</span> ${message}`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'slideOutRight 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+  // Hàm này sẽ được gọi từ các flash message của server
+  window.showToast = showToast;
 
   function getTime() {
     return new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
@@ -44,16 +95,40 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>`;
   }
 
-  function addMessage(text, isUser, products = []) {
-    if (isUser && quickReplies) quickReplies.remove();
+  // Quick Replies
+  function removeQuickReplies() {
+    const existing = messagesDiv.querySelector('.quick-replies-bar');
+    if (existing) existing.remove();
+  }
+
+  function renderQuickReplies(replies) {
+    removeQuickReplies();
+    if (!replies || !replies.length) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'quick-replies-bar d-flex flex-wrap gap-2 px-2 pb-2';
+    bar.style.cssText = 'margin-top: 6px;';
+
+    replies.forEach(({ label, value }) => {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-sm btn-outline-primary rounded-pill quick-btn';
+      btn.textContent = label;
+      btn.dataset.msg = value;
+      bar.appendChild(btn);
+    });
+
+    messagesDiv.appendChild(bar);
+    scrollToBottom();
+  }
+
+  function addMessage(text, isUser, products = [], quickReplies = []) {
+    if (isUser) removeQuickReplies();
 
     const row = document.createElement('div');
     row.className = `msg-row ${isUser ? 'user-row' : 'bot-row'}`;
-
     const formatted = isUser
       ? escapeHtml(text)
       : escapeHtml(text).replace(/\n/g, '<br>');
-
     row.innerHTML = `
       <div>
         <div class="msg-bubble ${isUser ? 'user-bubble' : 'bot-bubble'}">${formatted}</div>
@@ -71,15 +146,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     scrollToBottom();
+
+    if (!isUser && quickReplies && quickReplies.length > 0) {
+      renderQuickReplies(quickReplies);
+    }
   }
 
   function showTyping() { typingIndicator.style.display = 'block'; scrollToBottom(); }
   function hideTyping()  { typingIndicator.style.display = 'none'; }
 
-  /* AUTOCOMPLETE */
+  // Autocomplete (giữ nguyên)
   let _suggestTimer = null;
   let _currentSuggestions = [];
-
   const suggestBox = document.createElement('div');
   suggestBox.id = 'chat-suggest-box';
   suggestBox.style.cssText = `
@@ -105,10 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
     _currentSuggestions = items;
     if (!items.length) { suggestBox.style.display = 'none'; return; }
     suggestBox.innerHTML = items.map((s, i) =>
-      `<div class="suggest-item" data-idx="${i}" style="
-        padding: 8px 14px; font-size:.84rem; cursor:pointer;
-        border-bottom: 1px solid #f0f0f0; transition: background .12s;
-      ">${escapeHtml(s)}</div>`
+      `<div class="suggest-item" data-idx="${i}" style="padding:8px 14px; font-size:.84rem; cursor:pointer; border-bottom:1px solid #f0f0f0;">${escapeHtml(s)}</div>`
     ).join('');
     suggestBox.style.display = 'block';
   }
@@ -167,22 +242,9 @@ document.addEventListener('DOMContentLoaded', function () {
   chatInput.addEventListener('keydown', function (e) {
     const items = suggestBox.querySelectorAll('.suggest-item');
     if (suggestBox.style.display !== 'none' && items.length) {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        _highlightSuggest(Math.min(_selectedIdx + 1, items.length - 1));
-        return;
-      }
-      if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        _highlightSuggest(Math.max(_selectedIdx - 1, 0));
-        return;
-      }
-      if (e.key === 'Enter' && _selectedIdx >= 0) {
-        e.preventDefault();
-        chatInput.value = _currentSuggestions[_selectedIdx];
-        hideSuggestions();
-        return;
-      }
+      if (e.key === 'ArrowDown') { e.preventDefault(); _highlightSuggest(Math.min(_selectedIdx + 1, items.length - 1)); return; }
+      if (e.key === 'ArrowUp') { e.preventDefault(); _highlightSuggest(Math.max(_selectedIdx - 1, 0)); return; }
+      if (e.key === 'Enter' && _selectedIdx >= 0) { e.preventDefault(); chatInput.value = _currentSuggestions[_selectedIdx]; hideSuggestions(); return; }
       if (e.key === 'Escape') { hideSuggestions(); return; }
     }
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -195,11 +257,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!chatBox.contains(e.target)) hideSuggestions();
   });
 
+  // ── Gửi tin nhắn chính ──
   async function sendMessage(msg) {
     msg = (msg || chatInput.value).trim();
     if (!msg) return;
 
     hideSuggestions();
+    removeQuickReplies();
     addMessage(msg, true);
     chatInput.value = '';
     sendBtn.disabled = true;
@@ -214,25 +278,32 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = await res.json();
       hideTyping();
       if (!res.ok) {
-        addMessage(data.error || 'Xin lỗi, có lỗi xảy ra. Vui lòng thử lại!', false, []);
+        addMessage(data.error || 'Xin lỗi, có lỗi xảy ra. Vui lòng thử lại!', false, [], []);
+        showToast(data.error || 'Có lỗi xảy ra', 'error');
       } else {
         if (data.redirect) {
           window.location.href = data.redirect;
           return;
         }
-        // Cập nhật badge nếu thêm giỏ thành công
+        // Toast cho thêm giỏ thành công
         if (data.reply && data.reply.startsWith('✅')) {
-          const badge = document.querySelector('#cart-count'); // giả sử header có id cart-count
-          if (badge) {
-            let count = parseInt(badge.textContent || '0');
-            badge.textContent = count + 1;
-          }
+          showToast(data.reply, 'success');
+          // Cập nhật badge
+          const badge = document.querySelector('#cart-count');
+          if (badge) badge.textContent = parseInt(badge.textContent || '0') + 1;
         }
-        addMessage(data.reply || 'Xin lỗi, tôi không nhận được phản hồi.', false, data.products || []);
+        // Toast cho đặt hàng thành công
+        if (data.reply && data.reply.includes('🎉')) {
+          showToast(data.reply, 'success');
+          const badge = document.querySelector('#cart-count');
+          if (badge) badge.textContent = '0';
+        }
+        addMessage(data.reply || 'Xin lỗi, tôi không nhận được phản hồi.', false, data.products || [], data.quick_replies || []);
       }
     } catch (err) {
       hideTyping();
-      addMessage('Rất tiếc, chatbot đang bận. Vui lòng thử lại sau! 🙏', false, []);
+      addMessage('Rất tiếc, chatbot đang bận. Vui lòng thử lại sau! 🙏', false, [], []);
+      showToast('Không thể kết nối chatbot', 'error');
       console.error('[Chatbot]', err);
     } finally {
       sendBtn.disabled = false;
@@ -240,6 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Delegate quick reply
   document.addEventListener('click', function (e) {
     if (e.target.matches('.quick-btn')) {
       sendMessage(e.target.dataset.msg);

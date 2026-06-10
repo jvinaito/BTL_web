@@ -1,23 +1,7 @@
-// Xử lý thêm vào giỏ hàng bằng AJAX (nếu muốn không reload)
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    const productId = this.dataset.id;
-    const qty = this.dataset.qty || 1;
-    fetch('/orders/cart/add/' + productId, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quantity: qty })
-    }).then(res => {
-      if (res.ok) {
-        alert('Added to cart');
-        // Có thể cập nhật số lượng giỏ hàng ở header
-      }
-    });
-  });
-});
+// main.js - chỉ dùng toast global (window.showToast)
+// Không còn bootstrap toast hay alert kiểu cũ
 
-// Xử lý toggle password
+// Toggle hiển thị mật khẩu
 document.querySelectorAll('.toggle-password').forEach(icon => {
   icon.addEventListener('click', function() {
     const input = this.closest('.input-group').querySelector('input');
@@ -27,43 +11,63 @@ document.querySelectorAll('.toggle-password').forEach(icon => {
     this.classList.toggle('fa-eye');
   });
 });
-// Hàm hiển thị toast
-function showAddToCartToast(productName) {
-  const toastEl = document.getElementById('cartToast');
-  const toastBody = toastEl.querySelector('.toast-body');
-  toastBody.textContent = `✅ Đã thêm "${productName}" vào giỏ hàng!`;
-  const toast = new bootstrap.Toast(toastEl);
-  toast.show();
-}
 
-// Hàm cập nhật số lượng trên icon giỏ
+// Cập nhật số lượng giỏ hàng trên badge
 async function updateCartCount() {
-  const res = await fetch('/orders/cart/count');
-  const data = await res.json();
-  const cartCountSpan = document.getElementById('cart-count');
-  if (cartCountSpan) {
-    cartCountSpan.textContent = data.count;
-    if (data.count > 0) cartCountSpan.classList.remove('d-none');
-    else cartCountSpan.classList.add('d-none');
+  try {
+    const res = await fetch('/orders/cart/count');
+    const data = await res.json();
+    const badge = document.getElementById('cart-count');
+    if (badge) {
+      badge.textContent = data.count;
+      if (data.count > 0) badge.classList.remove('d-none');
+      else badge.classList.add('d-none');
+    }
+  } catch (err) {
+    console.error('Update cart count error:', err);
   }
 }
 
 // Gắn sự kiện cho tất cả nút "Add to Cart"
 document.querySelectorAll('.add-to-cart').forEach(btn => {
-  btn.addEventListener('click', async function(e) {
+  btn.addEventListener('click', async (e) => {
     e.preventDefault();
-    const productId = this.dataset.id;
-    // Lấy tên sản phẩm từ thẻ cha (card)
-    const productName = this.closest('.card')?.querySelector('.card-title, .fw-bold')?.innerText || 'sản phẩm';
-    const response = await fetch(`/orders/cart/add/${productId}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    if (response.ok) {
-      showAddToCartToast(productName);
-      await updateCartCount(); // cập nhật số lượng trên giỏ
-    } else {
-      alert('Có lỗi xảy ra, vui lòng thử lại.');
+    const productId = btn.dataset.id;
+    const productName = btn.closest('.card')?.querySelector('.card-title, .fw-bold')?.innerText || 'sản phẩm';
+
+    try {
+      const response = await fetch(`/orders/cart/add/${productId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (response.ok) {
+        // Dùng toast toàn cục (từ chat.js) nếu có, nếu không thì fallback alert
+        if (window.showToast) {
+          window.showToast(`✅ Đã thêm "${productName}" vào giỏ hàng!`, 'success');
+        } else {
+          alert(`✅ Đã thêm "${productName}" vào giỏ hàng!`);
+        }
+        await updateCartCount();
+      } else {
+        const errorMsg = await response.text();
+        if (window.showToast) {
+          window.showToast(`❌ ${errorMsg || 'Có lỗi xảy ra, vui lòng thử lại.'}`, 'error');
+        } else {
+          alert('Có lỗi xảy ra, vui lòng thử lại.');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      if (window.showToast) {
+        window.showToast('Lỗi kết nối, vui lòng thử lại sau.', 'error');
+      } else {
+        alert('Lỗi kết nối, vui lòng thử lại sau.');
+      }
     }
   });
+});
+
+// Khởi tạo cập nhật badge khi trang tải
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
 });

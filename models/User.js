@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
   phone: { type: String },
   password: { type: String, required: true },
   level: { type: String, enum: ['Admin', 'Vip', 'Normal'], default: 'Normal' },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  defaultAddress: { type: String, default: '' }   // ← thêm dòng này
 });
 
 module.exports = mongoose.model('User', userSchema);
