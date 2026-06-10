@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from chatbot import process_message
+from chatbot import process_message, suggest_products
 import logging
 
 app = Flask(__name__)
@@ -30,12 +30,21 @@ def chat():
         return jsonify({'error': 'Tin nhắn quá dài (tối đa 500 ký tự).'}), 400
 
     try:
-        reply = process_message(msg)
-        logger.info('msg=%r reply=%r', msg[:80], reply[:80])
-        return jsonify({'reply': reply})
+        reply, products = process_message(msg)
+        # Chuyển đổi ObjectId thành string để JSON serializable
+        for p in products:
+            p['_id'] = str(p['_id'])
+        return jsonify({'reply': reply, 'products': products})
     except Exception as e:
         logger.exception('Lỗi xử lý tin nhắn: %s', e)
         return jsonify({'error': 'Lỗi nội bộ. Vui lòng thử lại sau.'}), 500
+
+
+@app.route('/suggest', methods=['GET'])
+def suggest():
+    q = request.args.get('q', '').strip()
+    suggestions = suggest_products(q)
+    return jsonify({'suggestions': suggestions})
 
 
 if __name__ == '__main__':
