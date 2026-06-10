@@ -2,19 +2,15 @@
 
 <div class="container py-5">
   <div class="row g-4">
+    <!-- Sidebar filters -->
     <aside class="col-lg-3">
+      <!-- Categories -->
       <div class="mb-5">
         <h5 class="fw-bold mb-3 border-bottom pb-2">Product categories</h5>
         <ul class="list-unstyled">
           <% categories.forEach(cat => { 
             const isActive = query.category && query.category === cat._id.toString();
-            // Xây dựng params cho link category
-            const linkParams = { 
-              ...query, 
-              page: 1, // reset page về 1 khi chọn category
-              category: isActive ? undefined : cat._id // nếu đang active thì bỏ category
-            };
-            // Xóa các tham số rỗng hoặc undefined
+            const linkParams = { ...query, page: 1, category: isActive ? undefined : cat._id };
             Object.keys(linkParams).forEach(key => {
               if (linkParams[key] === '' || linkParams[key] === undefined) delete linkParams[key];
             });
@@ -29,16 +25,47 @@
         </ul>
       </div>
 
+      <!-- Brand filter -->
+      <div class="mb-4">
+        <h5 class="fw-bold mb-3 border-bottom pb-2">Hãng sản xuất</h5>
+        <select id="brand-filter" class="form-select form-select-sm">
+          <option value="">-- Tất cả hãng --</option>
+        </select>
+      </div>
+
+      <!-- Gender filter -->
+      <div class="mb-4">
+        <h5 class="fw-bold mb-3 border-bottom pb-2">Giới tính</h5>
+        <select id="gender-filter" class="form-select form-select-sm">
+          <option value="">-- Tất cả --</option>
+          <option value="Boy">Bé trai</option>
+          <option value="Girl">Bé gái</option>
+          <option value="Unisex">Unisex</option>
+        </select>
+      </div>
+
+      <!-- Age range filter -->
+      <div class="mb-4">
+        <h5 class="fw-bold mb-3 border-bottom pb-2">Độ tuổi</h5>
+        <select id="age-filter" class="form-select form-select-sm">
+          <option value="">-- Tất cả --</option>
+          <option value="0-2">0-2 tuổi</option>
+          <option value="3-5">3-5 tuổi</option>
+          <option value="6-8">6-8 tuổi</option>
+          <option value="9-12">9-12 tuổi</option>
+          <option value="12+">12+ tuổi</option>
+        </select>
+      </div>
+
+      <!-- Price filter -->
       <div class="p-4 rounded-4 bg-light border">
         <h5 class="fw-bold mb-3">Filter by price</h5>
-        <form method="GET" action="/products">
+        <form method="GET" action="/products" id="price-filter-form">
           <% 
-            // Giữ lại các tham số hiện tại trong form filter, nhưng không có min/max vì chúng sẽ được nhập
-            const hiddenParams = { ...query, page: 1 }; // reset page
+            const hiddenParams = { ...query, page: 1 };
             delete hiddenParams.min;
             delete hiddenParams.max;
-            delete hiddenParams.page; // sẽ được set lại nếu cần? thực tế page sẽ về 1 sau filter, nhưng form không có page
-            // Xóa các tham số rỗng
+            delete hiddenParams.page;
             Object.keys(hiddenParams).forEach(key => {
               if (hiddenParams[key] === '' || hiddenParams[key] === undefined) delete hiddenParams[key];
             });
@@ -54,15 +81,27 @@
           <button type="submit" class="btn btn-info text-white w-100 mt-3 fw-bold rounded-pill shadow-sm">Apply</button>
         </form>
       </div>
+
+      <!-- Reset filters button -->
+      <div class="mt-4 text-center">
+        <a href="/products" class="btn btn-outline-secondary btn-sm rounded-pill px-4">
+          <i class="fa-solid fa-rotate-left me-1"></i> Reset Filters
+        </a>
+      </div>
     </aside>
 
+    <!-- Main content: product listing -->
     <main class="col-lg-9">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0"><%= query.category ? categories.find(c => c._id.toString() === query.category)?.name : 'All Products' %></h2>
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <h2 class="fw-bold mb-0">
+          <%= query.category ? categories.find(c => c._id.toString() === query.category)?.name : 'All Products' %>
+          <%= query.brand ? `- ${query.brand}` : '' %>
+          <%= query.gender ? `- ${query.gender === 'Boy' ? 'Bé trai' : (query.gender === 'Girl' ? 'Bé gái' : 'Unisex')}` : '' %>
+          <%= query.ageRange ? `- ${query.ageRange} tuổi` : '' %>
+        </h2>
         <div class="d-flex align-items-center gap-2">
           <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3 shadow-none" style="width: 160px;" onchange="location = this.value;">
             <% 
-              // Tạo base params cho sort (giữ nguyên search, min, max, category, nhưng bỏ sort và page)
               const sortBaseParams = { ...query, page: 1 };
               delete sortBaseParams.sort;
               delete sortBaseParams.page;
@@ -78,6 +117,7 @@
         </div>
       </div>
 
+      <!-- Product grid -->
       <div class="row g-4">
         <% products.forEach(product => { %>
           <div class="col-md-4 col-6">
@@ -105,12 +145,11 @@
         <% }) %>
       </div>
 
-      <!-- Phân trang -->
+      <!-- Pagination -->
       <% if (totalPages > 1) { %>
         <nav aria-label="Page navigation" class="mt-5">
           <ul class="pagination justify-content-center">
             <% 
-              // Tạo base params cho phân trang (giữ nguyên search, min, max, category, sort)
               const pageBaseParams = { ...query };
               delete pageBaseParams.page;
               Object.keys(pageBaseParams).forEach(key => {
@@ -138,3 +177,60 @@
     </main>
   </div>
 </div>
+
+<script>
+  (function() {
+    // Get current URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // --- Load brand options dynamically ---
+    fetch('/products/brands')
+      .then(res => res.json())
+      .then(brands => {
+        const brandSelect = document.getElementById('brand-filter');
+        if (!brandSelect) return;
+        brands.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b;
+          opt.textContent = b;
+          brandSelect.appendChild(opt);
+        });
+        // Preselect from URL
+        const brandParam = urlParams.get('brand');
+        if (brandParam) brandSelect.value = brandParam;
+      })
+      .catch(err => console.error('Failed to load brands:', err));
+
+    // --- Set initial values for other filters ---
+    const genderSelect = document.getElementById('gender-filter');
+    const ageSelect = document.getElementById('age-filter');
+    if (genderSelect && urlParams.get('gender')) genderSelect.value = urlParams.get('gender');
+    if (ageSelect && urlParams.get('ageRange')) ageSelect.value = urlParams.get('ageRange');
+
+    // --- Function to apply filters and reload page ---
+    function applyFilters() {
+      const params = new URLSearchParams(window.location.search);
+      // Remove page (reset to first page when filter changes)
+      params.delete('page');
+      // Brand
+      const brand = document.getElementById('brand-filter')?.value;
+      if (brand) params.set('brand', brand);
+      else params.delete('brand');
+      // Gender
+      const gender = document.getElementById('gender-filter')?.value;
+      if (gender) params.set('gender', gender);
+      else params.delete('gender');
+      // Age range
+      const age = document.getElementById('age-filter')?.value;
+      if (age) params.set('ageRange', age);
+      else params.delete('ageRange');
+      // Keep existing search, category, min, max, sort
+      window.location.href = '/products?' + params.toString();
+    }
+
+    // Add event listeners to filter selects
+    document.getElementById('brand-filter')?.addEventListener('change', applyFilters);
+    document.getElementById('gender-filter')?.addEventListener('change', applyFilters);
+    document.getElementById('age-filter')?.addEventListener('change', applyFilters);
+  })();
+</script>

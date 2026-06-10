@@ -3,6 +3,7 @@ detectors.py – Phát hiện tuổi, giá, giới tính, thương hiệu từ c
 """
 
 import re
+import time
 import os
 from pymongo import MongoClient
 
@@ -14,18 +15,20 @@ _client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=3000)
 _db = _client.get_database('rainbowrattles')
 _products_col = _db['products']
 
-_brand_cache = None
+_brand_cache = {"data": None, "timestamp": 0}
+_BRAND_CACHE_TTL = 300  # 5 phút
 
 def _get_brand_list():
-    """Lấy danh sách các brand duy nhất từ database (có cache)."""
-    global _brand_cache
-    if _brand_cache is None:
+    """Lấy danh sách brand từ DB, cache 5 phút."""
+    now = time.time()
+    if _brand_cache["data"] is None or (now - _brand_cache["timestamp"]) > _BRAND_CACHE_TTL:
         try:
             brands = _products_col.distinct('brand')
-            _brand_cache = [b.lower().strip() for b in brands if b and isinstance(b, str)]
+            _brand_cache["data"] = [b.lower().strip() for b in brands if b and isinstance(b, str)]
+            _brand_cache["timestamp"] = now
         except Exception:
-            _brand_cache = []
-    return _brand_cache
+            _brand_cache["data"] = []
+    return _brand_cache["data"]
 
 def detect_brand(msg_norm: str) -> str | None:
     """Trả về tên brand (viết thường, không dấu) nếu tìm thấy trong câu."""
@@ -47,8 +50,8 @@ def detect_age(msg_norm: str) -> int | None:
         if 0 < age <= 15:
             return age
 
-    # Dạng "3t" (viết tắt tuổi, không phải "3thang")
-    m = re.search(r'(\d+)t\b(?!hang)', msg_norm)
+    # Dạng "3t" (viết tắt tuổi, không phải "3thang" hay "3tr")
+    m = re.search(r'(\d+)t\b(?!hang|r)', msg_norm)
     if m:
         age = int(m.group(1))
         if 0 < age <= 15:
@@ -83,7 +86,9 @@ def detect_price(msg_norm: str) -> int | None:
     m = re.search(r'(?:duoi|gia|max|toi da|khong qua|khoang)\s*(\d+)', msg_norm)
     if m:
         n = int(m.group(1))
-        if n > 15 or 'do' in msg_norm or 'usd' in msg_norm:
+        # Kiểm tra đơn vị tiền (do/usd/$)
+        currency_hint = bool(re.search(r'\bdo\b|\busd\b|\$', msg_norm))
+        if n > 15 or currency_hint:
             return n
 
     # Fallback: lấy số đầu tiên > 15
