@@ -43,7 +43,7 @@ def get_categories_col():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TOKEN SEARCH ENGINE
+# TOKEN SEARCH ENGINE (giữ nguyên từ code cũ của bạn)
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _extract_keywords(msg_norm: str) -> list[str]:
@@ -106,7 +106,7 @@ def _score_product(p: dict, keywords: list[str]) -> float:
                     break
     return score
 
-def _search_products_by_tokens(msg_norm: str, limit: int = 5) -> list[dict]:
+def _search_products_by_tokens(msg_norm: str, limit: int = 20) -> list[dict]:
     keywords = _extract_keywords(msg_norm)
     if not keywords:
         keywords = _extract_keywords_relaxed(msg_norm)
@@ -141,20 +141,22 @@ def _search_products_by_tokens(msg_norm: str, limit: int = 5) -> list[dict]:
 # HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
 
+DISPLAY_LIMIT = 5  # Số sp hiển thị ban đầu
+
 def _fmt_products(products: list, label: str = '') -> tuple[str | None, list]:
-    """Trả về (chuỗi hiển thị, danh sách sản phẩm gốc)."""
+    """Trả về (chuỗi hiển thị 5 sp đầu, danh sách đầy đủ để Node phân trang)."""
     if not products:
         return (None, [])
+    display = products[:DISPLAY_LIMIT]
     lines = [label] if label else []
-    for idx, p in enumerate(products, 1):
+    for idx, p in enumerate(display, 1):
         lines.append(f"{idx}. {p.get('name', 'N/A')} – ${p.get('salePrice', '?')}")
-    
-    # Thêm hướng dẫn nếu có từ 1 sản phẩm trở lên
+    # Thêm hướng dẫn nếu có sản phẩm
     if len(products) >= 1:
         lines.append("\n💡 Gõ số thứ tự để xem chi tiết (vd: 1)")
         lines.append("🛒 Gõ 'thêm [số thứ tự]' để thêm vào giỏ (vd: thêm 2)")
         lines.append("📦 Gõ 'thêm [số lượng] cái [số thứ tự]' (vd: thêm 3 cái 1)")
-    return ('\n'.join(lines), products)
+    return ('\n'.join(lines), products)  # trả ALL products
 
 @lru_cache(maxsize=1)
 def _get_category_map():
@@ -178,7 +180,7 @@ def _handle_age(age: int) -> tuple[str, list]:
         products = list(get_products_col().find(
             {'ageRange': {'$regex': str(age), '$options': 'i'}, 'status': 'Active', 'stock': {'$gt': 0}},
             {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-        ).limit(5))
+        ).limit(20))
     except PyMongoError as e:
         logger.error('MongoDB error: %s', e)
         return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
@@ -192,7 +194,7 @@ def _handle_price(price: int) -> tuple[str, list]:
         products = list(get_products_col().find(
             {'salePrice': {'$lte': price}, 'status': 'Active', 'stock': {'$gt': 0}},
             {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-        ).sort('salePrice', 1).limit(5))
+        ).sort('salePrice', 1).limit(20))
     except PyMongoError as e:
         logger.error('MongoDB error: %s', e)
         return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
@@ -206,16 +208,19 @@ def _handle_bestseller(base_response: str) -> tuple[str, list]:
         products = list(get_products_col().find(
             {'sold': {'$exists': True}, 'status': 'Active', 'stock': {'$gt': 0}},
             {'name': 1, 'sold': 1, 'salePrice': 1, 'imageUrl': 1}
-        ).sort('sold', -1).limit(5))
+        ).sort('sold', -1).limit(10))  # best seller chỉ lấy 10 sản phẩm
     except PyMongoError as e:
         logger.error('MongoDB error: %s', e)
         return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
     if not products:
         return ('Hiện chưa có dữ liệu sản phẩm bán chạy.', [])
     lines = [base_response]
-    for p in products:
-        lines.append(f"• {p.get('name','N/A')} – ${p.get('salePrice','?')} (đã bán: {p.get('sold',0)})")
-    return ('\n'.join(lines), products)
+    for idx, p in enumerate(products[:DISPLAY_LIMIT], 1):
+        lines.append(f"{idx}. {p.get('name','N/A')} – ${p.get('salePrice','?')} (đã bán: {p.get('sold',0)})")
+    if len(products) > DISPLAY_LIMIT:
+        lines.append(f"\n💡 Còn {len(products)-DISPLAY_LIMIT} sản phẩm nữa, gõ 'xem thêm' để xem tiếp.")
+    reply = '\n'.join(lines)
+    return (reply, products)
 
 def _handle_gender(msg_norm: str) -> tuple[str, list]:
     gender = detect_gender(msg_norm)
@@ -226,7 +231,7 @@ def _handle_gender(msg_norm: str) -> tuple[str, list]:
         products = list(get_products_col().find(
             {'gender': gender, 'status': 'Active', 'stock': {'$gt': 0}},
             {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-        ).limit(5))
+        ).limit(20))
     except PyMongoError as e:
         logger.error('MongoDB error: %s', e)
         return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
@@ -252,7 +257,7 @@ def _handle_multi_intent(msg_norm: str) -> tuple[str | None, list]:
         try:
             products = list(get_products_col().find(
                 query, {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-            ).sort('sold', -1).limit(5))
+            ).sort('sold', -1).limit(20))
         except PyMongoError as e:
             logger.error('MongoDB multi-intent error: %s', e)
             return (None, [])
@@ -273,7 +278,7 @@ def _handle_multi_intent(msg_norm: str) -> tuple[str | None, list]:
                 {'gender': gender, 'ageRange': {'$regex': str(age), '$options': 'i'},
                  'status': 'Active', 'stock': {'$gt': 0}},
                 {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-            ).sort('sold', -1).limit(5))
+            ).sort('sold', -1).limit(20))
         except PyMongoError as e:
             logger.error('MongoDB multi-intent error: %s', e)
             return (None, [])
@@ -293,7 +298,7 @@ def _handle_category_exact(msg_norm: str) -> tuple[str | None, list]:
                 products = list(get_products_col().find(
                     {'category': cat_map[cat_name], 'status': 'Active', 'stock': {'$gt': 0}},
                     {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-                ).sort('sold', -1).limit(5))
+                ).sort('sold', -1).limit(20))
             except PyMongoError as e:
                 logger.error('MongoDB error: %s', e)
                 return (None, [])
@@ -317,7 +322,7 @@ def _search_category_by_tokens(msg_norm: str) -> tuple[str | None, list]:
                     products = list(get_products_col().find(
                         {'category': cat_id, 'status': 'Active', 'stock': {'$gt': 0}},
                         {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-                    ).sort('sold', -1).limit(5))
+                    ).sort('sold', -1).limit(20))
                 except PyMongoError as e:
                     logger.error('MongoDB error: %s', e)
                     return (None, [])
@@ -333,7 +338,8 @@ def _search_category_by_tokens(msg_norm: str) -> tuple[str | None, list]:
 # MAIN
 # ══════════════════════════════════════════════════════════════════════════════
 
-def process_message(msg: str) -> tuple[str, list]:
+def process_message(msg: str) -> tuple[str, list, list]:
+    """Trả về (reply, products_5_đầu, all_products)."""
     msg_norm = normalize(msg)
     logger.info('raw=%r  norm=%r', msg[:80], msg_norm[:80])
 
@@ -341,12 +347,12 @@ def process_message(msg: str) -> tuple[str, list]:
     action = process_action(msg_norm)
     if action:
         logger.info('ACTION DETECTED: %s', action)
-        return (json.dumps({'__action__': action}), [])
+        return (json.dumps({'__action__': action}), [], [])
 
     # ── Lớp 0: Multi-intent ──
-    multi_reply, multi_products = _handle_multi_intent(msg_norm)
+    multi_reply, multi_all = _handle_multi_intent(msg_norm)
     if multi_reply:
-        return (multi_reply, multi_products)
+        return (multi_reply, multi_all[:DISPLAY_LIMIT], multi_all)
 
     # ── Lớp 1: Intent matching ──
     for intent in _NORM_INTENTS:
@@ -356,48 +362,54 @@ def process_message(msg: str) -> tuple[str, list]:
             if '{age}' in pnorm:
                 m = re.search(pnorm.replace('{age}', r'(\d+)'), msg_norm)
                 if m:
-                    return _handle_age(int(m.group(1)))
+                    reply, all_p = _handle_age(int(m.group(1)))
+                    return (reply, all_p[:DISPLAY_LIMIT], all_p)
             elif '{price}' in pnorm:
                 m = re.search(pnorm.replace('{price}', r'(\d+)'), msg_norm)
                 if m:
-                    return _handle_price(int(m.group(1)))
+                    reply, all_p = _handle_price(int(m.group(1)))
+                    return (reply, all_p[:DISPLAY_LIMIT], all_p)
             elif '{category}' in pnorm:
                 pass
             else:
                 if pnorm in msg_norm:
                     if tag == 'bestseller':
-                        return _handle_bestseller(response)
+                        reply, all_p = _handle_bestseller(response)
+                        return (reply, all_p[:DISPLAY_LIMIT], all_p)
                     elif tag == 'gender':
-                        return _handle_gender(msg_norm)
+                        reply, all_p = _handle_gender(msg_norm)
+                        return (reply, all_p[:DISPLAY_LIMIT], all_p)
                     else:
-                        return (response, [])
+                        return (response, [], [])
 
     # ── Lớp 2: Suy luận số ──
     age = detect_age(msg_norm)
     price = detect_price(msg_norm)
     if age:
-        return _handle_age(age)
+        reply, all_p = _handle_age(age)
+        return (reply, all_p[:DISPLAY_LIMIT], all_p)
     if price:
-        return _handle_price(price)
+        reply, all_p = _handle_price(price)
+        return (reply, all_p[:DISPLAY_LIMIT], all_p)
 
     # ── Lớp 3: Danh mục exact ──
-    cat_reply, cat_products = _handle_category_exact(msg_norm)
+    cat_reply, cat_all = _handle_category_exact(msg_norm)
     if cat_reply:
-        return (cat_reply, cat_products)
+        return (cat_reply, cat_all[:DISPLAY_LIMIT], cat_all)
 
     # ── Lớp 4: Token search sản phẩm ──
-    products = _search_products_by_tokens(msg_norm)
-    if products:
+    all_products = _search_products_by_tokens(msg_norm)
+    if all_products:
         keywords = _extract_keywords(msg_norm)
         kw_display = ' '.join(keywords) if keywords else msg_norm
-        reply, _ = _fmt_products(products, f'Tìm thấy sản phẩm cho "{kw_display}":')
+        reply, _ = _fmt_products(all_products, f'Tìm thấy sản phẩm cho "{kw_display}":')
         if reply:
-            return (reply, products)
+            return (reply, all_products[:DISPLAY_LIMIT], all_products)
 
     # ── Lớp 5: Danh mục token search ──
-    cat_token_reply, cat_token_products = _search_category_by_tokens(msg_norm)
+    cat_token_reply, cat_token_all = _search_category_by_tokens(msg_norm)
     if cat_token_reply:
-        return (cat_token_reply, cat_token_products)
+        return (cat_token_reply, cat_token_all[:DISPLAY_LIMIT], cat_token_all)
 
     # ── Fallback ──
     return (
@@ -408,7 +420,7 @@ def process_message(msg: str) -> tuple[str, list]:
         '• Giới tính (vd: "bé trai", "bé gái")\n'
         '• Giá (vd: "dưới 20 đô", "tầm 50")\n'
         '• Sản phẩm bán chạy',
-        []
+        [], []
     )
 
 

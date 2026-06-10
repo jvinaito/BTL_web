@@ -24,10 +24,12 @@ def chat():
     if len(msg) > 500:
         return jsonify({'error': 'Tin nhắn quá dài (tối đa 500 ký tự).'}), 400
     try:
-        reply, products = process_message(msg)
+        reply, products, all_products = process_message(msg)
         for p in products:
             p['_id'] = str(p['_id'])
-        return jsonify({'reply': reply, 'products': products})
+        for p in all_products:
+            p['_id'] = str(p['_id'])
+        return jsonify({'reply': reply, 'products': products, 'all_products': all_products})
     except Exception as e:
         logger.exception('Lỗi xử lý tin nhắn: %s', e)
         return jsonify({'error': 'Lỗi nội bộ. Vui lòng thử lại sau.'}), 500

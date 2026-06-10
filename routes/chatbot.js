@@ -11,14 +11,15 @@ const SUGGEST_URL = process.env.CHATBOT_URL
 const TIMEOUT_MS = 8000;
 
 const checkoutState = new Map();
+const searchState = new Map(); // key: sessionId, value: { products, total, offset }
 
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// ──────────────────────────────────────────────────────────────
-// 1. Thêm vào giỏ hàng
-// ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
+   1. Thêm vào giỏ hàng
+────────────────────────────────────────────────────────────── */
 async function handleAddToCart(req, res, action) {
   if (!req.session) return res.json({ reply: 'Lỗi session. Tải lại trang.', products: [] });
   if (!req.session.cart) req.session.cart = [];
@@ -44,9 +45,9 @@ async function handleAddToCart(req, res, action) {
   }
 }
 
-// ──────────────────────────────────────────────────────────────
-// 2. Xử lý checkout (bước 1: hiển thị xác nhận + nút bấm)
-// ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
+   2. Xử lý checkout (bước 1: hiển thị xác nhận + nút bấm)
+────────────────────────────────────────────────────────────── */
 async function handleCheckout(req, res, action) {
   if (!req.session) return res.json({ reply: 'Lỗi hệ thống.', products: [] });
   if (!req.session.user) return res.json({ reply: '🔐 Bạn cần đăng nhập để thanh toán.', products: [] });
@@ -84,9 +85,9 @@ async function handleCheckout(req, res, action) {
   });
 }
 
-// ──────────────────────────────────────────────────────────────
-// 3. Xác nhận checkout (bước 2) – TẠO ORDER NGAY
-// ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
+   3. Xác nhận checkout (bước 2) – TẠO ORDER NGAY
+────────────────────────────────────────────────────────────── */
 async function handleCheckoutConfirm(req, res, action) {
   const sessionId = req.session.id;
   const state = checkoutState.get(sessionId);
@@ -96,12 +97,10 @@ async function handleCheckoutConfirm(req, res, action) {
 
   if (action.confirm === true) {
     if (!state.defaultAddress) {
-      // Nếu chưa có địa chỉ -> chuyển sang bước nhập địa chỉ
       checkoutState.set(sessionId, { step: 'awaiting_address', total: state.total });
       return res.json({ reply: 'Vui lòng cung cấp địa chỉ giao hàng (ví dụ: "123 Đường Lê Lợi, P.Bến Nghé, Q.1, TP HCM").', products: [] });
     }
 
-    // Có địa chỉ -> tạo đơn hàng luôn
     try {
       const cart = req.session.cart || [];
       if (cart.length === 0) {
@@ -109,7 +108,6 @@ async function handleCheckoutConfirm(req, res, action) {
         return res.json({ reply: 'Giỏ hàng trống. Không thể đặt hàng.', products: [] });
       }
 
-      // Tính subtotal, discount, shipping
       let subtotal = 0;
       for (let item of cart) subtotal += item.product.salePrice * item.quantity;
 
@@ -117,7 +115,6 @@ async function handleCheckoutConfirm(req, res, action) {
       if (req.session.user.level === 'Vip') discount = subtotal * 0.2;
       else if (req.session.user.level === 'Admin') discount = subtotal;
 
-      // Tính phí ship dựa trên tỉnh trong defaultAddress
       let shipping = 50;
       const provinceMatch = state.defaultAddress.match(/Tỉnh\s+(.+)$|Thành phố\s+(.+)$/);
       let province = provinceMatch ? (provinceMatch[1] || provinceMatch[2]) : '';
@@ -127,7 +124,6 @@ async function handleCheckoutConfirm(req, res, action) {
       }
       const total = subtotal + shipping - discount;
 
-      // Kiểm tra tồn kho và lưu orderProducts
       const orderProducts = [];
       for (let item of cart) {
         const product = await Product.findById(item.product._id);
@@ -160,7 +156,6 @@ async function handleCheckoutConfirm(req, res, action) {
       });
       await order.save();
 
-      // Xoá giỏ hàng và trạng thái checkout
       req.session.cart = [];
       checkoutState.delete(sessionId);
       return res.json({ reply: `🎉 Đặt hàng thành công! Mã đơn: ${orderId}. Cảm ơn bạn đã mua sắm.`, products: [] });
@@ -175,9 +170,42 @@ async function handleCheckoutConfirm(req, res, action) {
   }
 }
 
-// ──────────────────────────────────────────────────────────────
-// 4. Hàm phụ trợ: nhận diện yes/no
-// ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
+   4. Xem thêm sản phẩm từ kết quả tìm kiếm trước đó
+────────────────────────────────────────────────────────────── */
+function handleLoadMore(req, res) {
+  const sessionId = req.session.id;
+  const state = searchState.get(sessionId);
+  if (!state || !state.products || state.products.length === 0) {
+    return res.json({ reply: '📭 Không có kết quả tìm kiếm nào trước đó. Hãy tìm kiếm trước khi dùng "xem thêm".', products: [], has_more: false });
+  }
+  if (state.offset >= state.displayLimit) {
+    return res.json({ reply: `📭 Đã hiển thị hết danh sách. Không còn sản phẩm nào để xem thêm.`, products: [], has_more: false });
+  }
+  const from = state.offset;
+  const nextOffset = Math.min(state.offset + 5, state.displayLimit);
+  const moreProducts = state.products.slice(from, nextOffset);
+  state.offset = nextOffset;
+  searchState.set(sessionId, state);
+
+  const hasMore = state.offset < state.displayLimit;
+  let reply = `📦 Sản phẩm (${state.offset}/${state.displayLimit}):\n`;
+  moreProducts.forEach((p, idx) => {
+    reply += `${from + idx + 1}. ${p.name} – $${p.salePrice}\n`;
+  });
+  if (hasMore) {
+    reply += `\n💡 Gõ "xem thêm" hoặc nhấn nút để xem tiếp.`;
+  } else {
+    reply += `\n✅ Đã hiển thị hết danh sách.`;
+  }
+  // Hướng dẫn lệnh nhanh
+  reply += `\n\n📌 Lệnh nhanh: "thêm 1" (thêm sp #1) | "thêm 2 cái 3" (thêm 2 cái sp #3)`;
+  return res.json({ reply, products: moreProducts, has_more: hasMore });
+}
+
+/* ──────────────────────────────────────────────────────────────
+   5. Hàm phụ trợ: nhận diện yes/no
+────────────────────────────────────────────────────────────── */
 function resolveCheckoutReply(message) {
   const yes = /^(có|co|yes|y|xác nhận|xac nhan|đồng ý|dong y|ok|oke|okay|đặt|dat)$/i.test(message.trim());
   const no  = /^(không|khong|no|n|hủy|huy|cancel|thôi|thoi|bỏ|bo)$/i.test(message.trim());
@@ -186,9 +214,9 @@ function resolveCheckoutReply(message) {
   return null;
 }
 
-// ──────────────────────────────────────────────────────────────
-// 5. Route chính
-// ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
+   6. Route chính
+────────────────────────────────────────────────────────────── */
 router.post('/message', async (req, res) => {
   const userMessage = (req.body.message || '').trim();
   if (!userMessage) return res.status(400).json({ error: 'Tin nhắn trống' });
@@ -196,21 +224,24 @@ router.post('/message', async (req, res) => {
 
   const sessionId = req.session.id;
   const state = checkoutState.get(sessionId);
+  const lowerMsg = userMessage.toLowerCase();
 
-  // Ưu tiên xử lý trạng thái checkout (đang chờ xác nhận hoặc nhập địa chỉ)
+  // Ưu tiên xem thêm (trước checkout)
+  if (lowerMsg === 'xem thêm' || lowerMsg === 'xem tiếp') {
+    return handleLoadMore(req, res);
+  }
+
+  // Xử lý trạng thái checkout
   if (state) {
     if (state.step === 'awaiting_confirm') {
       const answer = resolveCheckoutReply(userMessage);
-      if (answer !== null) {
-        return handleCheckoutConfirm(req, res, { confirm: answer });
-      }
+      if (answer !== null) return handleCheckoutConfirm(req, res, { confirm: answer });
       return res.json({
         reply: '❓ Vui lòng trả lời "có" hoặc "không".',
         products: [],
         quick_replies: [{ label: '✅ Có', value: 'có' }, { label: '❌ Không', value: 'không' }]
       });
     }
-
     if (state.step === 'awaiting_address') {
       const address = userMessage.trim();
       if (address.length > 10) {
@@ -227,7 +258,7 @@ router.post('/message', async (req, res) => {
     }
   }
 
-  // Không có trạng thái checkout → gọi Python chatbot
+  // Gọi Python chatbot
   try {
     const response = await axios.post(CHATBOT_URL, { message: userMessage }, { timeout: TIMEOUT_MS });
     let reply = response.data?.reply;
@@ -247,7 +278,31 @@ router.post('/message', async (req, res) => {
     }
 
     if (!reply) return res.status(502).json({ error: 'Chatbot lỗi' });
-    return res.json({ reply, products });
+
+    // Lưu kết quả tìm kiếm vào searchState (nếu có sản phẩm)
+    const allProducts = response.data?.all_products || [];
+    if (allProducts.length > 0) {
+      const isBestSeller = /best.?seller|bán chạy|phổ biến|hot/i.test(userMessage);
+      // Best seller giới hạn tối đa 10, còn lại hiển thị hết
+      const displayLimit = isBestSeller ? Math.min(allProducts.length, 10) : allProducts.length;
+      searchState.set(sessionId, {
+        products: allProducts,
+        total: allProducts.length,
+        displayLimit,
+        offset: Math.min(5, allProducts.length), // đã hiển thị 5 cái đầu
+        isBestSeller,
+      });
+    }
+
+    // Thêm hướng dẫn lệnh nhanh + "xem thêm" vào reply nếu có sản phẩm
+    let finalReply = reply;
+    const savedState = allProducts.length > 0 ? searchState.get(sessionId) : null;
+    const hasMore = !!(savedState && savedState.offset < savedState.displayLimit);
+    if (products && products.length > 0) {
+      finalReply += `\n\n📌 Lệnh nhanh: "thêm 1" (thêm sp #1) | "thêm 2 cái 3" (2 cái sp #3)`;
+      if (hasMore) finalReply += ` | "xem thêm" (còn ${savedState.displayLimit - savedState.offset} sp nữa)`;
+    }
+    return res.json({ reply: finalReply, products, has_more: hasMore });
   } catch (err) {
     console.error('[Chatbot]', err);
     if (err.code === 'ECONNABORTED') return res.status(504).json({ error: 'Quá thời gian chờ' });
@@ -256,9 +311,9 @@ router.post('/message', async (req, res) => {
   }
 });
 
-// ──────────────────────────────────────────────────────────────
-// 6. Gợi ý tìm kiếm
-// ──────────────────────────────────────────────────────────────
+/* ──────────────────────────────────────────────────────────────
+   7. Gợi ý tìm kiếm
+────────────────────────────────────────────────────────────── */
 router.get('/suggest', async (req, res) => {
   const q = (req.query.q || '').trim();
   if (!q) return res.json({ suggestions: [] });
