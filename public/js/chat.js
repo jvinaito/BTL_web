@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let isOpen = false;
 
-  /* ── Helpers ── */
   function getTime() {
     return new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
   }
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
       .replace(/"/g, '&quot;');
   }
 
-  /* ── Render product card ── */
   function renderProductCard(product) {
     const productId = product._id || product.id;
     const name      = escapeHtml(product.name || 'Sản phẩm');
@@ -46,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>`;
   }
 
-  /* ── Add message ── */
   function addMessage(text, isUser, products = []) {
     if (isUser && quickReplies) quickReplies.remove();
 
@@ -76,17 +73,13 @@ document.addEventListener('DOMContentLoaded', function () {
     scrollToBottom();
   }
 
-  /* ── Typing indicator ── */
   function showTyping() { typingIndicator.style.display = 'block'; scrollToBottom(); }
   function hideTyping()  { typingIndicator.style.display = 'none'; }
 
-  /* ══════════════════════════════════════════════════════
-     AUTOCOMPLETE
-  ══════════════════════════════════════════════════════ */
+  /* AUTOCOMPLETE */
   let _suggestTimer = null;
   let _currentSuggestions = [];
 
-  // Tạo dropdown element
   const suggestBox = document.createElement('div');
   suggestBox.id = 'chat-suggest-box';
   suggestBox.style.cssText = `
@@ -102,15 +95,15 @@ document.addEventListener('DOMContentLoaded', function () {
     z-index: 10;
     display: none;
   `;
-  // Gắn vào chat-footer để tính toán vị trí đúng
   const footer = document.querySelector('.chat-footer');
-  footer.style.position = 'relative';
-  footer.prepend(suggestBox);
+  if (footer) {
+    footer.style.position = 'relative';
+    footer.prepend(suggestBox);
+  }
 
   function showSuggestions(items) {
     _currentSuggestions = items;
     if (!items.length) { suggestBox.style.display = 'none'; return; }
-
     suggestBox.innerHTML = items.map((s, i) =>
       `<div class="suggest-item" data-idx="${i}" style="
         padding: 8px 14px; font-size:.84rem; cursor:pointer;
@@ -125,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
     _currentSuggestions = [];
   }
 
-  // Hover effect
   suggestBox.addEventListener('mouseover', e => {
     const item = e.target.closest('.suggest-item');
     if (item) item.style.background = '#f0fbfe';
@@ -134,12 +126,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const item = e.target.closest('.suggest-item');
     if (item) item.style.background = '';
   });
-
-  // Click chọn gợi ý
   suggestBox.addEventListener('mousedown', e => {
     const item = e.target.closest('.suggest-item');
     if (!item) return;
-    e.preventDefault(); // giữ focus input
+    e.preventDefault();
     const chosen = _currentSuggestions[parseInt(item.dataset.idx)];
     if (chosen) {
       chatInput.value = chosen;
@@ -147,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Điều hướng bằng phím mũi tên trong suggest
   let _selectedIdx = -1;
   function _highlightSuggest(idx) {
     const items = suggestBox.querySelectorAll('.suggest-item');
@@ -164,17 +153,15 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!res.ok) return;
       const data = await res.json();
       showSuggestions(data.suggestions || []);
-    } catch (_) {
-      // fail silently
-    }
+    } catch (_) {}
   }
 
   chatInput.addEventListener('input', () => {
     const val = chatInput.value.trim();
     _selectedIdx = -1;
     clearTimeout(_suggestTimer);
-    if (!val) { hideSuggestions(); return; }
-    _suggestTimer = setTimeout(() => fetchSuggestions(val), 220); // debounce 220ms
+    if (!val || val.length > 50) { hideSuggestions(); return; }
+    _suggestTimer = setTimeout(() => fetchSuggestions(val), 220);
   });
 
   chatInput.addEventListener('keydown', function (e) {
@@ -198,19 +185,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       if (e.key === 'Escape') { hideSuggestions(); return; }
     }
-
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
   });
 
-  // Ẩn suggest khi click ra ngoài
   document.addEventListener('click', function (e) {
     if (!chatBox.contains(e.target)) hideSuggestions();
   });
 
-  /* ── Send message ── */
   async function sendMessage(msg) {
     msg = (msg || chatInput.value).trim();
     if (!msg) return;
@@ -232,6 +216,18 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!res.ok) {
         addMessage(data.error || 'Xin lỗi, có lỗi xảy ra. Vui lòng thử lại!', false, []);
       } else {
+        if (data.redirect) {
+          window.location.href = data.redirect;
+          return;
+        }
+        // Cập nhật badge nếu thêm giỏ thành công
+        if (data.reply && data.reply.startsWith('✅')) {
+          const badge = document.querySelector('#cart-count'); // giả sử header có id cart-count
+          if (badge) {
+            let count = parseInt(badge.textContent || '0');
+            badge.textContent = count + 1;
+          }
+        }
         addMessage(data.reply || 'Xin lỗi, tôi không nhận được phản hồi.', false, data.products || []);
       }
     } catch (err) {
@@ -244,14 +240,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ── Quick reply buttons ── */
   document.addEventListener('click', function (e) {
     if (e.target.matches('.quick-btn')) {
       sendMessage(e.target.dataset.msg);
     }
   });
 
-  /* ── Open / Close ── */
   chatIcon.addEventListener('click', function () {
     isOpen = true;
     chatBox.style.display = 'flex';

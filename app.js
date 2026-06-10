@@ -6,21 +6,23 @@ const flash = require('connect-flash');
 const path = require('path');
 const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
+
 const app = express();
-const addressRoutes = require('./routes/address');
-app.use('/address', addressRoutes);
+
 // Kết nối MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Middleware
+// Middleware cơ bản
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
-app.use('/api/chatbot', require('./routes/chatbot'));
-// Session
+
+// ═══════════════════════════════════════════════════════════════
+// SESSION – Phải đặt TRƯỚC các route cần dùng session
+// ═══════════════════════════════════════════════════════════════
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -30,19 +32,21 @@ app.use(session({
 
 // Flash messages
 app.use(flash());
+
+// Global variables cho view (search, user, flash)
 app.use((req, res, next) => {
   res.locals.search = req.query.search || '';
   next();
 });
-// Global variables cho flash và user
+
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success');
   res.locals.error_msg = req.flash('error');
   res.locals.user = req.session.user || null;
   next();
 });
+
 app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
   const cart = req.session.cart || [];
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   res.locals.cartCount = cartCount;
@@ -55,27 +59,33 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// Helper format date cho view
 app.locals.formatDate = function(date) {
   if (!date) return '';
   const d = new Date(date);
   const day = d.getDate().toString().padStart(2, '0');
   const month = (d.getMonth() + 1).toString().padStart(2, '0');
-  const year = d.getFullYear(); // lấy 4 số
+  const year = d.getFullYear();
   return `${day}/${month}/${year}`;
 };
-// Thiết lập view engine EJS
+
+// View engine EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 app.use(expressLayouts);
-app.set('layout', 'layouts/main'); // layout mặc định
+app.set('layout', 'layouts/main');
 
-// Routes
+// ═══════════════════════════════════════════════════════════════
+// ROUTES (đặt SAU session)
+// ═══════════════════════════════════════════════════════════════
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/products', require('./routes/products'));
 app.use('/orders', require('./routes/orders'));
 app.use('/admin', require('./routes/admin'));
+app.use('/address', require('./routes/address'));
+app.use('/api/chatbot', require('./routes/chatbot')); // ← chatbot cần session
 
 // 404 handler
 app.use((req, res) => {
@@ -84,4 +94,3 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-

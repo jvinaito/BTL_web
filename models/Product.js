@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Hàm loại bỏ dấu tiếng Việt
 function removeVietnameseTones(str) {
   str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
   str = str.replace(/[èéẹẻẽêềếệểễ]/g, 'e');
@@ -31,10 +30,10 @@ const productSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-// Middleware tự động tạo searchName từ name trước khi lưu
-productSchema.pre('save', async function() {
+productSchema.pre('save', function() {
   if (this.isModified('name')) {
     this.searchName = removeVietnameseTones(this.name);
   }
 });
+
 module.exports = mongoose.model('Product', productSchema);
