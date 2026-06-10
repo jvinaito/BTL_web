@@ -142,11 +142,18 @@ def _search_products_by_tokens(msg_norm: str, limit: int = 5) -> list[dict]:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _fmt_products(products: list, label: str = '') -> tuple[str | None, list]:
+    """Trả về (chuỗi hiển thị, danh sách sản phẩm gốc)."""
     if not products:
         return (None, [])
     lines = [label] if label else []
-    for p in products:
-        lines.append(f"• {p.get('name', 'N/A')} – ${p.get('salePrice', '?')}")
+    for idx, p in enumerate(products, 1):
+        lines.append(f"{idx}. {p.get('name', 'N/A')} – ${p.get('salePrice', '?')}")
+    
+    # Thêm hướng dẫn nếu có từ 1 sản phẩm trở lên
+    if len(products) >= 1:
+        lines.append("\n💡 Gõ số thứ tự để xem chi tiết (vd: 1)")
+        lines.append("🛒 Gõ 'thêm [số thứ tự]' để thêm vào giỏ (vd: thêm 2)")
+        lines.append("📦 Gõ 'thêm [số lượng] cái [số thứ tự]' (vd: thêm 3 cái 1)")
     return ('\n'.join(lines), products)
 
 @lru_cache(maxsize=1)
