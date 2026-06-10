@@ -4,6 +4,8 @@ const Product = require('../models/Product');
 const User = require('../models/User');
 const Order = require('../models/Order');
 
+
+
 const CHATBOT_URL = process.env.CHATBOT_URL || 'http://localhost:5001/chat';
 const SUGGEST_URL = process.env.CHATBOT_URL
   ? process.env.CHATBOT_URL.replace('/chat', '/suggest')

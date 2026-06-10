@@ -240,6 +240,124 @@ def _handle_gender(msg_norm: str) -> tuple[str, list]:
         reply = f'Hiện chưa có sản phẩm dành cho {label}.'
     return (reply, products)
 
+# ══════════════════════════════════════════════════════════════════════════════
+# COMPOUND SEARCH: tên sản phẩm + tuổi / giá / giới tính
+# Ví dụ: "lego 2 tuổi", "xe đua bé trai dưới 30", "búp bê bé gái 5 tuổi"
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _handle_product_with_filters(msg_norm: str) -> tuple[str | None, list]:
+    """
+    Xử lý câu hỏi dạng phức hợp: từ khoá sản phẩm + bộ lọc (tuổi / giá / giới tính).
+    Trả về (None, []) nếu không đủ điều kiện để kích hoạt handler này.
+    """
+    age    = detect_age(msg_norm)
+    price  = detect_price(msg_norm)
+    gender = detect_gender(msg_norm)
+
+    # Chỉ chạy khi có ít nhất một bộ lọc phi-từ-khoá
+    if not (age or price or gender):
+        return (None, [])
+
+    # Trích keyword sản phẩm, bỏ qua token số thuần (đã được detect_age/detect_price xử lý)
+    keywords = _extract_keywords(msg_norm)
+    # Loại bỏ token trùng với giá trị số đã detect
+    age_tokens    = {str(age)} if age else set()
+    price_tokens  = {str(price)} if price else set()
+    # Lọc thêm các từ thuần tuổi/giá tiếng Việt phổ biến
+    filter_words  = {'tuoi', 'gia', 'duoi', 'tren', 'khoang', 'tam', 'bé', 'be',
+                     'trai', 'gai', 'bai', 'cho', 'tre', 'em', 'con', 'nho'}
+    product_kws = [
+        kw for kw in keywords
+        if kw not in age_tokens
+        and kw not in price_tokens
+        and kw not in filter_words
+        and not re.fullmatch(r'\d+', kw)
+    ]
+
+    if not product_kws:
+        return (None, [])   # không có từ khoá sản phẩm → để lớp khác xử lý
+
+    # Xây dựng query MongoDB
+    regex_or = '|'.join(re.escape(kw) for kw in product_kws)
+    query: dict = {
+        '$or': [
+            {'searchName': {'$regex': regex_or, '$options': 'i'}},
+            {'name':       {'$regex': regex_or, '$options': 'i'}},
+        ],
+        'status': 'Active',
+        'stock':  {'$gt': 0},
+    }
+    if age:
+        query['ageRange'] = {'$regex': str(age), '$options': 'i'}
+    if price:
+        query['salePrice'] = {'$lte': price}
+    if gender:
+        query['gender'] = gender
+
+    try:
+        candidates = list(get_products_col().find(
+            query,
+            {'name': 1, 'salePrice': 1, 'description': 1, 'sold': 1, 'imageUrl': 1, 'ageRange': 1}
+        ).limit(200))
+    except PyMongoError as e:
+        logger.error('MongoDB compound search error: %s', e)
+        return (None, [])
+
+    if not candidates:
+        # Nếu không có kết quả với filter chặt, thử bỏ age filter và tìm lại
+        # để có thể trả về kết quả gần đúng với lời gợi ý
+        loose_query = {k: v for k, v in query.items() if k != 'ageRange' and k != 'salePrice' and k != 'gender'}
+        try:
+            candidates = list(get_products_col().find(
+                loose_query,
+                {'name': 1, 'salePrice': 1, 'description': 1, 'sold': 1, 'imageUrl': 1, 'ageRange': 1}
+            ).limit(50))
+        except PyMongoError:
+            pass
+
+        if not candidates:
+            return (None, [])
+
+        # Có kết quả nhưng không khớp filter → trả về với lời lưu ý
+        scored = [(p, _score_product(p, product_kws)) for p in candidates]
+        scored = [(p, s) for p, s in scored if s > 0]
+        scored.sort(key=lambda x: (-x[1], -x[0].get('sold', 0)))
+        products = [p for p, _ in scored][:20]
+
+        label_parts = [f'"{" ".join(product_kws)}"']
+        filter_note = []
+        if age:   filter_note.append(f'{age} tuổi')
+        if price: filter_note.append(f'dưới ${price}')
+        if gender: filter_note.append('bé trai' if gender == 'Boy' else 'bé gái')
+        note = ', '.join(filter_note)
+
+        reply, _ = _fmt_products(
+            products,
+            f'Không tìm thấy "{" ".join(product_kws)}" cho {note}.\n'
+            f'Đây là các sản phẩm {" ".join(product_kws)} tương tự bạn có thể tham khảo:'
+        )
+        return (reply or f'Rất tiếc, không có sản phẩm phù hợp.', products)
+
+    # Có kết quả khớp đầy đủ → chấm điểm & sắp xếp
+    scored = [(p, _score_product(p, product_kws)) for p in candidates]
+    scored = [(p, s) for p, s in scored if s > 0]
+    if not scored:
+        scored = [(p, 1.0) for p in candidates]  # tất cả đều khớp filter, giữ nguyên
+    scored.sort(key=lambda x: (-x[1], -x[0].get('sold', 0)))
+    products = [p for p, _ in scored][:20]
+
+    label_parts = [f'"{" ".join(product_kws)}"']
+    if gender: label_parts.append('bé trai' if gender == 'Boy' else 'bé gái')
+    if age:    label_parts.append(f'{age} tuổi')
+    if price:  label_parts.append(f'dưới ${price}')
+    label = 'Sản phẩm ' + ' · '.join(label_parts) + ':'
+
+    reply, _ = _fmt_products(products, label)
+    if reply is None:
+        reply = 'Không tìm thấy sản phẩm phù hợp.'
+    return (reply, products)
+
+
 def _handle_multi_intent(msg_norm: str) -> tuple[str | None, list]:
     age = detect_age(msg_norm)
     price = detect_price(msg_norm)
@@ -349,7 +467,13 @@ def process_message(msg: str) -> tuple[str, list, list]:
         logger.info('ACTION DETECTED: %s', action)
         return (json.dumps({'__action__': action}), [], [])
 
-    # ── Lớp 0: Multi-intent ──
+    # ── Lớp 0a: Compound search (tên SP + tuổi/giá/giới tính) ──
+    # Ví dụ: "lego 2 tuổi", "xe đua bé trai dưới 30", "búp bê bé gái 5 tuổi"
+    compound_reply, compound_all = _handle_product_with_filters(msg_norm)
+    if compound_reply:
+        return (compound_reply, compound_all[:DISPLAY_LIMIT], compound_all)
+
+    # ── Lớp 0b: Multi-intent thuần (tuổi + giá + giới tính, không có tên SP) ──
     multi_reply, multi_all = _handle_multi_intent(msg_norm)
     if multi_reply:
         return (multi_reply, multi_all[:DISPLAY_LIMIT], multi_all)
