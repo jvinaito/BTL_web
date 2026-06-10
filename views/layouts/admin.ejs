@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title ? title + ' - ' : '' %>Admin | Rainbow Rattles</title>
+  <title><%= typeof title !== 'undefined' && title ? title + ' - ' : '' %>Admin | Rainbow Rattles</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -12,6 +12,123 @@
     .nav-link { color: rgba(255,255,255,0.7) !important; border-radius: 0 50px 50px 0; margin-right: 1rem; transition: none !important; }
     .nav-link:hover { color: #fff !important; background-color: rgba(255,255,255,0.1); }
     .nav-link.active { background-color: var(--admin-pink) !important; color: #fff !important; font-weight: bold; }
+    
+    /* Admin Chat Widget Styles */
+    #admin-chat-icon {
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    #admin-chat-icon:hover {
+      transform: scale(1.05);
+    }
+    #admin-chat-box {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    #admin-chat-messages {
+      background: #f5f7fb;
+      scroll-behavior: smooth;
+    }
+    .admin-chat-bubble-user {
+      background: #0d6efd;
+      color: white;
+      border-radius: 18px 18px 4px 18px;
+      padding: 8px 14px;
+      max-width: 80%;
+      word-wrap: break-word;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .admin-chat-bubble-bot {
+      background: #e9ecef;
+      color: #212529;
+      border-radius: 18px 18px 18px 4px;
+      padding: 8px 14px;
+      max-width: 80%;
+      word-wrap: break-word;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .admin-quick-reply-btn {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      color: #495057;
+      transition: all 0.2s;
+      font-size: 12px;
+      padding: 5px 12px;
+      white-space: nowrap;
+    }
+    .admin-quick-reply-btn:hover {
+      background: #e9ecef;
+      border-color: #adb5bd;
+      transform: translateY(-1px);
+    }
+    #admin-chat-input {
+      border-radius: 30px;
+      background: #fff;
+      border: 1px solid #dee2e6;
+      font-size: 14px;
+      padding: 8px 15px;
+      flex: 1;
+    }
+    #admin-chat-input:focus {
+      box-shadow: none;
+      border-color: #0d6efd;
+    }
+    .admin-send-btn, .admin-mic-btn, .admin-voice-toggle {
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-weight: 500;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 14px;
+      border: none;
+    }
+    .admin-send-btn {
+      background: #0d6efd;
+      color: white;
+      min-width: 70px;
+    }
+    .admin-send-btn:hover {
+      background: #0b5ed7;
+    }
+    .admin-mic-btn {
+      background: #28a745;
+      color: white;
+      width: 42px;
+      padding: 8px 0;
+    }
+    .admin-mic-btn:hover {
+      background: #218838;
+    }
+    .admin-mic-btn.listening {
+      background: #dc3545;
+      animation: pulse 1.5s infinite;
+    }
+    .admin-voice-toggle {
+      background: #007bff;
+      color: white;
+      padding: 8px 16px;
+    }
+    .admin-voice-toggle.off {
+      background: #e0e0e0;
+      color: #666;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220,53,69,0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(220,53,69,0); }
+      100% { box-shadow: 0 0 0 0 rgba(220,53,69,0); }
+    }
+    .admin-input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: white;
+      padding: 12px 16px;
+      border-top: 1px solid #dee2e6;
+    }
   </style>
 </head>
 <body class="bg-light">
@@ -33,7 +150,52 @@
     </main>
   </div>
 
+  <!-- Admin Chat Widget (Floating) -->
+  <div id="admin-chat-icon" class="position-fixed bottom-0 end-0 m-4 bg-info rounded-circle d-flex align-items-center justify-content-center shadow"
+       style="width: 55px; height: 55px; cursor: pointer; z-index: 1050;">
+    <i class="fa-regular fa-comment-dots text-white fs-4"></i>
+  </div>
+
+  <div id="admin-chat-box" class="position-fixed bottom-0 end-0 m-4 bg-white rounded-4 shadow-lg"
+       style="width: 380px; height: 520px; display: none; flex-direction: column; z-index: 1050; overflow: hidden;">
+    <!-- Header -->
+    <div class="bg-info text-white p-3 d-flex justify-content-between align-items-center">
+      <div>
+        <i class="fa-regular fa-comment-dots me-2"></i>
+        <span class="fw-semibold">Trợ lý Admin</span>
+      </div>
+      <button id="close-admin-chat" class="btn-close btn-close-white"></button>
+    </div>
+    <!-- Messages area -->
+    <div id="admin-chat-messages" class="flex-grow-1 p-3 overflow-auto" style="background: #f5f7fb;">
+      <div class="d-flex justify-content-start mb-2">
+        <div class="admin-chat-bubble-bot">
+          Xin chào Admin! Tôi có thể giúp bạn thống kê nhanh.<br>
+          📊 Gợi ý: "doanh thu", "đơn hàng hôm nay", "top user", "tồn kho"
+        </div>
+      </div>
+    </div>
+    <!-- Quick replies area -->
+    <div id="admin-quick-replies" class="px-3 pt-2 pb-1 border-top d-flex flex-wrap gap-2" style="background: #fff;">
+      <!-- JS sẽ thêm các nút -->
+    </div>
+    <!-- Input area with mic, voice toggle, send -->
+    <div class="admin-input-group">
+      <input type="text" id="admin-chat-input" class="form-control" placeholder="Nhập câu hỏi..." autocomplete="off">
+      <button id="admin-mic-btn" class="admin-mic-btn" title="Nhập bằng giọng nói">
+        <i class="fa-solid fa-microphone"></i>
+      </button>
+      <button id="admin-voice-toggle" class="admin-voice-toggle" title="Bật/tắt đọc câu trả lời">
+        <i class="fa-solid fa-volume-up"></i> Âm thanh
+      </button>
+      <button id="admin-send-btn" class="admin-send-btn">
+        <i class="fa-regular fa-paper-plane"></i> Gửi
+      </button>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/admin.js"></script>
+  <script src="/js/adminChat.js"></script>
 </body>
 </html>

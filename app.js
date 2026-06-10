@@ -89,6 +89,8 @@ app.use('/address', require('./routes/address'));
 app.use('/api/chatbot', require('./routes/chatbot')); // ← chatbot cần session
 app.use('/api', ttsProxy);   // thêm dòng này TRƯỚC các route khác (hoặc cuối cùng cũng được)
 app.use('/api', require('./routes/products'));
+// Thêm dòng này sau khi khai báo các route khác (nhưng trước 404 handler)
+app.use('/admin/api', require('./routes/adminChat'));
 // 404 handler
 app.use((req, res) => {
   res.status(404).render('404', { layout: 'layouts/main' });
