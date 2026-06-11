@@ -133,28 +133,29 @@ router.get('/', async (req, res) => {
 });
 
 // ──────────────────────────────────────────────────────────────
-// Trang chi tiết sản phẩm – có gợi ý sản phẩm tương tự (random + cùng danh mục)
+// Trang chi tiết sản phẩm – gợi ý sản phẩm tương tự (hàng ngang, kéo chuột)
+// Lấy tối đa 12 sản phẩm: ưu tiên cùng danh mục, sau đó random
 // ──────────────────────────────────────────────────────────────
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('category');
     if (!product) return res.redirect('/products');
 
-    // Lấy 2 sản phẩm cùng danh mục (ưu tiên)
+    // Lấy tối đa 8 sản phẩm cùng danh mục (loại trừ chính nó)
     const sameCategory = await Product.find({
       category: product.category,
-      _id: { $ne: product._id }
-    }).limit(2);
+      _id: { $ne: product._id },
+      status: 'Active',
+      stock: { $gt: 0 }
+    }).limit(8);
 
-    // Loại trừ các ID đã lấy
     const excludeIds = [product._id, ...sameCategory.map(p => p._id)];
-
-    // Số lượng cần lấy ngẫu nhiên để đủ 4 sản phẩm (có thể tăng lên 8-12 nếu muốn)
-    const neededRandom = 4 - sameCategory.length;
+    // Số lượng cần random để đủ 12 sản phẩm
+    const neededRandom = 12 - sameCategory.length;
     let randomProducts = [];
     if (neededRandom > 0) {
       randomProducts = await Product.aggregate([
-        { $match: { _id: { $nin: excludeIds } } },
+        { $match: { _id: { $nin: excludeIds }, status: 'Active', stock: { $gt: 0 } } },
         { $sample: { size: neededRandom } }
       ]);
     }

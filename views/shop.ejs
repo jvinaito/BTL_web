@@ -118,28 +118,30 @@
       </div>
 
       <!-- Product grid -->
-      <div class="row g-4">
+      <div class="row g-3 row-cols-2 row-cols-md-3">
         <% products.forEach(product => { %>
-          <div class="col-md-4 col-6">
-            <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 bg-white hover-card">
+          <div class="col">
+            <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 bg-white d-flex flex-column">
               <% if (product.discount > 0) { %>
                 <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">SALE</span>
               <% } %>
-              <a href="/products/<%= product._id %>">
-                <img src="<%= product.imageUrl %>" class="card-img-top p-2 rounded-4">
-              </a>
-              <div class="card-body p-2 text-center d-flex flex-column">
-                <p class="mb-1 fw-bold small text-truncate"><%= product.name %></p>
-                <div class="mb-1 small">
-                  <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= product.salePrice %></span>
-                  <% if (product.discount > 0) { %>
-                    <small class="text-muted text-decoration-line-through ms-1">$<%= product.originalPrice %></small>
-                  <% } %>
+              <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
+                <div style="height: 180px; display: flex; align-items: center; justify-content: center;">
+                  <img src="<%= product.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                 </div>
-                <button class="btn btn-dark btn-sm rounded-pill py-1 w-100 mt-auto add-to-cart" data-id="<%= product._id %>">
-                  <i class="fa-solid fa-cart-shopping me-1"></i> Add to Cart
-                </button>
-              </div>
+                <div class="card-body p-2 text-center d-flex flex-column flex-grow-1">
+                  <p class="mb-1 fw-bold small text-truncate text-dark"><%= product.name %></p>
+                  <div class="mb-2 mt-auto small">
+                    <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= product.salePrice %></span>
+                    <% if (product.discount > 0) { %>
+                      <small class="text-muted text-decoration-line-through ms-1">$<%= product.originalPrice %></small>
+                    <% } %>
+                  </div>
+                </div>
+              </a>
+              <button class="btn btn-info text-white rounded-pill py-2 w-100 fw-bold add-to-cart" data-id="<%= product._id %>">
+                <i class="fa-solid fa-cart-shopping me-1"></i> Thêm vào giỏ
+              </button>
             </div>
           </div>
         <% }) %>
@@ -180,10 +182,8 @@
 
 <script>
   (function() {
-    // Get current URL parameters
     const urlParams = new URLSearchParams(window.location.search);
 
-    // --- Load brand options dynamically ---
     fetch('/products/brands')
       .then(res => res.json())
       .then(brands => {
@@ -195,40 +195,31 @@
           opt.textContent = b;
           brandSelect.appendChild(opt);
         });
-        // Preselect from URL
         const brandParam = urlParams.get('brand');
         if (brandParam) brandSelect.value = brandParam;
       })
       .catch(err => console.error('Failed to load brands:', err));
 
-    // --- Set initial values for other filters ---
     const genderSelect = document.getElementById('gender-filter');
     const ageSelect = document.getElementById('age-filter');
     if (genderSelect && urlParams.get('gender')) genderSelect.value = urlParams.get('gender');
     if (ageSelect && urlParams.get('ageRange')) ageSelect.value = urlParams.get('ageRange');
 
-    // --- Function to apply filters and reload page ---
     function applyFilters() {
       const params = new URLSearchParams(window.location.search);
-      // Remove page (reset to first page when filter changes)
       params.delete('page');
-      // Brand
       const brand = document.getElementById('brand-filter')?.value;
       if (brand) params.set('brand', brand);
       else params.delete('brand');
-      // Gender
       const gender = document.getElementById('gender-filter')?.value;
       if (gender) params.set('gender', gender);
       else params.delete('gender');
-      // Age range
       const age = document.getElementById('age-filter')?.value;
       if (age) params.set('ageRange', age);
       else params.delete('ageRange');
-      // Keep existing search, category, min, max, sort
       window.location.href = '/products?' + params.toString();
     }
 
-    // Add event listeners to filter selects
     document.getElementById('brand-filter')?.addEventListener('change', applyFilters);
     document.getElementById('gender-filter')?.addEventListener('change', applyFilters);
     document.getElementById('age-filter')?.addEventListener('change', applyFilters);

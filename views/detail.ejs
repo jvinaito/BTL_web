@@ -12,7 +12,6 @@
       <h2 class="fw-bold display-6"><%= product.name %></h2>
       <h3 class="text-info fw-bold mb-3">$<%= product.salePrice %></h3>
       
-      <!-- Thông tin chi tiết sản phẩm dạng lưới ngang -->
       <div class="row g-3 mb-4">
         <div class="col-sm-6">
           <p class="mb-1"><strong>Category:</strong></p>
@@ -48,7 +47,7 @@
         </div>
         
         <button class="btn btn-info text-white rounded-pill px-5 py-2 fw-bold shadow-sm add-to-cart" data-id="<%= product._id %>" data-qty="1">
-          <i class="fa-solid fa-cart-shopping me-2"></i> Add to cart
+          <i class="fa-solid fa-cart-shopping me-2"></i> Thêm vào giỏ
         </button>
       </div>
     </div>
@@ -63,41 +62,78 @@
   </div>
 
   <!-- Related products -->
-<div class="mt-5">
-  <h3 class="fw-bold mb-4">Sản phẩm tương tự</h3>
-  <div class="row g-3">
-    <% related.forEach(p => { %>
-      <div class="col-6 col-md-3">
-        <div class="card h-100 border-light-subtle rounded-4 shadow-sm overflow-hidden border-0 p-2 position-relative">
-          <% if (p.discount > 0) { %>
-            <span class="badge bg-danger position-absolute top-0 start-0 m-3 shadow-sm" style="z-index:1;">SALE</span>
-          <% } %>
-          <a href="/products/<%= p._id %>">
-            <img src="<%= p.imageUrl %>" class="card-img-top p-2 rounded-4" style="height: 150px; object-fit: contain;">
-          </a>
-          <div class="card-body p-2 text-center d-flex flex-column">
-            <h6 class="fw-bold mb-1 text-truncate"><%= p.name %></h6>
-            <div class="mb-2">
-              <span class="<%= p.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= p.salePrice %></span>
+  <% if (related && related.length) { %>
+  <div class="mt-5">
+    <h3 class="fw-bold mb-4">Sản phẩm tương tự</h3>
+    <div id="related-scroll" style="overflow-x: auto; cursor: grab; scroll-behavior: smooth;">
+      <div class="d-flex gap-3 pb-2" style="width: max-content;">
+        <% related.forEach(p => { %>
+          <div style="width: 200px; flex-shrink: 0;">
+            <div class="card h-100 border-light-subtle rounded-4 shadow-sm border-0 p-2 position-relative d-flex flex-column">
               <% if (p.discount > 0) { %>
-                <small class="text-muted text-decoration-line-through ms-1 small">$<%= p.originalPrice %></small>
+                <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">SALE</span>
               <% } %>
+              <a href="/products/<%= p._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
+                <div style="height: 130px; display: flex; align-items: center; justify-content: center;">
+                  <img src="<%= p.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                </div>
+                <div class="card-body p-2 text-center d-flex flex-column flex-grow-1">
+                  <h6 class="fw-bold mb-1 text-truncate text-dark"><%= p.name %></h6>
+                  <div class="mb-2 mt-auto">
+                    <span class="<%= p.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= p.salePrice %></span>
+                    <% if (p.discount > 0) { %>
+                      <small class="text-muted text-decoration-line-through ms-1">$<%= p.originalPrice %></small>
+                    <% } %>
+                  </div>
+                </div>
+              </a>
+              <button class="btn btn-info text-white rounded-pill py-2 w-100 fw-bold add-to-cart" data-id="<%= p._id %>">
+                <i class="fa-solid fa-cart-shopping me-1"></i> Thêm vào giỏ
+              </button>
             </div>
-            <button class="btn btn-dark btn-sm rounded-pill py-2 mt-auto w-100 fw-bold add-to-cart" data-id="<%= p._id %>">
-              <i class="fa-solid fa-cart-shopping me-1"></i> Thêm vào giỏ
-            </button>
           </div>
-        </div>
+        <% }) %>
       </div>
-    <% }) %>
+    </div>
   </div>
-</div>
+  <% } %>
+
 </div>
 
 <script>
 function updateQty(val) {
-  let qty = document.getElementById('qty');
-  let current = parseInt(qty.value);
+  const qty = document.getElementById('qty');
+  const current = parseInt(qty.value);
   if (current + val >= 1) qty.value = current + val;
+  // Sync qty to add-to-cart button
+  document.querySelector('.add-to-cart[data-qty]').dataset.qty = qty.value;
+}
+
+// Horizontal scroll with drag support
+const scrollContainer = document.getElementById('related-scroll');
+if (scrollContainer) {
+  let isDown = false;
+  let startX, scrollLeft;
+
+  scrollContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    scrollContainer.style.cursor = 'grabbing';
+    startX = e.pageX - scrollContainer.offsetLeft;
+    scrollLeft = scrollContainer.scrollLeft;
+  });
+  scrollContainer.addEventListener('mouseleave', () => {
+    isDown = false;
+    scrollContainer.style.cursor = 'grab';
+  });
+  scrollContainer.addEventListener('mouseup', () => {
+    isDown = false;
+    scrollContainer.style.cursor = 'grab';
+  });
+  scrollContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainer.offsetLeft;
+    scrollContainer.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
 }
 </script>
