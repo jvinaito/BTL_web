@@ -1,0 +1,562 @@
+[{
+  "_id": {
+    "$oid": "6a0aa6588f6dff2a5a556ffb"
+  },
+  "orderId": "ORD1779082840243",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5629"
+      },
+      "quantity": 1,
+      "price": 501,
+      "_id": {
+        "$oid": "6a0aa6588f6dff2a5a556ffc"
+      }
+    }
+  ],
+  "total": 551,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Hồ CHí Minh",
+    "city": "Hồ CHí Minh, Xã Bình Phúc, Huyện Văn Quan, Tỉnh Lạng Sơn",
+    "phone": "0712453681"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:40:40.252Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aad685de05c03719d21dc"
+  },
+  "orderId": "ORD1779084648799",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5607"
+      },
+      "quantity": 1,
+      "price": 285,
+      "_id": {
+        "$oid": "6a0aad685de05c03719d21dd"
+      }
+    }
+  ],
+  "total": 335,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Thành Phố Bắc Giang",
+    "city": "Thành Phố Bắc Giang, Xã Tân Hưng, Huyện Lạng Giang, Tỉnh Bắc Giang",
+    "phone": "0712453681"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:10:48.807Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aaddbeed9a6f6536600d7"
+  },
+  "orderId": "ORD1779084763997",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac561c"
+      },
+      "quantity": 1,
+      "price": 249,
+      "_id": {
+        "$oid": "6a0aaddceed9a6f6536600d8"
+      }
+    }
+  ],
+  "total": 299,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Hồ CHí Minh",
+    "city": "Hồ CHí Minh, Thị trấn Cao Thượng, Huyện Tân Yên, Tỉnh Bắc Giang",
+    "phone": "0712453681"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:12:44.007Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aae0beed9a6f6536600e7"
+  },
+  "orderId": "ORD1779084811894",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55f2"
+      },
+      "quantity": 1,
+      "price": 177,
+      "_id": {
+        "$oid": "6a0aae0beed9a6f6536600e8"
+      }
+    }
+  ],
+  "total": 227,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "",
+    "city": "Hồ CHí Minh, Thị trấn Cao Thượng, Huyện Tân Yên, Tỉnh Bắc Giang",
+    "phone": "0712453681"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:13:31.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab6779103e19696bd7635"
+  },
+  "orderId": "ORD1779086967990",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5610"
+      },
+      "quantity": 1,
+      "price": 290,
+      "_id": {
+        "$oid": "6a0ab6779103e19696bd7636"
+      }
+    }
+  ],
+  "total": 282,
+  "status": "Shipping",
+  "shippingAddress": {
+    "street": "Láng",
+    "city": "Láng, Xã Thu Phong, Huyện Cao Phong, Tỉnh Hoà Bình",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:49:27.997Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8f665e36acf07849208"
+  },
+  "orderId": "ORD1779087606792",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac560c"
+      },
+      "quantity": 1,
+      "price": 233,
+      "_id": {
+        "$oid": "6a0ab8f665e36acf07849209"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5610"
+      },
+      "quantity": 1,
+      "price": 290,
+      "_id": {
+        "$oid": "6a0ab8f665e36acf0784920a"
+      }
+    }
+  ],
+  "total": 468.4,
+  "status": "Pending",
+  "shippingAddress": {
+    "street": "Láng",
+    "city": "Láng, Thị trấn Biển Động, Huyện Lục Ngạn, Tỉnh Bắc Giang",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:00:06.795Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb5365e36acf0784928c"
+  },
+  "orderId": "ORD1779088211272",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55f1"
+      },
+      "quantity": 1,
+      "price": 193,
+      "_id": {
+        "$oid": "6a0abb5365e36acf0784928d"
+      }
+    }
+  ],
+  "total": 243,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "",
+    "city": "Hồ CHí Minh, Thị trấn Cao Thượng, Huyện Tân Yên, Tỉnh Bắc Giang",
+    "phone": "0712453681"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:11.273Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259f04380fc33c2d17f91b"
+  },
+  "orderId": "ORD1780850436122",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5622"
+      },
+      "quantity": 4,
+      "price": 353,
+      "_id": {
+        "$oid": "6a259f04380fc33c2d17f91c"
+      }
+    }
+  ],
+  "total": 1462,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "",
+    "city": "Láng, Thị trấn Biển Động, Huyện Lục Ngạn, Tỉnh Bắc Giang",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:40:36.127Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28d541b5aeb80f8c076c88"
+  },
+  "orderId": "ORD1781060929868",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5620"
+      },
+      "quantity": 1,
+      "price": 271,
+      "_id": {
+        "$oid": "6a28d541b5aeb80f8c076c89"
+      }
+    }
+  ],
+  "total": 266.8,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Số 10 Trần PHú Hà ĐÔng",
+    "city": "Số 10 Trần PHú Hà ĐÔng, Xã Tân Đoàn, Huyện Văn Quan, Tỉnh Lạng Sơn",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:08:49.873Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28d90f90963308a4655db6"
+  },
+  "orderId": "ORD1781061903910",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac560f"
+      },
+      "quantity": 1,
+      "price": 531,
+      "_id": {
+        "$oid": "6a28d90f90963308a4655db7"
+      }
+    }
+  ],
+  "total": 474.8,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Láng",
+    "city": "Láng, Xã Đồng Cốc, Huyện Lục Ngạn, Tỉnh Bắc Giang",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:25:03.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28d92a90963308a4655dce"
+  },
+  "orderId": "ORD1781061930943",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55e4"
+      },
+      "quantity": 1,
+      "price": 68,
+      "_id": {
+        "$oid": "6a28d92a90963308a4655dcf"
+      }
+    }
+  ],
+  "total": 104.4,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Số 10 Trần PHú Hà ĐÔng",
+    "city": "Số 10 Trần PHú Hà ĐÔng, Xã Đại Tự, Huyện Yên Lạc, Tỉnh Vĩnh Phúc",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:25:30.944Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da41b70cbddd4b423091"
+  },
+  "orderId": "ORD1781062209648",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5610"
+      },
+      "quantity": 1,
+      "price": 290,
+      "_id": {
+        "$oid": "6a28da41b70cbddd4b423092"
+      }
+    }
+  ],
+  "total": 282,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Số 10 Trần PHú Hà ĐÔng",
+    "city": "Số 10 Trần PHú Hà ĐÔng, Xã Phùng Nguyên, Huyện Lâm Thao, Tỉnh Phú Thọ",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:30:09.650Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28dd4deb4868d3f243d709"
+  },
+  "orderId": "ORD1781062989544",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac560c"
+      },
+      "quantity": 1,
+      "price": 233,
+      "_id": {
+        "$oid": "6a28dd4deb4868d3f243d70a"
+      }
+    }
+  ],
+  "total": 236.4,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "Số 10 Trần PHú Hà ĐÔng",
+    "city": "Số 10 Trần PHú Hà ĐÔng, Xã Phùng Nguyên, Huyện Lâm Thao, Tỉnh Phú Thọ",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:43:09.548Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28de77821e2825df076ac1"
+  },
+  "orderId": "ORD1781063287927",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55ef"
+      },
+      "quantity": 3,
+      "price": 325,
+      "_id": {
+        "$oid": "6a28de77821e2825df076ac2"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac561c"
+      },
+      "quantity": 1,
+      "price": 249,
+      "_id": {
+        "$oid": "6a28de77821e2825df076ac3"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac561e"
+      },
+      "quantity": 1,
+      "price": 251,
+      "_id": {
+        "$oid": "6a28de77821e2825df076ac4"
+      }
+    }
+  ],
+  "total": 1230,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "1223",
+    "city": "1223, Xã Cao Xá, Huyện Lâm Thao, Tỉnh Phú Thọ",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:48:07.932Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28de88821e2825df076adf"
+  },
+  "orderId": "ORD1781063304853",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac5610"
+      },
+      "quantity": 1,
+      "price": 290,
+      "_id": {
+        "$oid": "6a28de88821e2825df076ae0"
+      }
+    }
+  ],
+  "total": 282,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "1223",
+    "city": "1223, Xã Cao Xá, Huyện Lâm Thao, Tỉnh Phú Thọ",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T03:48:24.854Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a297d155cd509629e021c95"
+  },
+  "orderId": "ORD1781103893976",
+  "user": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55ea"
+      },
+      "quantity": 2,
+      "price": 280,
+      "_id": {
+        "$oid": "6a297d155cd509629e021c96"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55df"
+      },
+      "quantity": 1,
+      "price": 325,
+      "_id": {
+        "$oid": "6a297d155cd509629e021c97"
+      }
+    },
+    {
+      "product": {
+        "$oid": "6a097f78eaa80cec43ac55f1"
+      },
+      "quantity": 5,
+      "price": 193,
+      "_id": {
+        "$oid": "6a297d155cd509629e021c98"
+      }
+    }
+  ],
+  "total": 1530,
+  "status": "Complete",
+  "shippingAddress": {
+    "street": "1223",
+    "city": "1223, Xã Cao Xá, Huyện Lâm Thao, Tỉnh Phú Thọ",
+    "phone": "0400278221"
+  },
+  "createdAt": {
+    "$date": "2026-06-10T15:04:53.980Z"
+  },
+  "__v": 0
+}]

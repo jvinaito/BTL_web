@@ -1,0 +1,2799 @@
+[{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d2"
+  },
+  "name": "Gấu bông Teddy",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "gau bong teddy",
+  "stock": 87,
+  "originalPrice": 274,
+  "salePrice": 202,
+  "discount": 26,
+  "brand": "Melissa & Doug",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Gấu bông Teddy chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/100/200/200",
+  "status": "Active",
+  "sold": 67,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d3"
+  },
+  "name": "Gấu bông Panda",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "gau bong panda",
+  "stock": 94,
+  "originalPrice": 331,
+  "salePrice": 201,
+  "discount": 39,
+  "brand": "Melissa & Doug",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Gấu bông Panda chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/101/200/200",
+  "status": "Active",
+  "sold": 415,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d4"
+  },
+  "name": "Thỏ bông trắng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "tho bong trang",
+  "stock": 3,
+  "originalPrice": 88,
+  "salePrice": 88,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Thỏ bông trắng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/102/200/200",
+  "status": "Active",
+  "sold": 436,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d5"
+  },
+  "name": "Mèo bông kêu meo meo",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "meo bong keu meo meo",
+  "stock": 172,
+  "originalPrice": 139,
+  "salePrice": 139,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Mèo bông kêu meo meo chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/103/200/200",
+  "status": "Active",
+  "sold": 1,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d6"
+  },
+  "name": "Chó bông Husky",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "cho bong husky",
+  "stock": 123,
+  "originalPrice": 358,
+  "salePrice": 358,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "12+",
+  "gender": "Boy",
+  "description": "Sản phẩm Chó bông Husky chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/104/200/200",
+  "status": "Active",
+  "sold": 218,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d7"
+  },
+  "name": "Xe đua điều khiển từ xa",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe dua dieu khien tu xa",
+  "stock": 78,
+  "originalPrice": 164,
+  "salePrice": 159,
+  "discount": 3,
+  "brand": "Melissa & Doug",
+  "ageRange": "9-12",
+  "gender": "Girl",
+  "description": "Sản phẩm Xe đua điều khiển từ xa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/105/200/200",
+  "status": "Active",
+  "sold": 63,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d8"
+  },
+  "name": "Xe tải điều khiển",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe tai dieu khien",
+  "stock": 70,
+  "originalPrice": 127,
+  "salePrice": 113,
+  "discount": 11,
+  "brand": "Melissa & Doug",
+  "ageRange": "0-2",
+  "gender": "Girl",
+  "description": "Sản phẩm Xe tải điều khiển chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/106/200/200",
+  "status": "Active",
+  "sold": 417,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55d9"
+  },
+  "name": "Máy bay chiến đấu",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "may bay chien dau",
+  "stock": 70,
+  "originalPrice": 447,
+  "salePrice": 277,
+  "discount": 38,
+  "brand": "Melissa & Doug",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Máy bay chiến đấu chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/107/200/200",
+  "status": "Active",
+  "sold": 325,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55da"
+  },
+  "name": "Tàu hỏa điện",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "tau hoa dien",
+  "stock": 93,
+  "originalPrice": 360,
+  "salePrice": 230,
+  "discount": 36,
+  "brand": "Bandai",
+  "ageRange": "9-12",
+  "gender": "Boy",
+  "description": "Sản phẩm Tàu hỏa điện chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/108/200/200",
+  "status": "Active",
+  "sold": 124,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55db"
+  },
+  "name": "Xe cứu hỏa",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe cuu hoa",
+  "stock": 58,
+  "originalPrice": 107,
+  "salePrice": 103,
+  "discount": 3,
+  "brand": "Fisher-Price",
+  "ageRange": "0-2",
+  "gender": "Unisex",
+  "description": "Sản phẩm Xe cứu hỏa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/109/200/200",
+  "status": "Active",
+  "sold": 18,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55dc"
+  },
+  "name": "Robot biến hình",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "robot bien hinh",
+  "stock": 112,
+  "originalPrice": 388,
+  "salePrice": 388,
+  "discount": 0,
+  "brand": "Fisher-Price",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Robot biến hình chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/110/200/200",
+  "status": "Active",
+  "sold": 372,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55dd"
+  },
+  "name": "Robot lắp ráp 3 trong 1",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "robot lap rap 3 trong 1",
+  "stock": 77,
+  "originalPrice": 58,
+  "salePrice": 58,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Robot lắp ráp 3 trong 1 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/111/200/200",
+  "status": "Active",
+  "sold": 367,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55de"
+  },
+  "name": "Bộ lắp ráp thành phố",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo lap rap thanh pho",
+  "stock": 124,
+  "originalPrice": 349,
+  "salePrice": 321,
+  "discount": 8,
+  "brand": "Hasbro",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ lắp ráp thành phố chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/112/200/200",
+  "status": "Active",
+  "sold": 162,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55df"
+  },
+  "name": "Lego du hành vũ trụ",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "lego du hanh vu tru",
+  "stock": 20,
+  "originalPrice": 472,
+  "salePrice": 325,
+  "discount": 31,
+  "brand": "Hasbro",
+  "ageRange": "9-12",
+  "gender": "Girl",
+  "description": "Sản phẩm Lego du hành vũ trụ chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/113/200/200",
+  "status": "Active",
+  "sold": 51,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e0"
+  },
+  "name": "Bộ xilophone",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo xilophone",
+  "stock": 182,
+  "originalPrice": 295,
+  "salePrice": 212,
+  "discount": 28,
+  "brand": "VTech",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ xilophone chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/117/200/200",
+  "status": "Active",
+  "sold": 349,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e1"
+  },
+  "name": "Bộ bếp nấu ăn",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo bep nau an",
+  "stock": 78,
+  "originalPrice": 245,
+  "salePrice": 245,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ bếp nấu ăn chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/118/200/200",
+  "status": "Active",
+  "sold": 468,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.804Z"
+  },
+  "tags": [
+    "be_gai",
+    "nhap_vai",
+    "xay_dung",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e2"
+  },
+  "name": "Bộ đồ chơi bác sĩ",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ac"
+  },
+  "searchName": "bo do choi bac si",
+  "stock": 141,
+  "originalPrice": 459,
+  "salePrice": 459,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "12+",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ đồ chơi bác sĩ chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/119/200/200",
+  "status": "Active",
+  "sold": 133,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e3"
+  },
+  "name": "Bộ đồ chơi thợ mộc",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ac"
+  },
+  "searchName": "bo do choi tho moc",
+  "stock": 124,
+  "originalPrice": 174,
+  "salePrice": 167,
+  "discount": 4,
+  "brand": "Hasbro",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ đồ chơi thợ mộc chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/120/200/200",
+  "status": "Active",
+  "sold": 465,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e4"
+  },
+  "name": "Bộ đồ chơi siêu thị",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ac"
+  },
+  "searchName": "bo do choi sieu thi",
+  "stock": 171,
+  "originalPrice": 68,
+  "salePrice": 68,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "0-2",
+  "gender": "Unisex",
+  "description": "Sản phẩm Bộ đồ chơi siêu thị chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/121/200/200",
+  "status": "Active",
+  "sold": 477,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e5"
+  },
+  "name": "Bộ thú nhồi bông kỳ lân",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo thu nhoi bong ky lan",
+  "stock": 111,
+  "originalPrice": 447,
+  "salePrice": 442,
+  "discount": 1,
+  "brand": "Fisher-Price",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ thú nhồi bông kỳ lân chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/122/200/200",
+  "status": "Active",
+  "sold": 248,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e6"
+  },
+  "name": "Bộ thú nhồi bông công chúa",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo thu nhoi bong cong chua",
+  "stock": 180,
+  "originalPrice": 461,
+  "salePrice": 461,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ thú nhồi bông công chúa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/123/200/200",
+  "status": "Active",
+  "sold": 102,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e7"
+  },
+  "name": "Gấu bông hồng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "gau bong hong",
+  "stock": 170,
+  "originalPrice": 323,
+  "salePrice": 303,
+  "discount": 6,
+  "brand": "Fisher-Price",
+  "ageRange": "12+",
+  "gender": "Boy",
+  "description": "Sản phẩm Gấu bông hồng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/124/200/200",
+  "status": "Active",
+  "sold": 307,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e8"
+  },
+  "name": "Cừu bông",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "cuu bong",
+  "stock": 182,
+  "originalPrice": 545,
+  "salePrice": 545,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Cừu bông chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/125/200/200",
+  "status": "Active",
+  "sold": 148,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55e9"
+  },
+  "name": "Máy bay trực thăng RC",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "may bay truc thang rc",
+  "stock": 184,
+  "originalPrice": 338,
+  "salePrice": 338,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Máy bay trực thăng RC chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/126/200/200",
+  "status": "Active",
+  "sold": 355,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55ea"
+  },
+  "name": "Xe địa hình RC",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe dia hinh rc",
+  "stock": 108,
+  "originalPrice": 280,
+  "salePrice": 280,
+  "discount": 0,
+  "brand": "Bandai",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Xe địa hình RC chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/127/200/200",
+  "status": "Active",
+  "sold": 237,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55eb"
+  },
+  "name": "Thuyền điều khiển",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "thuyen dieu khien",
+  "stock": 147,
+  "originalPrice": 103,
+  "salePrice": 85,
+  "discount": 17,
+  "brand": "VTech",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Thuyền điều khiển chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/128/200/200",
+  "status": "Active",
+  "sold": 206,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55ec"
+  },
+  "name": "Xe phân khối lớn",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe phan khoi lon",
+  "stock": 114,
+  "originalPrice": 547,
+  "salePrice": 547,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Xe phân khối lớn chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/129/200/200",
+  "status": "Active",
+  "sold": 107,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55ed"
+  },
+  "name": "Lego ngôi nhà mơ ước",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "lego ngoi nha mo uoc",
+  "stock": 135,
+  "originalPrice": 173,
+  "salePrice": 112,
+  "discount": 35,
+  "brand": "Hasbro",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Lego ngôi nhà mơ ước chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/130/200/200",
+  "status": "Active",
+  "sold": 220,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55ee"
+  },
+  "name": "Lego siêu anh hùng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "lego sieu anh hung",
+  "stock": 35,
+  "originalPrice": 63,
+  "salePrice": 43,
+  "discount": 31,
+  "brand": "Spinmaster",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Lego siêu anh hùng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/131/200/200",
+  "status": "Active",
+  "sold": 169,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55ef"
+  },
+  "name": "Lego cướp biển",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "lego cuop bien",
+  "stock": 106,
+  "originalPrice": 446,
+  "salePrice": 325,
+  "discount": 27,
+  "brand": "VTech",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Lego cướp biển chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/132/200/200",
+  "status": "Active",
+  "sold": 205,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f0"
+  },
+  "name": "Bộ lắp ráp khủng long",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo lap rap khung long",
+  "stock": 61,
+  "originalPrice": 265,
+  "salePrice": 265,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ lắp ráp khủng long chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/133/200/200",
+  "status": "Active",
+  "sold": 258,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f1"
+  },
+  "name": "Bộ trống mini",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo trong mini",
+  "stock": 19,
+  "originalPrice": 193,
+  "salePrice": 193,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "0-2",
+  "gender": "Unisex",
+  "description": "Sản phẩm Bộ trống mini chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/136/200/200",
+  "status": "Active",
+  "sold": 467,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f2"
+  },
+  "name": "Bộ đồ chơi nấu ăn cao cấp",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi nau an cao cap",
+  "stock": 120,
+  "originalPrice": 177,
+  "salePrice": 177,
+  "discount": 0,
+  "brand": "Fisher-Price",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ đồ chơi nấu ăn cao cấp chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/138/200/200",
+  "status": "Active",
+  "sold": 31,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f3"
+  },
+  "name": "Bộ dụng cụ làm bánh",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo dung cu lam banh",
+  "stock": 3,
+  "originalPrice": 376,
+  "salePrice": 376,
+  "discount": 0,
+  "brand": "Fisher-Price",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Bộ dụng cụ làm bánh chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/139/200/200",
+  "status": "Active",
+  "sold": 32,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f4"
+  },
+  "name": "Bộ đồ chơi làm vườn",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi lam vuon",
+  "stock": 58,
+  "originalPrice": 437,
+  "salePrice": 437,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ đồ chơi làm vườn chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/140/200/200",
+  "status": "Active",
+  "sold": 232,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f5"
+  },
+  "name": "Bộ đồ chơi trạm xăng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi tram xang",
+  "stock": 130,
+  "originalPrice": 158,
+  "salePrice": 153,
+  "discount": 3,
+  "brand": "Fisher-Price",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ đồ chơi trạm xăng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/141/200/200",
+  "status": "Active",
+  "sold": 287,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f6"
+  },
+  "name": "Bộ đồ chơi cứu hỏa",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ac"
+  },
+  "searchName": "bo do choi cuu hoa",
+  "stock": 71,
+  "originalPrice": 535,
+  "salePrice": 358,
+  "discount": 33,
+  "brand": "Lego",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ đồ chơi cứu hỏa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/142/200/200",
+  "status": "Active",
+  "sold": 209,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f7"
+  },
+  "name": "Bộ đồ chơi cảnh sát",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ac"
+  },
+  "searchName": "bo do choi canh sat",
+  "stock": 153,
+  "originalPrice": 51,
+  "salePrice": 51,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ đồ chơi cảnh sát chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/143/200/200",
+  "status": "Active",
+  "sold": 321,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f8"
+  },
+  "name": "Bộ đồ chơi xây dựng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi xay dung",
+  "stock": 187,
+  "originalPrice": 485,
+  "salePrice": 485,
+  "discount": 0,
+  "brand": "Mattel",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ đồ chơi xây dựng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/144/200/200",
+  "status": "Active",
+  "sold": 392,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55f9"
+  },
+  "name": "Thú nhồi bông ngựa",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "thu nhoi bong ngua",
+  "stock": 49,
+  "originalPrice": 344,
+  "salePrice": 344,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Thú nhồi bông ngựa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/145/200/200",
+  "status": "Active",
+  "sold": 60,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55fa"
+  },
+  "name": "Thú nhồi bông cá voi",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "thu nhoi bong ca voi",
+  "stock": 181,
+  "originalPrice": 235,
+  "salePrice": 235,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Thú nhồi bông cá voi chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/146/200/200",
+  "status": "Active",
+  "sold": 8,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55fb"
+  },
+  "name": "Thú nhồi bông khủng long",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "searchName": "thu nhoi bong khung long",
+  "stock": 129,
+  "originalPrice": 542,
+  "salePrice": 542,
+  "discount": 0,
+  "brand": "Mattel",
+  "ageRange": "9-12",
+  "gender": "Girl",
+  "description": "Sản phẩm Thú nhồi bông khủng long chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/147/200/200",
+  "status": "Active",
+  "sold": 90,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55fc"
+  },
+  "name": "Xe điện điều khiển",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe dien dieu khien",
+  "stock": 118,
+  "originalPrice": 412,
+  "salePrice": 309,
+  "discount": 25,
+  "brand": "Spinmaster",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Xe điện điều khiển chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/148/200/200",
+  "status": "Active",
+  "sold": 180,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55fd"
+  },
+  "name": "Xe đua drift",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "xe dua drift",
+  "stock": 162,
+  "originalPrice": 104,
+  "salePrice": 104,
+  "discount": 0,
+  "brand": "Bandai",
+  "ageRange": "9-12",
+  "gender": "Boy",
+  "description": "Sản phẩm Xe đua drift chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/149/200/200",
+  "status": "Active",
+  "sold": 310,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55fe"
+  },
+  "name": "Máy bay phản lực",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "may bay phan luc",
+  "stock": 169,
+  "originalPrice": 219,
+  "salePrice": 219,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "9-12",
+  "gender": "Unisex",
+  "description": "Sản phẩm Máy bay phản lực chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/150/200/200",
+  "status": "Active",
+  "sold": 423,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac55ff"
+  },
+  "name": "Tàu chiến",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "searchName": "tau chien",
+  "stock": 1,
+  "originalPrice": 387,
+  "salePrice": 247,
+  "discount": 36,
+  "brand": "Mattel",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Tàu chiến chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/151/200/200",
+  "status": "Active",
+  "sold": 336,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5600"
+  },
+  "name": "Robot chiến đấu",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "robot chien dau",
+  "stock": 18,
+  "originalPrice": 221,
+  "salePrice": 221,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Robot chiến đấu chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/152/200/200",
+  "status": "Active",
+  "sold": 295,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5601"
+  },
+  "name": "Robot khoa học",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "robot khoa hoc",
+  "stock": 76,
+  "originalPrice": 344,
+  "salePrice": 344,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Robot khoa học chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/153/200/200",
+  "status": "Active",
+  "sold": 78,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5602"
+  },
+  "name": "Bộ lắp ráp không gian",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo lap rap khong gian",
+  "stock": 51,
+  "originalPrice": 479,
+  "salePrice": 421,
+  "discount": 12,
+  "brand": "Spinmaster",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ lắp ráp không gian chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/154/200/200",
+  "status": "Active",
+  "sold": 379,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "lap_rap",
+    "robot",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5603"
+  },
+  "name": "Bộ lắp ráp xe đua",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo lap rap xe dua",
+  "stock": 68,
+  "originalPrice": 97,
+  "salePrice": 97,
+  "discount": 0,
+  "brand": "VTech",
+  "ageRange": "9-12",
+  "gender": "Unisex",
+  "description": "Sản phẩm Bộ lắp ráp xe đua chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/155/200/200",
+  "status": "Active",
+  "sold": 277,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_trai",
+    "o_to",
+    "dieu_khien",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5604"
+  },
+  "name": "Bộ nhạc cụ gõ",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo nhac cu go",
+  "stock": 152,
+  "originalPrice": 240,
+  "salePrice": 240,
+  "discount": 0,
+  "brand": "VTech",
+  "ageRange": "9-12",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ nhạc cụ gõ chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/156/200/200",
+  "status": "Active",
+  "sold": 175,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "nhac_cu",
+    "am_nhac",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5605"
+  },
+  "name": "Bộ đàn mini",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo dan mini",
+  "stock": 23,
+  "originalPrice": 543,
+  "salePrice": 428,
+  "discount": 21,
+  "brand": "Lego",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ đàn mini chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/157/200/200",
+  "status": "Active",
+  "sold": 250,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "nhac_cu",
+    "am_nhac",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5606"
+  },
+  "name": "Micro karaoke",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "micro karaoke",
+  "stock": 50,
+  "originalPrice": 413,
+  "salePrice": 413,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "0-2",
+  "gender": "Girl",
+  "description": "Sản phẩm Micro karaoke chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/158/200/200",
+  "status": "Active",
+  "sold": 149,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "name": "Bộ trống điện tử",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo trong dien tu",
+  "stock": 186,
+  "originalPrice": 376,
+  "salePrice": 285,
+  "discount": 24,
+  "brand": "Hasbro",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ trống điện tử chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/159/200/200",
+  "status": "Active",
+  "sold": 112,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5608"
+  },
+  "name": "Bộ bếp đa năng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo bep da nang",
+  "stock": 54,
+  "originalPrice": 392,
+  "salePrice": 392,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ bếp đa năng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/160/200/200",
+  "status": "Active",
+  "sold": 448,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "nhap_vai",
+    "xay_dung",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5609"
+  },
+  "name": "Bộ đồ chơi cửa hàng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi cua hang",
+  "stock": 188,
+  "originalPrice": 532,
+  "salePrice": 532,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "3-5",
+  "gender": "Unisex",
+  "description": "Sản phẩm Bộ đồ chơi cửa hàng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/161/200/200",
+  "status": "Active",
+  "sold": 238,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac560a"
+  },
+  "name": "Bộ đồ chơi bưu điện",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi buu dien",
+  "stock": 12,
+  "originalPrice": 320,
+  "salePrice": 320,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Bộ đồ chơi bưu điện chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/162/200/200",
+  "status": "Active",
+  "sold": 99,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac560b"
+  },
+  "name": "Bộ đồ chơi ngân hàng",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "bo do choi ngan hang",
+  "stock": 88,
+  "originalPrice": 115,
+  "salePrice": 115,
+  "discount": 0,
+  "brand": "Mattel",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Bộ đồ chơi ngân hàng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/163/200/200",
+  "status": "Active",
+  "sold": 68,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "be_gai",
+    "gau_bong",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "name": "Sản phẩm mẫu số 65",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 65",
+  "stock": 61,
+  "originalPrice": 344,
+  "salePrice": 233,
+  "discount": 32,
+  "brand": "Fisher-Price",
+  "ageRange": "3-5",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 65 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/164/200/200",
+  "status": "Active",
+  "sold": 494,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac560d"
+  },
+  "name": "Sản phẩm mẫu số 66",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 66",
+  "stock": 62,
+  "originalPrice": 294,
+  "salePrice": 191,
+  "discount": 35,
+  "brand": "Fisher-Price",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 66 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/165/200/200",
+  "status": "Active",
+  "sold": 68,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac560e"
+  },
+  "name": "Sản phẩm mẫu số 67",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 67",
+  "stock": 57,
+  "originalPrice": 423,
+  "salePrice": 423,
+  "discount": 0,
+  "brand": "Fisher-Price",
+  "ageRange": "9-12",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 67 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/166/200/200",
+  "status": "Active",
+  "sold": 279,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac560f"
+  },
+  "name": "Sản phẩm mẫu số 68",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 68",
+  "stock": 84,
+  "originalPrice": 531,
+  "salePrice": 531,
+  "discount": 0,
+  "brand": "Mattel",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 68 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/167/200/200",
+  "status": "Active",
+  "sold": 101,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "name": "Sản phẩm mẫu số 69",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 69",
+  "stock": 9,
+  "originalPrice": 290,
+  "salePrice": 290,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 69 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/168/200/200",
+  "status": "Active",
+  "sold": 487,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5611"
+  },
+  "name": "Sản phẩm mẫu số 70",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 70",
+  "stock": 192,
+  "originalPrice": 108,
+  "salePrice": 108,
+  "discount": 0,
+  "brand": "Mattel",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 70 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/169/200/200",
+  "status": "Active",
+  "sold": 147,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5612"
+  },
+  "name": "Sản phẩm mẫu số 71",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 71",
+  "stock": 66,
+  "originalPrice": 271,
+  "salePrice": 271,
+  "discount": 0,
+  "brand": "Bandai",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 71 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/170/200/200",
+  "status": "Active",
+  "sold": 498,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5613"
+  },
+  "name": "Sản phẩm mẫu số 72",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 72",
+  "stock": 163,
+  "originalPrice": 304,
+  "salePrice": 304,
+  "discount": 0,
+  "brand": "VTech",
+  "ageRange": "9-12",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 72 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/171/200/200",
+  "status": "Active",
+  "sold": 354,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5614"
+  },
+  "name": "Sản phẩm mẫu số 73",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 73",
+  "stock": 51,
+  "originalPrice": 161,
+  "salePrice": 115,
+  "discount": 28,
+  "brand": "Lego",
+  "ageRange": "9-12",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 73 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/172/200/200",
+  "status": "Active",
+  "sold": 365,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5615"
+  },
+  "name": "Sản phẩm mẫu số 74",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 74",
+  "stock": 122,
+  "originalPrice": 292,
+  "salePrice": 195,
+  "discount": 33,
+  "brand": "VTech",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 74 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/173/200/200",
+  "status": "Active",
+  "sold": 12,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5616"
+  },
+  "name": "Sản phẩm mẫu số 75",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 75",
+  "stock": 30,
+  "originalPrice": 363,
+  "salePrice": 363,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 75 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/174/200/200",
+  "status": "Active",
+  "sold": 184,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5617"
+  },
+  "name": "Sản phẩm mẫu số 76",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 76",
+  "stock": 120,
+  "originalPrice": 267,
+  "salePrice": 267,
+  "discount": 0,
+  "brand": "VTech",
+  "ageRange": "3-5",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 76 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/175/200/200",
+  "status": "Active",
+  "sold": 220,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5618"
+  },
+  "name": "Sản phẩm mẫu số 77",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 77",
+  "stock": 34,
+  "originalPrice": 419,
+  "salePrice": 419,
+  "discount": 0,
+  "brand": "VTech",
+  "ageRange": "12+",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 77 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/176/200/200",
+  "status": "Active",
+  "sold": 54,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5619"
+  },
+  "name": "Sản phẩm mẫu số 78",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 78",
+  "stock": 42,
+  "originalPrice": 549,
+  "salePrice": 549,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 78 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/177/200/200",
+  "status": "Active",
+  "sold": 77,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac561a"
+  },
+  "name": "Sản phẩm mẫu số 79",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 79",
+  "stock": 118,
+  "originalPrice": 136,
+  "salePrice": 97,
+  "discount": 28,
+  "brand": "Spinmaster",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 79 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/178/200/200",
+  "status": "Active",
+  "sold": 85,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac561b"
+  },
+  "name": "Sản phẩm mẫu số 80",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 80",
+  "stock": 188,
+  "originalPrice": 499,
+  "salePrice": 359,
+  "discount": 28,
+  "brand": "Hasbro",
+  "ageRange": "12+",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 80 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/179/200/200",
+  "status": "Active",
+  "sold": 279,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.805Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac561c"
+  },
+  "name": "Sản phẩm mẫu số 81",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 81",
+  "stock": 193,
+  "originalPrice": 249,
+  "salePrice": 249,
+  "discount": 0,
+  "brand": "Bandai",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 81 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/180/200/200",
+  "status": "Active",
+  "sold": 459,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac561d"
+  },
+  "name": "Sản phẩm mẫu số 82",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 82",
+  "stock": 9,
+  "originalPrice": 165,
+  "salePrice": 165,
+  "discount": 0,
+  "brand": "VTech",
+  "ageRange": "6-8",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 82 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/181/200/200",
+  "status": "Active",
+  "sold": 59,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "name": "Sản phẩm mẫu số 83",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 83",
+  "stock": 87,
+  "originalPrice": 251,
+  "salePrice": 251,
+  "discount": 0,
+  "brand": "Bandai",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 83 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/182/200/200",
+  "status": "Active",
+  "sold": 126,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac561f"
+  },
+  "name": "Sản phẩm mẫu số 84",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 84",
+  "stock": 36,
+  "originalPrice": 102,
+  "salePrice": 102,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "3-5",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 84 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
+  "imageUrl": "https://picsum.photos/id/183/200/200",
+  "status": "Active",
+  "sold": 67,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5620"
+  },
+  "name": "Sản phẩm mẫu số 85",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 85",
+  "stock": 136,
+  "originalPrice": 271,
+  "salePrice": 271,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "12+",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 85 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/184/200/200",
+  "status": "Active",
+  "sold": 58,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5621"
+  },
+  "name": "Sản phẩm mẫu số 86",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 86",
+  "stock": 79,
+  "originalPrice": 176,
+  "salePrice": 153,
+  "discount": 13,
+  "brand": "Melissa & Doug",
+  "ageRange": "6-8",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 86 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/185/200/200",
+  "status": "Active",
+  "sold": 367,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5622"
+  },
+  "name": "Sản phẩm mẫu số 87",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 87",
+  "stock": 45,
+  "originalPrice": 353,
+  "salePrice": 353,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "0-2",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 87 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/186/200/200",
+  "status": "Active",
+  "sold": 176,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5623"
+  },
+  "name": "Sản phẩm mẫu số 88",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 88",
+  "stock": 166,
+  "originalPrice": 463,
+  "salePrice": 439,
+  "discount": 5,
+  "brand": "Melissa & Doug",
+  "ageRange": "0-2",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 88 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/187/200/200",
+  "status": "Active",
+  "sold": 235,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5624"
+  },
+  "name": "Sản phẩm mẫu số 89",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 89",
+  "stock": 112,
+  "originalPrice": 218,
+  "salePrice": 218,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 89 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/188/200/200",
+  "status": "Active",
+  "sold": 467,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5625"
+  },
+  "name": "Sản phẩm mẫu số 90",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 90",
+  "stock": 3,
+  "originalPrice": 75,
+  "salePrice": 75,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "12+",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 90 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
+  "imageUrl": "https://picsum.photos/id/189/200/200",
+  "status": "Active",
+  "sold": 32,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5626"
+  },
+  "name": "Sản phẩm mẫu số 91",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 91",
+  "stock": 95,
+  "originalPrice": 314,
+  "salePrice": 229,
+  "discount": 27,
+  "brand": "Melissa & Doug",
+  "ageRange": "0-2",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 91 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/190/200/200",
+  "status": "Active",
+  "sold": 140,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5627"
+  },
+  "name": "Sản phẩm mẫu số 92",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 92",
+  "stock": 94,
+  "originalPrice": 444,
+  "salePrice": 315,
+  "discount": 29,
+  "brand": "Lego",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 92 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/191/200/200",
+  "status": "Active",
+  "sold": 153,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "name": "Sản phẩm mẫu số 93",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 93",
+  "stock": 194,
+  "originalPrice": 354,
+  "salePrice": 354,
+  "discount": 0,
+  "brand": "Lego",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 93 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/192/200/200",
+  "status": "Active",
+  "sold": 330,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "thong_minh"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac5629"
+  },
+  "name": "Sản phẩm mẫu số 94",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 94",
+  "stock": 156,
+  "originalPrice": 501,
+  "salePrice": 501,
+  "discount": 0,
+  "brand": "Hasbro",
+  "ageRange": "0-2",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 94 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/193/200/200",
+  "status": "Active",
+  "sold": 427,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac562a"
+  },
+  "name": "Sản phẩm mẫu số 95",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 95",
+  "stock": 3,
+  "originalPrice": 544,
+  "salePrice": 544,
+  "discount": 0,
+  "brand": "Mattel",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 95 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/194/200/200",
+  "status": "Active",
+  "sold": 258,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac562b"
+  },
+  "name": "Sản phẩm mẫu số 96",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 96",
+  "stock": 13,
+  "originalPrice": 350,
+  "salePrice": 350,
+  "discount": 0,
+  "brand": "Spinmaster",
+  "ageRange": "0-2",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 96 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/195/200/200",
+  "status": "Active",
+  "sold": 81,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "an_toan"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac562c"
+  },
+  "name": "Sản phẩm mẫu số 97",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 97",
+  "stock": 176,
+  "originalPrice": 166,
+  "salePrice": 106,
+  "discount": 36,
+  "brand": "Fisher-Price",
+  "ageRange": "6-8",
+  "gender": "Boy",
+  "description": "Sản phẩm Sản phẩm mẫu số 97 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
+  "imageUrl": "https://picsum.photos/id/196/200/200",
+  "status": "Active",
+  "sold": 205,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "chat_luong_cao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac562d"
+  },
+  "name": "Sản phẩm mẫu số 98",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 98",
+  "stock": 154,
+  "originalPrice": 110,
+  "salePrice": 110,
+  "discount": 0,
+  "brand": "Melissa & Doug",
+  "ageRange": "0-2",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 98 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
+  "imageUrl": "https://picsum.photos/id/197/200/200",
+  "status": "Active",
+  "sold": 379,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac562e"
+  },
+  "name": "Sản phẩm mẫu số 99",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 99",
+  "stock": 2,
+  "originalPrice": 317,
+  "salePrice": 317,
+  "discount": 0,
+  "brand": "Fisher-Price",
+  "ageRange": "9-12",
+  "gender": "Girl",
+  "description": "Sản phẩm Sản phẩm mẫu số 99 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/198/200/200",
+  "status": "Active",
+  "sold": 445,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "nhieu_mau_sac"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a097f78eaa80cec43ac562f"
+  },
+  "name": "Sản phẩm mẫu số 100",
+  "category": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "searchName": "san pham mau so 100",
+  "stock": 176,
+  "originalPrice": 62,
+  "salePrice": 60,
+  "discount": 2,
+  "brand": "Mattel",
+  "ageRange": "9-12",
+  "gender": "Unisex",
+  "description": "Sản phẩm Sản phẩm mẫu số 100 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
+  "imageUrl": "https://picsum.photos/id/199/200/200",
+  "status": "Active",
+  "sold": 14,
+  "createdAt": {
+    "$date": "2026-05-17T08:42:32.806Z"
+  },
+  "tags": [
+    "do_choi_thong_minh",
+    "sang_tao"
+  ],
+  "__v": 0
+}]

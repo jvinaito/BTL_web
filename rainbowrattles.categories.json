@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  },
+  "name": "Thú nhồi bông",
+  "createdAt": {
+    "$date": "2026-05-17T02:28:05.100Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0927b5e5d0bfb96c7625a9"
+  },
+  "name": "Đồ chơi giáo dục",
+  "createdAt": {
+    "$date": "2026-05-17T02:28:05.102Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  },
+  "name": "Đồ chơi điều khiển",
+  "createdAt": {
+    "$date": "2026-05-17T02:28:05.103Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  },
+  "name": "Đồ chơi lắp ráp",
+  "createdAt": {
+    "$date": "2026-05-17T02:28:05.103Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0927b5e5d0bfb96c7625ac"
+  },
+  "name": "Đồ chơi nhập vai",
+  "createdAt": {
+    "$date": "2026-05-17T02:28:05.104Z"
+  },
+  "__v": 0
+}]

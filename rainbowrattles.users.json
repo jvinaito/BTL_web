@@ -1,0 +1,1525 @@
+[{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2541c"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Xuân",
+  "email": "maithi.xuan703@example.com",
+  "phone": "0485940128",
+  "password": "$2b$10$zjk8JXCsv5Xq0PRVzocRreY6St1T.FoMIXEMiVrtUwaHytmobJUZu",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-22T22:32:01.820Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2541d"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Sơn",
+  "email": "hathi.son792@example.com",
+  "phone": "0645092821",
+  "password": "$2b$10$.DUI/dRkOwF/RsO.B2GXbOhz.Gvj7azFQ1LuRE2tz5MS/jq8PLx9a",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-01T07:00:26.276Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2541e"
+  },
+  "firstName": "Lương Văn",
+  "lastName": "Bình",
+  "email": "luongvan.binh738@example.com",
+  "phone": "0079658225",
+  "password": "$2b$10$CYcHk7vQebfXU/zW/RbnMO8DUnm1LMXkk7DSgQ/yX0C4KHyaxc72y",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-24T16:53:21.965Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2541f"
+  },
+  "firstName": "Dương Thị",
+  "lastName": "Hà",
+  "email": "duongthi.ha613@example.com",
+  "phone": "0189820374",
+  "password": "$2b$10$Tr/R20iD68H40qYrkRkYU.oSge9WPNVVsYZDmGg4FC44OtjCYD31K",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-24T17:12:23.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25420"
+  },
+  "firstName": "Đặng Văn",
+  "lastName": "Hoa",
+  "email": "dangvan.hoa33@example.com",
+  "phone": "0434672280",
+  "password": "$2b$10$nozfTE5Zpep8hDQJVOpQ5elZK9ClsQC8VUi8BXjg.HCOasFYezFhS",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-26T17:49:44.486Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25421"
+  },
+  "firstName": "Đỗ Thị",
+  "lastName": "Hiếu",
+  "email": "dothi.hieu81@example.com",
+  "phone": "0909664844",
+  "password": "$2b$10$PiJjwBeYr/hET7SMrkv23OST1J0iJmhL9EUcmjI51AYYboCfsew3q",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-08T07:09:54.529Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25422"
+  },
+  "firstName": "Đinh Thị",
+  "lastName": "Tuyết",
+  "email": "dinhthi.tuyet154@example.com",
+  "phone": "0800457504",
+  "password": "123",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-02-21T22:27:47.525Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25423"
+  },
+  "firstName": "Lý Văn",
+  "lastName": "Yến",
+  "email": "lyvan.yen159@example.com",
+  "phone": "0421233981",
+  "password": "$2b$10$TCFmq.drGZf85orff8mmGuI.bCuhU9x2l.JY/rU0CF0Jn/RUAI3d6",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-19T18:02:52.786Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25424"
+  },
+  "firstName": "Vũ Văn",
+  "lastName": "Nam",
+  "email": "vuvan.nam642@example.com",
+  "phone": "0058770044",
+  "password": "$2b$10$xSp7GoT05Y.4rv4dThNJROo0h0LI58EH6SUaszMRL6ZezxqJ2uhmy",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-15T22:55:11.212Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25425"
+  },
+  "firstName": "Hồ Văn",
+  "lastName": "Thảo",
+  "email": "hovan.thao72@example.com",
+  "phone": "0500256196",
+  "password": "$2b$10$bv8VG.gXwsfrGipnkZyjY.zET1Tcl.XvA5hN/e7TGaqKxDrNYwxni",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-16T12:23:18.176Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25426"
+  },
+  "firstName": "Đặng Văn",
+  "lastName": "Khang",
+  "email": "dangvan.khang26@example.com",
+  "phone": "0468895667",
+  "password": "$2b$10$Fiy6x8gzhaweMLCw5efUEeGweavdx5cy1hHIBmnJyjvXaPWMuqdk6",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-06T05:44:50.195Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25427"
+  },
+  "firstName": "Nguyễn Văn",
+  "lastName": "Hải",
+  "email": "nguyenvan.hai29@example.com",
+  "phone": "0145071151",
+  "password": "$2b$10$OWEHrpfPrgVdq0cYnVI3yeFOMrV0w6x3HR2uR0zZkUf1zzqMWuIhq",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-02-28T02:28:56.746Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25428"
+  },
+  "firstName": "Vũ Văn",
+  "lastName": "Vũ",
+  "email": "vuvan.vu368@example.com",
+  "phone": "0035248604",
+  "password": "$2b$10$N.sWegSSdNhPQgjFERm4.ufstUuHWXFfvZu2REK20lExLJu3WIu/C",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-04T03:22:41.535Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25429"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Hà",
+  "email": "levan.ha835@example.com",
+  "phone": "0791917564",
+  "password": "$2b$10$XKZ3jxkCBnn6lVIk9X95W.rHF6NvTDAB58Hy90kVFzpSZU7.EYIzi",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-18T00:43:56.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2542a"
+  },
+  "firstName": "Nguyễn Văn",
+  "lastName": "Khang",
+  "email": "nguyenvan.khang855@example.com",
+  "phone": "0150488101",
+  "password": "$2b$10$Gd58IersSZKZTLLj8UVFeuwXiglg0EQNSD1pft/04SLhtXjRgrtjO",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-10T07:08:21.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2542b"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Tuyết",
+  "email": "maithi.tuyet221@example.com",
+  "phone": "0057832347",
+  "password": "$2b$10$LN6rhkCtfxADOLQ.3ibd7uR5OPdtg/T4tQrgNtuplfC9MHcEfsyVO",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-02-17T01:19:03.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2542c"
+  },
+  "firstName": "Trần Thị",
+  "lastName": "Trang",
+  "email": "tranthi.trang549@example.com",
+  "phone": "0000384720",
+  "password": "$2b$10$/7r3zlmnxah2gFN8/X9yeOg0Ue0hksOiV24uXwQRLYmoboQ/4HvKy",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-10T06:48:42.885Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2542d"
+  },
+  "firstName": "Hoàng Văn",
+  "lastName": "Hùng",
+  "email": "hoangvan.hung211@example.com",
+  "phone": "0311950233",
+  "password": "$2b$10$gTk9XiGLPrmrECcxSekvROlATCL37AVN8xxmm5ZvV0R7jlTMWbkqK",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-23T01:38:30.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2542e"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Hương",
+  "email": "levan.huong438@example.com",
+  "phone": "0626642058",
+  "password": "$2b$10$fayxC5cZfrzOaACQjvbZoeq2250VflyvpsAQGSY3CN2nnCoRiMFnq",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-02-26T10:50:56.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2542f"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Hùng",
+  "email": "maithi.hung62@example.com",
+  "phone": "0011813184",
+  "password": "$2b$10$JWb1.payEP9x7S37gR3hwOTsQ962qiAeV7bynxOD.xPhBHFkI.UYq",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-05T09:21:18.175Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25430"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Minh",
+  "email": "levan.minh392@example.com",
+  "phone": "0449507889",
+  "password": "$2b$10$IWksmDvv5Rungf16HdaPM.L3ore7lzRlKNsOKp1l3XDZhEhY9Zhou",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-28T10:20:16.970Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25431"
+  },
+  "firstName": "Trần Thị",
+  "lastName": "Minh",
+  "email": "tranthi.minh451@example.com",
+  "phone": "0881945238",
+  "password": "$2b$10$shnuMjVESQk8e8DKviZYq.XdaXn3jHwNlFc0LR911oL47wk4FBwGW",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-27T10:23:58.447Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25432"
+  },
+  "firstName": "Lương Văn",
+  "lastName": "Minh",
+  "email": "luongvan.minh895@example.com",
+  "phone": "0515090237",
+  "password": "$2b$10$0/Gml384AlHjWeoms1ftT.hbWS7ohJrNGv.tNTUre0jLnODvEjJB6",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-09T20:29:24.917Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25433"
+  },
+  "firstName": "Vũ Văn",
+  "lastName": "Hương",
+  "email": "vuvan.huong412@example.com",
+  "phone": "0035463351",
+  "password": "$2b$10$SVvx2oZCI2uLBUl2AQpDducx0hYaPqvfP8GXInFhr741CDkXQQToq",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-16T05:16:03.341Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25434"
+  },
+  "firstName": "Bùi Thị",
+  "lastName": "Bình",
+  "email": "buithi.binh865@example.com",
+  "phone": "0603193317",
+  "password": "$2b$10$/HsU7/AIgvfq99lIxI/bo.PcONHNbbwAGZ0tIFSqmizQ2KrrIEW3y",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-06T07:45:56.546Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25435"
+  },
+  "firstName": "Trần Thị",
+  "lastName": "Mai",
+  "email": "tranthi.mai73@example.com",
+  "phone": "0891259499",
+  "password": "$2b$10$T0kstbXs9ZDyqj5fCar35eo0Q..KNLkJSf9Z4gM38elcHcIUu39BO",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-13T20:04:40.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25436"
+  },
+  "firstName": "Hoàng Văn",
+  "lastName": "An",
+  "email": "hoangvan.an903@example.com",
+  "phone": "0353499859",
+  "password": "$2b$10$Lt4y2.SqUnWSED5YL18CCubkCjSKOx.lW7fZPoNTipGVss4vXR2tm",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-09T20:08:36.902Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25437"
+  },
+  "firstName": "Phạm Thị",
+  "lastName": "Quỳnh",
+  "email": "phamthi.quynh498@example.com",
+  "phone": "0483234120",
+  "password": "$2b$10$XdLDvs6LQ5LsUI3ZMT3LH.gfnD9t2PllMJYSel4n08sMPVM/92QEO",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-13T16:45:23.039Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25438"
+  },
+  "firstName": "Nguyễn Văn",
+  "lastName": "Hương",
+  "email": "nguyenvan.huong12@example.com",
+  "phone": "0491694240",
+  "password": "$2b$10$Alo9.9U8MwK5y6u0MteQ3uaxhooaHarf6lXseYWGsQw1TZPvHwpLm",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-20T23:39:16.930Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25439"
+  },
+  "firstName": "Phan Văn",
+  "lastName": "Tâm",
+  "email": "phanvan.tam10@example.com",
+  "phone": "0955989523",
+  "password": "$2b$10$o6VLyys.nlaEKP8bAmeHFeiPNMiITuaEayFrpDajJWG.MWNySNHzK",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-02T20:28:29.988Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2543a"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Việt",
+  "email": "hathi.viet594@example.com",
+  "phone": "0797585094",
+  "password": "$2b$10$uAMjFrwZhB5Tje.X6tq/J.C2n4sNL.vILMd7mmbUI/jbb3atMA80y",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-19T11:00:31.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2543b"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Yến",
+  "email": "levan.yen349@example.com",
+  "phone": "0549645444",
+  "password": "$2b$10$H7RvRuxA8VBNa7Yo.lClbes/Pt6vuIswouALLn46LPP7M/me.kVZa",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-19T19:44:03.362Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2543c"
+  },
+  "firstName": "Lương Văn",
+  "lastName": "Khang",
+  "email": "luongvan.khang443@example.com",
+  "phone": "0076848411",
+  "password": "$2b$10$y8HzX5xYH7Wp1ti6hFnSMe6E5zwsyZpLz.X/iifuA9x.Mdww4dCsG",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-27T16:45:00.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2543d"
+  },
+  "firstName": "Vũ Văn",
+  "lastName": "Minh",
+  "email": "vuvan.minh60@example.com",
+  "phone": "0966302942",
+  "password": "$2b$10$BIGPcXaJYLshgHj4R5LpxuDt5qVmvZftaPKFfyCfDS36yABLLeGYq",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-02-18T20:59:02.738Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2543e"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Phong",
+  "email": "hathi.phong401@example.com",
+  "phone": "0080962772",
+  "password": "$2b$10$jPfxLi/zi3Nk.lfBugSCw.393J66hIDvUUyNxALdLQ4oulTWu241y",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-14T16:12:40.828Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2543f"
+  },
+  "firstName": "Phan Văn",
+  "lastName": "Long",
+  "email": "phanvan.long294@example.com",
+  "phone": "0024176023",
+  "password": "$2b$10$8hN1g5lHEfGmIcKPCub92OezoHF.3nChCmI8JDKTF115dZgbc16s.",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-13T06:42:36.063Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25440"
+  },
+  "firstName": "Trần Thị",
+  "lastName": "Long",
+  "email": "tranthi.long716@example.com",
+  "phone": "0109328145",
+  "password": "$2b$10$8ix7B3q7YhDt2962JjwWNeRwOgoHCjDKnnVbR9Ud0iMVPQ4tgG4N2",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-16T06:09:28.191Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25441"
+  },
+  "firstName": "Lý Văn",
+  "lastName": "Dũng",
+  "email": "lyvan.dung529@example.com",
+  "phone": "0254346832",
+  "password": "$2b$10$PXqQTuTTffssWsu9k3d1FO.8U6NfeQCJf2GN2R6XQ421jbBORZKQe",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-21T14:39:50.310Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25442"
+  },
+  "firstName": "Nguyễn Văn",
+  "lastName": "Tuyết",
+  "email": "nguyenvan.tuyet194@example.com",
+  "phone": "0319769345",
+  "password": "$2b$10$9VheQfKox9JNq/HbVYK5d.WVfWhF8KdafXy07KEweljhFElkR4Wrq",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-03T02:59:55.030Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25443"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Tuyết",
+  "email": "hathi.tuyet1@example.com",
+  "phone": "0703020499",
+  "password": "$2b$10$ORcRFCx6TcTkMhv9TYtpseB.fHSVp3RgNL5Z0TQT.dUFx1W76H6JS",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-02T16:19:21.800Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25444"
+  },
+  "firstName": "Ngô Thị",
+  "lastName": "Hải",
+  "email": "ngothi.hai84@example.com",
+  "phone": "0766797179",
+  "password": "$2b$10$Yveah6yNKoVwZXiNnKfD4uJHEJWQVEV.6u7F/Dr/VQFb3BjINwYee",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-04T09:19:47.324Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25445"
+  },
+  "firstName": "Vương Thị",
+  "lastName": "Tâm",
+  "email": "vuongthi.tam85@example.com",
+  "phone": "0561964057",
+  "password": "$2b$10$gQsNiUCnyx1/pYncXSnZVu1KCjImKI9s9zDyOBRTBwdMs9eVAQAwK",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-16T02:54:01.878Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25446"
+  },
+  "firstName": "Hồ Văn",
+  "lastName": "An",
+  "email": "hovan.an359@example.com",
+  "phone": "0695442943",
+  "password": "$2b$10$uTmEfqkAv5rYFUmcVK8fc.d6llzyUdhIrlipbnjf6X/49bZqrHD62",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-04T12:28:59.544Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25447"
+  },
+  "firstName": "Trịnh Văn",
+  "lastName": "Tâm",
+  "email": "trinhvan.tam724@example.com",
+  "phone": "0369694030",
+  "password": "$2b$10$h6WSsgT5z2leCYed1mwfkOxSzR9X1yFPZohTffi1FfHwEsqFT4/7i",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-11T05:27:11.362Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25448"
+  },
+  "firstName": "Bùi Thị",
+  "lastName": "Xuân",
+  "email": "buithi.xuan539@example.com",
+  "phone": "0794950450",
+  "password": "$2b$10$K.JdwS.pf6RRML6eqsrj6O9p3WnMnc7APUR9VKzpTCHPEwkLvfxsW",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-02-26T00:35:14.337Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25449"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Nam",
+  "email": "hathi.nam995@example.com",
+  "phone": "0277290314",
+  "password": "$2b$10$C.gzE9/Vti0jwLUXlotgsuNH.0iw8twuTp5Rdq/M5qo6z89FhWiuG",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-13T18:48:12.167Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2544a"
+  },
+  "firstName": "Lý Văn",
+  "lastName": "Hải",
+  "email": "lyvan.hai768@example.com",
+  "phone": "0226320485",
+  "password": "$2b$10$i8YMRtF4iBUTiApe0kPU1e3rU2xzuu0r0kVMLsbNaRiA2xptl0rwK",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-01T17:55:27.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2544b"
+  },
+  "firstName": "Ngô Thị",
+  "lastName": "Hạnh",
+  "email": "ngothi.hanh900@example.com",
+  "phone": "0608926453",
+  "password": "$2b$10$pnPKkyxFre8pHDW4VKgbm.ka7gh8dnl.hfyD9l4iVxe/ADX3F11Ka",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-07T23:12:24.183Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2544c"
+  },
+  "firstName": "Đỗ Thị",
+  "lastName": "Linh",
+  "email": "dothi.linh858@example.com",
+  "phone": "0598977221",
+  "password": "$2b$10$cYmAyN9vVrmpzPYuHFbTaeT0dbuB9/I9LhuFoG.ln6eD8QPTzSuB6",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-06T03:44:48.198Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Tuyết",
+  "email": "hathi.tuyet777@example.com",
+  "phone": "0712453681",
+  "password": "$2b$10$3euVkxIedgT1N1lQZQLHyOV0QCsua6ZezwUEZ3a9GqajXfu5pov5O",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-18T11:31:38.626Z"
+  },
+  "__v": 0,
+  "savedAddress": {
+    "street": "",
+    "city": "Hồ CHí Minh, Thị trấn Cao Thượng, Huyện Tân Yên, Tỉnh Bắc Giang",
+    "phone": "0712453681"
+  }
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2544e"
+  },
+  "firstName": "Đinh Thị",
+  "lastName": "Hùng",
+  "email": "dinhthi.hung826@example.com",
+  "phone": "0320609658",
+  "password": "$2b$10$ZyhMvqV6.ylG5sG7e7Q4IuedSkyWJBrJ2cEEYVxHxakofDrNI.abO",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-26T14:22:41.583Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2544f"
+  },
+  "firstName": "Dương Thị",
+  "lastName": "Lan",
+  "email": "duongthi.lan56@example.com",
+  "phone": "0356029750",
+  "password": "$2b$10$LygOOlci5ITb2DurztUITO.vkV/zoSgvaIzmaNDeRQ6uUV1ivz8r.",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-12T14:26:16.728Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25450"
+  },
+  "firstName": "Đỗ Thị",
+  "lastName": "Minh",
+  "email": "dothi.minh297@example.com",
+  "phone": "0650433841",
+  "password": "$2b$10$slNTwciXfk5NM5/MZ2fXneOu6j9SYgpgMlTJYLnG58jJsU7VB53WW",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-14T04:04:32.750Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25451"
+  },
+  "firstName": "Lương Văn",
+  "lastName": "An",
+  "email": "luongvan.an467@example.com",
+  "phone": "0416980995",
+  "password": "$2b$10$Qn3kdxz1GGp0lCl9e1B93uoa0yK4e0UoSEfa1kWSwwzEyZ35xKmw6",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-04T10:09:11.879Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25452"
+  },
+  "firstName": "Phạm Thị",
+  "lastName": "Phương",
+  "email": "phamthi.phuong278@example.com",
+  "phone": "0389178479",
+  "password": "$2b$10$i1MUXfQfRn.PHlMYZTp29OywzNw7uTtBzh5hXHp7HVXhNJb/tduPO",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-24T15:31:10.212Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25453"
+  },
+  "firstName": "Ngô Thị",
+  "lastName": "Phúc",
+  "email": "ngothi.phuc34@example.com",
+  "phone": "0135064083",
+  "password": "$2b$10$iiOPihio8bYoJirokbh6qezrJnbSFAHWwdkAJ.8ICMJne4R8qghjG",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-16T03:48:30.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25454"
+  },
+  "firstName": "Vương Thị",
+  "lastName": "Quỳnh",
+  "email": "vuongthi.quynh488@example.com",
+  "phone": "0660099680",
+  "password": "$2b$10$/TDF/dF1VdJHjMdfb2u7OeGD5GCISEPapqNBrixDEIZVIpTboNEme",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-20T03:24:52.779Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25455"
+  },
+  "firstName": "Trần Thị",
+  "lastName": "Hạnh",
+  "email": "tranthi.hanh91@example.com",
+  "phone": "0423901717",
+  "password": "$2b$10$ns9k.msVEemF9a6rMF1FA.9S.DoFteAlmuaG2jgFx.zIr6MPJS6FK",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-13T05:31:48.863Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25456"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Thủy",
+  "email": "hathi.thuy496@example.com",
+  "phone": "0718248490",
+  "password": "$2b$10$DV.6q9q6glyiv4jra7qREOPQPmPnesd5RazKWTZ7X8t8DmOiitxyS",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-17T12:32:50.833Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25457"
+  },
+  "firstName": "Vương Thị",
+  "lastName": "Việt",
+  "email": "vuongthi.viet676@example.com",
+  "phone": "0457754042",
+  "password": "$2b$10$.31SWLOsv.7yxT/1GdoOV.k9b.OQepQHfgp1y7UHncTgIP22ZCpxK",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-24T13:43:48.341Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25458"
+  },
+  "firstName": "Nguyễn Văn",
+  "lastName": "Hùng",
+  "email": "nguyenvan.hung2@example.com",
+  "phone": "0985056848",
+  "password": "$2b$10$ZWlXEC776AKTdQ0bhy5A2OoZgtIEc/1H9b7cnS6vNWjo.7PZ4DgF.",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-27T14:10:12.720Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25459"
+  },
+  "firstName": "Phan Văn",
+  "lastName": "Ngọc",
+  "email": "phanvan.ngoc17@example.com",
+  "phone": "0987268748",
+  "password": "$2b$10$5rb/ISo/h75ASAYt2vRuJu54ftNT3776BtxrlhOAINmPGCU52PzdC",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-02T16:48:21.884Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2545a"
+  },
+  "firstName": "Đinh Thị",
+  "lastName": "Quỳnh",
+  "email": "dinhthi.quynh444@example.com",
+  "phone": "0420601906",
+  "password": "$2b$10$yNLreJyeb7AGBc8yXdYXsuOh5ZUXhe8rdRipCHQJUSZ12qVtNR2YO",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-01T20:50:54.327Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2545b"
+  },
+  "firstName": "Lương Văn",
+  "lastName": "Thi",
+  "email": "luongvan.thi198@example.com",
+  "phone": "0812908572",
+  "password": "$2b$10$vNEIv3xdhdtWKjCImR.xzegqvH3Eepj4guwr7jCcDrFPNfdYvFVGm",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-15T12:51:47.439Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2545c"
+  },
+  "firstName": "Đặng Văn",
+  "lastName": "Phúc",
+  "email": "dangvan.phuc354@example.com",
+  "phone": "0940305611",
+  "password": "$2b$10$im5TedBd2iwO6zpr/VeLaeVYOhitf.7ew/7e2FJVV/CgckSKYsKbK",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-22T12:01:51.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2545d"
+  },
+  "firstName": "Phạm Thị",
+  "lastName": "Phúc",
+  "email": "phamthi.phuc759@example.com",
+  "phone": "0477984213",
+  "password": "$2b$10$7Qo7INfLWGf2346eZQKeMuQXMtEUYQOBgWa9yKJmWb9Rs0HI1ez4q",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-03T16:41:34.740Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2545e"
+  },
+  "firstName": "Ngô Thị",
+  "lastName": "Hùng",
+  "email": "ngothi.hung26@example.com",
+  "phone": "0407918372",
+  "password": "$2b$10$6JwAvCLPnbyvXYHOsmGEbOH4vexq762iIFrjGeRCtMPNm1FWJANZC",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-07T12:51:18.981Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2545f"
+  },
+  "firstName": "Trịnh Văn",
+  "lastName": "Thủy",
+  "email": "trinhvan.thuy954@example.com",
+  "phone": "0268113188",
+  "password": "$2b$10$50pB5CxM9JC3ADK.dXzNLuJpzNDfjv1uQqBjRVequFoWlXjjxFVtm",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-17T01:48:12.012Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25460"
+  },
+  "firstName": "Bùi Thị",
+  "lastName": "Quỳnh",
+  "email": "buithi.quynh95@example.com",
+  "phone": "0246965138",
+  "password": "$2b$10$ZNU9dyCye5INUwFHnesSfut62RBW/X4Z8Q3zS1pv.jeFzv1QQRE66",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-18T02:50:21.797Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25461"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Bình",
+  "email": "maithi.binh773@example.com",
+  "phone": "0120446422",
+  "password": "$2b$10$4Fh4.f5HJ2CYirr50DbVH.bRsx6p8dDBQQsZobjJtxpQSMmPY1DAO",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-14T08:17:36.501Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25462"
+  },
+  "firstName": "Bùi Thị",
+  "lastName": "Lan",
+  "email": "buithi.lan736@example.com",
+  "phone": "0851421022",
+  "password": "$2b$10$HfqMTb2Grn/lLBVqMHOxX.7AHGbj2M80QwUzMX8h7As0P2u5dsCgi",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-12T00:32:06.553Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25463"
+  },
+  "firstName": "Nguyễn Văn",
+  "lastName": "Long",
+  "email": "nguyenvan.long615@example.com",
+  "phone": "0049969411",
+  "password": "$2b$10$xtfSvrNBvDf0sFOwR3YocussL0vkssPO/OZ60MamYW10OpxmruGVq",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-11T00:47:51.329Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25464"
+  },
+  "firstName": "Trịnh Văn",
+  "lastName": "Phương",
+  "email": "trinhvan.phuong589@example.com",
+  "phone": "0301423107",
+  "password": "$2b$10$vWNCcnJScXCeJvpKjpRKq.DZmcECrMc.IMaljBPzVnJz9pHGgSAXy",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-04T06:01:45.009Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25465"
+  },
+  "firstName": "Trịnh Văn",
+  "lastName": "Vũ",
+  "email": "trinhvan.vu664@example.com",
+  "phone": "0333261973",
+  "password": "$2b$10$ksMbOOZCmfbcHWxCSLAwdOb5Xhgkd/Fbq3hd9AxrDSzbtF1W2r5VW",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-08T11:08:15.380Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25466"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Dũng",
+  "email": "maithi.dung967@example.com",
+  "phone": "0524488193",
+  "password": "$2b$10$Y7A8g8TBm6cN6q.KiEYevOK/1gZrOBJylHI86ZcDNnYi5V/AIVDSW",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-08T00:28:52.583Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25467"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Thảo",
+  "email": "levan.thao128@example.com",
+  "phone": "0165819614",
+  "password": "$2b$10$Qstdvt2fCs66qtP0Kgqco.tvFwVloFxl5uRf6fm6rVCwpQMHx5wf.",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-12T07:58:56.152Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25468"
+  },
+  "firstName": "Trần Thị",
+  "lastName": "Sơn",
+  "email": "tranthi.son555@example.com",
+  "phone": "0195717942",
+  "password": "$2b$10$qlNb7uuUOfGDzQ9SNGxTeOW65zyrKR9y8DGQrTouSOS4CiuEec./e",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-21T03:07:58.042Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25469"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Linh",
+  "email": "maithi.linh57@example.com",
+  "phone": "0786689236",
+  "password": "$2b$10$mf1MuSibZsRNQeMHTBY8t.Uj.0yZGbqjniJHgPkN8X2hWyGtGr60G",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-28T02:04:54.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2546a"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Thi",
+  "email": "maithi.thi756@example.com",
+  "phone": "0879713964",
+  "password": "$2b$10$pmy/hV1T5E4kZtqYEADrwOjn/mZeIDuIMaHxbQ.C5VBMa6W3xxxQ6",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-16T23:40:34.066Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2546b"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Phong",
+  "email": "levan.phong615@example.com",
+  "phone": "0592190925",
+  "password": "$2b$10$NxlcsBvS5gIu9lsEHshkEeei1kC2sxn1QscxA5RboY3uHVr0AUvgq",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-11T03:47:48.963Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2546c"
+  },
+  "firstName": "Đỗ Thị",
+  "lastName": "Yến",
+  "email": "dothi.yen352@example.com",
+  "phone": "0438646059",
+  "password": "$2b$10$ZaO9..8TaF5JZAw2Gx4kSusTHtZAmjpad7FkJ8L6hD.EHQ1dMUOTW",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-09T09:42:54.414Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2546d"
+  },
+  "firstName": "Vũ Văn",
+  "lastName": "Xuân",
+  "email": "vuvan.xuan387@example.com",
+  "phone": "0212668256",
+  "password": "$2b$10$f4eXneOxytoBnzt0MrUKB.Skr1AUbBUfjPmqF32alG/j/BKvXHZGa",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-22T00:59:41.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2546e"
+  },
+  "firstName": "Lương Văn",
+  "lastName": "Hạnh",
+  "email": "luongvan.hanh359@example.com",
+  "phone": "0705976695",
+  "password": "$2b$10$D95EG3YUbNKJ2IkETd6FLeBlfAubHnqNdayss/GdGZ8UAWSVRXIUS",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-19T13:07:27.420Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2546f"
+  },
+  "firstName": "Trịnh Văn",
+  "lastName": "Ngọc",
+  "email": "trinhvan.ngoc643@example.com",
+  "phone": "0040313821",
+  "password": "$2b$10$5pI2cuEgXouv2LmrT/PQP.d9Klp3sx8KDTQvLp25F8CeItry1fFwa",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-10T06:31:09.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25470"
+  },
+  "firstName": "Hà Thị",
+  "lastName": "Thủy",
+  "email": "hathi.thuy826@example.com",
+  "phone": "0531519246",
+  "password": "$2b$10$q9bkBU4TuqiSwrJ1FElT4eaZ8SPxkdvXTP/fvogINDDpzUy3gWMbG",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-08T12:13:29.340Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25471"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Tuyết",
+  "email": "levan.tuyet566@example.com",
+  "phone": "0967543090",
+  "password": "$2b$10$7JgkMnk.D2XmlRwmDWRUButzaJd2cdiYxio/XjW6qQtQsX0fEPUIS",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-06T21:24:03.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25472"
+  },
+  "firstName": "Ngô Thị",
+  "lastName": "Hoa",
+  "email": "ngothi.hoa245@example.com",
+  "phone": "0467627823",
+  "password": "$2b$10$crcTYhtCVPqlVaT2p.k/lOKkLMNwr3SsI93PXV0U9bxz8isESbDSm",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-12T22:11:52.919Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25473"
+  },
+  "firstName": "Vương Thị",
+  "lastName": "Mai",
+  "email": "vuongthi.mai49@example.com",
+  "phone": "0001239227",
+  "password": "$2b$10$EVi7nuv0kUDFeFp8sOscLu0O6jGx.2RNI5c7rVj6oEzLcnFjSUFS2",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-01T22:42:59.885Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25474"
+  },
+  "firstName": "Hồ Văn",
+  "lastName": "Linh",
+  "email": "hovan.linh923@example.com",
+  "phone": "0821123528",
+  "password": "$2b$10$ff1GzZZ1..uc9Zdgi0QbL.BYLI8Z/9GIaAWz1ZTa3HDEpIKDgr8l.",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-02-17T15:26:47.448Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25475"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Vân",
+  "email": "levan.van748@example.com",
+  "phone": "0323648480",
+  "password": "$2b$10$XG2C0XOkHXlQju6xNIcAM.vfNCDs1PMzA9hfQpTS0WKyiOSjsmBTS",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-28T16:59:05.959Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25476"
+  },
+  "firstName": "Phạm Thị",
+  "lastName": "Quân",
+  "email": "phamthi.quan925@example.com",
+  "phone": "0572825420",
+  "password": "$2b$10$2ias/C5UDeJlj/3pOe7B8u6S6X8rQo5Ojmsu4MRMGWEoOoeGGLZL6",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-03T23:16:27.810Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25477"
+  },
+  "firstName": "Bùi Thị",
+  "lastName": "Bình",
+  "email": "buithi.binh847@example.com",
+  "phone": "0365067071",
+  "password": "$2b$10$eRFizJb1QCYYC95wOqsVV.Ejhbb4pn5T428G8Pxjah6pleRZx28Ra",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-22T04:15:27.297Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25478"
+  },
+  "firstName": "Phan Văn",
+  "lastName": "Tuyết",
+  "email": "phanvan.tuyet90@example.com",
+  "phone": "0357189250",
+  "password": "$2b$10$VYt.9YZJIRNN5TJsRYAFXeKpZs.D7yV5xXIvHQQPgm4YclKT0556u",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-15T09:29:13.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "firstName": "Phan Văn",
+  "lastName": "Sơn",
+  "email": "phanvan.son861@example.com",
+  "phone": "0400278221",
+  "password": "$2b$10$trb2lr73d1GD7nFCEQFXKOGNJ41k6Nc/OliowzEEROjLxuWvXZWVe",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-18T13:37:14.820Z"
+  },
+  "__v": 0,
+  "savedAddress": {
+    "street": "",
+    "city": "Láng, Thị trấn Biển Động, Huyện Lục Ngạn, Tỉnh Bắc Giang",
+    "phone": "0400278221"
+  }
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2547a"
+  },
+  "firstName": "Vương Thị",
+  "lastName": "Ngọc",
+  "email": "vuongthi.ngoc485@example.com",
+  "phone": "0644366935",
+  "password": "$2b$10$FN32E7KSHs0z9DnoDqn.5eb7Q0jhn90L2Tsr8mITzFU9.Rn9X6xoW",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-10T18:33:12.974Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2547b"
+  },
+  "firstName": "Mai Thị",
+  "lastName": "Phúc",
+  "email": "maithi.phuc838@example.com",
+  "phone": "0670797581",
+  "password": "$2b$10$kUMJ7qGtiWIPVGuuOC3tkOHAjXXbGYEaaB2T4UpXwqOhqMYvVdZRq",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-07T19:27:39.481Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2547c"
+  },
+  "firstName": "Ngô Thị",
+  "lastName": "Hiếu",
+  "email": "ngothi.hieu630@example.com",
+  "phone": "0568086745",
+  "password": "$2b$10$8/Fql0CrBHOoiVNH79TWhOAix1qLOAQM0XrTs3shGS2tzMQtArx.K",
+  "level": "Vip",
+  "createdAt": {
+    "$date": "2026-03-01T23:55:05.049Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2547d"
+  },
+  "firstName": "Vương Thị",
+  "lastName": "Thủy",
+  "email": "vuongthi.thuy46@example.com",
+  "phone": "0635726578",
+  "password": "$2b$10$OoJY2Y//giLeyFq24zinbuOy5qB7pYdBbAhrCTiuWWWwl1.tP4o.e",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-02-20T20:38:48.132Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2547e"
+  },
+  "firstName": "Lê Văn",
+  "lastName": "Minh",
+  "email": "levan.minh701@example.com",
+  "phone": "0571464933",
+  "password": "$2b$10$0RxaR3B4.rCq.dEAOm0M4.cYVJ4H5X9GlaPdnk4wulw9RgXz3jmPG",
+  "level": "Normal",
+  "createdAt": {
+    "$date": "2026-03-06T03:15:17.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac3fa1d5a2ab129f2547f"
+  },
+  "firstName": "Trịnh Văn",
+  "lastName": "Linh",
+  "email": "trinhvan.linh702@example.com",
+  "phone": "0913770677",
+  "password": "$2b$10$ZzjdmIM9nWswdlZQQ6.Zu.u2gDfeA.yo6M3XleDp0sg/6QQnUpWEa",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-14T04:39:59.046Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bac42bb1587e8bc0018c7e"
+  },
+  "firstName": "Hải",
+  "lastName": "Hoàng",
+  "email": "haiductinh@gmail.com",
+  "phone": "0397750803",
+  "password": "$2b$10$SDoDaTkkYbsuD9.aLecTguBAH9lSRlUim1ayffsO7HJG/Z7xUO9iC",
+  "level": "Admin",
+  "createdAt": {
+    "$date": "2026-03-18T15:26:35.121Z"
+  },
+  "__v": 0
+}]

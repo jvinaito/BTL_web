@@ -1,0 +1,1673 @@
+[{
+  "_id": {
+    "$oid": "6a098bbdd82bda628dfd30d3"
+  },
+  "userId": null,
+  "sessionId": "4j1yHzPqUAVRfTjAijkY7ABEhFHnJcgS",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:34:53.943Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c96075d6c4ff5b066cb"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:30.093Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c99075d6c4ff5b066d5"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:33.252Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c9a075d6c4ff5b066dc"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:34.295Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c9b075d6c4ff5b066e3"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560f"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:35.390Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c9c075d6c4ff5b066ea"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:36.342Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c9d075d6c4ff5b066f1"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560f"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:37.355Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c9e075d6c4ff5b066f8"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:38.270Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098c9f075d6c4ff5b066ff"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560f"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:39.457Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098ca8075d6c4ff5b06711"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55e0"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:48.379Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cb1075d6c4ff5b0671e"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:57.838Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cb3075d6c4ff5b06725"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562d"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:38:59.960Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cb5075d6c4ff5b0672c"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562f"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:01.145Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cb7075d6c4ff5b06733"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5626"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:03.014Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cb8075d6c4ff5b0673a"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562d"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:04.595Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cba075d6c4ff5b06741"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5626"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:06.087Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cbc075d6c4ff5b06748"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55dd"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:08.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cbd075d6c4ff5b0674f"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55de"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:09.800Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cc6075d6c4ff5b0675f"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561d"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:18.462Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098cc9075d6c4ff5b06766"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562a"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:39:21.084Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d0d075d6c4ff5b0676d"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55d6"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:40:29.436Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d0e075d6c4ff5b06774"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55eb"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:40:30.832Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d0f075d6c4ff5b0677b"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55d3"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:40:31.940Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d14075d6c4ff5b06784"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "search",
+  "searchQuery": "son",
+  "createdAt": {
+    "$date": "2026-05-17T09:40:36.187Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d1b075d6c4ff5b0678d"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "search",
+  "searchQuery": "97",
+  "createdAt": {
+    "$date": "2026-05-17T09:40:43.131Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d1c075d6c4ff5b06795"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562c"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:40:44.452Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d6d075d6c4ff5b067a2"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:42:05.372Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d70075d6c4ff5b067a9"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:42:08.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d72075d6c4ff5b067b0"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:42:10.898Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d74075d6c4ff5b067b7"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560f"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:42:12.766Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a098d75075d6c4ff5b067be"
+  },
+  "userId": null,
+  "sessionId": "Mdz7ECGFRkjEENxoWbHXzq2DJbpAPLt_",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T09:42:13.898Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d30d453f37c9ff41c400"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T14:39:09.446Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d43b453f37c9ff41c410"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T14:44:11.666Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d44a453f37c9ff41c41a"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T14:44:26.755Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d507453f37c9ff41c434"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55e4"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T14:47:35.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d693453f37c9ff41c43b"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T14:54:11.275Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d7ff453f37c9ff41c44e"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:00:15.985Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d802453f37c9ff41c455"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5628"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:00:18.039Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d803453f37c9ff41c45c"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560f"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:00:19.720Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d807453f37c9ff41c46a"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5620"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:00:23.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d936453f37c9ff41c471"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5620"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:05:26.769Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09d981453f37c9ff41c47b"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:06:41.072Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09dac6453f37c9ff41c482"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:12:06.348Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09dbcd453f37c9ff41c487"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "search",
+  "searchQuery": "Gấu bông Teddy",
+  "createdAt": {
+    "$date": "2026-05-17T15:16:29.095Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09dbce453f37c9ff41c48f"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55d2"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:16:30.015Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09dce8453f37c9ff41c494"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "search",
+  "searchQuery": "Chó bông Husky",
+  "createdAt": {
+    "$date": "2026-05-17T15:21:12.670Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09dcea453f37c9ff41c49c"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55d6"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:21:14.541Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09e5da453f37c9ff41c4af"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55da"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T15:59:22.517Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09ea2c453f37c9ff41c4b6"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55da"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T16:17:48.149Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09ed4e453f37c9ff41c4bd"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55da"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T16:31:10.090Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09ed91453f37c9ff41c4c4"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55da"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T16:32:17.066Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a09edab453f37c9ff41c4cb"
+  },
+  "userId": null,
+  "sessionId": "CXjihAZQCMTlIIyvemBPuFH5zaESeB6B",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55da"
+  },
+  "createdAt": {
+    "$date": "2026-05-17T16:32:43.352Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0a947c303ab7fb83c10ef4"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "Cv3aOm8n-irJ1CITdjlnQyku1EGjDq7L",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561d"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T04:24:28.552Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0a9ed4c0fd8136270178e7"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "YLTuirP0zOyoC8HhdYdLR2R4DMSv0PW9",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55f6"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:08:36.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa14f19d092277e2ff251"
+  },
+  "userId": null,
+  "sessionId": "n9CBwd9iTh25J_msZbW6KsIeUu1d6ouU",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55f4"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:19:11.980Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa2b465738e4c7b379e8d"
+  },
+  "userId": null,
+  "sessionId": "VK4-07_B_8qWNrGlaTnhV10VSk1n7L68",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55de"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:25:08.075Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa2d4be66aabbee2d33bc"
+  },
+  "userId": null,
+  "sessionId": "JkKRY-YXd14ml2k3b3-mlxOUKdRF3JlS",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55de"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:25:40.315Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa472ed145ec0cc330c18"
+  },
+  "userId": null,
+  "sessionId": "CLLqNlCxq18ieTv1z-mQYLw8c0Mmc_Sx",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55e2"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:32:34.556Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa488ed145ec0cc330c1f"
+  },
+  "userId": null,
+  "sessionId": "qEtAGG3EovAHnKuqdS_XJAGLUMiaiM4Z",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55e2"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:32:56.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa48ced145ec0cc330c22"
+  },
+  "userId": null,
+  "sessionId": "YaI2XWIufXsAR-LRsbGRS7L8O9DuTf6Z",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55f0"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:33:00.276Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa6588f6dff2a5a556ffe"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "VXKz3Wc8QA0vHRB1pHOOlsUeNqaLach9",
+  "action": "purchase",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5629"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:40:40.293Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa7618f6dff2a5a557015"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "VXKz3Wc8QA0vHRB1pHOOlsUeNqaLach9",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5620"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:45:05.196Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aa7618f6dff2a5a557017"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "VXKz3Wc8QA0vHRB1pHOOlsUeNqaLach9",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5620"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T05:45:05.202Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aababd02f3fdd160f6c6c"
+  },
+  "userId": null,
+  "sessionId": "cRnZKq8gj4wswGHfZYu2j-cvwXxFme-W",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:03:23.260Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aababd02f3fdd160f6c6e"
+  },
+  "userId": null,
+  "sessionId": "cRnZKq8gj4wswGHfZYu2j-cvwXxFme-W",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:03:23.282Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aaddceed9a6f6536600db"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "qCaLm9qrZwUrs9vJ9ryHFO7hOfbyTygH",
+  "action": "purchase",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561c"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:12:44.028Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab6789103e19696bd7639"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "bd0Zlgde40MBY9Ra9bKefhtkZQWoqNg9",
+  "action": "purchase",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:49:28.021Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8ed65e36acf078491fa"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "GnhGftGfA9edRYulP0NFHJESVzMGj4Qa",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:59:57.523Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8ed65e36acf078491fc"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "GnhGftGfA9edRYulP0NFHJESVzMGj4Qa",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:59:57.528Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8ef65e36acf07849200"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "GnhGftGfA9edRYulP0NFHJESVzMGj4Qa",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:59:59.195Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8ef65e36acf07849202"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "GnhGftGfA9edRYulP0NFHJESVzMGj4Qa",
+  "action": "add_to_cart",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T06:59:59.198Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8f665e36acf0784920d"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "GnhGftGfA9edRYulP0NFHJESVzMGj4Qa",
+  "action": "purchase",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:00:06.805Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0ab8f665e36acf0784920f"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "GnhGftGfA9edRYulP0NFHJESVzMGj4Qa",
+  "action": "purchase",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:00:06.807Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0aba0265e36acf0784924c"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "KuoSKxvFiTUwcOOigTbZrWq2C_y7Dk8d",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55e4"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:04:34.766Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb6465e36acf0784929b"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561d"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:28.518Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb6565e36acf078492a2"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562a"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:29.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb6765e36acf078492a9"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55dd"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:31.535Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb6b65e36acf078492b2"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:35.671Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb6e65e36acf078492b9"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5614"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:38.189Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb7565e36acf078492c2"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561e"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:45.812Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb7765e36acf078492c9"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562d"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:47.401Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb8265e36acf078492d6"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:58.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a0abb8365e36acf078492dd"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f2544d"
+  },
+  "sessionId": "58-ACauBfCOxhBG1P-BKfCALeA6bBgVu",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac562a"
+  },
+  "createdAt": {
+    "$date": "2026-05-18T07:10:59.227Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a253b9102939c25d89f904b"
+  },
+  "userId": null,
+  "sessionId": "Mk2y3BgExbAod-Qnp0gA-lWYahMKJxo0",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac561f"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T09:36:17.353Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a253b9d02939c25d89f9055"
+  },
+  "userId": null,
+  "sessionId": "Mk2y3BgExbAod-Qnp0gA-lWYahMKJxo0",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5610"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T09:36:29.107Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a253ba102939c25d89f905c"
+  },
+  "userId": null,
+  "sessionId": "Mk2y3BgExbAod-Qnp0gA-lWYahMKJxo0",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55d8"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T09:36:33.585Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a25936c3387ae36369aa7f8"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T15:51:08.270Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2593a73387ae36369aa7fe"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T15:52:07.028Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a25941e3387ae36369aa804"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T15:54:06.420Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2594fa3387ae36369aa80a"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac560c"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T15:57:46.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2595213387ae36369aa80e"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "search",
+  "searchQuery": "du hành vũ trụ",
+  "createdAt": {
+    "$date": "2026-06-07T15:58:25.240Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2595233387ae36369aa816"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55df"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T15:58:27.935Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2596f23387ae36369aa81c"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55df"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:06:10.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2597863387ae36369aa822"
+  },
+  "userId": null,
+  "sessionId": "JfoQTJo57l16t24qWCmHrkLhK36xQ9eg",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:08:38.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259a6d34acf107cf0b23d4"
+  },
+  "userId": null,
+  "sessionId": "vgiYfWPP1WE9XY-TP3_4-IqJdYkFNDc-",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:21:01.862Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259ab634acf107cf0b23db"
+  },
+  "userId": null,
+  "sessionId": "vgiYfWPP1WE9XY-TP3_4-IqJdYkFNDc-",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:22:14.194Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259ade34acf107cf0b23e2"
+  },
+  "userId": null,
+  "sessionId": "vgiYfWPP1WE9XY-TP3_4-IqJdYkFNDc-",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:22:54.477Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259af934acf107cf0b23e9"
+  },
+  "userId": null,
+  "sessionId": "vgiYfWPP1WE9XY-TP3_4-IqJdYkFNDc-",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:23:21.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259beaeb84484c6410ef13"
+  },
+  "userId": null,
+  "sessionId": "3kgF6nrOFUwTerToI7ODokJZkDBXvre4",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:27:22.392Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259c399ae01d5a7da26445"
+  },
+  "userId": null,
+  "sessionId": "-dTIu8IMxYlm7JZqd_m3ftWAGtqTkc0d",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:28:41.773Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259c9ca52d8f4094e9dadc"
+  },
+  "userId": null,
+  "sessionId": "yupqqrfNHFok91GxaG3TUSWqIfEJazJ5",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:30:20.683Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259ca3a52d8f4094e9dae3"
+  },
+  "userId": null,
+  "sessionId": "yupqqrfNHFok91GxaG3TUSWqIfEJazJ5",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:30:27.261Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259ce53f276ac70e169a5a"
+  },
+  "userId": null,
+  "sessionId": "GHK-IrLQB6a2IEMK4sxy6UZlifMytmC-",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:31:33.737Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a259e70380fc33c2d17f8f3"
+  },
+  "userId": null,
+  "sessionId": "q3nHvT5RphfZC2e4_ioY17WxuIvQ0O_L",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac5607"
+  },
+  "createdAt": {
+    "$date": "2026-06-07T16:38:08.861Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a263714cff7200f7a4b63bd"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "n9aNbX9s1lHMa72lTebWZythoFrr1lDB",
+  "action": "search",
+  "searchQuery": "cảnh sát",
+  "createdAt": {
+    "$date": "2026-06-08T03:29:24.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a263716cff7200f7a4b63c5"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "n9aNbX9s1lHMa72lTebWZythoFrr1lDB",
+  "action": "view_product",
+  "productId": {
+    "$oid": "6a097f78eaa80cec43ac55f7"
+  },
+  "createdAt": {
+    "$date": "2026-06-08T03:29:26.427Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2638b4cff7200f7a4b63ca"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "n9aNbX9s1lHMa72lTebWZythoFrr1lDB",
+  "action": "search",
+  "searchQuery": "starwar",
+  "createdAt": {
+    "$date": "2026-06-08T03:36:20.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a263d38cff7200f7a4b63cf"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "n9aNbX9s1lHMa72lTebWZythoFrr1lDB",
+  "action": "search",
+  "searchQuery": "starwar",
+  "createdAt": {
+    "$date": "2026-06-08T03:55:36.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a263d4ecff7200f7a4b63da"
+  },
+  "userId": {
+    "$oid": "69bac3fa1d5a2ab129f25479"
+  },
+  "sessionId": "n9aNbX9s1lHMa72lTebWZythoFrr1lDB",
+  "action": "search",
+  "searchQuery": "lego",
+  "createdAt": {
+    "$date": "2026-06-08T03:55:58.854Z"
+  },
+  "__v": 0
+}]
