@@ -46,7 +46,7 @@
         "rẻ hơn {price}",
         "không quá {price}",
         "tầm {price}",
-        "dưới {price}$",
+        "dưới {price}đ",
         "dưới {price} usd"
       ],
       "responses": ["Sản phẩm có giá dưới {price} USD:"]

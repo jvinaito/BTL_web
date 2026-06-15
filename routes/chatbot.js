@@ -71,7 +71,7 @@ async function handleCheckout(req, res, action) {
 
   checkoutState.set(req.session.id, { step: 'awaiting_confirm', total, defaultAddress });
 
-  let msg = `📦 Xác nhận đặt hàng với tổng tiền $${total.toFixed(2)}. `;
+  let msg = `📦 Xác nhận đặt hàng với tổng tiền ${total.toLocaleString('vi-VN')}đ. `;
   if (defaultAddress) {
     msg += `Địa chỉ mặc định: "${defaultAddress}". Bạn có muốn đặt hàng không?`;
   } else {

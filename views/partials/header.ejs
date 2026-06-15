@@ -1,7 +1,7 @@
 <header class="shadow-sm sticky-top bg-white">
   <div class="bg-primary text-white py-2 d-none d-md-block">
     <div class="container d-flex justify-content-between align-items-center small">
-      <div><i class="fa-solid fa-truck me-2"></i>Free shipping Ha Noi</div>
+      <div><i class="fa-solid fa-truck me-2"></i>Miễn phí giao hàng tại Hà Nội</div>
       <div class="d-flex gap-3">
         <% if (user) { %>
           <!-- Dropdown menu với avatar -->
@@ -15,17 +15,17 @@
               </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="/orders/history">History</a></li>
-              <li><a class="dropdown-item" href="/orders/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/orders/history">Lịch sử</a></li>
+              <li><a class="dropdown-item" href="/orders/profile">Hồ sơ</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+              <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
             </ul>
           </div>
           <% } else { %>
-            <a href="/auth/login" class="text-white text-decoration-none">Login</a>
-            <a href="/auth/signup" class="text-white text-decoration-none">Register</a>
+            <a href="/auth/login" class="text-white text-decoration-none">Đăng nhập</a>
+            <a href="/auth/signup" class="text-white text-decoration-none">Đăng ký</a>
             <% } %>
       </div>
     </div>
@@ -47,9 +47,9 @@
 
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav fw-bold">
-          <li class="nav-item"><a class="nav-link text-dark mx-2" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link text-dark mx-2" href="/products">Shop</a></li>
-          <li class="nav-item"><a class="nav-link text-dark mx-2" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link text-dark mx-2" href="/">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link text-dark mx-2" href="/products">Cửa hàng</a></li>
+          <li class="nav-item"><a class="nav-link text-dark mx-2" href="/contact">Liên hệ</a></li>
         </ul>
       </div>
 
@@ -57,7 +57,7 @@
         <form action="/products" method="GET" class="d-none d-md-flex">
           <div class="input-group input-group-sm" style="width: 200px;">
             <input type="text" name="search" class="form-control rounded-pill-start border-end-0 bg-light"
-              placeholder="Search" value="<%= typeof search !== 'undefined' ? search : '' %>">
+              placeholder="Tìm kiếm" value="<%= typeof search !== 'undefined' ? search : '' %>">
             <button type="submit" class="input-group-text bg-light border-start-0 rounded-pill-end"
               style="border: none;">
               <i class="fa-solid fa-magnifying-glass text-muted"></i>

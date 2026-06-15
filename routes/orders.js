@@ -124,7 +124,7 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
       finalAddress = `${street ? street + ', ' : ''}${ward ? ward + ', ' : ''}${district ? district + ', ' : ''}${province || ''}`;
     }
 
-    let shipping = 50;
+    let shipping = 50000;
     const provinceLower = (province || '').toLowerCase();
     const removeTones = (str) => {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');

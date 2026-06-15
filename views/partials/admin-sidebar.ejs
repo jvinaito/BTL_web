@@ -15,22 +15,22 @@
       const page = typeof currentPage !== 'undefined' ? currentPage : ''; 
     %>
     <a class="nav-link py-3 px-4 <%= page === 'dashboard' ? 'active' : '' %>" href="/admin/dashboard">
-      <i class="fa-solid fa-chart-line me-2"></i> Dashboard
+      <i class="fa-solid fa-chart-line me-2"></i> Bảng điều khiển
     </a>
     <a class="nav-link py-3 px-4 <%= page === 'users' ? 'active' : '' %>" href="/admin/users">
-      <i class="fa-solid fa-user-group me-2"></i> User
+      <i class="fa-solid fa-user-group me-2"></i> Người dùng
     </a>
     <a class="nav-link py-3 px-4 <%= page === 'orders' ? 'active' : '' %>" href="/admin/orders">
-      <i class="fa-solid fa-file-invoice-dollar me-2"></i> Order
+      <i class="fa-solid fa-file-invoice-dollar me-2"></i> Đơn hàng
     </a>
     <a class="nav-link py-3 px-4 <%= page === 'products' ? 'active' : '' %>" href="/admin/products">
-      <i class="fa-solid fa-boxes-stacked me-2"></i> Product
+      <i class="fa-solid fa-boxes-stacked me-2"></i> Sản phẩm
     </a>
     <a class="nav-link py-3 px-4 <%= page === 'categories' ? 'active' : '' %>" href="/admin/categories">
-  <i class="fa-solid fa-tags me-2"></i> Categories
+  <i class="fa-solid fa-tags me-2"></i> Danh mục
 </a>
     <a class="nav-link py-3 px-4" href="/auth/logout">
-      <i class="fa-solid fa-sign-out-alt me-2"></i> Logout
+      <i class="fa-solid fa-sign-out-alt me-2"></i> Đăng xuất
     </a>
   </div>
 </nav>

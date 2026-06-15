@@ -1,14 +1,14 @@
-<% title = 'Manage Orders' %>
+<% title = 'Quản lý đơn hàng' %>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div class="d-flex align-items-center gap-3">
-    <span class="fw-bold">All Orders (<%= orders.length %>)</span>
+    <span class="fw-bold">Tất cả đơn hàng (<%= orders.length %>)</span>
   </div>
   <div class="d-flex gap-3 align-items-center">
     <!-- Form tìm kiếm -->
     <form method="GET" action="/admin/orders" class="d-flex gap-2">
       <div class="input-group input-group-sm" style="width: 250px;">
-        <input type="text" name="search" class="form-control border-end-0 shadow-none" placeholder="Search by Order ID, Customer..." value="<%= typeof search !== 'undefined' ? search : '' %>">
+        <input type="text" name="search" class="form-control border-end-0 shadow-none" placeholder="Tìm theo mã đơn hàng, khách hàng..." value="<%= typeof search !== 'undefined' ? search : '' %>">
         <button class="btn btn-light border-start-0" type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -16,11 +16,11 @@
     </form>
     <!-- Bộ lọc trạng thái -->
     <select class="form-select form-select-sm" style="width: 150px;" onchange="location = this.value;">
-      <option value="/admin/orders?status=all" <%= (!status || status === 'all') ? 'selected' : '' %>>All Status</option>
-      <option value="/admin/orders?status=Pending" <%= status === 'Pending' ? 'selected' : '' %>>Pending</option>
-      <option value="/admin/orders?status=Shipping" <%= status === 'Shipping' ? 'selected' : '' %>>Shipping</option>
-      <option value="/admin/orders?status=Complete" <%= status === 'Complete' ? 'selected' : '' %>>Complete</option>
-      <option value="/admin/orders?status=Reject" <%= status === 'Reject' ? 'selected' : '' %>>Reject</option>
+      <option value="/admin/orders?status=all" <%= (!status || status === 'all') ? 'selected' : '' %>>Tất cả trạng thái</option>
+      <option value="/admin/orders?status=Pending" <%= status === 'Pending' ? 'selected' : '' %>>Chờ xử lý</option>
+      <option value="/admin/orders?status=Shipping" <%= status === 'Shipping' ? 'selected' : '' %>>Đang giao</option>
+      <option value="/admin/orders?status=Complete" <%= status === 'Complete' ? 'selected' : '' %>>Hoàn thành</option>
+      <option value="/admin/orders?status=Reject" <%= status === 'Reject' ? 'selected' : '' %>>Đã từ chối</option>
     </select>
     <i class="fa-solid fa-filter"></i>
   </div>
@@ -30,28 +30,28 @@
   <table class="table table-hover align-middle">
     <thead>
       <tr class="text-muted small border-bottom">
-        <th class="fw-normal py-3">Order ID</th>
-        <th class="fw-normal">Customer</th>
-        <th class="fw-normal">Date</th>
-        <th class="fw-normal">Total</th>
-        <th class="fw-normal">Status</th>
-        <th class="fw-normal text-center">Actions</th>
+        <th class="fw-normal py-3">Mã đơn hàng</th>
+        <th class="fw-normal">Khách hàng</th>
+        <th class="fw-normal">Ngày</th>
+        <th class="fw-normal">Tổng tiền</th>
+        <th class="fw-normal">Trạng thái</th>
+        <th class="fw-normal text-center">Thao tác</th>
       </tr>
     </thead>
     <tbody class="small">
       <% orders.forEach(order => { %>
       <tr>
         <td class="fw-bold"><%= order.orderId %></td>
-        <td><%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'N/A' %></td>
+        <td><%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'Không có' %></td>
        <td><%= formatDate(order.createdAt) %></td>
-        <td>$<%= order.total.toFixed(2) %></td>
+        <td><%= order.total.toLocaleString('vi-VN') %>đ</td>
         <td>
           <span class="badge rounded-pill 
             <%= order.status === 'Complete' ? 'bg-success-subtle text-success' : 
                order.status === 'Shipping' ? 'bg-info-subtle text-info' : 
                order.status === 'Reject' ? 'bg-danger-subtle text-danger' : 
                'bg-warning-subtle text-warning' %> px-3">
-            <%= order.status %>
+            <%= ({ Pending: 'Chờ xử lý', Shipping: 'Đang giao', Complete: 'Hoàn thành', Reject: 'Đã từ chối' }[order.status] || order.status) %>
           </span>
         </td>
         <td class="text-center">
@@ -70,24 +70,24 @@
                   <li>
                     <form action="/admin/orders/<%= order._id %>?_method=PUT" method="POST">
                       <input type="hidden" name="status" value="Shipping">
-                      <button type="submit" class="dropdown-item">Shipping</button>
+                      <button type="submit" class="dropdown-item">Đang giao</button>
                     </form>
                   </li>
                   <li>
                     <form action="/admin/orders/<%= order._id %>?_method=PUT" method="POST">
                       <input type="hidden" name="status" value="Reject">
-                      <button type="submit" class="dropdown-item">Reject</button>
+                      <button type="submit" class="dropdown-item">Đã từ chối</button>
                     </form>
                   </li>
                 <% } else if (order.status === 'Shipping') { %>
                   <li>
                     <form action="/admin/orders/<%= order._id %>?_method=PUT" method="POST">
                       <input type="hidden" name="status" value="Complete">
-                      <button type="submit" class="dropdown-item">Complete</button>
+                      <button type="submit" class="dropdown-item">Hoàn thành</button>
                     </form>
                   </li>
                 <% } else { %>
-                  <li><span class="dropdown-item-text text-muted">No actions</span></li>
+                  <li><span class="dropdown-item-text text-muted">Không có thao tác</span></li>
                 <% } %>
               </ul>
             </div>
@@ -97,7 +97,7 @@
       <% }) %>
       <% if (orders.length === 0) { %>
       <tr>
-        <td colspan="6" class="text-center py-4">No orders found.</td>
+        <td colspan="6" class="text-center py-4">Không tìm thấy đơn hàng nào.</td>
       </tr>
       <% } %>
     </tbody>
@@ -110,60 +110,60 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="orderDetailModalLabel<%= order._id %>">Order Details - <%= order.orderId %></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="orderDetailModalLabel<%= order._id %>">Chi tiết đơn hàng - <%= order.orderId %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
       </div>
       <div class="modal-body">
         <div class="row mb-3">
           <div class="col-md-6">
-            <p><strong>Customer:</strong> <%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'N/A' %></p>
-            <p><strong>Email:</strong> <%= order.user ? order.user.email : 'N/A' %></p>
-            <p><strong>Phone:</strong> <%= order.shippingAddress ? order.shippingAddress.phone : 'N/A' %></p>
+            <p><strong>Khách hàng:</strong> <%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'Không có' %></p>
+            <p><strong>Email:</strong> <%= order.user ? order.user.email : 'Không có' %></p>
+            <p><strong>Số điện thoại:</strong> <%= order.shippingAddress ? order.shippingAddress.phone : 'Không có' %></p>
           </div>
           <div class="col-md-6">
-            <p><strong>Order Date:</strong> <%= new Date(order.createdAt).toLocaleString() %></p>
-            <p><strong>Status:</strong> 
+            <p><strong>Ngày đặt:</strong> <%= new Date(order.createdAt).toLocaleString() %></p>
+            <p><strong>Trạng thái:</strong> 
               <span class="badge 
                 <%= order.status === 'Complete' ? 'bg-success' : 
                    order.status === 'Shipping' ? 'bg-info' : 
                    order.status === 'Reject' ? 'bg-danger' : 
                    'bg-warning' %>">
-                <%= order.status %>
+                <%= ({ Pending: 'Chờ xử lý', Shipping: 'Đang giao', Complete: 'Hoàn thành', Reject: 'Đã từ chối' }[order.status] || order.status) %>
               </span>
             </p>
-            <p><strong>Shipping Address:</strong> <%= order.shippingAddress ? order.shippingAddress.city : 'N/A' %></p>
+            <p><strong>Địa chỉ giao hàng:</strong> <%= order.shippingAddress ? order.shippingAddress.city : 'Không có' %></p>
           </div>
         </div>
-        <h6 class="fw-bold mb-3">Products</h6>
+        <h6 class="fw-bold mb-3">Sản phẩm</h6>
         <table class="table table-sm">
           <thead>
             <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Subtotal</th>
+              <th>Sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Tạm tính</th>
             </tr>
           </thead>
           <tbody>
             <% order.products.forEach(item => { %>
             <tr>
-              <td><%= item.product ? item.product.name : 'Unknown' %></td>
-              <td>$<%= item.price.toFixed(2) %></td>
+              <td><%= item.product ? item.product.name : 'Không xác định' %></td>
+              <td><%= item.price.toLocaleString('vi-VN') %>đ</td>
               <td><%= item.quantity %></td>
-              <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+              <td><%= (item.price * item.quantity).toLocaleString('vi-VN') %>đ</td>
             </tr>
             <% }) %>
           </tbody>
           <tfoot>
             <tr>
-              <th colspan="3" class="text-end">Total:</th>
-              <th>$<%= order.total.toFixed(2) %></th>
+              <th colspan="3" class="text-end">Tổng tiền:</th>
+              <th><%= order.total.toLocaleString('vi-VN') %>đ</th>
             </tr>
           </tfoot>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>

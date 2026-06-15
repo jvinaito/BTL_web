@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
              onerror="this.src='/images/placeholder.png'">
         <div class="flex-grow-1">
           <div class="fw-bold small">${name}</div>
-          <div class="text-success fw-bold">$${price}</div>
+          <div class="text-success fw-bold">${Number(price).toLocaleString('vi-VN')}đ</div>
         </div>
         <a href="/products/${productId}" target="_blank" class="btn btn-sm btn-info text-white">Xem</a>
       </div>`;

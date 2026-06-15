@@ -1,4 +1,4 @@
-<% title = 'Shop' %>
+<% title = 'Cửa hàng' %>
 
 <div class="container py-5">
   <div class="row g-4">
@@ -6,7 +6,7 @@
     <aside class="col-lg-3">
       <!-- Categories -->
       <div class="mb-5">
-        <h5 class="fw-bold mb-3 border-bottom pb-2">Product categories</h5>
+        <h5 class="fw-bold mb-3 border-bottom pb-2">Danh mục sản phẩm</h5>
         <ul class="list-unstyled">
           <% categories.forEach(cat => { 
             const isActive = query.category && query.category === cat._id.toString();
@@ -59,7 +59,7 @@
 
       <!-- Price filter -->
       <div class="p-4 rounded-4 bg-light border">
-        <h5 class="fw-bold mb-3">Filter by price</h5>
+        <h5 class="fw-bold mb-3">Lọc theo giá</h5>
         <form method="GET" action="/products" id="price-filter-form">
           <% 
             const hiddenParams = { ...query, page: 1 };
@@ -74,18 +74,18 @@
             <input type="hidden" name="<%= key %>" value="<%= value %>">
           <% } %>
           <div class="d-flex align-items-center gap-2 mt-2">
-            <input type="number" name="min" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Min" value="<%= query.min || 0 %>">
+            <input type="number" name="min" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Tối thiểu" value="<%= query.min || 0 %>">
             <span class="text-muted">-</span>
-            <input type="number" name="max" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Max" value="<%= query.max || 100 %>">
+            <input type="number" name="max" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Tối đa" value="<%= query.max || 100 %>">
           </div>
-          <button type="submit" class="btn btn-info text-white w-100 mt-3 fw-bold rounded-pill shadow-sm">Apply</button>
+          <button type="submit" class="btn btn-info text-white w-100 mt-3 fw-bold rounded-pill shadow-sm">Áp dụng</button>
         </form>
       </div>
 
       <!-- Reset filters button -->
       <div class="mt-4 text-center">
         <a href="/products" class="btn btn-outline-secondary btn-sm rounded-pill px-4">
-          <i class="fa-solid fa-rotate-left me-1"></i> Reset Filters
+          <i class="fa-solid fa-rotate-left me-1"></i> Đặt lại bộ lọc
         </a>
       </div>
     </aside>
@@ -94,7 +94,7 @@
     <main class="col-lg-9">
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h2 class="fw-bold mb-0">
-          <%= query.category ? categories.find(c => c._id.toString() === query.category)?.name : 'All Products' %>
+          <%= query.category ? categories.find(c => c._id.toString() === query.category)?.name : 'Tất cả sản phẩm' %>
           <%= query.brand ? `- ${query.brand}` : '' %>
           <%= query.gender ? `- ${query.gender === 'Boy' ? 'Bé trai' : (query.gender === 'Girl' ? 'Bé gái' : 'Unisex')}` : '' %>
           <%= query.ageRange ? `- ${query.ageRange} tuổi` : '' %>
@@ -109,11 +109,11 @@
                 if (sortBaseParams[key] === '' || sortBaseParams[key] === undefined) delete sortBaseParams[key];
               });
             %>
-            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams }).toString() %>" <%= !query.sort || query.sort === 'default' ? 'selected' : '' %>>Default sorting</option>
-            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_asc' }).toString() %>" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Price: Low to High</option>
-            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_desc' }).toString() %>" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Price: High to Low</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams }).toString() %>" <%= !query.sort || query.sort === 'default' ? 'selected' : '' %>>Sắp xếp mặc định</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_asc' }).toString() %>" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Giá: Thấp đến cao</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_desc' }).toString() %>" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Giá: Cao đến thấp</option>
           </select>
-          <span class="small text-muted text-nowrap">Showing <%= products.length %> results</span>
+          <span class="small text-muted text-nowrap">Hiển thị <%= products.length %> kết quả</span>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
           <div class="col">
             <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 bg-white d-flex flex-column">
               <% if (product.discount > 0) { %>
-                <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">SALE</span>
+                <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">GIẢM GIÁ</span>
               <% } %>
               <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
                 <div style="height: 180px; display: flex; align-items: center; justify-content: center;">
@@ -132,9 +132,9 @@
                 <div class="card-body p-2 text-center d-flex flex-column flex-grow-1">
                   <p class="mb-1 fw-bold small text-truncate text-dark"><%= product.name %></p>
                   <div class="mb-2 mt-auto small">
-                    <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold">$<%= product.salePrice %></span>
+                    <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold"><%= product.salePrice.toLocaleString('vi-VN') %>đ</span>
                     <% if (product.discount > 0) { %>
-                      <small class="text-muted text-decoration-line-through ms-1">$<%= product.originalPrice %></small>
+                      <small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small>
                     <% } %>
                   </div>
                 </div>
@@ -149,7 +149,7 @@
 
       <!-- Pagination -->
       <% if (totalPages > 1) { %>
-        <nav aria-label="Page navigation" class="mt-5">
+        <nav aria-label="Điều hướng trang" class="mt-5">
           <ul class="pagination justify-content-center">
             <% 
               const pageBaseParams = { ...query };
@@ -159,7 +159,7 @@
               });
             %>
             <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage - 1 }).toString() %>" aria-label="Previous">
+              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage - 1 }).toString() %>" aria-label="Trang trước">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
@@ -169,7 +169,7 @@
               </li>
             <% } %>
             <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage + 1 }).toString() %>" aria-label="Next">
+              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage + 1 }).toString() %>" aria-label="Trang sau">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
@@ -198,7 +198,7 @@
         const brandParam = urlParams.get('brand');
         if (brandParam) brandSelect.value = brandParam;
       })
-      .catch(err => console.error('Failed to load brands:', err));
+      .catch(err => console.error('Không thể tải thương hiệu:', err));
 
     const genderSelect = document.getElementById('gender-filter');
     const ageSelect = document.getElementById('age-filter');

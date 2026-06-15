@@ -47,14 +47,14 @@ async function processAdminMessage(message) {
 
   // Doanh thu
   if (msg.includes('doanh thu') || msg.includes('income') || msg.includes('thu nhập')) {
-    return `💰 Tổng doanh thu hoàn thành: $${stats.totalIncome.toFixed(2)}`;
+    return `💰 Tổng doanh thu hoàn thành: ${stats.totalIncome.toLocaleString('vi-VN')}đ`;
   }
 
   // Đơn hàng gần đây (mặc định 5 đơn)
   if (msg === 'đơn hàng' || msg === 'order' || msg === 'orders') {
     let reply = `📦 Tổng số đơn hàng: ${stats.totalOrders}. 5 đơn gần nhất:\n`;
     stats.recentOrders.forEach((o, i) => {
-      reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - $${o.total} - ${o.status}\n`;
+      reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - ${Number(o.total).toLocaleString('vi-VN')}đ - ${o.status}\n`;
     });
     return reply;
   }
@@ -71,7 +71,7 @@ async function processAdminMessage(message) {
     if (orders.length === 0) return `Không có đơn hàng nào ở trạng thái ${status}.`;
     let reply = `📋 Đơn hàng trạng thái ${status} (10 đơn gần nhất):\n`;
     orders.forEach((o, i) => {
-      reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - $${o.total}\n`;
+      reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - ${Number(o.total).toLocaleString('vi-VN')}đ\n`;
     });
     return reply;
   }
@@ -85,7 +85,7 @@ async function processAdminMessage(message) {
     const orders = await getOrdersByDate(startDate, endDate);
     if (orders.length === 0) return 'Không có đơn hàng nào hôm nay.';
     let reply = '📅 Đơn hàng hôm nay:\n';
-    orders.forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - $${o.total} - ${o.status}\n`);
+    orders.forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - ${Number(o.total).toLocaleString('vi-VN')}đ - ${o.status}\n`);
     return reply;
   }
   if (msg.includes('hôm qua')) {
@@ -96,7 +96,7 @@ async function processAdminMessage(message) {
     const orders = await getOrdersByDate(startDate, endDate);
     if (orders.length === 0) return 'Không có đơn hàng nào hôm qua.';
     let reply = '📅 Đơn hàng hôm qua:\n';
-    orders.forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - $${o.total} - ${o.status}\n`);
+    orders.forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - ${Number(o.total).toLocaleString('vi-VN')}đ - ${o.status}\n`);
     return reply;
   }
   if (msg.includes('tuần này')) {
@@ -107,7 +107,7 @@ async function processAdminMessage(message) {
     const orders = await getOrdersByDate(start, end);
     if (orders.length === 0) return 'Không có đơn hàng trong tuần này.';
     let reply = '📅 Đơn hàng tuần này (10 đơn gần nhất):\n';
-    orders.slice(0,10).forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - $${o.total} - ${o.status}\n`);
+    orders.slice(0,10).forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - ${Number(o.total).toLocaleString('vi-VN')}đ - ${o.status}\n`);
     return reply;
   }
   if (msg.includes('tháng này')) {
@@ -116,7 +116,7 @@ async function processAdminMessage(message) {
     const orders = await getOrdersByDate(start, end);
     if (orders.length === 0) return 'Không có đơn hàng trong tháng này.';
     let reply = `📅 Đơn hàng tháng ${now.getMonth()+1} (10 đơn gần nhất):\n`;
-    orders.slice(0,10).forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - $${o.total} - ${o.status}\n`);
+    orders.slice(0,10).forEach((o, i) => reply += `${i+1}. ${o.orderId} - ${o.user?.firstName || 'N/A'} - ${Number(o.total).toLocaleString('vi-VN')}đ - ${o.status}\n`);
     return reply;
   }
 
@@ -126,7 +126,7 @@ async function processAdminMessage(message) {
     if (topUsers.length === 0) return 'Chưa có dữ liệu.';
     let reply = '🏆 Top 5 khách hàng chi tiêu nhiều nhất:\n';
     topUsers.forEach((u, i) => {
-      reply += `${i+1}. ${u.name} - $${u.totalSpent.toFixed(2)}\n`;
+      reply += `${i+1}. ${u.name} - ${u.totalSpent.toLocaleString('vi-VN')}đ\n`;
     });
     return reply;
   }
@@ -152,7 +152,7 @@ async function processAdminMessage(message) {
     const code = findOrderMatch[1].trim();
     const order = await Order.findOne({ orderId: { $regex: code, $options: 'i' } }).populate('user');
     if (!order) return `Không tìm thấy đơn hàng "${code}".`;
-    return `📄 Đơn ${order.orderId} - ${order.user?.firstName || 'N/A'} - $${order.total} - ${order.status}`;
+    return `📄 Đơn ${order.orderId} - ${order.user?.firstName || 'N/A'} - ${Number(order.total).toLocaleString('vi-VN')}đ - ${order.status}`;
   }
 
   // Tìm sản phẩm theo tên
@@ -165,7 +165,7 @@ async function processAdminMessage(message) {
     }).limit(5).select('name salePrice stock');
     if (products.length === 0) return `Không tìm thấy sản phẩm nào với từ khóa "${keyword}".`;
     let reply = `🔍 Sản phẩm liên quan đến "${keyword}":\n`;
-    products.forEach((p, i) => reply += `${i+1}. ${p.name} - $${p.salePrice} (tồn: ${p.stock})\n`);
+    products.forEach((p, i) => reply += `${i+1}. ${p.name} - ${Number(p.salePrice).toLocaleString('vi-VN')}đ (tồn: ${p.stock})\n`);
     return reply;
   }
 

@@ -1,39 +1,39 @@
-<% title = product ? 'Edit Product' : 'Add Product' %>
+<% title = product ? 'Sửa sản phẩm' : 'Thêm sản phẩm' %>
 
 <div class="container py-5">
   <div class="bg-white p-5 rounded-5 shadow-sm">
-    <h4 class="fw-bold text-info mb-4"><%= product ? 'Edit' : 'Add new' %> product</h4>
+    <h4 class="fw-bold text-info mb-4"><%= product ? 'Sửa' : 'Thêm mới' %> sản phẩm</h4>
     
     <form id="productForm" method="POST" action="<%= product ? '/admin/products/' + product._id + '?_method=PUT' : '/admin/products' %>">
       <div class="row g-4">
         <div class="col-md-6">
           <div class="mb-4">
-            <label class="form-label fw-bold small">Name</label>
-            <input type="text" name="name" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.name : '' %>" placeholder="Md" required>
+            <label class="form-label fw-bold small">Tên</label>
+            <input type="text" name="name" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.name : '' %>" placeholder="VD: Xe đồ chơi" required>
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Stock</label>
+            <label class="form-label fw-bold small">Tồn kho</label>
             <input type="number" name="stock" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.stock : '' %>" placeholder="100">
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Discount (%)</label>
+            <label class="form-label fw-bold small">Giảm giá (%)</label>
             <input type="number" name="discount" id="discount" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.discount : '0' %>" placeholder="0" min="0" max="100">
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Brand</label>
-            <input type="text" name="brand" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.brand : '' %>" placeholder="Brand name">
+            <label class="form-label fw-bold small">Thương hiệu</label>
+            <input type="text" name="brand" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.brand : '' %>" placeholder="Tên thương hiệu">
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Age range</label>
-            <input type="text" name="ageRange" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.ageRange : '' %>" placeholder="0-3 years">
+            <label class="form-label fw-bold small">Độ tuổi</label>
+            <input type="text" name="ageRange" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.ageRange : '' %>" placeholder="0-3 tuổi">
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="mb-4">
-            <label class="form-label fw-bold small">Category</label>
+            <label class="form-label fw-bold small">Danh mục</label>
             <select name="category" class="form-select border-0 bg-light py-2 rounded-3" required>
-              <option value="">Select category</option>
+              <option value="">Chọn danh mục</option>
               <% categories.forEach(cat => { %>
                 <option value="<%= cat._id %>" <%= product && product.category && product.category._id == cat._id ? 'selected' : '' %>>
                   <%= cat.name %>
@@ -42,21 +42,21 @@
             </select>
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Original price ($)</label>
+            <label class="form-label fw-bold small">Giá gốc (đ)</label>
             <input type="number" step="0.01" name="originalPrice" id="originalPrice" class="form-control border-0 bg-light py-2 rounded-3" value="<%= product ? product.originalPrice : '' %>" placeholder="0.00" required>
           </div>
           
           <div class="mb-4">
-            <label class="form-label fw-bold small">Gender</label>
+            <label class="form-label fw-bold small">Giới tính</label>
             <select name="gender" class="form-select border-0 bg-light py-2 rounded-3">
               <option value="Unisex" <%= !product || product.gender === 'Unisex' ? 'selected' : '' %>>Unisex</option>
-              <option value="Boy" <%= product && product.gender === 'Boy' ? 'selected' : '' %>>Boy</option>
-              <option value="Girl" <%= product && product.gender === 'Girl' ? 'selected' : '' %>>Girl</option>
+              <option value="Boy" <%= product && product.gender === 'Boy' ? 'selected' : '' %>>Bé trai</option>
+              <option value="Girl" <%= product && product.gender === 'Girl' ? 'selected' : '' %>>Bé gái</option>
             </select>
           </div>
           <div class="mb-4">
-            <label class="form-label fw-bold small">Description</label>
-            <textarea name="description" class="form-control border-0 bg-light py-2 rounded-3" rows="1" placeholder="Short description"><%= product ? product.description : '' %></textarea>
+            <label class="form-label fw-bold small">Mô tả</label>
+            <textarea name="description" class="form-control border-0 bg-light py-2 rounded-3" rows="1" placeholder="Mô tả ngắn"><%= product ? product.description : '' %></textarea>
           </div>
         </div>
       </div>
@@ -67,16 +67,16 @@
       <div class="row mt-4 align-items-end">
         <div class="col-md-5">
           <div class="mb-4">
-            <label class="form-label fw-bold small">Image URL</label>
+            <label class="form-label fw-bold small">URL hình ảnh</label>
             <input type="text" name="imageUrl" class="form-control border-0 bg-light py-2 rounded-3" placeholder="https://example.com/image.jpg" value="<%= product ? product.imageUrl : '' %>">
           </div>
           <div class="text-muted small">Nhập đường dẫn ảnh (có thể dùng link từ ImgBB, Gravatar, v.v.)</div>
         </div>
         
         <div class="col-md-7 text-end">
-          <a href="/admin/products" class="btn btn-link text-dark text-decoration-none fw-bold me-4">Cancel</a>
+          <a href="/admin/products" class="btn btn-link text-dark text-decoration-none fw-bold me-4">Hủy</a>
           <button type="submit" class="btn btn-info text-white px-5 py-3 rounded-3 fw-bold shadow-sm" style="background-color: #00bcd4; border: none;">
-            Save Changes
+            Lưu thay đổi
           </button>
         </div>
       </div>
@@ -99,7 +99,7 @@
       // Kiểm tra originalPrice
       if (isNaN(original) || original <= 0) {
         e.preventDefault();
-        alert('Original price phải là số dương lớn hơn 0.');
+        alert('Giá gốc phải là số dương lớn hơn 0.');
         return;
       }
 
@@ -109,7 +109,7 @@
       }
       if (discount > 100) {
         e.preventDefault();
-        alert('Discount không được vượt quá 100%.');
+        alert('Giảm giá không được vượt quá 100%.');
         return;
       }
 

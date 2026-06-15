@@ -1,20 +1,20 @@
-<% title = 'Checkout' %>
+<% title = 'Thanh toán' %>
 
 <div class="container py-5">
-  <h2 class="fw-bold mb-4">Check out</h2>
+  <h2 class="fw-bold mb-4">Thanh toán</h2>
 
   <div class="row g-5">
     <!-- Cột trái: thông tin giao hàng -->
     <div class="col-lg-7">
-      <h5 class="fw-bold mb-4">Delivery info</h5>
+      <h5 class="fw-bold mb-4">Thông tin giao hàng</h5>
       <form id="checkout-form" method="POST" action="/orders/checkout">
         <div class="row g-3">
           <div class="col-md-6">
-            <label class="form-label small fw-bold">First name *</label>
+            <label class="form-label small fw-bold">Tên *</label>
             <input type="text" name="firstName" class="form-control" value="<%= user.firstName %>" required readonly>
           </div>
           <div class="col-md-6">
-            <label class="form-label small fw-bold">Last name *</label>
+            <label class="form-label small fw-bold">Họ *</label>
             <input type="text" name="lastName" class="form-control" value="<%= user.lastName %>" required readonly>
           </div>
 
@@ -52,7 +52,7 @@
         </div>
         <input type="hidden" name="fullAddress" id="fullAddress">
         <button type="submit" class="btn btn-info text-white w-100 py-3 rounded-pill fw-bold shadow-sm mt-4">
-          Place order
+          Đặt hàng
         </button>
       </form>
     </div>
@@ -60,7 +60,7 @@
     <!-- Cột phải: tóm tắt đơn hàng -->
     <div class="col-lg-5">
       <div class="order-box p-4 rounded-4 shadow-sm">
-        <h5 class="fw-bold mb-4">Your order</h5>
+        <h5 class="fw-bold mb-4">Đơn hàng của bạn</h5>
 
         <div class="mb-4">
           <% 
@@ -73,29 +73,29 @@
                 <img src="<%= item.product.imageUrl %>" style="width: 50px; height:50px; object-fit:contain;" class="rounded-3">
                 <span class="small fw-bold"><%= item.product.name %> (x<%= item.quantity %>)</span>
               </div>
-              <span class="small fw-bold">$<%= (item.product.salePrice * item.quantity).toFixed(2) %></span>
+              <span class="small fw-bold"><%= (item.product.salePrice * item.quantity).toLocaleString('vi-VN') %>đ</span>
             </div>
           <% }) %>
         </div>
 
         <div class="pt-3 border-top">
           <div class="d-flex justify-content-between mb-2">
-            <span class="fw-bold">Subtotal</span>
-            <span class="fw-bold" id="subtotal-amount">$<%= subtotal.toFixed(2) %></span>
+            <span class="fw-bold">Tạm tính</span>
+            <span class="fw-bold" id="subtotal-amount"><%= subtotal.toLocaleString('vi-VN') %>đ</span>
           </div>
           <% if (discount > 0) { %>
           <div class="d-flex justify-content-between mb-2">
-            <span class="fw-bold">Discount</span>
-            <span class="fw-bold text-success">-$<%= discount.toFixed(2) %></span>
+            <span class="fw-bold">Giảm giá</span>
+            <span class="fw-bold text-success">-<%= discount.toLocaleString('vi-VN') %>đ</span>
           </div>
           <% } %>
           <div class="d-flex justify-content-between mb-2">
-            <span class="fw-bold">Shipping</span>
-            <span class="fw-bold" id="shipping-cost">$50.00</span>
+            <span class="fw-bold">Phí vận chuyển</span>
+            <span class="fw-bold" id="shipping-cost">50.000đ</span>
           </div>
           <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-            <span class="fw-bold fs-5">Total</span>
-            <span class="fw-bold fs-4 text-info" id="total-amount">$<%= (subtotal - discount + 50).toFixed(2) %></span>
+            <span class="fw-bold fs-5">Tổng tiền</span>
+            <span class="fw-bold fs-4 text-info" id="total-amount"><%= (subtotal - discount + 50).toLocaleString('vi-VN') %>đ</span>
           </div>
         </div>
       </div>
@@ -248,12 +248,12 @@
   function updateShipping() {
     const provinceName = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
     const normalized = removeVietnameseTones(provinceName);
-    const shipping = normalized.includes('ha noi') ? 0 : 50;
+    const shipping = normalized.includes('ha noi') ? 0 : 50000;
     const subtotal = <%= subtotal %>;
     const discount = <%= discount %>;
     const total = subtotal - discount + shipping;
-    document.getElementById('shipping-cost').textContent = '$' + shipping.toFixed(2);
-    document.getElementById('total-amount').textContent = '$' + total.toFixed(2);
+    document.getElementById('shipping-cost').textContent = shipping.toLocaleString('vi-VN') + 'đ';
+    document.getElementById('total-amount').textContent = total.toLocaleString('vi-VN') + 'đ';
   }
 
   provinceSelect.addEventListener('change', updateShipping);

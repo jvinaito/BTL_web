@@ -1,17 +1,17 @@
-<% title = 'Manage Users' %>
+<% title = 'Quản lý người dùng' %>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div class="d-flex align-items-center gap-3">
-    <span class="fw-bold">All Users (<%= totalUsers %>)</span>
+    <span class="fw-bold">Tất cả người dùng (<%= totalUsers %>)</span>
     <button class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addUserModal">
-      ADD NEW +
+      THÊM MỚI +
     </button>
   </div>
   <div class="d-flex gap-3 align-items-center">
     <!-- Form tìm kiếm -->
     <form method="GET" action="/admin/users" class="d-flex gap-2">
       <div class="input-group input-group-sm" style="width: 250px;">
-        <input type="text" name="search" class="form-control border-end-0 shadow-none" placeholder="Search by name, email, phone..." value="<%= search %>">
+        <input type="text" name="search" class="form-control border-end-0 shadow-none" placeholder="Tìm theo tên, email, số điện thoại..." value="<%= search %>">
         <button class="btn btn-light border-start-0" type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -20,17 +20,17 @@
     <!-- Bộ lọc level -->
  <!-- Bộ lọc level -->
 <select class="form-select form-select-sm" style="width: 150px;" onchange="location = this.value;">
-  <option value="/admin/users?level=all&search=<%= encodeURIComponent(search) %>" <%= level === 'all' ? 'selected' : '' %>>All Levels</option>
-  <option value="/admin/users?level=Admin&search=<%= encodeURIComponent(search) %>" <%= level === 'Admin' ? 'selected' : '' %>>Admin</option>
-  <option value="/admin/users?level=Vip&search=<%= encodeURIComponent(search) %>" <%= level === 'Vip' ? 'selected' : '' %>>Vip</option>
-  <option value="/admin/users?level=Normal&search=<%= encodeURIComponent(search) %>" <%= level === 'Normal' ? 'selected' : '' %>>Normal</option>
+  <option value="/admin/users?level=all&search=<%= encodeURIComponent(search) %>" <%= level === 'all' ? 'selected' : '' %>>Tất cả cấp độ</option>
+  <option value="/admin/users?level=Admin&search=<%= encodeURIComponent(search) %>" <%= level === 'Admin' ? 'selected' : '' %>>Quản trị viên</option>
+  <option value="/admin/users?level=Vip&search=<%= encodeURIComponent(search) %>" <%= level === 'Vip' ? 'selected' : '' %>>VIP</option>
+  <option value="/admin/users?level=Normal&search=<%= encodeURIComponent(search) %>" <%= level === 'Normal' ? 'selected' : '' %>>Thường</option>
 </select>
 
 <!-- Thêm dropdown sắp xếp amount -->
 <select class="form-select form-select-sm" style="width: 180px;" onchange="location = this.value;">
-  <option value="/admin/users?sort=amount_desc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'amount_desc' ? 'selected' : '' %>>Amount (cao → thấp)</option>
-  <option value="/admin/users?sort=amount_asc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'amount_asc' ? 'selected' : '' %>>Amount (thấp → cao)</option>
-  <option value="/admin/users?sort=date_desc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'date_desc' ? 'selected' : '' %>>Date (mới nhất)</option>
+  <option value="/admin/users?sort=amount_desc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'amount_desc' ? 'selected' : '' %>>Số tiền (cao → thấp)</option>
+  <option value="/admin/users?sort=amount_asc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'amount_asc' ? 'selected' : '' %>>Số tiền (thấp → cao)</option>
+  <option value="/admin/users?sort=date_desc&level=<%= level %>&search=<%= encodeURIComponent(search) %>" <%= sort === 'date_desc' ? 'selected' : '' %>>Ngày (mới nhất)</option>
 </select>
     <i class="fa-solid fa-filter"></i>
   </div>
@@ -40,14 +40,14 @@
   <table class="table table-hover align-middle">
     <thead>
       <tr class="text-muted small border-bottom">
-        <th class="fw-normal py-3">Image</th>
-        <th class="fw-normal">Name</th>
-        <th class="fw-normal">Date</th>
-        <th class="fw-normal">Phone</th>
+        <th class="fw-normal py-3">Ảnh</th>
+        <th class="fw-normal">Tên</th>
+        <th class="fw-normal">Ngày</th>
+        <th class="fw-normal">Số điện thoại</th>
         <th class="fw-normal">Email</th>
-        <th class="fw-normal">Level</th>
-        <th class="fw-normal text-end">Amount</th>
-        <th class="fw-normal text-center">Actions</th>
+        <th class="fw-normal">Cấp độ</th>
+        <th class="fw-normal text-end">Số tiền</th>
+        <th class="fw-normal text-center">Thao tác</th>
        </tr>
     </thead>
     <tbody class="small">
@@ -61,17 +61,17 @@
         <td>
           <span class="badge rounded-pill 
             <%= user.level === 'Admin' ? 'bg-success' : user.level === 'Vip' ? 'bg-warning text-dark' : 'bg-info' %> px-3">
-            <%= user.level %>
+            <%= ({ Admin: 'Quản trị viên', Vip: 'VIP', Normal: 'Thường' }[user.level] || user.level) %>
           </span>
         </td>
-        <td class="text-end fw-bold">$<%= user.totalSpent.toFixed(2) %></td>
+        <td class="text-end fw-bold"><%= user.totalSpent.toLocaleString('vi-VN') %>đ</td>
         <td class="text-center">
           <div class="d-flex gap-2 justify-content-center">
             <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal<%= user._id %>">
               <i class="fa-solid fa-pen"></i>
             </button>
             <form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST" style="display:inline;">
-              <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this user?')">
+              <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Xóa người dùng này?')">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </form>
@@ -81,7 +81,7 @@
       <% }) %>
       <% if (users.length === 0) { %>
       <tr>
-        <td colspan="8" class="text-center py-4">No users found.</td>
+        <td colspan="8" class="text-center py-4">Không tìm thấy người dùng nào.</td>
       </tr>
       <% } %>
     </tbody>
@@ -120,17 +120,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add New User</h5>
+        <h5 class="modal-title">Thêm người dùng mới</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form action="/admin/users" method="POST">
           <div class="mb-3">
-            <label class="form-label">First Name</label>
+            <label class="form-label">Tên</label>
             <input type="text" name="firstName" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Last Name</label>
+            <label class="form-label">Họ</label>
             <input type="text" name="lastName" class="form-control" required>
           </div>
           <div class="mb-3">
@@ -138,22 +138,22 @@
             <input type="email" name="email" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Phone</label>
+            <label class="form-label">Số điện thoại</label>
             <input type="text" name="phone" class="form-control">
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
+            <label class="form-label">Mật khẩu</label>
             <input type="password" name="password" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Level</label>
+            <label class="form-label">Cấp độ</label>
             <select name="level" class="form-control">
-              <option value="Normal">Normal</option>
-              <option value="Vip">Vip</option>
-              <option value="Admin">Admin</option>
+              <option value="Normal">Thường</option>
+              <option value="Vip">VIP</option>
+              <option value="Admin">Quản trị viên</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary">Tạo mới</button>
         </form>
       </div>
     </div>
@@ -166,17 +166,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit User</h5>
+        <h5 class="modal-title">Sửa người dùng</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form action="/admin/users/<%= user._id %>?_method=PUT" method="POST">
           <div class="mb-3">
-            <label class="form-label">First Name</label>
+            <label class="form-label">Tên</label>
             <input type="text" name="firstName" class="form-control" value="<%= user.firstName %>" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Last Name</label>
+            <label class="form-label">Họ</label>
             <input type="text" name="lastName" class="form-control" value="<%= user.lastName %>" required>
           </div>
           <div class="mb-3">
@@ -184,22 +184,22 @@
             <input type="email" name="email" class="form-control" value="<%= user.email %>" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Phone</label>
+            <label class="form-label">Số điện thoại</label>
             <input type="text" name="phone" class="form-control" value="<%= user.phone || '' %>">
           </div>
           <div class="mb-3">
-            <label class="form-label">New Password (leave blank to keep current)</label>
-            <input type="password" name="password" class="form-control" placeholder="Enter new password">
+            <label class="form-label">Mật khẩu mới (để trống nếu muốn giữ mật khẩu hiện tại)</label>
+            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới">
           </div>
           <div class="mb-3">
-            <label class="form-label">Level</label>
+            <label class="form-label">Cấp độ</label>
             <select name="level" class="form-control">
-              <option value="Normal" <%= user.level === 'Normal' ? 'selected' : '' %>>Normal</option>
-              <option value="Vip" <%= user.level === 'Vip' ? 'selected' : '' %>>Vip</option>
-              <option value="Admin" <%= user.level === 'Admin' ? 'selected' : '' %>>Admin</option>
+              <option value="Normal" <%= user.level === 'Normal' ? 'selected' : '' %>>Thường</option>
+              <option value="Vip" <%= user.level === 'Vip' ? 'selected' : '' %>>VIP</option>
+              <option value="Admin" <%= user.level === 'Admin' ? 'selected' : '' %>>Quản trị viên</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-primary">Cập nhật</button>
         </form>
       </div>
     </div>
