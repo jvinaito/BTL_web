@@ -148,7 +148,9 @@ def _fmt_products(products: list, label: str = '') -> tuple[str | None, list]:
     display = products[:DISPLAY_LIMIT]
     lines = [label] if label else []
     for idx, p in enumerate(display, 1):
-        lines.append(f"{idx}. {p.get('name', 'N/A')} – ${p.get('salePrice', '?')}")
+        price_val = p.get('salePrice', 0)
+        price_fmt = f"{price_val:,}".replace(',', '.') if isinstance(price_val, (int, float)) else price_val
+        lines.append(f"{idx}. {p.get('name', 'N/A')} – {price_fmt}đ")
     if len(products) >= 1:
         lines.append("\n💡 Gõ số thứ tự để xem chi tiết (vd: 1)")
         lines.append("🛒 Gõ 'thêm [số thứ tự]' để thêm vào giỏ (vd: thêm 2)")
@@ -195,9 +197,10 @@ def _handle_price(price: int) -> tuple[str, list]:
     except PyMongoError as e:
         logger.error('MongoDB error: %s', e)
         return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
-    reply, _ = _fmt_products(products, f'Sản phẩm có giá dưới ${price}:')
+    price_fmt = f"{price:,}".replace(',', '.')
+    reply, _ = _fmt_products(products, f'Sản phẩm có giá dưới {price_fmt}đ:')
     if reply is None:
-        reply = f'Không tìm thấy sản phẩm nào có giá dưới ${price}.'
+        reply = f'Không tìm thấy sản phẩm nào có giá dưới {price_fmt}đ.'
     return (reply, products)
 
 def _handle_bestseller(base_response: str) -> tuple[str, list]:
@@ -341,7 +344,7 @@ def _handle_product_with_filters(msg_norm: str) -> tuple[str | None, list]:
             label_parts.append(f'hãng {brand}')
         filter_note = []
         if age:   filter_note.append(f'{age} tuổi')
-        if price: filter_note.append(f'dưới ${price}')
+        if price: filter_note.append(f"dưới {price:,}đ".replace(',', '.'))
         if gender: filter_note.append('bé trai' if gender == 'Boy' else 'bé gái')
         note = ', '.join(filter_note)
         suffix = f' cho {note}' if note else ''
@@ -373,7 +376,7 @@ def _handle_product_with_filters(msg_norm: str) -> tuple[str | None, list]:
     if age:
         label_parts.append(f'{age} tuổi')
     if price:
-        label_parts.append(f'dưới ${price}')
+        label_parts.append(f"dưới {price:,}đ".replace(',', '.'))
     label = 'Sản phẩm ' + ' - '.join(label_parts) + ':'
 
     reply, _ = _fmt_products(products, label)
@@ -407,7 +410,7 @@ def _handle_multi_intent(msg_norm: str) -> tuple[str | None, list]:
         if gender:
             label_parts.append('bé trai' if gender == 'Boy' else 'bé gái')
         label_parts.append(f'{age} tuổi')
-        label_parts.append(f'dưới ${price}')
+        label_parts.append(f"dưới {price:,}đ".replace(',', '.'))
         label = 'Sản phẩm ' + ', '.join(label_parts) + ':'
         reply, _ = _fmt_products(products, label)
         if reply is None:

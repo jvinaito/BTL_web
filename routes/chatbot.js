@@ -193,7 +193,7 @@ function handleLoadMore(req, res) {
   const hasMore = state.offset < state.displayLimit;
   let reply = `📦 Sản phẩm (${state.offset}/${state.displayLimit}):\n`;
   moreProducts.forEach((p, idx) => {
-    reply += `${from + idx + 1}. ${p.name} – $${p.salePrice}\n`;
+    reply += `${from + idx + 1}. ${p.name} – ${Number(p.salePrice).toLocaleString('vi-VN')}đ\n`;
   });
   if (hasMore) {
     reply += `\n💡 Gõ "xem thêm" hoặc nhấn nút để xem tiếp.`;
