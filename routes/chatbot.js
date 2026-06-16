@@ -21,14 +21,12 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// Hàm chuẩn hóa tên sản phẩm
 function normalizeProductName(name) {
   if (!name) return '';
   const normalized = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
   return normalized.toLowerCase().trim().replace(/\s+/g, ' ');
 }
 
-// Hàm so khớp tên sản phẩm trong giỏ
 function findCartItem(cart, productName) {
   if (!cart || cart.length === 0) return -1;
   const searchName = normalizeProductName(productName);
@@ -57,9 +55,17 @@ function findCartItem(cart, productName) {
   return -1;
 }
 
-/* ──────────────────────────────────────────────────────────────
-   1. Thêm giỏ hàng
-────────────────────────────────────────────────────────────── */
+/* ──────────── HÀM TIỆN ÍCH: THAY THẾ TÊN USER ──────────── */
+function replaceUserName(reply, user) {
+  if (!reply) return reply;
+  if (user && user.firstName) {
+    return reply.replace(/{user_name}/g, user.firstName);
+  }
+  // Nếu không có user, thay bằng "bạn"
+  return reply.replace(/{user_name}/g, 'bạn');
+}
+
+/* ──────────── 1. Thêm giỏ hàng ──────────── */
 async function handleAddToCart(req, res, action) {
   if (!req.session) return res.json({ reply: 'Lỗi session. Tải lại trang.', products: [] });
   if (!req.session.cart) req.session.cart = [];
@@ -99,9 +105,7 @@ async function handleAddToCart(req, res, action) {
   return res.json({ reply: `✅ Đã thêm ${quantity} "${product.name}" vào giỏ!`, products: [] });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   2. Xem giỏ hàng
-────────────────────────────────────────────────────────────── */
+/* ──────────── 2. Xem giỏ hàng ──────────── */
 function handleViewCart(req, res) {
   const cart = req.session.cart || [];
   if (cart.length === 0) {
@@ -122,9 +126,7 @@ function handleViewCart(req, res) {
   return res.json({ reply, products: [] });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   3. Sửa số lượng sản phẩm trong giỏ
-────────────────────────────────────────────────────────────── */
+/* ──────────── 3. Sửa số lượng ──────────── */
 async function handleUpdateCart(req, res, action) {
   if (!req.session) return res.json({ reply: 'Lỗi session.', products: [] });
   if (!req.session.cart || req.session.cart.length === 0) {
@@ -151,9 +153,7 @@ async function handleUpdateCart(req, res, action) {
   return res.json({ reply: `✅ Đã cập nhật số lượng "${cart[idx].product.name}" thành ${quantity}.` });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   4. Xóa sản phẩm khỏi giỏ
-────────────────────────────────────────────────────────────── */
+/* ──────────── 4. Xóa sản phẩm ──────────── */
 function handleRemoveFromCart(req, res, action) {
   if (!req.session) return res.json({ reply: 'Lỗi session.', products: [] });
   if (!req.session.cart || req.session.cart.length === 0) {
@@ -179,9 +179,7 @@ function handleRemoveFromCart(req, res, action) {
   return res.json({ reply: `✅ Đã xóa "${removed.product.name}" khỏi giỏ hàng.`, products: [] });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   5. Xem chi tiết sản phẩm
-────────────────────────────────────────────────────────────── */
+/* ──────────── 5. Xem chi tiết sản phẩm ──────────── */
 async function handleViewDetail(req, res, action) {
   const sessionId = req.session.id;
   let product = null;
@@ -224,9 +222,7 @@ async function handleViewDetail(req, res, action) {
   });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   6. Xử lý "Xem trực tiếp"
-────────────────────────────────────────────────────────────── */
+/* ──────────── 6. Xử lý "Xem trực tiếp" ──────────── */
 function handleViewNow(req, res) {
   const sessionId = req.session.id;
   const productId = pendingViewDetail.get(sessionId);
@@ -240,9 +236,7 @@ function handleViewNow(req, res) {
   return res.json({ redirect: `/products/${productId}` });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   7. Checkout
-────────────────────────────────────────────────────────────── */
+/* ──────────── 7. Checkout ──────────── */
 async function handleCheckout(req, res, action) {
   if (!req.session) return res.json({ reply: 'Lỗi hệ thống.', products: [] });
   if (!req.session.user) return res.json({ reply: '🔐 Bạn cần đăng nhập để thanh toán.', products: [] });
@@ -280,9 +274,7 @@ async function handleCheckout(req, res, action) {
   });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   8. Xác nhận checkout
-────────────────────────────────────────────────────────────── */
+/* ──────────── 8. Xác nhận checkout ──────────── */
 async function handleCheckoutConfirm(req, res, action) {
   const sessionId = req.session.id;
   const state = checkoutState.get(sessionId);
@@ -365,9 +357,7 @@ async function handleCheckoutConfirm(req, res, action) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────
-   9. Xem thêm (load more)
-────────────────────────────────────────────────────────────── */
+/* ──────────── 9. Xem thêm ──────────── */
 function handleLoadMore(req, res) {
   const sessionId = req.session.id;
   const state = searchState.get(sessionId);
@@ -393,13 +383,11 @@ function handleLoadMore(req, res) {
   } else {
     reply += '\n✅ Đã hiển thị hết danh sách.';
   }
-  reply += '\n\n📌 Lệnh nhanh: "thêm 1" (thêm sp #1) | "thêm 2 cái 3" (2 cái sp #3) | "1" (xem chi tiết sp #1)';
+  reply += '\n\n📌 Lệnh nhanh: "thêm 1" (thêm sp #1) | "thêm 2 cái 3" (2 cái sp #3) | "1" (xem chi tiết sp #1) | "so sánh 1 và 2" (so sánh 2 sp)';
   return res.json({ reply, products: moreProducts, has_more: hasMore });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   10. Hàm nhận diện yes/no
-────────────────────────────────────────────────────────────── */
+/* ──────────── 10. Hàm nhận diện yes/no ──────────── */
 function resolveCheckoutReply(message) {
   const yes = /^(có|co|yes|y|xác nhận|xac nhan|đồng ý|dong y|ok|oke|okay|đặt|dat)$/i.test(message.trim());
   const no  = /^(không|khong|no|n|hủy|huy|cancel|thôi|thoi|bỏ|bo)$/i.test(message.trim());
@@ -408,9 +396,7 @@ function resolveCheckoutReply(message) {
   return null;
 }
 
-/* ──────────────────────────────────────────────────────────────
-   11. Lịch sử đơn hàng
-────────────────────────────────────────────────────────────── */
+/* ──────────── 11. Lịch sử đơn hàng ──────────── */
 async function handleOrderHistory(req, res) {
   if (!req.session.user) {
     return res.json({ reply: '🔐 Vui lòng đăng nhập để xem lịch sử đơn hàng.', products: [] });
@@ -437,9 +423,7 @@ async function handleOrderHistory(req, res) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────
-   12. Đơn hàng gần nhất
-────────────────────────────────────────────────────────────── */
+/* ──────────── 12. Đơn hàng gần nhất ──────────── */
 async function handleLatestOrder(req, res) {
   if (!req.session.user) {
     return res.json({ reply: '🔐 Vui lòng đăng nhập để xem đơn hàng gần nhất.', products: [] });
@@ -469,9 +453,7 @@ async function handleLatestOrder(req, res) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────
-   13. Kiểm tra trạng thái đơn hàng theo mã
-────────────────────────────────────────────────────────────── */
+/* ──────────── 13. Kiểm tra trạng thái đơn ──────────── */
 async function handleOrderStatus(req, res, action) {
   if (!req.session.user) {
     return res.json({ reply: '🔐 Vui lòng đăng nhập để kiểm tra đơn hàng.', products: [] });
@@ -516,9 +498,7 @@ async function handleOrderStatus(req, res, action) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────
-   14. Chi tiết đơn hàng theo số thứ tự (từ lịch sử)
-────────────────────────────────────────────────────────────── */
+/* ──────────── 14. Chi tiết đơn theo số ──────────── */
 async function handleOrderDetailByIndex(req, res, action) {
   if (!req.session.user) {
     return res.json({ reply: '🔐 Vui lòng đăng nhập để xem chi tiết đơn hàng.', products: [] });
@@ -563,9 +543,7 @@ async function handleOrderDetailByIndex(req, res, action) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────
-   15. Tìm đơn hàng theo tên sản phẩm
-────────────────────────────────────────────────────────────── */
+/* ──────────── 15. Tìm đơn theo tên sản phẩm ──────────── */
 async function handleOrderDetailByProduct(req, res, action) {
   if (!req.session.user) {
     return res.json({ reply: '🔐 Vui lòng đăng nhập để xem đơn hàng.', products: [] });
@@ -605,9 +583,82 @@ async function handleOrderDetailByProduct(req, res, action) {
   }
 }
 
-/* ──────────────────────────────────────────────────────────────
-   16. Route chính
-────────────────────────────────────────────────────────────── */
+/* ──────────── 16. HỦY ĐƠN HÀNG ──────────── */
+async function handleCancelOrder(req, res, action) {
+  if (!req.session.user) {
+    return res.json({ reply: '🔐 Vui lòng đăng nhập để hủy đơn hàng.', products: [] });
+  }
+
+  const userId = req.session.user._id;
+  let order = null;
+
+  if (action.orderId) {
+    order = await Order.findOne({ orderId: action.orderId, user: userId, status: 'Pending' });
+    if (!order) {
+      return res.json({ reply: `❌ Không tìm thấy đơn hàng "${action.orderId}" đang chờ xử lý để hủy.` });
+    }
+  } else if (action.index) {
+    const orders = await Order.find({ user: userId, status: 'Pending' }).sort({ createdAt: -1 });
+    const idx = action.index - 1;
+    if (idx < 0 || idx >= orders.length) {
+      return res.json({ reply: `❌ Không có đơn hàng đang chờ xử lý số ${action.index}.` });
+    }
+    order = orders[idx];
+  } else {
+    return res.json({ reply: '⚠️ Vui lòng cung cấp mã đơn hoặc số thứ tự (vd: "hủy đơn ORD123" hoặc "hủy đơn số 2").' });
+  }
+
+  try {
+    order.status = 'Reject';
+    await order.save();
+
+    for (const item of order.products) {
+      if (item.product) {
+        const product = await Product.findById(item.product);
+        if (product) {
+          product.stock += item.quantity;
+          product.sold -= item.quantity;
+          await product.save();
+        }
+      }
+    }
+
+    return res.json({ reply: `✅ Đã hủy đơn hàng ${order.orderId} thành công.` });
+  } catch (err) {
+    console.error('[CancelOrder]', err);
+    return res.json({ reply: '❌ Có lỗi xảy ra khi hủy đơn. Vui lòng thử lại.' });
+  }
+}
+
+/* ──────────── 17. SO SÁNH SẢN PHẨM TỪ DANH SÁCH ──────────── */
+function handleCompareItems(req, res, action) {
+  const sessionId = req.session.id;
+  const state = searchState.get(sessionId);
+  if (!state || !state.products || state.products.length === 0) {
+    return res.json({
+      reply: '📭 Không có sản phẩm nào để so sánh. Hãy tìm kiếm trước (vd: "gấu bông").',
+      products: []
+    });
+  }
+
+  const idx1 = action.index1 - 1;
+  const idx2 = action.index2 - 1;
+
+  if (idx1 < 0 || idx1 >= state.products.length || idx2 < 0 || idx2 >= state.products.length) {
+    return res.json({
+      reply: `❌ Không có sản phẩm số ${action.index1} hoặc ${action.index2} trong danh sách.`,
+      products: []
+    });
+  }
+
+  const p1 = state.products[idx1];
+  const p2 = state.products[idx2];
+  const ids = [p1._id, p2._id].join(',');
+
+  return res.json({ redirect: `/products/compare?ids=${ids}` });
+}
+
+/* ──────────── 18. Route chính ──────────── */
 router.post('/message', async (req, res) => {
   const userMessage = (req.body.message || '').trim();
   if (!userMessage) return res.status(400).json({ error: 'Tin nhắn trống' });
@@ -620,7 +671,6 @@ router.post('/message', async (req, res) => {
     return handleLoadMore(req, res);
   }
 
-  // Xử lý pending view detail
   if (pendingViewDetail.has(sessionId)) {
     if (CONFIRM_VIEW_WORDS.includes(lowerMsg)) {
       return handleViewNow(req, res);
@@ -632,7 +682,6 @@ router.post('/message', async (req, res) => {
     pendingViewDetail.delete(sessionId);
   }
 
-  // Checkout state
   const state = checkoutState.get(sessionId);
   if (state) {
     if (state.step === 'awaiting_confirm') {
@@ -660,13 +709,11 @@ router.post('/message', async (req, res) => {
     }
   }
 
-  // Gọi Python chatbot
   try {
     const response = await axios.post(CHATBOT_URL, { message: userMessage }, { timeout: TIMEOUT_MS });
     let reply = response.data?.reply;
     const products = response.data?.products || [];
 
-    // Parse JSON action từ reply
     let action = null;
     try {
       const parsed = JSON.parse(reply);
@@ -678,11 +725,9 @@ router.post('/message', async (req, res) => {
       console.log('[Node] Reply is not JSON action, treat as normal text.');
     }
 
-    // Xử lý action
     if (action) {
       console.log('[Node] Handling action:', action);
 
-      // Xử lý các action giỏ hàng
       if (action.action === 'cart_view') {
         return handleViewCart(req, res);
       }
@@ -693,7 +738,6 @@ router.post('/message', async (req, res) => {
         return handleRemoveFromCart(req, res, action);
       }
 
-      // Xử lý đơn hàng
       if (action.action === 'order_history') {
         return await handleOrderHistory(req, res);
       }
@@ -710,7 +754,14 @@ router.post('/message', async (req, res) => {
         return await handleOrderDetailByProduct(req, res, action);
       }
 
-      // Các action khác
+      if (action.action === 'cancel_order' || action.action === 'cancel_order_by_index') {
+        return await handleCancelOrder(req, res, action);
+      }
+
+      if (action.action === 'compare_items') {
+        return handleCompareItems(req, res, action);
+      }
+
       if (action.action === 'add_to_cart' || action.action === 'add_by_index') {
         return await handleAddToCart(req, res, action);
       }
@@ -726,7 +777,6 @@ router.post('/message', async (req, res) => {
       return res.json({ reply: '⚠️ Không hiểu yêu cầu.', products: [] });
     }
 
-    // Xử lý các tag đặc biệt (fallback khi Python không trả về JSON action)
     if (reply === '__view_cart__') {
       return handleViewCart(req, res);
     }
@@ -737,7 +787,6 @@ router.post('/message', async (req, res) => {
       return await handleLatestOrder(req, res);
     }
     if (reply && reply.startsWith('__order_status__')) {
-      // Nếu có mã đơn trong reply thì parse, nếu không thì hỏi
       const match = userMessage.match(/(ORD\d+)/i);
       if (match) {
         return await handleOrderStatus(req, res, { orderId: match[1] });
@@ -747,7 +796,10 @@ router.post('/message', async (req, res) => {
 
     if (!reply) return res.status(502).json({ error: 'Chatbot lỗi' });
 
-    // Lưu kết quả tìm kiếm
+    // ── THAY THẾ TÊN USER ──
+    const user = req.session.user || null;
+    reply = replaceUserName(reply, user);
+
     const allProducts = response.data?.all_products || [];
     console.log(`[Node] allProducts count: ${allProducts.length}`);
     if (allProducts.length > 0) {
@@ -766,7 +818,7 @@ router.post('/message', async (req, res) => {
     const savedState = allProducts.length > 0 ? searchState.get(sessionId) : null;
     const hasMore = !!(savedState && savedState.offset < savedState.displayLimit);
     if (products && products.length > 0) {
-      finalReply += `\n\n📌 Lệnh nhanh: "thêm 1" (thêm sp #1) | "thêm 2 cái 3" (2 cái sp #3) | "1" (xem chi tiết sp #1)`;
+      finalReply += `\n\n📌 Lệnh nhanh: "thêm 1" (thêm sp #1) | "thêm 2 cái 3" (2 cái sp #3) | "1" (xem chi tiết sp #1) | "so sánh 1 và 2" (so sánh 2 sp)`;
       if (hasMore) finalReply += ` | "xem thêm" (còn ${savedState.displayLimit - savedState.offset} sp nữa)`;
     }
     return res.json({ reply: finalReply, products, has_more: hasMore });
@@ -778,9 +830,7 @@ router.post('/message', async (req, res) => {
   }
 });
 
-/* ──────────────────────────────────────────────────────────────
-   17. Gợi ý tìm kiếm
-────────────────────────────────────────────────────────────── */
+/* ──────────── 19. Gợi ý tìm kiếm ──────────── */
 router.get('/suggest', async (req, res) => {
   const q = (req.query.q || '').trim();
   if (!q) return res.json({ suggestions: [] });

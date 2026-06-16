@@ -49,19 +49,21 @@ def get_categories_col():
 # SESSION
 # ══════════════════════════════════════════════════════════════════════════════
 
-_session: dict[str, Any] = {
-    'last_products': [],
-    'in_checkout_flow': False,
-}
+_sessions: dict[str, dict[str, Any]] = {}
 
-def _get_session() -> dict[str, Any]:
-    return _session
+def _get_session(session_id: str = 'default') -> dict[str, Any]:
+    if session_id not in _sessions:
+        _sessions[session_id] = {
+            'last_products': [],
+            'in_checkout_flow': False,
+        }
+    return _sessions[session_id]
 
-def _set_last_products(products: list[dict]) -> None:
-    _session['last_products'] = products
+def _set_last_products(products: list[dict], session_id: str = 'default') -> None:
+    _get_session(session_id)['last_products'] = products
 
-def _set_checkout_flow(active: bool) -> None:
-    _session['in_checkout_flow'] = active
+def _set_checkout_flow(active: bool, session_id: str = 'default') -> None:
+    _get_session(session_id)['in_checkout_flow'] = active
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -75,7 +77,8 @@ def _extract_keywords(msg_norm: str) -> list[str]:
 def _extract_keywords_relaxed(msg_norm: str) -> list[str]:
     tokens = re.findall(r'[a-z0-9]+', msg_norm)
     skip = {'xin', 'cho', 'toi', 'ban', 'muon', 'can', 'hay', 'oke', 'ok',
-            'la', 'va', 'ma', 'di', 'nhe', 'ak', 'uh', 'vang', 'da'}
+            'la', 'va', 'ma', 'di', 'nhe', 'ak', 'uh', 'vang', 'da',
+            'co', 'khong', 'roi', 'nay', 'kia', 'lam', 'sao', 'the', 'nhu'}
     return [t for t in tokens if t not in skip and len(t) >= 2 and not t.isdigit()]
 
 def _ngrams_longest_first(tokens: list[str]) -> list[str]:
@@ -163,18 +166,23 @@ def _search_products_by_tokens(msg_norm: str, limit: int = 20) -> list[dict]:
 # HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
 
-DISPLAY_LIMIT = 5
+DISPLAY_LIMIT = 20
+INITIAL_DISPLAY = 5
 
 def _fmt_products(products: list, label: str = '') -> tuple[str | None, list]:
     if not products:
         return (None, [])
-    display = products[:DISPLAY_LIMIT]
+    display = products[:INITIAL_DISPLAY]
     lines = [label] if label else []
     for idx, p in enumerate(display, 1):
+        name = p.get('name', 'Không có tên')
         price_val = p.get('salePrice', 0)
-        price_fmt = f"{price_val:,}".replace(',', '.') if isinstance(price_val, (int, float)) else price_val
-        lines.append(f"{idx}. {p.get('name', 'N/A')} – {price_fmt}đ")
-    lines.append("💡 Gõ số (1-5) để xem chi tiết | 'thêm [số]' để thêm giỏ hàng")
+        price_fmt = f"{price_val:,}".replace(',', '.') if isinstance(price_val, (int, float)) else str(price_val)
+        lines.append(f"{idx}. {name} – {price_fmt}đ")
+    if len(products) > INITIAL_DISPLAY:
+        lines.append(f"💡 Còn {len(products) - INITIAL_DISPLAY} sản phẩm nữa. Gõ 'xem thêm' để xem tiếp.")
+    else:
+        lines.append("💡 Gõ số (1-5) để xem chi tiết | 'thêm [số]' để thêm giỏ hàng")
     return ('\n'.join(lines), products)
 
 
@@ -293,6 +301,38 @@ def _handle_brand(brand: str) -> tuple[str, list]:
     reply, _ = _fmt_products(products, f'Sản phẩm hãng {brand.upper()}:')
     if reply is None:
         reply = f'Hiện chưa có sản phẩm của hãng {brand.upper()}.'
+    return (reply, products)
+
+
+def _handle_sale_products(base_response: str) -> tuple[str, list]:
+    try:
+        products = list(get_products_col().find(
+            {'discount': {'$gt': 0}, 'status': 'Active', 'stock': {'$gt': 0}},
+            {'name': 1, 'salePrice': 1, 'discount': 1, 'originalPrice': 1, 'imageUrl': 1}
+        ).sort('discount', -1).limit(20))
+    except PyMongoError as e:
+        logger.error('MongoDB error: %s', e)
+        return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
+    if not products:
+        return ('Hiện chưa có sản phẩm nào đang giảm giá.', [])
+    logger.info(f'[Sale] Found {len(products)} products')
+    reply, _ = _fmt_products(products, base_response)
+    return (reply, products)
+
+
+def _handle_new_arrivals(base_response: str) -> tuple[str, list]:
+    try:
+        products = list(get_products_col().find(
+            {'status': 'Active', 'stock': {'$gt': 0}},
+            {'name': 1, 'salePrice': 1, 'createdAt': 1, 'imageUrl': 1}
+        ).sort('createdAt', -1).limit(20))
+    except PyMongoError as e:
+        logger.error('MongoDB error: %s', e)
+        return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
+    if not products:
+        return ('Hiện chưa có sản phẩm mới.', [])
+    logger.info(f'[New] Found {len(products)} products')
+    reply, _ = _fmt_products(products, base_response)
     return (reply, products)
 
 
@@ -473,23 +513,19 @@ def _search_category_by_tokens(msg_norm: str) -> tuple[str | None, list]:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# INTENT MATCHING (SỬA LỖI)
+# INTENT MATCHING
 # ══════════════════════════════════════════════════════════════════════════════
 
-# Các từ khóa đặc biệt để loại trừ khi xử lý order_detail_by_product
 _EXCLUDE_PRODUCT_NAME_KEYWORDS = [
-    'lich su', 'gan nhat', 'cuoi cung', 'gan day', 'cua toi', 'hang', 'cac don'
+    'lich su', 'gan nhat', 'cuoi cung', 'gan day', 'cua toi', 'hang', 'cac don',
+    'nhat', 'cung', 'day', 'su'
 ]
 
 def _match_intents(msg_norm: str) -> tuple[str | None, list]:
-    """
-    Dùng re.search với word-boundary. Ưu tiên các intent đặc biệt (cart_view, order_history, latest_order)
-    trước để tránh bị order_detail_by_product bắt nhầm.
-    """
     logger.info('[MatchIntents] Checking: %s', msg_norm)
     lower_msg = msg_norm.lower()
 
-    # 1. Ưu tiên các intent đặc biệt: cart_view, order_history, latest_order
+    # 1. Ưu tiên intent đặc biệt
     special_tags = ['cart_view', 'order_history', 'latest_order']
     for intent in _NORM_INTENTS:
         tag = intent['tag']
@@ -506,33 +542,53 @@ def _match_intents(msg_norm: str) -> tuple[str | None, list]:
                 elif tag == 'latest_order':
                     return (json.dumps({'__action__': {'action': 'latest_order'}}), [])
 
-    # 2. Các intent có placeholder (age, price, index, product_name, orderId)
+    # 2. cancel_order
+    for intent in _NORM_INTENTS:
+        tag = intent['tag']
+        if tag != 'cancel_order':
+            continue
+        for pnorm in intent['patterns_norm']:
+            if '{orderId}' in pnorm:
+                regex = pnorm.replace('{orderId}', r'(ORD\d+)')
+                m = re.search(regex, msg_norm)
+                if m:
+                    order_id = m.group(1)
+                    return (json.dumps({'__action__': {'action': 'cancel_order', 'orderId': order_id}}), [])
+            elif '{index}' in pnorm:
+                regex = pnorm.replace('{index}', r'(\d+)')
+                m = re.search(regex, msg_norm)
+                if m:
+                    idx = int(m.group(1))
+                    if 1 <= idx <= 20:
+                        return (json.dumps({'__action__': {'action': 'cancel_order_by_index', 'index': idx}}), [])
+
+    # 3. Các intent có placeholder
     for intent in _NORM_INTENTS:
         tag = intent['tag']
         response = intent['responses'][0]
 
         for pnorm in intent['patterns_norm']:
-            # Xử lý age
             if '{age}' in pnorm:
                 regex = pnorm.replace('{age}', r'(\d+)')
                 m = re.search(regex, msg_norm)
                 if m:
                     reply, all_p = _handle_age(int(m.group(1)))
+                    if all_p:
+                        _set_last_products(all_p)
                     return (reply, all_p)
 
-            # Xử lý price
             elif '{price}' in pnorm:
                 regex = pnorm.replace('{price}', r'(\d+)')
                 m = re.search(regex, msg_norm)
                 if m:
                     reply, all_p = _handle_price(int(m.group(1)))
+                    if all_p:
+                        _set_last_products(all_p)
                     return (reply, all_p)
 
-            # Xử lý category (để riêng)
             elif '{category}' in pnorm:
                 pass
 
-            # Xử lý index (xem đơn theo số)
             elif '{index}' in pnorm:
                 regex = pnorm.replace('{index}', r'(\d+)')
                 m = re.search(regex, msg_norm)
@@ -541,7 +597,6 @@ def _match_intents(msg_norm: str) -> tuple[str | None, list]:
                     if 1 <= idx <= 20:
                         return (json.dumps({'__action__': {'action': 'order_detail_by_index', 'index': idx}}), [])
 
-            # Xử lý orderId
             elif '{orderId}' in pnorm:
                 regex = pnorm.replace('{orderId}', r'(ORD\d+)')
                 m = re.search(regex, msg_norm)
@@ -549,20 +604,15 @@ def _match_intents(msg_norm: str) -> tuple[str | None, list]:
                     order_id = m.group(1)
                     return (json.dumps({'__action__': {'action': 'order_status', 'orderId': order_id}}), [])
 
-            # Xử lý product_name (tìm đơn theo tên sản phẩm) - CÓ THÊM ĐIỀU KIỆN LOẠI TRỪ
             elif '{product_name}' in pnorm:
-                # Loại bỏ nếu câu chứa các từ khóa đặc biệt (tránh nhầm với lịch sử, gần nhất, ...)
                 if any(kw in lower_msg for kw in _EXCLUDE_PRODUCT_NAME_KEYWORDS):
                     continue
-
                 m = re.search(r'(?:don|tim don|xem don cua|don co)\s+(.+)', msg_norm)
                 if m:
                     product_name = m.group(1).strip()
-                    # Nếu tên sản phẩm quá ngắn hoặc chỉ là các từ vô nghĩa -> bỏ
                     if len(product_name) >= 2 and not any(kw in product_name for kw in ['nhat', 'cung', 'day', 'su']):
                         return (json.dumps({'__action__': {'action': 'order_detail_by_product', 'product_name': product_name}}), [])
 
-            # Các intent khác (bestseller, gender, help, ...)
             else:
                 escaped = r'\s+'.join(re.escape(w) for w in pnorm.split())
                 pattern = r'\b' + escaped + r'\b'
@@ -570,9 +620,23 @@ def _match_intents(msg_norm: str) -> tuple[str | None, list]:
                     logger.info('[MatchIntents] Matched intent: %s', tag)
                     if tag == 'bestseller':
                         reply, all_p = _handle_bestseller(response)
+                        if all_p:
+                            _set_last_products(all_p)
                         return (reply, all_p)
                     elif tag == 'gender':
                         reply, all_p = _handle_gender(msg_norm)
+                        if all_p:
+                            _set_last_products(all_p)
+                        return (reply, all_p)
+                    elif tag == 'sale_products':
+                        reply, all_p = _handle_sale_products(response)
+                        if all_p:
+                            _set_last_products(all_p)
+                        return (reply, all_p)
+                    elif tag == 'new_arrivals':
+                        reply, all_p = _handle_new_arrivals(response)
+                        if all_p:
+                            _set_last_products(all_p)
                         return (reply, all_p)
                     elif tag == 'help':
                         return (response, [])
@@ -586,11 +650,11 @@ def _match_intents(msg_norm: str) -> tuple[str | None, list]:
 # MAIN PIPELINE
 # ══════════════════════════════════════════════════════════════════════════════
 
-def process_message(msg: str) -> tuple[str, list, list]:
+def process_message(msg: str, session_id: str = 'default') -> tuple[str, list, list]:
     msg_norm = normalize(msg)
     logger.info('raw=%r  norm=%r', msg[:80], msg_norm[:80])
 
-    session = _get_session()
+    session = _get_session(session_id)
 
     # ── 1. ACTION ─────────────────────────────────────────────────────────────
     action = process_action(
@@ -602,11 +666,11 @@ def process_message(msg: str) -> tuple[str, list, list]:
         logger.info('ACTION: %s', action)
 
         if action['action'] == 'checkout':
-            _set_checkout_flow(True)
+            _set_checkout_flow(True, session_id)
             return (json.dumps({'__action__': action}), [], [])
 
         if action['action'] == 'checkout_confirm':
-            _set_checkout_flow(False)
+            _set_checkout_flow(False, session_id)
             return (json.dumps({'__action__': action}), [], [])
 
         if action['action'] == 'view_detail':
@@ -626,45 +690,60 @@ def process_message(msg: str) -> tuple[str, list, list]:
                 return (json.dumps({'__action__': enriched}), [], [])
             return ('Không có sản phẩm số đó trong danh sách vừa hiển thị.', [], [])
 
+        if action['action'] == 'compare_items':
+            last = session['last_products']
+            idx1 = action['index1'] - 1
+            idx2 = action['index2'] - 1
+            if 0 <= idx1 < len(last) and 0 <= idx2 < len(last):
+                enriched = {
+                    **action,
+                    'product_id1': str(last[idx1]['_id']),
+                    'product_id2': str(last[idx2]['_id']),
+                }
+                return (json.dumps({'__action__': enriched}), [], [])
+            return ('Không có sản phẩm số đó trong danh sách vừa hiển thị.', [], [])
+
         return (json.dumps({'__action__': action}), [], [])
 
     # ── 2. COMPOUND ───────────────────────────────────────────────────────────
     compound_reply, compound_all = _handle_compound(msg_norm)
     if compound_reply:
-        _set_last_products(compound_all)
-        return (compound_reply, compound_all[:DISPLAY_LIMIT], compound_all)
+        _set_last_products(compound_all, session_id)
+        return (compound_reply, compound_all[:INITIAL_DISPLAY], compound_all)
 
     # ── 3. INTENT MATCHING ────────────────────────────────────────────────────
     intent_reply, intent_all = _match_intents(msg_norm)
     if intent_reply:
+        if intent_reply == '__view_cart__':
+            return (json.dumps({'__action__': {'action': 'cart_view'}}), [], [])
         if intent_all:
-            _set_last_products(intent_all)
-        return (intent_reply, intent_all[:DISPLAY_LIMIT], intent_all)
+            _set_last_products(intent_all, session_id)
+        return (intent_reply, intent_all[:INITIAL_DISPLAY], intent_all)
 
     # ── 4. INFER: detect_age / detect_price standalone ───────────────────────
     age   = detect_age(msg_norm)
     price = detect_price(msg_norm)
     if age is not None:
         reply, all_p = _handle_age(age)
-        _set_last_products(all_p)
-        return (reply, all_p[:DISPLAY_LIMIT], all_p)
+        _set_last_products(all_p, session_id)
+        return (reply, all_p[:INITIAL_DISPLAY], all_p)
     if price is not None:
         reply, all_p = _handle_price(price)
-        _set_last_products(all_p)
-        return (reply, all_p[:DISPLAY_LIMIT], all_p)
+        _set_last_products(all_p, session_id)
+        return (reply, all_p[:INITIAL_DISPLAY], all_p)
 
     # ── 5. BRAND standalone ───────────────────────────────────────────────────
     brand = detect_brand(msg_norm)
     if brand:
         reply, all_p = _handle_brand(brand)
-        _set_last_products(all_p)
-        return (reply, all_p[:DISPLAY_LIMIT], all_p)
+        _set_last_products(all_p, session_id)
+        return (reply, all_p[:INITIAL_DISPLAY], all_p)
 
     # ── 6. CATEGORY exact ─────────────────────────────────────────────────────
     cat_reply, cat_all = _handle_category_exact(msg_norm)
     if cat_reply:
-        _set_last_products(cat_all)
-        return (cat_reply, cat_all[:DISPLAY_LIMIT], cat_all)
+        _set_last_products(cat_all, session_id)
+        return (cat_reply, cat_all[:INITIAL_DISPLAY], cat_all)
 
     # ── 7. TOKEN search ───────────────────────────────────────────────────────
     all_products = _search_products_by_tokens(msg_norm)
@@ -673,14 +752,14 @@ def process_message(msg: str) -> tuple[str, list, list]:
         kw_display = ' '.join(keywords) if keywords else msg_norm
         reply, _ = _fmt_products(all_products, f'Tìm thấy sản phẩm cho "{kw_display}":')
         if reply:
-            _set_last_products(all_products)
-            return (reply, all_products[:DISPLAY_LIMIT], all_products)
+            _set_last_products(all_products, session_id)
+            return (reply, all_products[:INITIAL_DISPLAY], all_products)
 
     # ── 8. CATEGORY token search ──────────────────────────────────────────────
     cat_token_reply, cat_token_all = _search_category_by_tokens(msg_norm)
     if cat_token_reply:
-        _set_last_products(cat_token_all)
-        return (cat_token_reply, cat_token_all[:DISPLAY_LIMIT], cat_token_all)
+        _set_last_products(cat_token_all, session_id)
+        return (cat_token_reply, cat_token_all[:INITIAL_DISPLAY], cat_token_all)
 
     # ── 9. FALLBACK ───────────────────────────────────────────────────────────
     return (
@@ -691,6 +770,8 @@ def process_message(msg: str) -> tuple[str, list, list]:
         '• Giới tính (vd: "bé trai", "bé gái")\n'
         '• Giá (vd: "dưới 20 đô", "tầm 50")\n'
         '• Sản phẩm bán chạy\n'
+        '• Sản phẩm giảm giá\n'
+        '• Sản phẩm mới về\n'
         '• Gõ "hướng dẫn" để xem tất cả lệnh',
         [], []
     )

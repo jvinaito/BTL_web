@@ -1,5 +1,6 @@
 <% title = 'Trang chủ' %>
 
+<!-- Hero Section -->
 <section class="hero-section bg-light py-1">
   <div class="container">
     <div class="row align-items-center"> 
@@ -15,26 +16,166 @@
   </div>
 </section>
 
+<!-- Category Slider - 5 items đều nhau -->
+<section class="py-4 bg-light">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4 glow-category w-100 d-block">🎯 Danh mục sản phẩm</h2>
+    <div class="category-slider-wrapper position-relative">
+      <div class="category-slider-container overflow-hidden">
+        <div class="category-slider d-flex gap-3" id="categorySlider" style="transition: transform 0.4s ease; will-change: transform;">
+          <% if (typeof categories !== 'undefined' && categories) { %>
+            <% categories.forEach((cat, index) => { 
+              const colorMap = {
+                'Thú nhồi bông': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'Đồ chơi giáo dục': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'Đồ chơi điều khiển': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'Đồ chơi lắp ráp': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'Đồ chơi nhập vai': 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'
+              };
+              const defaultColors = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+              ];
+              const bgColor = colorMap[cat.name] || defaultColors[index % defaultColors.length];
+            %>
+              <a href="/products?category=<%= cat._id %>" class="category-card text-decoration-none flex-shrink-0" style="flex: 0 0 calc(20% - 12px); min-width: 140px;">
+                <div class="card border-0 shadow-sm rounded-4 p-3 h-100 text-center" style="background: <%= bgColor %>; transition: all 0.3s ease; min-height: 130px;">
+                  <div class="category-icon mb-2" style="font-size: 2.5rem; line-height: 1;">
+                    <% 
+                      const iconMap = {
+                        'Thú nhồi bông': '🧸',
+                        'Đồ chơi giáo dục': '🧠',
+                        'Đồ chơi điều khiển': '🚀',
+                        'Đồ chơi lắp ráp': '🧩',
+                        'Đồ chơi nhập vai': '🎭'
+                      };
+                      const defaultIcons = ['🎮', '🎯', '🎪', '🎨', '🎵', '🎲', '🧸', '🚂', '🪁', '🎠'];
+                      const icon = iconMap[cat.name] || defaultIcons[index % defaultIcons.length];
+                    %>
+                    <span><%= icon %></span>
+                  </div>
+                  <h6 class="fw-bold text-white mb-0" style="font-size: 0.9rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2);"><%= cat.name %></h6>
+                  <small class="text-white-50" style="font-size: 0.75rem;">Xem ngay →</small>
+                </div>
+              </a>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+      <% if (typeof categories !== 'undefined' && categories && categories.length > 5) { %>
+        <button class="btn btn-light rounded-circle shadow position-absolute top-50 start-0 translate-middle-y" onclick="scrollCategory(-1)" style="z-index: 5; width: 44px; height: 44px; border: none;">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="btn btn-light rounded-circle shadow position-absolute top-50 end-0 translate-middle-y" onclick="scrollCategory(1)" style="z-index: 5; width: 44px; height: 44px; border: none;">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<style>
+.category-slider-container { position: relative; }
+.category-slider { display: flex; gap: 16px; flex-wrap: nowrap; }
+.category-card { flex: 0 0 calc(20% - 13px); min-width: 140px; transition: all 0.3s ease; }
+.category-card:hover { transform: translateY(-6px) scale(1.04); }
+.category-card .card { height: 100%; min-height: 130px; border-radius: 16px !important; cursor: pointer; transition: all 0.3s ease; }
+.category-card .card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.25) !important; transform: scale(1.02); }
+.category-slider-container { overflow: hidden; }
+@media (max-width: 992px) {
+  .category-card { flex: 0 0 calc(33.333% - 11px); }
+}
+@media (max-width: 576px) {
+  .category-card { flex: 0 0 calc(50% - 8px); min-width: 130px; }
+}
+
+/* Ẩn checkbox so sánh mặc định (JS sẽ điều khiển) */
+.compare-checkbox-wrapper {
+  display: none;
+}
+
+/* ===== HIỆU ỨNG LẤP LÁNH CHO TIÊU ĐỀ DANH MỤC ===== */
+.glow-category {
+  display: inline-block;
+  text-decoration: none;
+  animation: glowCategory 2.4s ease-in-out infinite;
+}
+
+@keyframes glowCategory {
+  0% {
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 0 0 50px rgba(255, 200, 0, 0.6), 0 0 80px rgba(255, 180, 0, 0.3), 0 0 100px rgba(255, 100, 0, 0.2);
+    transform: scale(1.03);
+    color: #ffd700;
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.1);
+    transform: scale(1);
+  }
+}
+
+/* ===== HIỆU ỨNG LẤP LÁNH MÀU ĐỎ CHO "BÁN CHẠY NHẤT" ===== */
+.glow-red {
+  display: inline-block;
+  text-decoration: none;
+  animation: glowRed 1.8s ease-in-out infinite;
+}
+
+@keyframes glowRed {
+  0% {
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(255, 0, 0, 0.9), 0 0 50px rgba(255, 50, 0, 0.6), 0 0 80px rgba(255, 0, 0, 0.3);
+    transform: scale(1.03);
+    color: #ff0000;
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.1);
+    transform: scale(1);
+  }
+}
+</style>
+
+<script>
+let currentSlide = 0;
+const slideCount = <%= typeof categories !== 'undefined' && categories ? categories.length : 0 %>;
+const itemsPerView = 5;
+const maxSlide = Math.max(0, slideCount - itemsPerView);
+
+function scrollCategory(direction) {
+  currentSlide = Math.max(0, Math.min(maxSlide, currentSlide + direction));
+  const slider = document.getElementById('categorySlider');
+  const firstCard = slider.querySelector('.category-card');
+  if (!firstCard) return;
+  const cardWidth = firstCard.offsetWidth + 16;
+  const offset = currentSlide * cardWidth;
+  slider.style.transform = `translateX(-${offset}px)`;
+}
+</script>
+
 <!-- Best Seller -->
 <section class="py-5">
   <div class="container">
-    <h2 class="text-center fw-bold glow-gold w-100 d-block">🔥 Bán chạy nhất</h2>
+    <h2 class="text-center fw-bold glow-red w-100 d-block">🔥 Bán chạy nhất</h2>
     <div class="row g-3 row-cols-2 row-cols-md-4">
       <% bestSellers.forEach(product => { %>
         <div class="col">
           <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 d-flex flex-column">
-            <!-- Badge giảm giá -->
-            <% if (product.discount > 0) { %>
-              <span class="product-badge badge-discount">-<%= product.discount %>%</span>
-            <% } %>
-            <!-- Badge Bán chạy -->
-            <% if (product.sold > 50) { %>
-              <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
-            <% } %>
-            <!-- Badge Mới -->
-            <% if (product.isNew) { %>
-              <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
-            <% } %>
+            <% if (product.discount > 0) { %><span class="product-badge badge-discount">-<%= product.discount %>%</span><% } %>
+            <% if (product.sold > 50) { %><span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span><% } %>
+            <% if (product.isNew) { %><span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span><% } %>
+
+            <div class="compare-checkbox-wrapper position-absolute" style="bottom: 10px; right: 10px; z-index: 3;">
+              <input type="checkbox" class="compare-checkbox form-check-input" value="<%= product._id %>" id="compare-<%= product._id %>" style="width: 20px; height: 20px; cursor: pointer;">
+            </div>
 
             <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
               <div style="height: 160px; display: flex; align-items: center; justify-content: center;">
@@ -44,9 +185,7 @@
                 <p class="small fw-bold mb-1 text-truncate text-dark"><%= product.name %></p>
                 <div class="mb-2 mt-auto">
                   <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold"><%= product.salePrice.toLocaleString('vi-VN') %>đ</span>
-                  <% if (product.discount > 0) { %>
-                    <small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small>
-                  <% } %>
+                  <% if (product.discount > 0) { %><small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small><% } %>
                 </div>
               </div>
             </a>
@@ -63,21 +202,18 @@
 <!-- New Arrival -->
 <section class="py-5 bg-white">
   <div class="container">
-<h2 class="text-center fw-bold text-uppercase glow-cyan w-100 d-block">✨ Sản phẩm mới</h2>
+    <h2 class="text-center fw-bold glow-cyan w-100 d-block">✨ Sản phẩm mới</h2>
     <div class="row g-3 row-cols-2 row-cols-md-4">
       <% newArrivals.forEach(product => { %>
         <div class="col">
           <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 d-flex flex-column">
-            <!-- Badge giảm giá -->
-            <% if (product.discount > 0) { %>
-              <span class="product-badge badge-discount">-<%= product.discount %>%</span>
-            <% } %>
-            <!-- Badge Bán chạy -->
-            <% if (product.sold > 50) { %>
-              <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
-            <% } %>
-            <!-- Badge Mới (luôn hiển thị cho sản phẩm mới) -->
+            <% if (product.discount > 0) { %><span class="product-badge badge-discount">-<%= product.discount %>%</span><% } %>
+            <% if (product.sold > 50) { %><span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span><% } %>
             <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
+
+            <div class="compare-checkbox-wrapper position-absolute" style="bottom: 10px; right: 10px; z-index: 3;">
+              <input type="checkbox" class="compare-checkbox form-check-input" value="<%= product._id %>" id="compare-<%= product._id %>" style="width: 20px; height: 20px; cursor: pointer;">
+            </div>
 
             <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
               <div style="height: 160px; display: flex; align-items: center; justify-content: center;">
@@ -87,9 +223,7 @@
                 <p class="small fw-bold mb-1 text-truncate text-dark"><%= product.name %></p>
                 <div class="mb-2 mt-auto">
                   <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold"><%= product.salePrice.toLocaleString('vi-VN') %>đ</span>
-                  <% if (product.discount > 0) { %>
-                    <small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small>
-                  <% } %>
+                  <% if (product.discount > 0) { %><small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small><% } %>
                 </div>
               </div>
             </a>
@@ -107,23 +241,18 @@
 <% if (recommended && recommended.length) { %>
 <section class="py-5 bg-light">
   <div class="container">
-   <h2 class="text-center fw-bold glow-pink w-100 d-block">✨ Gợi ý cho bạn</h2>
+    <h2 class="text-center fw-bold glow-pink w-100 d-block">💡 Gợi ý cho bạn</h2>
     <div class="row g-3 row-cols-2 row-cols-md-4">
       <% recommended.forEach(product => { %>
         <div class="col">
           <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 d-flex flex-column">
-            <!-- Badge giảm giá -->
-            <% if (product.discount > 0) { %>
-              <span class="product-badge badge-discount">-<%= product.discount %>%</span>
-            <% } %>
-            <!-- Badge Bán chạy -->
-            <% if (product.sold > 50) { %>
-              <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
-            <% } %>
-            <!-- Badge Mới -->
-            <% if (product.isNew) { %>
-              <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
-            <% } %>
+            <% if (product.discount > 0) { %><span class="product-badge badge-discount">-<%= product.discount %>%</span><% } %>
+            <% if (product.sold > 50) { %><span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span><% } %>
+            <% if (product.isNew) { %><span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span><% } %>
+
+            <div class="compare-checkbox-wrapper position-absolute" style="bottom: 10px; right: 10px; z-index: 3;">
+              <input type="checkbox" class="compare-checkbox form-check-input" value="<%= product._id %>" id="compare-<%= product._id %>" style="width: 20px; height: 20px; cursor: pointer;">
+            </div>
 
             <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
               <div style="height: 160px; display: flex; align-items: center; justify-content: center;">

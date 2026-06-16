@@ -38,12 +38,17 @@
       <button class="quick-btn" data-msg="Đồ chơi cho bé trai">👦 Cho bé trai</button>
       <button class="quick-btn" data-msg="Đồ chơi cho bé gái">👧 Cho bé gái</button>
       <button class="quick-btn" data-msg="Giá dưới 500000">💰 Dưới 500.000đ</button>
-      <!-- Nút Xem giỏ hàng mới -->
-      <button class="quick-btn" data-msg="xem giỏ hàng">🛒 Xem giỏ</button>
+      <button class="quick-btn" data-msg="🛒 Xem giỏ">🛒 Xem giỏ</button>
+      
+      <% if (typeof user !== 'undefined' && user) { %>
+        <button class="quick-btn" data-msg="lịch sử đơn hàng">📋 Lịch sử đơn hàng</button>
+      <% } else { %>
+        <button class="quick-btn" data-msg="Đăng nhập để xem lịch sử" onclick="window.location.href='/auth/login'">🔐 Đăng nhập</button>
+      <% } %>
     </div>
   </div>
 
-  <!-- Typing indicator -->
+  <!-- Typing indicator (hidden by default) -->
   <div id="typing-indicator" class="px-3 pb-1" style="display:none;">
     <div class="msg-bubble bot-bubble typing-bubble d-inline-flex align-items-center gap-1 py-2 px-3">
       <span class="dot"></span><span class="dot"></span><span class="dot"></span>

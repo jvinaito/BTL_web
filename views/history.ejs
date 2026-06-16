@@ -35,7 +35,18 @@
                   </span>
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#orderDetail<%= order._id %>">Xem</button>
+                  <div class="d-flex gap-2">
+                    <!-- Nút xem chi tiết -->
+                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#orderDetail<%= order._id %>">Xem</button>
+
+                    <!-- Nút hủy đơn (chỉ hiện khi Pending) -->
+                    <% if (order.status === 'Pending') { %>
+                      <form action="/orders/cancel/<%= order._id %>?_method=PUT" method="POST" style="display:inline;" 
+                            onsubmit="return confirm('Bạn có chắc muốn hủy đơn hàng <%= order.orderId %>?')">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Hủy đơn</button>
+                      </form>
+                    <% } %>
+                  </div>
                 </td>
               </tr>
               <% }) %>

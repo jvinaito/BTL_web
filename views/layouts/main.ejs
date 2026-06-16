@@ -53,5 +53,21 @@
     </div>
   </div>
 </div>
-
+<!-- Thanh so sánh cố định -->
+<div id="compare-bar" class="position-fixed bottom-0 start-0 w-100 bg-white shadow-lg p-3" style="z-index: 1040; display: none; border-top: 3px solid #0dcaf0;">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <span class="fw-bold me-2">🔄 Đã chọn: <span id="compare-count">0</span> sản phẩm</span>
+      <span class="text-muted small">(Chọn ít nhất 2 để so sánh)</span>
+    </div>
+    <div>
+      <button class="btn btn-outline-secondary rounded-pill px-4 me-2" onclick="clearCompare()">
+        <i class="fa-solid fa-xmark me-1"></i> Bỏ chọn
+      </button>
+      <button id="compare-btn" class="btn btn-info text-white rounded-pill px-4" disabled>
+        <i class="fa-solid fa-scale-balanced me-2"></i>So sánh
+      </button>
+    </div>
+  </div>
+</div>
 </html>

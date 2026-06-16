@@ -1,5 +1,11 @@
 <% title = 'Cửa hàng' %>
 
+<style>
+.compare-checkbox-wrapper {
+  display: none;
+}
+</style>
+
 <div class="container py-5">
   <div class="row g-4">
     <!-- Sidebar filters -->
@@ -102,7 +108,7 @@
       </div>
     </aside>
 
-    <!-- Main content: product listing -->
+    <!-- Main content -->
     <main class="col-lg-9">
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h2 class="fw-bold mb-0">
@@ -129,23 +135,17 @@
         </div>
       </div>
 
-      <!-- Product grid -->
       <div class="row g-3 row-cols-2 row-cols-md-3">
         <% products.forEach(product => { %>
           <div class="col">
             <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 bg-white d-flex flex-column">
-              <!-- Badge giảm giá -->
-              <% if (product.discount > 0) { %>
-                <span class="product-badge badge-discount">-<%= product.discount %>%</span>
-              <% } %>
-              <!-- Badge Bán chạy -->
-              <% if (product.sold > 50) { %>
-                <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
-              <% } %>
-              <!-- Badge Mới -->
-              <% if (product.isNew) { %>
-                <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
-              <% } %>
+              <% if (product.discount > 0) { %><span class="product-badge badge-discount">-<%= product.discount %>%</span><% } %>
+              <% if (product.sold > 50) { %><span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span><% } %>
+              <% if (product.isNew) { %><span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span><% } %>
+
+              <div class="compare-checkbox-wrapper position-absolute" style="bottom: 10px; right: 10px; z-index: 3;">
+                <input type="checkbox" class="compare-checkbox form-check-input" value="<%= product._id %>" id="compare-<%= product._id %>" style="width: 20px; height: 20px; cursor: pointer;">
+              </div>
 
               <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
                 <div style="height: 180px; display: flex; align-items: center; justify-content: center;">
@@ -155,9 +155,7 @@
                   <p class="mb-1 fw-bold small text-truncate text-dark"><%= product.name %></p>
                   <div class="mb-2 mt-auto small">
                     <span class="<%= product.discount > 0 ? 'text-success' : 'text-dark' %> fw-bold"><%= product.salePrice.toLocaleString('vi-VN') %>đ</span>
-                    <% if (product.discount > 0) { %>
-                      <small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small>
-                    <% } %>
+                    <% if (product.discount > 0) { %><small class="text-muted text-decoration-line-through ms-1"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</small><% } %>
                   </div>
                 </div>
               </a>
@@ -169,7 +167,6 @@
         <% }) %>
       </div>
 
-      <!-- Pagination -->
       <% if (totalPages > 1) { %>
         <nav aria-label="Điều hướng trang" class="mt-5">
           <ul class="pagination justify-content-center">

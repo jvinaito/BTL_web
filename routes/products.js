@@ -16,7 +16,6 @@ function removeVietnameseTones(str) {
   return str.toLowerCase();
 }
 
-// Hàm tiện ích: thêm isNew vào mảng sản phẩm
 function addIsNew(products) {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -28,7 +27,7 @@ function addIsNew(products) {
 }
 
 // ──────────────────────────────────────────────────────────────
-// Lấy danh sách brand duy nhất (cho dropdown lọc)
+// Lấy danh sách brand
 // ──────────────────────────────────────────────────────────────
 router.get('/brands', async (req, res) => {
   try {
@@ -42,7 +41,34 @@ router.get('/brands', async (req, res) => {
 });
 
 // ──────────────────────────────────────────────────────────────
-// Trang danh sách sản phẩm (shop) – có lọc nâng cao
+// SO SÁNH SẢN PHẨM (ĐẶT TRƯỚC /:id)
+// ──────────────────────────────────────────────────────────────
+router.get('/compare', async (req, res) => {
+  const ids = req.query.ids ? req.query.ids.split(',') : [];
+  if (ids.length < 2) {
+    req.flash('error', 'Vui lòng chọn ít nhất 2 sản phẩm để so sánh');
+    return res.redirect('back');
+  }
+  try {
+    const products = await Product.find({ _id: { $in: ids } }).populate('category');
+    if (products.length < 2) {
+      req.flash('error', 'Không tìm thấy đủ sản phẩm để so sánh');
+      return res.redirect('back');
+    }
+    res.render('compare', { 
+      products, 
+      layout: 'layouts/main',
+      title: 'So sánh sản phẩm'
+    });
+  } catch (err) {
+    console.error(err);
+    req.flash('error', 'Có lỗi xảy ra');
+    res.redirect('back');
+  }
+});
+
+// ──────────────────────────────────────────────────────────────
+// Trang danh sách sản phẩm (shop)
 // ──────────────────────────────────────────────────────────────
 router.get('/', async (req, res) => {
   try {
@@ -61,7 +87,6 @@ router.get('/', async (req, res) => {
     const skip = (parseInt(page) - 1) * parseInt(limit);
     let query = {};
 
-    // Tìm kiếm gần đúng tiếng Việt (có dấu / không dấu)
     if (search) {
       const normalizedSearch = removeVietnameseTones(search);
       query.$or = [
@@ -70,55 +95,44 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    // Lọc theo danh mục (ObjectId)
     if (category) query.category = category;
 
-    // Lọc theo giá
     if (min || max) {
       query.salePrice = {};
       if (min) query.salePrice.$gte = Number(min);
       if (max) query.salePrice.$lte = Number(max);
     }
 
-    // Lọc theo hãng (brand)
     if (brand) {
       query.brand = { $regex: brand, $options: 'i' };
     }
 
-    // Lọc theo giới tính
     if (gender && ['Boy', 'Girl', 'Unisex'].includes(gender)) {
       query.gender = gender;
     }
 
-    // Lọc theo độ tuổi (ví dụ "0-2", "3-5", "6-8", "9-12", "12+")
     if (ageRange) {
       query.ageRange = ageRange;
     }
 
-    // Sắp xếp
     let sortOption = {};
     if (sort === 'price_asc') sortOption.salePrice = 1;
     else if (sort === 'price_desc') sortOption.salePrice = -1;
     else sortOption.createdAt = -1;
 
-    // Đếm tổng số sản phẩm
     const totalItems = await Product.countDocuments(query);
     const totalPages = Math.ceil(totalItems / limit);
 
-    // Lấy sản phẩm
     let products = await Product.find(query)
       .populate('category')
       .sort(sortOption)
       .skip(skip)
       .limit(parseInt(limit));
 
-    // Thêm isNew
     products = addIsNew(products);
 
-    // Lấy danh sách category (cho sidebar)
     const categories = await Category.find().sort({ name: 1 });
 
-    // Chuẩn bị query params để truyền sang view
     const queryParams = {
       search: search || '',
       category: category || '',
@@ -154,13 +168,11 @@ router.get('/:id', async (req, res) => {
     let product = await Product.findById(req.params.id).populate('category');
     if (!product) return res.redirect('/products');
 
-    // Thêm isNew cho product chính
     product = product.toObject();
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     product.isNew = new Date(product.createdAt) > sevenDaysAgo;
 
-    // Lấy tối đa 8 sản phẩm cùng danh mục (loại trừ chính nó)
     let sameCategory = await Product.find({
       category: product.category,
       _id: { $ne: product._id },
@@ -168,7 +180,6 @@ router.get('/:id', async (req, res) => {
       stock: { $gt: 0 }
     }).limit(8);
 
-    // Thêm isNew cho sameCategory
     sameCategory = addIsNew(sameCategory);
 
     const excludeIds = [product._id, ...sameCategory.map(p => p._id)];
@@ -179,7 +190,6 @@ router.get('/:id', async (req, res) => {
         { $match: { _id: { $nin: excludeIds }, status: 'Active', stock: { $gt: 0 } } },
         { $sample: { size: neededRandom } }
       ]);
-      // Thêm isNew cho randomProducts (aggregate trả về plain object)
       randomProducts = addIsNew(randomProducts);
     }
 

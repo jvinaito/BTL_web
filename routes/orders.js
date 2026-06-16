@@ -25,14 +25,12 @@ router.get('/cart', (req, res) => {
 });
 
 // Thêm vào giỏ (AJAX) – có ghi nhận click để cập nhật gợi ý
-// Thêm vào giỏ (AJAX) – có ghi nhận click để cập nhật gợi ý
 router.post('/cart/add/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ success: false, message: 'Sản phẩm không tồn tại' });
     }
-    // Lấy số lượng từ body, mặc định 1
     const quantity = parseInt(req.body.quantity) || 1;
     if (quantity < 1) {
       return res.status(400).json({ success: false, message: 'Số lượng không hợp lệ' });
@@ -61,6 +59,7 @@ router.post('/cart/add/:id', async (req, res) => {
     res.status(500).json({ success: false, message: 'Có lỗi xảy ra' });
   }
 });
+
 // Cập nhật số lượng (AJAX, trả về JSON)
 router.post('/cart/update/:id', (req, res) => {
   const { quantity } = req.body;
@@ -197,6 +196,46 @@ router.get('/history', isLoggedIn, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.redirect('/');
+  }
+});
+
+// ── Hủy đơn hàng (chỉ dành cho đơn Pending) ──
+router.put('/cancel/:orderId', isLoggedIn, async (req, res) => {
+  try {
+    const order = await Order.findOne({ 
+      _id: req.params.orderId, 
+      user: req.session.user._id,
+      status: 'Pending'  // chỉ cho phép hủy đơn đang chờ xử lý
+    });
+    
+    if (!order) {
+      req.flash('error', 'Không tìm thấy đơn hàng hoặc đơn hàng không thể hủy.');
+      return res.redirect('/orders/history');
+    }
+    
+    // Cập nhật trạng thái thành 'Reject'
+    order.status = 'Reject';
+    await order.save();
+    
+    // Hoàn lại số lượng sản phẩm vào kho
+    for (const item of order.products) {
+      if (item.product) {
+        const product = await Product.findById(item.product);
+        if (product) {
+          product.stock += item.quantity;
+          // Đảm bảo sold không bị âm khi hủy đơn (chỉ giảm nếu sold >= quantity)
+          product.sold = Math.max(0, product.sold - item.quantity);
+          await product.save();
+        }
+      }
+    }
+    
+    req.flash('success', 'Đã hủy đơn hàng thành công.');
+    res.redirect('/orders/history');
+  } catch (err) {
+    console.error('[Cancel Order]', err);
+    req.flash('error', 'Có lỗi xảy ra khi hủy đơn hàng.');
+    res.redirect('/orders/history');
   }
 });
 

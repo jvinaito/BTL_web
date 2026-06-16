@@ -1,0 +1,277 @@
+<% title = 'So sánh sản phẩm' %>
+
+<style>
+.compare-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+.compare-table-wrapper {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+}
+.compare-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.compare-table thead th {
+  background: linear-gradient(135deg, #0dcaf0 0%, #0a8fa8 100%);
+  color: white;
+  padding: 20px 15px;
+  font-weight: 600;
+  border: none;
+  vertical-align: middle;
+}
+.compare-table thead th .product-thumb {
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
+  padding: 8px;
+}
+.compare-table thead th .product-name {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+}
+.compare-table thead th .product-name:hover {
+  text-decoration: underline;
+}
+.compare-table tbody td {
+  padding: 14px 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.95rem;
+}
+.compare-table tbody tr:hover td {
+  background: #f8feff;
+}
+.compare-table tbody .attr-label {
+  font-weight: 600;
+  color: #495057;
+  background: #f8f9fa;
+  width: 150px;
+  font-size: 0.95rem;
+}
+.compare-table tbody .attr-label i {
+  margin-right: 8px;
+  color: #0dcaf0;
+  width: 20px;
+}
+.compare-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #00b894;
+}
+.compare-price .original-price {
+  font-size: 0.85rem;
+  color: #adb5bd;
+  text-decoration: line-through;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.compare-discount-badge {
+  display: inline-block;
+  background: #ff6b6b;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+.compare-stock {
+  font-weight: 600;
+}
+.compare-stock.in-stock { color: #00b894; }
+.compare-stock.low-stock { color: #fdcb6e; }
+.compare-stock.out-stock { color: #ff6b6b; }
+.compare-action .btn {
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+.compare-action .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+.compare-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+.compare-empty i {
+  font-size: 4rem;
+  color: #dee2e6;
+  margin-bottom: 20px;
+}
+.back-btn {
+  border-radius: 50px;
+  padding: 10px 28px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+.back-btn:hover {
+  transform: translateX(-4px);
+}
+@media (max-width: 768px) {
+  .compare-table thead th .product-thumb {
+    height: 60px;
+  }
+  .compare-table tbody .attr-label {
+    width: 100px;
+    font-size: 0.8rem;
+  }
+  .compare-table tbody td {
+    padding: 10px 10px;
+    font-size: 0.82rem;
+  }
+}
+</style>
+
+<div class="container py-5">
+  <!-- Header -->
+  <div class="compare-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div>
+      <h2 class="fw-bold mb-1">🔄 So sánh sản phẩm</h2>
+      <p class="text-muted mb-0">So sánh <strong><%= products.length %></strong> sản phẩm để chọn lựa tốt nhất</p>
+    </div>
+    <a href="javascript:history.back()" class="btn btn-outline-secondary back-btn">
+      <i class="fa-solid fa-arrow-left me-2"></i>Quay lại
+    </a>
+  </div>
+
+  <!-- Bảng so sánh -->
+  <div class="compare-table-wrapper">
+    <div class="table-responsive">
+      <table class="compare-table table">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Thuộc tính</th>
+            <% products.forEach(p => { %>
+              <th class="text-center">
+                <img src="<%= p.imageUrl %>" class="product-thumb" alt="<%= p.name %>">
+                <a href="/products/<%= p._id %>" class="product-name"><%= p.name %></a>
+              </th>
+            <% }) %>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Giá -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-tag"></i>Giá</td>
+            <% products.forEach(p => { %>
+              <td class="text-center">
+                <div class="compare-price">
+                  <%= p.salePrice.toLocaleString('vi-VN') %>đ
+                  <% if (p.discount > 0) { %>
+                    <span class="original-price"><%= p.originalPrice.toLocaleString('vi-VN') %>đ</span>
+                    <br><span class="compare-discount-badge">-<%= p.discount %>%</span>
+                  <% } %>
+                </div>
+              </td>
+            <% }) %>
+          </tr>
+
+          <!-- Danh mục -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-folder-open"></i>Danh mục</td>
+            <% products.forEach(p => { %>
+              <td class="text-center"><%= p.category ? p.category.name : '—' %></td>
+            <% }) %>
+          </tr>
+
+          <!-- Thương hiệu -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-building"></i>Thương hiệu</td>
+            <% products.forEach(p => { %>
+              <td class="text-center"><%= p.brand || '—' %></td>
+            <% }) %>
+          </tr>
+
+          <!-- Độ tuổi -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-calendar"></i>Độ tuổi</td>
+            <% products.forEach(p => { %>
+              <td class="text-center"><%= p.ageRange || '—' %></td>
+            <% }) %>
+          </tr>
+
+          <!-- Giới tính -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-venus-mars"></i>Giới tính</td>
+            <% products.forEach(p => { %>
+              <td class="text-center">
+                <%= ({ Boy: '👦 Bé trai', Girl: '👧 Bé gái', Unisex: '👤 Unisex' }[p.gender] || p.gender || 'Unisex') %>
+              </td>
+            <% }) %>
+          </tr>
+
+          <!-- Tồn kho -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-box"></i>Tồn kho</td>
+            <% products.forEach(p => { %>
+              <td class="text-center">
+                <span class="compare-stock <%= p.stock > 10 ? 'in-stock' : (p.stock > 0 ? 'low-stock' : 'out-stock') %>">
+                  <%= p.stock %>
+                </span>
+                <% if (p.stock === 0) { %> <span class="badge bg-secondary ms-1">Hết</span> <% } %>
+                <% if (p.stock > 0 && p.stock <= 5) { %> <span class="badge bg-warning text-dark ms-1">Sắp hết</span> <% } %>
+              </td>
+            <% }) %>
+          </tr>
+
+          <!-- Đã bán -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-fire"></i>Đã bán</td>
+            <% products.forEach(p => { %>
+              <td class="text-center"><%= p.sold || 0 %></td>
+            <% }) %>
+          </tr>
+
+          <!-- Mô tả -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-align-left"></i>Mô tả</td>
+            <% products.forEach(p => { %>
+              <td class="text-center" style="font-size: 0.9rem; line-height: 1.5;">
+                <%= p.description ? p.description.substring(0, 120) + (p.description.length > 120 ? '...' : '') : '—' %>
+              </td>
+            <% }) %>
+          </tr>
+
+          <!-- Hành động -->
+          <tr>
+            <td class="attr-label"><i class="fa-solid fa-cart-shopping"></i>Hành động</td>
+            <% products.forEach(p => { %>
+              <td class="text-center compare-action">
+                <button class="btn btn-info text-white rounded-pill px-3 py-1 add-to-cart" data-id="<%= p._id %>">
+                  <i class="fa-solid fa-cart-shopping me-1"></i> Thêm giỏ
+                </button>
+                <a href="/products/<%= p._id %>" class="btn btn-outline-secondary rounded-pill px-3 py-1 mt-1">
+                  <i class="fa-solid fa-eye"></i> Xem
+                </a>
+              </td>
+            <% }) %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center mt-4">
+    <a href="/products" class="btn btn-primary rounded-pill px-5 py-2 fw-bold">
+      <i class="fa-solid fa-store me-2"></i>Tiếp tục mua sắm
+    </a>
+  </div>
+</div>

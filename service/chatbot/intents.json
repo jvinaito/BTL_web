@@ -3,234 +3,414 @@
     {
       "tag": "greeting",
       "patterns": [
-        "xin chao",
-        "hello",
-        "hi",
-        "chao bot",
-        "hey",
-        "chao",
-        "alo"
+        "xin chao", "xin chào", "chao", "chào", "hello", "hi", "hí", "hì", "chao bot", "chào bot", "hey", "hây", "alo", "a lô",
+        "chao ban", "chào bạn", "chao cau", "chào cậu", "chao em", "chào em", "xin chao cac ban", "xin chào các bạn",
+        "good morning", "good evening", "chao buoi sang", "chào buổi sáng", "chao buoi chieu", "chào buổi chiều", "chao buoi toi", "chào buổi tối",
+        "bat dau", "bắt đầu", "hello bot", "hi bot", "hey ban", "này bạn", "co ai o do khong", "có ai ở đó không",
+        "cho toi hoi", "cho tôi hỏi", "hello day la gi", "hello đây là gì", "tu van giup toi", "tư vấn giúp tôi",
+        "ban oi", "bạn ơi", "oi ban oi", "ơi bạn ơi", "chao ban nhe", "chào bạn nhé", "alô", "xin chào tất cả",
+        "chao tat ca", "chào tất cả", "chao ae", "chào ae", "chao ca nha", "chào cả nhà", "chao moi nguoi", "chào mọi người",
+        "hello world", "hế lô", "chao xìn", "chào xìn", "chao ong", "chào ông", "chao ba", "chào bà",
+        "hey there", "hi there", "yo", "chao nhe", "chào nhé", "xin chao ban", "xin chào bạn"
       ],
       "responses": [
         "Xin chào {user_name}! 👋 Tôi có thể tư vấn đồ chơi cho bạn. Hãy thử hỏi về sản phẩm bán chạy, theo độ tuổi hoặc giá nhé!",
-        "Chào {user_name}! Tôi là trợ lý của Rainbow Rattles, sẵn sàng giúp bạn tìm đồ chơi yêu thích!"
+        "Chào {user_name}! Tôi là trợ lý của Rainbow Rattles, sẵn sàng giúp bạn tìm đồ chơi yêu thích!",
+        "Chào bạn! Tôi có thể giúp gì cho bạn hôm nay? 😊"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "tam biet", "tạm biệt", "bye", "bai", "goodbye", "hen gap lai", "hẹn gặp lại",
+        "thoi toi di", "thôi tôi đi", "toi di day", "tôi đi đây", "cam on nhe", "cảm ơn nhé",
+        "cam on ban", "cảm ơn bạn", "ok thoi", "ok thôi", "done", "xong roi", "xong rồi",
+        "thoat", "thoát", "ket thuc", "kết thúc", "bye bye", "see you", "hen hom sau", "hẹn hôm sau",
+        "chao nhe", "chào nhé", "hen gap", "hẹn gặp", "gap lai sau", "gặp lại sau",
+        "cam on nha", "cảm ơn nha", "bye nhe", "tam biet nhe", "tạm biệt nhé",
+        "toi di", "tôi đi", "di day", "đi đây", "ok bye", "cam on", "cảm ơn"
+      ],
+      "responses": [
+        "Tạm biệt {user_name}! 👋 Cảm ơn bạn đã ghé thăm Rainbow Rattles. Hẹn gặp lại!",
+        "Bye bye! 🌈 Chúc bạn và bé một ngày vui vẻ nhé!",
+        "Cảm ơn bạn! 😊 Nếu cần tư vấn thêm, Rainbow Rattles luôn ở đây. Tạm biệt!"
       ]
     },
     {
       "tag": "bestseller",
       "patterns": [
-        "ban chay nhat",
-        "ban chay",
-        "ban nhieu nhat",
-        "pho bien nhat",
-        "top san pham",
-        "noi bat",
-        "duoc ua chuong",
-        "nhieu nguoi mua"
+        "ban chay nhat", "bán chạy nhất", "ban chay", "bán chạy", "ban nhieu nhat", "bán nhiều nhất",
+        "pho bien nhat", "phổ biến nhất", "top san pham", "top sản phẩm", "noi bat", "nổi bật",
+        "duoc ua chuong", "được ưa chuộng", "nhieu nguoi mua", "nhiều người mua", "hot nhat", "hot nhất",
+        "san pham hot", "sản phẩm hot", "san pham ban chay", "sản phẩm bán chạy", "top 10 san pham", "top 10 sản phẩm",
+        "san pham duoc yeu thich", "sản phẩm được yêu thích", "san pham tot nhat", "sản phẩm tốt nhất",
+        "bestseller", "best seller", "top ban chay", "top bán chạy", "hang noi bat", "hàng nổi bật",
+        "dang hot", "đang hot", "trend hien tai", "trend hiện tại", "moi nguoi hay mua gi", "mọi người hay mua gì",
+        "san pham dinh", "sản phẩm đỉnh", "do choi hot", "đồ chơi hot", "hang ban nhieu", "hàng bán nhiều",
+        "mua gi duoc nhieu nguoi thich", "mua gì được nhiều người thích", "dang chay nhat hien nay", "đang chạy nhất hiện nay",
+        "top 5 san pham", "top 5 sản phẩm", "san pham yeu thich nhat", "sản phẩm yêu thích nhất",
+        "hang hot hien nay", "hàng hot hiện nay", "bo me hay mua gi", "bố mẹ hay mua gì",
+        "tre em thich gi nhat", "trẻ em thích gì nhất", "cai nao ban chay nhat", "cái nào bán chạy nhất",
+        "san pham duoc mua nhieu nhat", "sản phẩm được mua nhiều nhất", "best seller la gi", "best seller là gì",
+        "hang ban chay nhat", "hàng bán chạy nhất", "san pham nao hot nhat", "sản phẩm nào hot nhất",
+        "top sale", "top bán chạy", "san pham dinh cao", "sản phẩm đỉnh cao", "hang hot", "hàng hot",
+        "cai gi dang ban chay", "cái gì đang bán chạy", "thuong hieu nao ban chay", "thương hiệu nào bán chạy"
       ],
       "responses": ["🏆 Top sản phẩm bán chạy nhất hiện tại:"]
     },
     {
       "tag": "age",
       "patterns": [
-        "do choi cho be {age} tuoi",
-        "cho tre {age} tuoi",
-        "do tuoi {age}",
-        "be {age} tuoi",
-        "tre {age} tuoi",
-        "{age} tuoi"
+        "do choi cho be {age} tuoi", "đồ chơi cho bé {age} tuổi", "cho tre {age} tuoi", "cho trẻ {age} tuổi",
+        "do tuoi {age}", "độ tuổi {age}", "be {age} tuoi", "bé {age} tuổi", "tre {age} tuoi", "trẻ {age} tuổi",
+        "{age} tuoi", "{age} tuổi", "cho be {age} tuoi", "cho bé {age} tuổi", "do choi {age} tuoi", "đồ chơi {age} tuổi",
+        "san pham cho be {age} tuoi", "sản phẩm cho bé {age} tuổi", "be {age} tuoi choi gi", "bé {age} tuổi chơi gì",
+        "tre {age} tuoi nen choi gi", "trẻ {age} tuổi nên chơi gì", "goi y do choi cho be {age} tuoi", "gợi ý đồ chơi cho bé {age} tuổi",
+        "be {age} tuoi thich gi", "bé {age} tuổi thích gì", "mua gi cho be {age} tuoi", "mua gì cho bé {age} tuổi",
+        "qua tang cho be {age} tuoi", "quà tặng cho bé {age} tuổi", "tim do choi {age} tuoi", "tìm đồ chơi {age} tuổi",
+        "do choi phu hop {age} tuoi", "đồ chơi phù hợp {age} tuổi", "be nha toi {age} tuoi", "bé nhà tôi {age} tuổi",
+        "con toi {age} tuoi", "con tôi {age} tuổi", "chau toi {age} tuoi", "cháu tôi {age} tuổi",
+        "be gai {age} tuoi", "bé gái {age} tuổi", "be trai {age} tuoi", "bé trai {age} tuổi",
+        "nen mua gi cho be {age} tuoi", "nên mua gì cho bé {age} tuổi", "phu hop voi {age} tuoi", "phù hợp với {age} tuổi",
+        "danh cho {age} tuoi", "dành cho {age} tuổi", "do choi an toan cho be {age} tuoi", "đồ chơi an toàn cho bé {age} tuổi",
+        "cho be {age} tuoi choi do choi gi", "cho bé {age} tuổi chơi đồ chơi gì", "tuoi {age} thi mua do choi gi",
+        "tuổi {age} thì mua đồ chơi gì", "do choi cho tre {age} thang", "đồ chơi cho trẻ {age} tháng",
+        "be {age} thang choi gi", "bé {age} tháng chơi gì", "do choi cho be {age} thang tuoi", "đồ chơi cho bé {age} tháng tuổi",
+        "em be {age} tuoi", "em bé {age} tuổi", "con em {age} tuoi", "con em {age} tuổi"
       ],
       "responses": ["Dưới đây là sản phẩm phù hợp với bé {age} tuổi:"]
     },
     {
       "tag": "gender",
       "patterns": [
-        "do choi cho be trai",
-        "cho be trai",
-        "do choi nam",
-        "do choi cho be gai",
-        "cho be gai",
-        "do choi nu",
-        "be gai",
-        "be trai"
+        "do choi cho be trai", "đồ chơi cho bé trai", "cho be trai", "cho bé trai", "do choi nam", "đồ chơi nam",
+        "do choi cho be gai", "đồ chơi cho bé gái", "cho be gai", "cho bé gái", "do choi nu", "đồ chơi nữ",
+        "be gai", "bé gái", "be trai", "bé trai", "cho con trai", "cho con gái",
+        "do choi boy", "đồ chơi boy", "do choi girl", "đồ chơi girl", "danh cho be gai", "dành cho bé gái",
+        "danh cho be trai", "dành cho bé trai", "be trai thich gi", "bé trai thích gì", "be gai thich gi", "bé gái thích gì",
+        "mua cho con trai", "mua cho con gai", "do choi nu sinh", "đồ chơi nữ sinh", "do choi nam sinh", "đồ chơi nam sinh",
+        "cho chau trai", "cho cháu trai", "cho chau gai", "cho cháu gái", "qua cho be gai", "quà cho bé gái",
+        "qua cho be trai", "quà cho bé trai", "be trai hay choi gi", "bé trai hay chơi gì", "be gai hay choi gi", "bé gái hay chơi gì",
+        "chon do choi cho be gai", "chọn đồ chơi cho bé gái", "chon do choi cho be trai", "chọn đồ chơi cho bé trai",
+        "con gai me thich gi", "con gái mẹ thích gì", "con trai me thich gi", "con trai mẹ thích gì",
+        "do choi be trai", "đồ chơi bé trai", "do choi be gai", "đồ chơi bé gái", "do choi con trai", "đồ chơi con trai",
+        "do choi con gai", "đồ chơi con gái", "qua cho be", "quà cho bé", "do choi cho be", "đồ chơi cho bé",
+        "do choi cho con trai", "đồ chơi cho con trai", "do choi cho con gai", "đồ chơi cho con gái",
+        "be trai 3 tuoi choi gi", "bé trai 3 tuổi chơi gì", "be gai 4 tuoi choi gi", "bé gái 4 tuổi chơi gì"
       ],
       "responses": ["Các sản phẩm dành cho:"]
     },
     {
       "tag": "price",
       "patterns": [
-        "duoi {price} do",
-        "gia duoi {price}",
-        "re hon {price}",
-        "khong qua {price}",
-        "khoang {price}",
-        "duoi {price} usd"
+        "duoi {price} do", "dưới {price} đô", "gia duoi {price}", "giá dưới {price}", "re hon {price}", "rẻ hơn {price}",
+        "khong qua {price}", "không quá {price}", "khoang {price}", "khoảng {price}", "duoi {price} usd", "dưới {price} usd",
+        "duoi {price} dong", "dưới {price} đồng", "duoi {price} vnd", "dưới {price} vnd", "gia {price} tro xuong", "giá {price} trở xuống",
+        "tu {price} tro xuong", "từ {price} trở xuống", "max {price}", "toi da {price}", "tối đa {price}",
+        "ngan sach {price}", "ngân sách {price}", "budget {price}", "chi {price}", "chỉ {price}",
+        "toi chi co {price}", "tôi chỉ có {price}", "gia ca phai chang duoi {price}", "giá cả phải chăng dưới {price}",
+        "do choi gia re duoi {price}", "đồ chơi giá rẻ dưới {price}", "voi {price} mua gi duoc", "với {price} mua gì được",
+        "co {price} mua duoc gi", "có {price} mua được gì", "gia tu {price} den", "giá từ {price} đến", "tam tien {price}", "tầm tiền {price}",
+        "goi y voi gia {price}", "gợi ý với giá {price}", "mua duoc gi voi {price}", "mua được gì với {price}",
+        "gia re duoi {price}", "giá rẻ dưới {price}", "duoi {price}k", "dưới {price}k", "duoi {price} trieu", "dưới {price} triệu",
+        "gia {price} thoi", "giá {price} thôi", "gia duoi {price} do la", "giá dưới {price} đô la", "khoang {price} do", "khoảng {price} đô",
+        "tam {price}", "tầm {price}", "trong khoang {price}", "trong khoảng {price}", "duoi {price} la", "dưới {price} lạ",
+        "max price {price}", "min price {price}", "gia max {price}", "giá max {price}", "khong qua {price} do", "không quá {price} đô"
       ],
       "responses": ["Sản phẩm có giá dưới {price} USD:"]
     },
     {
       "tag": "category",
       "patterns": [
-        "do choi {category}",
-        "loai {category}",
-        "the loai {category}",
-        "danh muc {category}",
-        "tim {category}"
+        "do choi {category}", "đồ chơi {category}", "loai {category}", "loại {category}", "the loai {category}", "thể loại {category}",
+        "danh muc {category}", "danh mục {category}", "tim {category}", "tìm {category}", "{category} co khong", "{category} có không",
+        "co {category} khong", "có {category} không", "san pham {category}", "sản phẩm {category}", "ban {category} khong", "bán {category} không",
+        "co ban {category} khong", "có bán {category} không", "tim kiem {category}", "tìm kiếm {category}", "goi y {category}", "gợi ý {category}",
+        "xem {category}", "cho toi xem {category}", "cho tôi xem {category}", "hien thi {category}", "hiển thị {category}",
+        "muon mua {category}", "muốn mua {category}", "can mua {category}", "cần mua {category}",
+        "nhung loai {category}", "những loại {category}", "cac loai {category}", "các loại {category}",
+        "do choi thuoc {category}", "đồ chơi thuộc {category}", "danh muc {category} co gi", "danh mục {category} có gì",
+        "{category} co nhung gi", "{category} có những gì", "san pham trong {category}", "sản phẩm trong {category}",
+        "cua hang co {category} khong", "cửa hàng có {category} không", "co ban {category} o day khong", "có bán {category} ở đây không",
+        "{category} la gi", "{category} là gì", "the loai {category} co san pham gi", "thể loại {category} có sản phẩm gì"
       ],
       "responses": ["Sản phẩm thuộc danh mục {category}:"]
     },
     {
       "tag": "cart_view",
       "patterns": [
-        "xem gio hang",
-        "gio hang cua toi",
-        "gio hang",
-        "cart",
-        "trong gio co gi",
-        "gio hang co gi"
+        "xem gio hang", "xem giỏ hàng", "gio hang cua toi", "giỏ hàng của tôi", "gio hang", "giỏ hàng", "cart",
+        "trong gio co gi", "trong giỏ có gì", "gio hang co gi", "giỏ hàng có gì", "xem gio", "xem giỏ",
+        "toi co gi trong gio", "tôi có gì trong giỏ", "gio hang cua minh", "giỏ hàng của mình", "show cart",
+        "kiem tra gio hang", "kiểm tra giỏ hàng", "gio hang hien tai", "giỏ hàng hiện tại",
+        "danh sach san pham trong gio", "danh sách sản phẩm trong giỏ", "xem lai gio hang", "xem lại giỏ hàng",
+        "nhung gi toi da chon", "những gì tôi đã chọn", "cac san pham toi chon", "các sản phẩm tôi chọn",
+        "tong gio hang la bao nhieu", "tổng giỏ hàng là bao nhiêu", "da them gi vao gio", "đã thêm gì vào giỏ",
+        "gio hang cua toi co gi", "giỏ hàng của tôi có gì", "xem cac san pham trong gio", "xem các sản phẩm trong giỏ",
+        "gio hang co san pham nao", "giỏ hàng có sản phẩm nào", "toi dang co gi trong gio", "tôi đang có gì trong giỏ",
+        "show me cart", "xem giỏ hàng của tôi", "kiem tra gio", "kiểm tra giỏ", "hien thi gio hang", "hiển thị giỏ hàng"
       ],
       "responses": ["__view_cart__"]
     },
     {
       "tag": "cart_update",
       "patterns": [
-        "sua so luong {product_name} thanh {quantity}",
-        "cap nhat {product_name} len {quantity}",
-        "doi so luong {product_name} thanh {quantity}",
-        "tang {product_name} len {quantity}",
-        "giam {product_name} xuong {quantity}"
+        "sua so luong {product_name} thanh {quantity}", "sửa số lượng {product_name} thành {quantity}",
+        "cap nhat {product_name} len {quantity}", "cập nhật {product_name} lên {quantity}",
+        "doi so luong {product_name} thanh {quantity}", "đổi số lượng {product_name} thành {quantity}",
+        "tang {product_name} len {quantity}", "tăng {product_name} lên {quantity}",
+        "giam {product_name} xuong {quantity}", "giảm {product_name} xuống {quantity}",
+        "thay doi so luong {product_name} thanh {quantity}", "thay đổi số lượng {product_name} thành {quantity}",
+        "set {product_name} {quantity}", "cap nhat so luong {product_name}", "cập nhật số lượng {product_name}",
+        "sua {product_name} thanh {quantity}", "sửa {product_name} thành {quantity}",
+        "doi {product_name} {quantity} cai", "đổi {product_name} {quantity} cái",
+        "chinh so luong {product_name}", "chỉnh số lượng {product_name}",
+        "muon them {quantity} {product_name}", "muốn thêm {quantity} {product_name}",
+        "doi {quantity} {product_name}", "đổi {quantity} {product_name}",
+        "thay doi so luong cua {product_name}", "thay đổi số lượng của {product_name}",
+        "cap nhat so luong san pham {product_name}", "cập nhật số lượng sản phẩm {product_name}",
+        "set quantity {product_name} to {quantity}", "change {product_name} to {quantity}",
+        "update {product_name} quantity {quantity}", "sua so luong san pham {product_name} thanh {quantity}",
+        "sửa số lượng sản phẩm {product_name} thành {quantity}", "tang so luong {product_name} len {quantity}",
+        "tăng số lượng {product_name} lên {quantity}", "giam so luong {product_name} xuong {quantity}",
+        "giảm số lượng {product_name} xuống {quantity}"
       ],
       "responses": ["__update_cart__"]
     },
     {
       "tag": "cart_remove",
       "patterns": [
-        "xoa {product_name} khoi gio",
-        "xoa {product_name}",
-        "bo {product_name}",
-        "xoa san pham {product_name}",
-        "xoa so {number}",
-        "xoa san pham so {number}"
+        "xoa {product_name} khoi gio", "xóa {product_name} khỏi giỏ", "xoa {product_name}", "xóa {product_name}",
+        "bo {product_name}", "bỏ {product_name}", "xoa san pham {product_name}", "xóa sản phẩm {product_name}",
+        "xoa so {number}", "xóa số {number}", "xoa san pham so {number}", "xóa sản phẩm số {number}",
+        "remove {product_name}", "xoa {product_name} ra khoi gio", "xóa {product_name} ra khỏi giỏ",
+        "bo {product_name} ra khoi gio", "bỏ {product_name} ra khỏi giỏ", "khong mua {product_name} nua", "không mua {product_name} nữa",
+        "bo san pham {product_name}", "bỏ sản phẩm {product_name}", "xoa {product_name} di", "xóa {product_name} đi",
+        "huy san pham {product_name}", "hủy sản phẩm {product_name}", "toi khong can {product_name} nua", "tôi không cần {product_name} nữa",
+        "xoa khoi gio {product_name}", "xóa khỏi giỏ {product_name}", "xoa san pham so {number} khoi gio",
+        "xóa sản phẩm số {number} khỏi giỏ", "bo san pham so {number}", "bỏ sản phẩm số {number}",
+        "remove item {product_name}", "xoa het {product_name}", "xóa hết {product_name}",
+        "khong muon mua {product_name} nua", "không muốn mua {product_name} nữa", "bo {product_name} di", "bỏ {product_name} đi"
       ],
       "responses": ["__remove_from_cart__"]
     },
     {
       "tag": "order_history",
       "patterns": [
-        "lich su don hang",
-        "xem don hang cua toi",
-        "cac don hang",
-        "don hang cua toi",
-        "history",
-        "don hang da dat"
+        "lich su don hang", "lịch sử đơn hàng", "xem don hang cua toi", "xem đơn hàng của tôi",
+        "cac don hang", "các đơn hàng", "don hang cua toi", "đơn hàng của tôi", "history",
+        "don hang da dat", "đơn hàng đã đặt", "lich su mua hang", "lịch sử mua hàng",
+        "nhung don da dat", "những đơn đã đặt", "xem cac don hang", "xem các đơn hàng",
+        "toi da mua gi", "tôi đã mua gì", "don hang truoc day", "đơn hàng trước đây",
+        "cac lan mua hang", "các lần mua hàng", "tat ca don hang", "tất cả đơn hàng",
+        "xem lich su", "xem lịch sử", "don hang cu", "đơn hàng cũ", "order history",
+        "nhung don hang cua toi", "những đơn hàng của tôi", "mua hang lan truoc", "mua hàng lần trước",
+        "xem nhung don hang da dat", "xem những đơn hàng đã đặt", "lich su don hang da mua",
+        "lịch sử đơn hàng đã mua", "toi da dat nhung don gi", "tôi đã đặt những đơn gì",
+        "don hang cua toi dau", "đơn hàng của tôi đâu", "xem don hang da mua", "xem đơn hàng đã mua"
       ],
       "responses": ["__order_history__"]
     },
     {
       "tag": "latest_order",
       "patterns": [
-        "don hang gan nhat",
-        "don cuoi cung",
-        "don gan day",
-        "don hang moi nhat",
-        "gan day",
-        "don gan nhat"
+        "don hang gan nhat", "đơn hàng gần nhất", "don cuoi cung", "đơn cuối cùng",
+        "don gan day", "đơn gần đây", "don hang moi nhat", "đơn hàng mới nhất",
+        "gan day", "gần đây", "don gan nhat", "đơn gần nhất", "don hang cuoi", "đơn hàng cuối",
+        "don vua dat", "đơn vừa đặt", "don moi nhat", "đơn mới nhất",
+        "don hang vua roi", "đơn hàng vừa rồi", "don hang cuoi cung", "đơn hàng cuối cùng",
+        "toi vua dat don gi", "tôi vừa đặt đơn gì", "don hang moi dat", "đơn hàng mới đặt",
+        "moi dat don gi", "mới đặt đơn gì", "don hang lan cuoi", "đơn hàng lần cuối",
+        "don cuoi cung cua toi", "đơn cuối cùng của tôi", "don hang vua dat", "đơn hàng vừa đặt",
+        "xem don hang moi nhat", "xem đơn hàng mới nhất", "don hang gan day nhat", "đơn hàng gần đây nhất"
       ],
       "responses": ["__latest_order__"]
     },
     {
       "tag": "order_status",
       "patterns": [
-        "trang thai don hang {orderId}",
-        "kiem tra don {orderId}",
-        "don {orderId}",
-        "trang thai don {orderId}",
-        "xem don {orderId}",
-        "chi tiet don {orderId}"
+        "trang thai don hang {orderId}", "trạng thái đơn hàng {orderId}",
+        "kiem tra don {orderId}", "kiểm tra đơn {orderId}", "don {orderId}", "đơn {orderId}",
+        "trang thai don {orderId}", "trạng thái đơn {orderId}", "xem don {orderId}", "xem đơn {orderId}",
+        "chi tiet don {orderId}", "chi tiết đơn {orderId}", "order {orderId}", "status {orderId}",
+        "don hang {orderId} den chua", "đơn hàng {orderId} đến chưa",
+        "don {orderId} dang o dau", "đơn {orderId} đang ở đâu",
+        "kiem tra trang thai {orderId}", "kiểm tra trạng thái {orderId}",
+        "don {orderId} sao roi", "đơn {orderId} sao rồi",
+        "bao gio nhan duoc don {orderId}", "bao giờ nhận được đơn {orderId}",
+        "don hang {orderId} tien do", "đơn hàng {orderId} tiến độ",
+        "xem tinh trang don {orderId}", "xem tình trạng đơn {orderId}",
+        "trang thai don hang {orderId} the nao", "trạng thái đơn hàng {orderId} thế nào",
+        "kiem tra don hang {orderId} di", "kiểm tra đơn hàng {orderId} đi",
+        "don {orderId} den chua", "đơn {orderId} đến chưa", "order {orderId} status",
+        "trang thai cua don {orderId}", "trạng thái của đơn {orderId}"
       ],
       "responses": ["__order_status__"]
     },
     {
       "tag": "order_detail_by_index",
       "patterns": [
-        "xem don {index}",
-        "chi tiet don {index}",
-        "don {index}",
-        "xem don so {index}",
-        "chi tiet don so {index}",
-        "don so {index}"
+        "xem don {index}", "xem đơn {index}", "chi tiet don {index}", "chi tiết đơn {index}",
+        "don {index}", "đơn {index}", "xem don so {index}", "xem đơn số {index}",
+        "chi tiet don so {index}", "chi tiết đơn số {index}", "don so {index}", "đơn số {index}",
+        "xem chi tiet don {index}", "xem chi tiết đơn {index}", "thong tin don so {index}", "thông tin đơn số {index}",
+        "don hang so {index}", "xem thong tin don {index}", "xem thông tin đơn {index}",
+        "xem don hang so {index}", "xem đơn hàng số {index}", "chi tiet don hang so {index}", "chi tiết đơn hàng số {index}",
+        "don thu {index}", "đơn thứ {index}", "xem don thu {index}", "xem đơn thứ {index}",
+        "thong tin don hang so {index}", "thông tin đơn hàng số {index}"
       ],
       "responses": ["__order_detail_by_index__"]
     },
     {
       "tag": "order_detail_by_product",
       "patterns": [
-        "don {product_name}",
-        "tim don {product_name}",
-        "don co {product_name}",
-        "xem don cua {product_name}"
+        "don {product_name}", "đơn {product_name}", "tim don {product_name}", "tìm đơn {product_name}",
+        "don co {product_name}", "đơn có {product_name}", "xem don cua {product_name}", "xem đơn của {product_name}",
+        "don hang co {product_name}", "đơn hàng có {product_name}", "tim don hang {product_name}", "tìm đơn hàng {product_name}",
+        "don dat {product_name}", "đơn đặt {product_name}", "don mua {product_name}", "đơn mua {product_name}",
+        "kiem tra don co {product_name}", "kiểm tra đơn có {product_name}",
+        "don hang nao co {product_name}", "đơn hàng nào có {product_name}",
+        "tim don hang chua {product_name}", "tìm đơn hàng chứa {product_name}",
+        "don hang cua {product_name}", "đơn hàng của {product_name}", "xem don hang {product_name}", "xem đơn hàng {product_name}",
+        "don hang co san pham {product_name}", "đơn hàng có sản phẩm {product_name}",
+        "tim don dat {product_name}", "tìm đơn đặt {product_name}"
       ],
       "responses": ["__order_detail_by_product__"]
     },
     {
+      "tag": "cancel_order",
+      "patterns": [
+        "huy don {orderId}", "hủy đơn {orderId}", "huy don hang {orderId}", "hủy đơn hàng {orderId}",
+        "cancel order {orderId}", "huy don so {index}", "hủy đơn số {index}",
+        "huy don hang so {index}", "hủy đơn hàng số {index}", "huy don {index}", "hủy đơn {index}",
+        "huy so {index}", "hủy số {index}", "cancel don {orderId}", "cancel đơn {orderId}",
+        "toi muon huy don {orderId}", "tôi muốn hủy đơn {orderId}",
+        "khong muon don {orderId} nua", "không muốn đơn {orderId} nữa",
+        "huy dat hang {orderId}", "hủy đặt hàng {orderId}", "xoa don {orderId}", "xóa đơn {orderId}",
+        "huy bo don hang {orderId}", "hủy bỏ đơn hàng {orderId}", "cancel {orderId}",
+        "huy don hang cua toi", "hủy đơn hàng của tôi", "huy don hang", "hủy đơn hàng",
+        "huy don hang {orderId} di", "hủy đơn hàng {orderId} đi",
+        "toi muon huy don hang {orderId}", "tôi muốn hủy đơn hàng {orderId}",
+        "huy don hang so {index} di", "hủy đơn hàng số {index} đi"
+      ],
+      "responses": ["__cancel_order__"]
+    },
+    {
       "tag": "faq_shipping",
       "patterns": [
-        "phi van chuyen",
-        "ship bao nhieu",
-        "phi giao hang",
-        "thoi gian giao hang",
-        "giao hang bao lau",
-        "van chuyen",
-        "shipping",
-        "giao hang nhu the nao"
+        "phi van chuyen", "phí vận chuyển", "ship bao nhieu", "ship bao nhiêu",
+        "phi giao hang", "phí giao hàng", "thoi gian giao hang", "thời gian giao hàng",
+        "giao hang bao lau", "giao hàng bao lâu", "van chuyen", "vận chuyển",
+        "shipping", "giao hang nhu the nao", "giao hàng như thế nào",
+        "phi ship", "phí ship", "giao hang toi", "giao hàng tới",
+        "thoi gian ship", "thời gian ship", "giao hang mien phi khong", "giao hàng miễn phí không",
+        "co free ship khong", "có free ship không", "ship bao nhieu ngay", "ship bao nhiêu ngày",
+        "phi ship nhu the nao", "phí ship như thế nào", "co giao hang toan quoc khong", "có giao hàng toàn quốc không",
+        "ship toan quoc khong", "ship toàn quốc không", "co giao den tinh khong", "có giao đến tỉnh không",
+        "giao hang nhanh khong", "giao hàng nhanh không", "bao lau thi nhan duoc hang", "bao lâu thì nhận được hàng",
+        "chi phi van chuyen", "chi phí vận chuyển", "phi ship la bao nhieu", "phí ship là bao nhiêu",
+        "mien phi ship", "miễn phí ship", "free ship khong", "free ship không",
+        "giao hang toan quoc", "giao hàng toàn quốc", "ship toan quoc", "ship toàn quốc",
+        "thoi gian giao hang la bao lau", "thời gian giao hàng là bao lâu"
       ],
       "responses": [
-        "🚚 **Chính sách giao hàng:**\n• Miễn phí giao hàng tại Hà Nội\n• Phí ship: 50.000đ cho các tỉnh khác\n• Thời gian giao hàng: 2-5 ngày làm việc\n• Hỗ trợ giao hàng toàn quốc"
+        "🚚 **Chính sách giao hàng:**\n• Miễn phí giao hàng tại Hà Nội\n• Phí ship: 50.000đ cho các tỉnh khác\n• Thời gian giao hàng: 2-5 ngày làm việc\n• Hỗ trợ giao hàng toàn quốc\n• Giao hàng nhanh 24h có tính phí thêm"
       ]
     },
     {
       "tag": "faq_return",
       "patterns": [
-        "chinh sach doi tra",
-        "doi tra",
-        "tra hang",
-        "hoan tien",
-        "doi hang",
-        "tra lai san pham",
-        "chinh sach hoan tien",
-        "thanh toan"
+        "chinh sach doi tra", "chính sách đổi trả", "doi tra", "đổi trả",
+        "tra hang", "trả hàng", "hoan tien", "hoàn tiền", "doi hang", "đổi hàng",
+        "tra lai san pham", "trả lại sản phẩm", "chinh sach hoan tien", "chính sách hoàn tiền",
+        "doi tra san pham", "đổi trả sản phẩm", "co duoc doi tra khong", "có được đổi trả không",
+        "hang loi thi sao", "hàng lỗi thì sao", "san pham bi hong", "sản phẩm bị hỏng",
+        "bi loi co doi duoc khong", "bị lỗi có đổi được không", "doi san pham moi", "đổi sản phẩm mới",
+        "hoan tien khi nao", "hoàn tiền khi nào", "quy trinh doi tra", "quy trình đổi trả",
+        "bao lau thi doi duoc", "bao lâu thì đổi được", "co bao hanh khong", "có bảo hành không",
+        "bao hanh bao lau", "bảo hành bao lâu", "san pham bi hu", "sản phẩm bị hư", "tra hang nhu the nao", "trả hàng như thế nào",
+        "chinh sach bao hanh", "chính sách bảo hành", "doi tra trong bao lau", "đổi trả trong bao lâu",
+        "hoan tien trong bao lau", "hoàn tiền trong bao lâu", "tra hang co mat khong", "trả hàng có mất không",
+        "phi doi tra", "phí đổi trả", "mua roi co doi duoc khong", "mua rồi có đổi được không"
       ],
       "responses": [
-        "🔄 **Chính sách đổi trả:**\n• Đổi trả trong vòng 7 ngày\n• Sản phẩm phải còn nguyên tem, hộp\n• Hỗ trợ hoàn tiền 100% nếu sản phẩm lỗi\n• Liên hệ hotline: 123-456-7868 để được hỗ trợ"
+        "🔄 **Chính sách đổi trả:**\n• Đổi trả trong vòng 7 ngày kể từ ngày nhận hàng\n• Sản phẩm phải còn nguyên tem, hộp, chưa qua sử dụng\n• Hỗ trợ hoàn tiền 100% nếu sản phẩm lỗi do nhà sản xuất\n• Đổi sản phẩm mới nếu hàng bị lỗi trong vòng 30 ngày\n• Liên hệ hotline: 123-456-7868 để được hỗ trợ đổi trả"
       ]
     },
     {
       "tag": "faq_payment",
       "patterns": [
-        "thanh toan",
-        "phuong thuc thanh toan",
-        "hinh thuc thanh toan",
-        "tra tien",
-        "cod",
-        "chuyen khoan"
+        "thanh toan", "thanh toán", "phuong thuc thanh toan", "phương thức thanh toán",
+        "hinh thuc thanh toan", "hình thức thanh toán", "tra tien", "trả tiền",
+        "cod", "chuyen khoan", "chuyển khoản", "thanh toan the nao", "thanh toán thế nào",
+        "hinh thuc tra tien", "hình thức trả tiền", "co the tra tien mat khong", "có thể trả tiền mặt không",
+        "the tin dung", "thẻ tín dụng", "thanh toan online", "thanh toán online",
+        "momo", "zalopay", "thanh toan qua the", "thanh toán qua thẻ",
+        "cach thanh toan", "cách thanh toán", "tra tien bang gi", "trả tiền bằng gì",
+        "ngan hang nao", "ngân hàng nào", "thanh toan tien mat", "thanh toán tiền mặt",
+        "quet ma qr", "quét mã qr", "thanh toan cod", "thanh toán cod",
+        "co the thanh toan bang the khong", "có thể thanh toán bằng thẻ không",
+        "thanh toan khi nhan hang", "thanh toán khi nhận hàng", "tra tien mat", "trả tiền mặt",
+        "hinh thuc thanh toan nao", "hình thức thanh toán nào", "cach tra tien", "cách trả tiền"
       ],
       "responses": [
-        "💳 **Phương thức thanh toán:**\n• Thanh toán khi nhận hàng (COD)\n• Chuyển khoản ngân hàng\n• Ví điện tử Momo, ZaloPay\n• Thẻ tín dụng / ghi nợ"
+        "💳 **Phương thức thanh toán:**\n• Thanh toán khi nhận hàng (COD)\n• Chuyển khoản ngân hàng\n• Ví điện tử Momo, ZaloPay, VNPay\n• Thẻ tín dụng / ghi nợ (Visa, Mastercard)\n• Quét mã QR"
       ]
     },
     {
       "tag": "help",
       "patterns": [
-        "huong dan",
-        "tro giup",
-        "help",
-        "ban co the lam gi",
-        "chuc nang",
-        "toi co the hoi gi"
+        "huong dan", "hướng dẫn", "tro giup", "trợ giúp", "help",
+        "ban co the lam gi", "bạn có thể làm gì", "chuc nang", "chức năng",
+        "toi co the hoi gi", "tôi có thể hỏi gì", "lam the nao", "làm thế nào",
+        "cach su dung", "cách sử dụng", "ho tro gi", "hỗ trợ gì",
+        "co the giup gi", "có thể giúp gì", "dung nhu the nao", "dùng như thế nào",
+        "cho toi biet ban lam gi", "cho tôi biết bạn làm gì", "menu", "danh sach chuc nang", "danh sách chức năng",
+        "bot co chuc nang gi", "bot có chức năng gì", "tu van gi duoc", "tư vấn gì được",
+        "ban biet gi", "bạn biết gì", "toi hoi gi duoc", "tôi hỏi gì được",
+        "huong dan su dung", "hướng dẫn sử dụng", "giup toi", "giúp tôi",
+        "cach dung chatbot", "cách dùng chatbot", "chuc nang cua bot", "chức năng của bot",
+        "bot giup duoc gi", "bot giúp được gì", "toi muon biet ban co the lam gi", "tôi muốn biết bạn có thể làm gì"
       ],
       "responses": [
-        "💡 Tôi có thể giúp bạn:\n• Tìm sản phẩm bán chạy: \"bán chạy nhất\"\n• Theo độ tuổi: \"đồ chơi cho bé 3 tuổi\"\n• Theo giới tính: \"đồ chơi bé trai\"\n• Theo giá: \"dưới 20 đô\"\n• Theo danh mục: \"xe đua\", \"gấu bông\"\n• Kết hợp: \"xe đua cho bé trai 5 tuổi dưới 30 đô\"\n• Thêm giỏ hàng: \"thêm 2 gấu bông\"\n• Xem giỏ hàng: \"xem giỏ hàng\"\n• Xóa khỏi giỏ: \"xóa gấu bông\"\n• Cập nhật giỏ: \"sửa số lượng gấu bông thành 3\"\n• Lịch sử đơn hàng: \"lịch sử đơn hàng\"\n• Đơn gần nhất: \"đơn gần nhất\"\n• Xem đơn theo số: \"xem đơn 2\"\n• Tìm đơn theo tên sản phẩm: \"đơn gấu bông\"\n• Xem chi tiết sản phẩm: gõ số thứ tự (vd: 1, 2, 3)"
+        "💡 **Tôi có thể giúp bạn:**\n\n🛍️ **Tìm sản phẩm:**\n• Bán chạy nhất: \"bán chạy nhất\"\n• Theo độ tuổi: \"đồ chơi cho bé 3 tuổi\"\n• Theo giới tính: \"đồ chơi bé trai/bé gái\"\n• Theo giá: \"dưới 20 đô\"\n• Theo danh mục: \"xe đua\", \"gấu bông\"\n\n🛒 **Giỏ hàng:**\n• Xem giỏ: \"xem giỏ hàng\"\n• Thêm vào giỏ: \"thêm gấu bông\"\n• Xóa khỏi giỏ: \"xóa gấu bông\"\n• Cập nhật số lượng: \"sửa số lượng gấu bông thành 3\"\n• Đặt hàng: \"đặt hàng\"\n\n📦 **Đơn hàng:**\n• Lịch sử: \"lịch sử đơn hàng\"\n• Đơn gần nhất: \"đơn gần nhất\"\n• Theo số: \"xem đơn 2\"\n• Theo sản phẩm: \"đơn gấu bông\"\n• Hủy đơn: \"hủy đơn ORD123\"\n\n❓ **Hỏi đáp:**\n• Giao hàng: \"phí ship\"\n• Đổi trả: \"chính sách đổi trả\"\n• Thanh toán: \"phương thức thanh toán\"\n• Liên hệ: \"hotline\""
       ]
+    },
+    {
+      "tag": "sale_products",
+      "patterns": [
+        "san pham giam gia", "sản phẩm giảm giá", "do choi giam gia", "đồ chơi giảm giá",
+        "hang giam gia", "hàng giảm giá", "co san pham giam gia khong", "có sản phẩm giảm giá không",
+        "do choi dang giam gia", "đồ chơi đang giảm giá", "san pham khuyen mai", "sản phẩm khuyến mãi",
+        "hang khuyen mai", "hàng khuyến mãi", "deal tot", "deal tốt", "gia tot", "giá tốt",
+        "san pham sale", "sản phẩm sale", "sale", "giam gia", "giảm giá",
+        "khuyen mai", "khuyến mãi", "do choi sale", "đồ chơi sale", "hang sale", "hàng sale",
+        "cai nao dang giam gia", "cái nào đang giảm giá", "uudai", "ưu đãi",
+        "san pham dang giam gia", "sản phẩm đang giảm giá", "hang dang sale", "hàng đang sale",
+        "do choi dang khuyen mai", "đồ chơi đang khuyến mãi", "sale off", "flash sale",
+        "giam gia bao nhieu", "giảm giá bao nhiêu", "san pham giam gia nhieu", "sản phẩm giảm giá nhiều",
+        "hang giam gia nhieu", "hàng giảm giá nhiều", "cai gi dang giam gia", "cái gì đang giảm giá"
+      ],
+      "responses": ["🛍️ Sản phẩm đang giảm giá tại Rainbow Rattles:"]
+    },
+    {
+      "tag": "new_arrivals",
+      "patterns": [
+        "san pham moi", "sản phẩm mới", "hang moi ve", "hàng mới về", "moi nhat", "mới nhất",
+        "hang moi", "hàng mới", "new arrival", "moi ra mat", "mới ra mắt",
+        "vua ra mat", "vừa ra mắt", "moi co gi", "mới có gì", "hang moi nhat", "hàng mới nhất",
+        "co gi moi khong", "có gì mới không", "them moi gi khong", "thêm mới gì không",
+        "san pham moi nhat", "sản phẩm mới nhất", "do choi moi", "đồ chơi mới",
+        "co san pham moi khong", "có sản phẩm mới không", "ra hang moi chua", "ra hàng mới chưa",
+        "hang moi tuan nay", "hàng mới tuần này", "moi nhap ve", "mới nhập về",
+        "san pham vua ra", "sản phẩm vừa ra", "do choi moi nhat", "đồ chơi mới nhất",
+        "hang moi ve hom nay", "hàng mới về hôm nay", "cap nhat san pham moi", "cập nhật sản phẩm mới",
+        "moi ve", "mới về", "co hang moi khong", "có hàng mới không",
+        "co do choi moi khong", "có đồ chơi mới không", "hang moi ve chua", "hàng mới về chưa",
+        "do choi moi ve", "đồ chơi mới về", "san pham moi ve", "sản phẩm mới về",
+        "hang moi nhat hom nay", "hàng mới nhất hôm nay", "vua moi ve", "vừa mới về"
+      ],
+      "responses": ["🆕 Sản phẩm mới nhất vừa về tại Rainbow Rattles:"]
     }
   ]
 }

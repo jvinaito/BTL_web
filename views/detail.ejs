@@ -1,20 +1,61 @@
 <% title = product.name %>
 
+<style>
+.compare-checkbox-wrapper {
+  display: none;
+}
+.product-detail-image-wrapper {
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+.product-detail-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  transition: transform 0.3s ease;
+  background-color: #f8f9fa;
+}
+.product-detail-image-wrapper img:hover {
+  transform: scale(1.02);
+}
+@media (max-width: 576px) {
+  .product-detail-image-wrapper {
+    height: 300px;
+  }
+}
+img.product-detail-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+</style>
+
 <div class="container py-5">
   <div class="row g-5 align-items-start">
     <!-- Cột ảnh -->
     <div class="col-md-6 text-center">
-      <div class="bg-white p-3 rounded-4 shadow-sm">
-        <img src="<%= product.imageUrl %>" class="img-fluid rounded-4" alt="<%= product.name %>" id="product-detail-img">
+      <div class="bg-white p-3 rounded-4 shadow-sm position-relative product-detail-image-wrapper">
+        <img src="<%= product.imageUrl %>" alt="<%= product.name %>" class="product-detail-img" id="product-detail-img">
+        <!-- ĐÃ XÓA CHECKBOX Ở GÓC ẢNH -->
       </div>
     </div>
 
     <!-- Cột thông tin -->
     <div class="col-md-6">
-      <!-- Tên sản phẩm -->
       <h2 class="fw-bold display-6"><%= product.name %></h2>
 
-      <!-- Cụm badge -->
       <div class="d-flex flex-wrap gap-2 my-3">
         <% if (product.discount > 0) { %>
           <span class="badge bg-danger rounded-pill px-3 py-2 fs-6">
@@ -33,7 +74,6 @@
         <% } %>
       </div>
 
-      <!-- Giá -->
       <div class="mb-3">
         <span class="text-info fw-bold display-6"><%= product.salePrice.toLocaleString('vi-VN') %>đ</span>
         <% if (product.discount > 0) { %>
@@ -41,7 +81,6 @@
         <% } %>
       </div>
 
-      <!-- Thông tin chi tiết (2 cột) -->
       <div class="row g-3 mb-4">
         <div class="col-sm-6">
           <p class="mb-1 text-secondary"><i class="fa-solid fa-tag me-2 text-info"></i><strong>Danh mục</strong></p>
@@ -69,7 +108,6 @@
         </div>
       </div>
 
-      <!-- Nút số lượng và thêm giỏ -->
       <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="input-group flex-nowrap shadow-sm rounded-pill overflow-hidden border" style="width: 130px;">
           <button class="btn btn-white border-0 px-3" onclick="updateQty(-1)">-</button>
@@ -80,6 +118,14 @@
         <button class="btn btn-info text-white rounded-pill px-5 py-2 fw-bold shadow-sm add-to-cart" data-id="<%= product._id %>" data-qty="1">
           <i class="fa-solid fa-cart-shopping me-2"></i> Thêm vào giỏ
         </button>
+      </div>
+
+      <!-- CHỈ GIỮ CHECKBOX Ở ĐÂY -->
+      <div class="compare-checkbox-wrapper mt-3">
+        <div class="d-flex align-items-center gap-2">
+          <input type="checkbox" class="compare-checkbox form-check-input" value="<%= product._id %>" id="compare-main-text-<%= product._id %>" style="width: 20px; height: 20px; cursor: pointer;">
+          <label for="compare-main-text-<%= product._id %>" class="small text-muted">➕ So sánh sản phẩm này</label>
+        </div>
       </div>
     </div>
   </div>
@@ -101,18 +147,19 @@
         <% related.forEach(p => { %>
           <div style="width: 200px; flex-shrink: 0;">
             <div class="card h-100 border-light-subtle rounded-4 shadow-sm border-0 p-2 position-relative d-flex flex-column">
-              <!-- Badge giảm giá -->
               <% if (p.discount > 0) { %>
                 <span class="product-badge badge-discount">-<%= p.discount %>%</span>
               <% } %>
-              <!-- Badge Bán chạy -->
               <% if (p.sold > 50) { %>
                 <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
               <% } %>
-              <!-- Badge Mới -->
               <% if (p.isNew) { %>
                 <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
               <% } %>
+
+              <div class="compare-checkbox-wrapper position-absolute" style="bottom: 10px; right: 10px; z-index: 3;">
+                <input type="checkbox" class="compare-checkbox form-check-input" value="<%= p._id %>" id="compare-<%= p._id %>" style="width: 20px; height: 20px; cursor: pointer;">
+              </div>
 
               <a href="/products/<%= p._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
                 <div style="height: 130px; display: flex; align-items: center; justify-content: center;">
@@ -153,7 +200,6 @@ function updateQty(val) {
   }
 }
 
-// Horizontal scroll with drag support
 const scrollContainer = document.getElementById('related-scroll');
 if (scrollContainer) {
   let isDown = false;

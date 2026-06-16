@@ -1,6 +1,6 @@
 """
 actions.py – Phân tích hành động người dùng: thêm giỏ hàng, checkout, xem chi tiết,
-xem giỏ, sửa giỏ, xóa giỏ.
+xem giỏ, sửa giỏ, xóa giỏ, so sánh sản phẩm từ danh sách.
 """
 
 import re
@@ -62,7 +62,8 @@ def parse_add_by_index(msg_norm: str) -> Optional[Dict[str, Any]]:
 
 
 def parse_view_detail(msg_norm: str) -> Optional[Dict[str, Any]]:
-    if re.fullmatch(r'[1-9]', msg_norm.strip()):
+    msg_norm = msg_norm.strip()
+    if re.fullmatch(r'[1-9]', msg_norm):
         return {'action': 'view_detail', 'index': int(msg_norm.strip())}
     m = re.search(
         r'^(?:xem|chi tiet|mo ta|san pham|so|thong tin|hinh anh)\s*(?:so\s*)?(\d+)$',
@@ -86,7 +87,7 @@ def parse_cart_view(msg_norm: str) -> Optional[Dict[str, Any]]:
 
 
 def parse_cart_update(msg_norm: str) -> Optional[Dict[str, Any]]:
-    # Ưu tiên index trước: "sửa 2 thành 5", "sửa số 2 thành 5"
+    # Ưu tiên index: "sửa 2 thành 5", "sửa số 2 thành 5"
     m = re.search(
         r'(?:sua|cap nhat|doi|tang|giam)\s+(?:so luong\s+)?(?:san pham\s+)?(?:so\s*)?(\d+)\s+(?:thanh|len|xuong|bang)\s+(\d+)',
         msg_norm, re.IGNORECASE
@@ -97,7 +98,7 @@ def parse_cart_update(msg_norm: str) -> Optional[Dict[str, Any]]:
         if 1 <= idx <= 20 and quantity > 0:
             return {'action': 'cart_update_by_index', 'index': idx, 'quantity': quantity}
 
-    # Nếu không có index, thử tìm tên sản phẩm: "sửa gấu bông thành 3"
+    # Nếu không có index, thử tìm tên sản phẩm
     m = re.search(
         r'(?:sua|cap nhat|doi|tang|giam)\s+(?:so luong\s+)?(.+?)\s+(?:thanh|len|xuong|bang)\s+(\d+)',
         msg_norm, re.IGNORECASE
@@ -121,7 +122,7 @@ def parse_cart_update(msg_norm: str) -> Optional[Dict[str, Any]]:
 
 
 def parse_cart_remove(msg_norm: str) -> Optional[Dict[str, Any]]:
-    # Ưu tiên index trước: "xóa 2", "xóa số 2"
+    # Ưu tiên index: "xóa 2", "xóa số 2"
     m = re.search(
         r'^(?:xoa|bo|remove)\s+(?:san pham\s+)?(?:so\s*)?(\d+)$',
         msg_norm, re.IGNORECASE
@@ -131,7 +132,7 @@ def parse_cart_remove(msg_norm: str) -> Optional[Dict[str, Any]]:
         if 1 <= idx <= 20:
             return {'action': 'cart_remove_by_index', 'index': idx}
 
-    # Nếu không có index, thử tìm tên sản phẩm: "xóa gấu bông"
+    # Nếu không có index, thử tìm tên sản phẩm
     m = re.search(
         r'^(?:xoa|bo|remove)\s+(.+?)(?:\s+khoi gio|\s+ra khoi gio|\s+trong gio)?$',
         msg_norm, re.IGNORECASE
@@ -170,11 +171,40 @@ def parse_checkout(msg_norm: str, in_checkout_flow: bool = False) -> Optional[Di
     return None
 
 
+def parse_compare_items(msg_norm: str) -> Optional[Dict[str, Any]]:
+    """
+    Nhận diện "so sanh 1 va 2", "so sanh so 1 va so 3", "compare 1 with 2"
+    Trả về {'action': 'compare_items', 'index1': int, 'index2': int}
+    Lưu ý: msg_norm đã được normalize (bỏ dấu), nên pattern phải dùng không dấu.
+    """
+    m = re.search(
+        r'(?:so sanh|compare)\s+(?:san pham\s+)?(?:so\s*)?(\d+)\s+(?:va|and|with)\s+(?:san pham\s+)?(?:so\s*)?(\d+)',
+        msg_norm, re.IGNORECASE
+    )
+    if m:
+        idx1 = int(m.group(1))
+        idx2 = int(m.group(2))
+        if 1 <= idx1 <= 20 and 1 <= idx2 <= 20:
+            return {'action': 'compare_items', 'index1': idx1, 'index2': idx2}
+    return None
+
+
 def process_action(
     msg_norm: str,
     in_checkout_flow: bool = False,
     has_last_products: bool = False,
 ) -> Optional[Dict[str, Any]]:
+    """
+    Thứ tự ưu tiên:
+    1. checkout / confirm (chỉ khi in_checkout_flow)
+    2. cart_view
+    3. cart_update
+    4. cart_remove
+    5. compare_items (chỉ khi có last_products)
+    6. view_detail
+    7. add_by_index
+    8. add_to_cart theo tên
+    """
     chk = parse_checkout(msg_norm, in_checkout_flow=in_checkout_flow)
     if chk:
         return chk
@@ -192,9 +222,14 @@ def process_action(
         return cart_remove
 
     if has_last_products:
+        cmp = parse_compare_items(msg_norm)
+        if cmp:
+            return cmp
+
         view = parse_view_detail(msg_norm)
         if view:
             return view
+
         add_idx = parse_add_by_index(msg_norm)
         if add_idx:
             return add_idx
