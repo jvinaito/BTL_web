@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
-// Hàm loại bỏ dấu tiếng Việt (đã có trong Product model nhưng dùng lại cho nhất quán)
+// Hàm loại bỏ dấu tiếng Việt
 function removeVietnameseTones(str) {
   if (!str) return '';
   str = str.replace(/[àáạảãâầấậẩẫăằắặẳẵ]/g, 'a');
@@ -14,6 +14,17 @@ function removeVietnameseTones(str) {
   str = str.replace(/đ/g, 'd');
   str = str.replace(/Đ/g, 'D');
   return str.toLowerCase();
+}
+
+// Hàm tiện ích: thêm isNew vào mảng sản phẩm
+function addIsNew(products) {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  return products.map(p => {
+    const obj = p.toObject ? p.toObject() : p;
+    obj.isNew = new Date(obj.createdAt) > sevenDaysAgo;
+    return obj;
+  });
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -95,11 +106,14 @@ router.get('/', async (req, res) => {
     const totalPages = Math.ceil(totalItems / limit);
 
     // Lấy sản phẩm
-    const products = await Product.find(query)
+    let products = await Product.find(query)
       .populate('category')
       .sort(sortOption)
       .skip(skip)
       .limit(parseInt(limit));
+
+    // Thêm isNew
+    products = addIsNew(products);
 
     // Lấy danh sách category (cho sidebar)
     const categories = await Category.find().sort({ name: 1 });
@@ -133,24 +147,31 @@ router.get('/', async (req, res) => {
 });
 
 // ──────────────────────────────────────────────────────────────
-// Trang chi tiết sản phẩm – gợi ý sản phẩm tương tự (hàng ngang, kéo chuột)
-// Lấy tối đa 12 sản phẩm: ưu tiên cùng danh mục, sau đó random
+// Trang chi tiết sản phẩm – gợi ý sản phẩm tương tự
 // ──────────────────────────────────────────────────────────────
 router.get('/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id).populate('category');
+    let product = await Product.findById(req.params.id).populate('category');
     if (!product) return res.redirect('/products');
 
+    // Thêm isNew cho product chính
+    product = product.toObject();
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    product.isNew = new Date(product.createdAt) > sevenDaysAgo;
+
     // Lấy tối đa 8 sản phẩm cùng danh mục (loại trừ chính nó)
-    const sameCategory = await Product.find({
+    let sameCategory = await Product.find({
       category: product.category,
       _id: { $ne: product._id },
       status: 'Active',
       stock: { $gt: 0 }
     }).limit(8);
 
+    // Thêm isNew cho sameCategory
+    sameCategory = addIsNew(sameCategory);
+
     const excludeIds = [product._id, ...sameCategory.map(p => p._id)];
-    // Số lượng cần random để đủ 12 sản phẩm
     const neededRandom = 12 - sameCategory.length;
     let randomProducts = [];
     if (neededRandom > 0) {
@@ -158,6 +179,8 @@ router.get('/:id', async (req, res) => {
         { $match: { _id: { $nin: excludeIds }, status: 'Active', stock: { $gt: 0 } } },
         { $sample: { size: neededRandom } }
       ]);
+      // Thêm isNew cho randomProducts (aggregate trả về plain object)
+      randomProducts = addIsNew(randomProducts);
     }
 
     const related = [...sameCategory, ...randomProducts];

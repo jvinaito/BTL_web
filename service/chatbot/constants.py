@@ -4,8 +4,6 @@ Không import gì ngoài thư viện chuẩn.
 """
 
 # ── Slang / viết tắt ──────────────────────────────────────────────────────────
-# Mỗi tuple: (raw_pattern, replacement)
-# Compile thành regex ở normalize.py
 SLANG: list[tuple[str, str]] = [
     # Chào hỏi
     (r'\b(?<!xin )chao\b',     'xin chao'),
@@ -18,7 +16,7 @@ SLANG: list[tuple[str, str]] = [
     # Bán chạy
     (r'\bban chay(?! nhat)\b', 'ban chay nhat'),
     (r'\bbest ?seller\b',      'ban chay nhat'),
-    (r'\btop1?\b',             'ban chay nhat'),   # gộp top + top1
+    (r'\btop1?\b',             'ban chay nhat'),
     (r'\btop san pham\b',      'ban chay nhat'),
     (r'\bnoi bat\b',           'ban chay nhat'),
     (r'\bpho bien\b',          'ban chay nhat'),
@@ -44,7 +42,6 @@ SLANG: list[tuple[str, str]] = [
     (r'\bkhong qua\b',         'duoi'),
     (r'\btoi da\b',            'duoi'),
     (r'\bmax\b',               'duoi'),
-    # FIX: 'tam' → 'khoang' thay vì 'duoi' (ý nghĩa khác nhau)
     (r'\btam\b',               'khoang'),
     (r'\bgia bao nhieu\b',     'gia'),
     (r'\bbao nhieu tien\b',    'gia'),
@@ -52,16 +49,15 @@ SLANG: list[tuple[str, str]] = [
     (r'\bre thoi\b',           'duoi 20'),
     (r'\bkhong dat\b',         'duoi'),
     (r'\bgiatot\b',            'duoi'),
-    # Lỗi chính tả
+    # Lỗi chính tả phổ biến
     (r'\bdo choy\b',           'do choi'),
     (r'\bsan fam\b',           'san pham'),
-    # Từ thừa cuối câu (không xoá 'rồi' vì có thể là từ cần thiết trong một số câu)
+    # Từ thừa cuối câu
     (r'\bnhe\b',               ''),
     (r'\bak\b',                ''),
 ]
 
 # ── Stopwords ─────────────────────────────────────────────────────────────────
-# Đã loại bỏ trùng lặp so với bản gốc
 STOPWORDS: frozenset[str] = frozenset({
     'do', 'choi', 'cho', 'be', 'tre', 'san', 'pham', 'tim', 'kiem',
     'loai', 'the', 'nao', 'gi', 'co', 'ban', 'muon', 'can', 'mua',
@@ -83,14 +79,11 @@ STOPWORDS: frozenset[str] = frozenset({
 })
 
 # ── Synonyms ──────────────────────────────────────────────────────────────────
-# FIX: 'puzzle' không còn map tới 'xep hinh' để tránh xung đột với _SPELL_CORRECT.
-# Bây giờ cả 'puzzle' và 'xep hinh' đều là danh mục hợp lệ riêng biệt.
 SYNONYMS: dict[str, str] = {
     'xe hoi':        'xe o to',
     'o to':          'xe o to',
     'xe hop':        'xe o to',
     'xe oto':        'xe o to',
-    'xe hoi':        'xe o to',   # có dấu — sẽ được strip trước khi dùng
     'doll':          'bup be',
     'barbie':        'bup be',
     'teddy':         'gau bong',
@@ -107,7 +100,7 @@ SYNONYMS: dict[str, str] = {
     'drone':         'may bay dieu khien',
     'sung nuoc':     'do choi nuoc',
     'bong bong':     'bong',
-    # Tuổi bằng chữ → số (xử lý trước khi detect_age)
+    # Tuổi bằng chữ → số
     'mot tuoi':  '1 tuoi',
     'hai tuoi':  '2 tuoi',
     'ba tuoi':   '3 tuoi',
@@ -121,8 +114,6 @@ SYNONYMS: dict[str, str] = {
 }
 
 # ── Spell correction ──────────────────────────────────────────────────────────
-# FIX: 'pulle'/'puzzel' → 'puzzle' (không chuyển thẳng sang 'xep hinh')
-# để synonym pipeline quyết định sau.
 SPELL_CORRECT: dict[str, str] = {
     'gao bong':  'gau bong',
     'xep hien':  'xep hinh',
@@ -130,7 +121,7 @@ SPELL_CORRECT: dict[str, str] = {
     'pulle':     'puzzle',
     'puzzel':    'puzzle',
     'robo':      'robot',
-    'xe hoi':    'xe o to',    # có dấu — strip trước khi match
+    'xe hoi':    'xe o to',
 }
 
 # ── Keywords giới tính ────────────────────────────────────────────────────────
@@ -138,7 +129,14 @@ BOY_KEYWORDS:  tuple[str, ...] = ('be trai', 'trai', 'do choi nam', 'cho trai', 
 GIRL_KEYWORDS: tuple[str, ...] = ('be gai',  'gai',  'do choi nu',  'cho gai',  'con gai')
 
 # ── Hints phát hiện giá ───────────────────────────────────────────────────────
-# FIX: bỏ 'do' khỏi hints vì 'do' xuất hiện quá phổ biến, dễ gây nhận nhầm giá.
 PRICE_HINTS: tuple[str, ...] = (
-    'duoi', 'gia', 're', 'tien', 'usd', 'khoang', 'gia duoi', 'budget',
+    'duoi', 'gia', 're', 'tien', 'usd', 'khoang gia', 'budget', 'gia duoi',
 )
+
+# ── Từ khóa xác nhận checkout (TÁCH RIÊNG để tránh nhầm với câu hỏi thường) ──
+# FIX: chỉ match khi toàn bộ câu là từ xác nhận, không phải substring
+CONFIRM_YES: tuple[str, ...] = ('co', 'vang', 'ok', 'yes', 'dong y', 'chap nhan', 'duoc', 'roi', 'xac nhan')
+CONFIRM_NO:  tuple[str, ...] = ('khong', 'no', 'huy', 'cancel', 'thoi')
+
+# ── Từ khoá detect "xem chi tiết sản phẩm" ───────────────────────────────────
+DETAIL_PREFIXES: tuple[str, ...] = ('xem', 'chi tiet', 'mo ta', 'thong tin', 'gia', 'hinh anh')

@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row align-items-center"> 
       <div class="col-md-6">
-        <img src="https://i.ibb.co/j9VqSJfK/image.png" class="img-fluid" alt="ảnh giới thiệu">
+        <img src="https://i.ibb.co/j9VqSJfK/image.png" class="img-fluid hero-image" alt="ảnh giới thiệu">
       </div>
       <div class="col-md-6 text-center text-md-start">
         <h1 class="display-4 fw-bold text-info">Vui chơi, học hỏi và phát triển!</h1>
@@ -18,14 +18,24 @@
 <!-- Best Seller -->
 <section class="py-5">
   <div class="container">
-    <h2 class="text-center mb-4 fw-bold">Bán chạy nhất</h2>
+    <h2 class="text-center fw-bold glow-gold w-100 d-block">🔥 Bán chạy nhất</h2>
     <div class="row g-3 row-cols-2 row-cols-md-4">
       <% bestSellers.forEach(product => { %>
         <div class="col">
           <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 d-flex flex-column">
+            <!-- Badge giảm giá -->
             <% if (product.discount > 0) { %>
-              <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1">GIẢM GIÁ</span>
+              <span class="product-badge badge-discount">-<%= product.discount %>%</span>
             <% } %>
+            <!-- Badge Bán chạy -->
+            <% if (product.sold > 50) { %>
+              <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
+            <% } %>
+            <!-- Badge Mới -->
+            <% if (product.isNew) { %>
+              <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
+            <% } %>
+
             <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
               <div style="height: 160px; display: flex; align-items: center; justify-content: center;">
                 <img src="<%= product.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">
@@ -53,14 +63,22 @@
 <!-- New Arrival -->
 <section class="py-5 bg-white">
   <div class="container">
-    <h2 class="text-center mb-4 fw-bold text-uppercase">Sản phẩm mới</h2>
+<h2 class="text-center fw-bold text-uppercase glow-cyan w-100 d-block">✨ Sản phẩm mới</h2>
     <div class="row g-3 row-cols-2 row-cols-md-4">
       <% newArrivals.forEach(product => { %>
         <div class="col">
           <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 d-flex flex-column">
+            <!-- Badge giảm giá -->
             <% if (product.discount > 0) { %>
-              <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1">GIẢM GIÁ</span>
+              <span class="product-badge badge-discount">-<%= product.discount %>%</span>
             <% } %>
+            <!-- Badge Bán chạy -->
+            <% if (product.sold > 50) { %>
+              <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
+            <% } %>
+            <!-- Badge Mới (luôn hiển thị cho sản phẩm mới) -->
+            <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
+
             <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
               <div style="height: 160px; display: flex; align-items: center; justify-content: center;">
                 <img src="<%= product.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">
@@ -85,14 +103,28 @@
   </div>
 </section>
 
+<!-- Recommended -->
 <% if (recommended && recommended.length) { %>
 <section class="py-5 bg-light">
   <div class="container">
-    <h2 class="text-center mb-4 fw-bold">✨ Gợi ý cho bạn</h2>
+   <h2 class="text-center fw-bold glow-pink w-100 d-block">✨ Gợi ý cho bạn</h2>
     <div class="row g-3 row-cols-2 row-cols-md-4">
       <% recommended.forEach(product => { %>
         <div class="col">
           <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 d-flex flex-column">
+            <!-- Badge giảm giá -->
+            <% if (product.discount > 0) { %>
+              <span class="product-badge badge-discount">-<%= product.discount %>%</span>
+            <% } %>
+            <!-- Badge Bán chạy -->
+            <% if (product.sold > 50) { %>
+              <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
+            <% } %>
+            <!-- Badge Mới -->
+            <% if (product.isNew) { %>
+              <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
+            <% } %>
+
             <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
               <div style="height: 160px; display: flex; align-items: center; justify-content: center;">
                 <img src="<%= product.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">

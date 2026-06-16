@@ -1,4 +1,4 @@
-// service/recommend.js (hoặc service/recommend/recommend.js)
+// service/recommend.js
 const Product = require('../models/Product');
 const Order = require('../models/Order');
 
@@ -19,7 +19,7 @@ async function getPersonalizedRecommendations(req, limit = 12) {
     let products = await Product.find({ status: 'Active', stock: { $gt: 0 } })
       .sort({ sold: -1 })
       .limit(limit * 2)
-      .select('name salePrice imageUrl');
+      .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
     // Shuffle toàn bộ để hiển thị ngẫu nhiên
     for (let i = products.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -62,7 +62,7 @@ async function getPersonalizedRecommendations(req, limit = 12) {
   let recommendations = await Product.find(query)
     .sort({ sold: -1 })
     .limit(limit * 2)
-    .select('name salePrice imageUrl');
+    .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
 
   // Bổ sung bestseller nếu chưa đủ
   if (recommendations.length < limit) {
@@ -70,7 +70,8 @@ async function getPersonalizedRecommendations(req, limit = 12) {
       status: 'Active',
       stock: { $gt: 0 },
       _id: { $nin: [...allInteractedIds, ...recommendations.map(p => p._id)] }
-    }).sort({ sold: -1 }).limit(limit * 2 - recommendations.length).select('name salePrice imageUrl');
+    }).sort({ sold: -1 }).limit(limit * 2 - recommendations.length)
+      .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
     recommendations = [...recommendations, ...bestsellers];
   }
 
@@ -106,14 +107,15 @@ async function getSimilarProducts(product, limit = 12) {
   let similar = await Product.find(query)
     .sort({ sold: -1 })
     .limit(limit)
-    .select('name salePrice imageUrl');
+    .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
 
   if (similar.length < limit) {
     const more = await Product.find({
       status: 'Active',
       stock: { $gt: 0 },
       _id: { $ne: product._id, $nin: similar.map(p => p._id) }
-    }).sort({ sold: -1 }).limit(limit - similar.length).select('name salePrice imageUrl');
+    }).sort({ sold: -1 }).limit(limit - similar.length)
+      .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
     similar = [...similar, ...more];
   }
   return similar.slice(0, limit);

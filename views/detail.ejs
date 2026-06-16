@@ -1,25 +1,55 @@
 <% title = product.name %>
 
 <div class="container py-5">
-  <div class="row g-5 align-items-center">
+  <div class="row g-5 align-items-start">
+    <!-- Cột ảnh -->
     <div class="col-md-6 text-center">
-      <div class="bg-white p-2 rounded-4">
-        <img src="<%= product.imageUrl %>" class="img-fluid rounded-4" alt="<%= product.name %>">
+      <div class="bg-white p-3 rounded-4 shadow-sm">
+        <img src="<%= product.imageUrl %>" class="img-fluid rounded-4" alt="<%= product.name %>" id="product-detail-img">
       </div>
     </div>
 
+    <!-- Cột thông tin -->
     <div class="col-md-6">
+      <!-- Tên sản phẩm -->
       <h2 class="fw-bold display-6"><%= product.name %></h2>
-      <h3 class="text-info fw-bold mb-3"><%= product.salePrice.toLocaleString('vi-VN') %>đ</h3>
-      
+
+      <!-- Cụm badge -->
+      <div class="d-flex flex-wrap gap-2 my-3">
+        <% if (product.discount > 0) { %>
+          <span class="badge bg-danger rounded-pill px-3 py-2 fs-6">
+            <i class="fa-solid fa-tag me-1"></i> -<%= product.discount %>%
+          </span>
+        <% } %>
+        <% if (product.sold > 50) { %>
+          <span class="badge bg-warning text-dark rounded-pill px-3 py-2 fs-6">
+            <i class="fa-solid fa-star me-1"></i> Bán chạy
+          </span>
+        <% } %>
+        <% if (product.isNew) { %>
+          <span class="badge bg-success rounded-pill px-3 py-2 fs-6">
+            <i class="fa-solid fa-fire me-1"></i> Mới
+          </span>
+        <% } %>
+      </div>
+
+      <!-- Giá -->
+      <div class="mb-3">
+        <span class="text-info fw-bold display-6"><%= product.salePrice.toLocaleString('vi-VN') %>đ</span>
+        <% if (product.discount > 0) { %>
+          <span class="text-muted text-decoration-line-through ms-2 fs-5"><%= product.originalPrice.toLocaleString('vi-VN') %>đ</span>
+        <% } %>
+      </div>
+
+      <!-- Thông tin chi tiết (2 cột) -->
       <div class="row g-3 mb-4">
         <div class="col-sm-6">
-          <p class="mb-1"><strong>Danh mục:</strong></p>
-          <p class="text-muted"><%= product.category ? product.category.name : 'Không có' %></p>
+          <p class="mb-1 text-secondary"><i class="fa-solid fa-tag me-2 text-info"></i><strong>Danh mục</strong></p>
+          <p class="fw-medium"><%= product.category ? product.category.name : 'Không có' %></p>
         </div>
         <div class="col-sm-6">
-          <p class="mb-1"><strong>Thương hiệu:</strong></p>
-          <p class="text-muted">
+          <p class="mb-1 text-secondary"><i class="fa-solid fa-building me-2 text-info"></i><strong>Thương hiệu</strong></p>
+          <p class="fw-medium">
             <% if (typeof product.brand === 'string') { %>
               <%= product.brand %>
             <% } else if (product.brand && product.brand.name) { %>
@@ -30,15 +60,16 @@
           </p>
         </div>
         <div class="col-sm-6">
-          <p class="mb-1"><strong>Độ tuổi:</strong></p>
-          <p class="text-muted"><%= product.ageRange || 'Không có' %></p>
+          <p class="mb-1 text-secondary"><i class="fa-solid fa-calendar me-2 text-info"></i><strong>Độ tuổi</strong></p>
+          <p class="fw-medium"><%= product.ageRange || 'Không có' %></p>
         </div>
         <div class="col-sm-6">
-          <p class="mb-1"><strong>Giới tính:</strong></p>
-          <p class="text-muted"><%= ({ Boy: 'Bé trai', Girl: 'Bé gái', Unisex: 'Unisex' }[product.gender] || product.gender || 'Unisex') %></p>
+          <p class="mb-1 text-secondary"><i class="fa-solid fa-venus-mars me-2 text-info"></i><strong>Giới tính</strong></p>
+          <p class="fw-medium"><%= ({ Boy: 'Bé trai', Girl: 'Bé gái', Unisex: 'Unisex' }[product.gender] || product.gender || 'Unisex') %></p>
         </div>
       </div>
 
+      <!-- Nút số lượng và thêm giỏ -->
       <div class="d-flex flex-wrap align-items-center gap-3">
         <div class="input-group flex-nowrap shadow-sm rounded-pill overflow-hidden border" style="width: 130px;">
           <button class="btn btn-white border-0 px-3" onclick="updateQty(-1)">-</button>
@@ -55,7 +86,7 @@
 
   <!-- Mô tả chi tiết -->
   <div class="mt-5 border-0 shadow-sm rounded-4 bg-white p-4">
-    <h5 class="fw-bold mb-3">Mô tả</h5>
+    <h5 class="fw-bold mb-3"><i class="fa-solid fa-align-left me-2 text-info"></i>Mô tả</h5>
     <div class="text-muted">
       <p><%= product.description || 'No description available.' %></p>
     </div>
@@ -64,15 +95,25 @@
   <!-- Related products -->
   <% if (related && related.length) { %>
   <div class="mt-5">
-    <h3 class="fw-bold mb-4">Sản phẩm tương tự</h3>
+    <h3 class="fw-bold mb-4">✨ Sản phẩm tương tự</h3>
     <div id="related-scroll" style="overflow-x: auto; cursor: grab; scroll-behavior: smooth;">
       <div class="d-flex gap-3 pb-2" style="width: max-content;">
         <% related.forEach(p => { %>
           <div style="width: 200px; flex-shrink: 0;">
             <div class="card h-100 border-light-subtle rounded-4 shadow-sm border-0 p-2 position-relative d-flex flex-column">
+              <!-- Badge giảm giá -->
               <% if (p.discount > 0) { %>
-                <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">GIẢM GIÁ</span>
+                <span class="product-badge badge-discount">-<%= p.discount %>%</span>
               <% } %>
+              <!-- Badge Bán chạy -->
+              <% if (p.sold > 50) { %>
+                <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
+              <% } %>
+              <!-- Badge Mới -->
+              <% if (p.isNew) { %>
+                <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
+              <% } %>
+
               <a href="/products/<%= p._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
                 <div style="height: 130px; display: flex; align-items: center; justify-content: center;">
                   <img src="<%= p.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">
@@ -97,16 +138,19 @@
     </div>
   </div>
   <% } %>
-
 </div>
 
 <script>
 function updateQty(val) {
   const qty = document.getElementById('qty');
   const current = parseInt(qty.value);
-  if (current + val >= 1) qty.value = current + val;
-  // Sync qty to add-to-cart button
-  document.querySelector('.add-to-cart[data-qty]').dataset.qty = qty.value;
+  if (current + val >= 1) {
+    qty.value = current + val;
+    const addBtn = document.querySelector('.add-to-cart[data-id]');
+    if (addBtn) {
+      addBtn.dataset.qty = qty.value;
+    }
+  }
 }
 
 // Horizontal scroll with drag support

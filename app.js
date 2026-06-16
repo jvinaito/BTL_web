@@ -71,11 +71,14 @@ app.locals.formatDate = function(date) {
   return `${day}/${month}/${year}`;
 };
 
-// View engine EJS
+// ═══════════════════════════════════════════════════════════════
+// VIEW ENGINE – TẮT CACHE ĐỂ PHÁT TRIỂN
+// ═══════════════════════════════════════════════════════════════
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.set('layout', 'layouts/main');
+app.set('view cache', false); // <<< QUAN TRỌNG: tắt cache view
 
 // ═══════════════════════════════════════════════════════════════
 // ROUTES (đặt SAU session)
@@ -86,11 +89,11 @@ app.use('/products', require('./routes/products'));
 app.use('/orders', require('./routes/orders'));
 app.use('/admin', require('./routes/admin'));
 app.use('/address', require('./routes/address'));
-app.use('/api/chatbot', require('./routes/chatbot')); // ← chatbot cần session
-app.use('/api', ttsProxy);   // thêm dòng này TRƯỚC các route khác (hoặc cuối cùng cũng được)
+app.use('/api/chatbot', require('./routes/chatbot'));
+app.use('/api', ttsProxy);
 app.use('/api', require('./routes/products'));
-// Thêm dòng này sau khi khai báo các route khác (nhưng trước 404 handler)
 app.use('/admin/api', require('./routes/adminChat'));
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).render('404', { layout: 'layouts/main' });

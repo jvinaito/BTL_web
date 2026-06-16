@@ -2,65 +2,235 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": ["xin chào", "hello", "hi", "chào bot", "hey", "chào", "alo"],
-      "responses": ["Xin chào! 👋 Tôi có thể tư vấn đồ chơi cho bạn. Hãy thử hỏi về sản phẩm bán chạy, theo độ tuổi hoặc giá nhé!"]
+      "patterns": [
+        "xin chao",
+        "hello",
+        "hi",
+        "chao bot",
+        "hey",
+        "chao",
+        "alo"
+      ],
+      "responses": [
+        "Xin chào {user_name}! 👋 Tôi có thể tư vấn đồ chơi cho bạn. Hãy thử hỏi về sản phẩm bán chạy, theo độ tuổi hoặc giá nhé!",
+        "Chào {user_name}! Tôi là trợ lý của Rainbow Rattles, sẵn sàng giúp bạn tìm đồ chơi yêu thích!"
+      ]
     },
     {
       "tag": "bestseller",
-      "patterns": ["sản phẩm bán chạy", "best seller", "top sản phẩm", "nổi bật", "bán chạy", "bán nhiều nhất", "phổ biến nhất"],
+      "patterns": [
+        "ban chay nhat",
+        "ban chay",
+        "ban nhieu nhat",
+        "pho bien nhat",
+        "top san pham",
+        "noi bat",
+        "duoc ua chuong",
+        "nhieu nguoi mua"
+      ],
       "responses": ["🏆 Top sản phẩm bán chạy nhất hiện tại:"]
     },
     {
       "tag": "age",
       "patterns": [
-        "đồ chơi cho bé {age} tuổi",
-        "cho trẻ {age} tuổi",
-        "độ tuổi {age}",
-        "bé {age} tuổi",
-        "trẻ {age} tuổi",
-        "{age} tuổi"
+        "do choi cho be {age} tuoi",
+        "cho tre {age} tuoi",
+        "do tuoi {age}",
+        "be {age} tuoi",
+        "tre {age} tuoi",
+        "{age} tuoi"
       ],
-      "responses": ["Dưới đây là sản phẩm phù hợp với độ tuổi {age}:"]
+      "responses": ["Dưới đây là sản phẩm phù hợp với bé {age} tuổi:"]
     },
     {
       "tag": "gender",
       "patterns": [
-        "đồ chơi cho bé trai",
-        "cho con trai",
-        "boy",
-        "đồ chơi nam",
-        "đồ chơi cho bé gái",
-        "cho con gái",
-        "girl",
-        "đồ chơi nữ",
-        "bé gái",
-        "bé trai"
+        "do choi cho be trai",
+        "cho be trai",
+        "do choi nam",
+        "do choi cho be gai",
+        "cho be gai",
+        "do choi nu",
+        "be gai",
+        "be trai"
       ],
       "responses": ["Các sản phẩm dành cho:"]
     },
     {
       "tag": "price",
       "patterns": [
-        "dưới {price} đô",
-        "giá dưới {price}",
-        "rẻ hơn {price}",
-        "không quá {price}",
-        "tầm {price}",
-        "dưới {price}đ",
-        "dưới {price} usd"
+        "duoi {price} do",
+        "gia duoi {price}",
+        "re hon {price}",
+        "khong qua {price}",
+        "khoang {price}",
+        "duoi {price} usd"
       ],
       "responses": ["Sản phẩm có giá dưới {price} USD:"]
     },
     {
       "tag": "category",
       "patterns": [
-        "đồ chơi {category}",
-        "loại {category}",
-        "thể loại {category}",
-        "danh mục {category}",
-        "tìm {category}"
+        "do choi {category}",
+        "loai {category}",
+        "the loai {category}",
+        "danh muc {category}",
+        "tim {category}"
       ],
       "responses": ["Sản phẩm thuộc danh mục {category}:"]
+    },
+    {
+      "tag": "cart_view",
+      "patterns": [
+        "xem gio hang",
+        "gio hang cua toi",
+        "gio hang",
+        "cart",
+        "trong gio co gi",
+        "gio hang co gi"
+      ],
+      "responses": ["__view_cart__"]
+    },
+    {
+      "tag": "cart_update",
+      "patterns": [
+        "sua so luong {product_name} thanh {quantity}",
+        "cap nhat {product_name} len {quantity}",
+        "doi so luong {product_name} thanh {quantity}",
+        "tang {product_name} len {quantity}",
+        "giam {product_name} xuong {quantity}"
+      ],
+      "responses": ["__update_cart__"]
+    },
+    {
+      "tag": "cart_remove",
+      "patterns": [
+        "xoa {product_name} khoi gio",
+        "xoa {product_name}",
+        "bo {product_name}",
+        "xoa san pham {product_name}",
+        "xoa so {number}",
+        "xoa san pham so {number}"
+      ],
+      "responses": ["__remove_from_cart__"]
+    },
+    {
+      "tag": "order_history",
+      "patterns": [
+        "lich su don hang",
+        "xem don hang cua toi",
+        "cac don hang",
+        "don hang cua toi",
+        "history",
+        "don hang da dat"
+      ],
+      "responses": ["__order_history__"]
+    },
+    {
+      "tag": "latest_order",
+      "patterns": [
+        "don hang gan nhat",
+        "don cuoi cung",
+        "don gan day",
+        "don hang moi nhat",
+        "gan day",
+        "don gan nhat"
+      ],
+      "responses": ["__latest_order__"]
+    },
+    {
+      "tag": "order_status",
+      "patterns": [
+        "trang thai don hang {orderId}",
+        "kiem tra don {orderId}",
+        "don {orderId}",
+        "trang thai don {orderId}",
+        "xem don {orderId}",
+        "chi tiet don {orderId}"
+      ],
+      "responses": ["__order_status__"]
+    },
+    {
+      "tag": "order_detail_by_index",
+      "patterns": [
+        "xem don {index}",
+        "chi tiet don {index}",
+        "don {index}",
+        "xem don so {index}",
+        "chi tiet don so {index}",
+        "don so {index}"
+      ],
+      "responses": ["__order_detail_by_index__"]
+    },
+    {
+      "tag": "order_detail_by_product",
+      "patterns": [
+        "don {product_name}",
+        "tim don {product_name}",
+        "don co {product_name}",
+        "xem don cua {product_name}"
+      ],
+      "responses": ["__order_detail_by_product__"]
+    },
+    {
+      "tag": "faq_shipping",
+      "patterns": [
+        "phi van chuyen",
+        "ship bao nhieu",
+        "phi giao hang",
+        "thoi gian giao hang",
+        "giao hang bao lau",
+        "van chuyen",
+        "shipping",
+        "giao hang nhu the nao"
+      ],
+      "responses": [
+        "🚚 **Chính sách giao hàng:**\n• Miễn phí giao hàng tại Hà Nội\n• Phí ship: 50.000đ cho các tỉnh khác\n• Thời gian giao hàng: 2-5 ngày làm việc\n• Hỗ trợ giao hàng toàn quốc"
+      ]
+    },
+    {
+      "tag": "faq_return",
+      "patterns": [
+        "chinh sach doi tra",
+        "doi tra",
+        "tra hang",
+        "hoan tien",
+        "doi hang",
+        "tra lai san pham",
+        "chinh sach hoan tien",
+        "thanh toan"
+      ],
+      "responses": [
+        "🔄 **Chính sách đổi trả:**\n• Đổi trả trong vòng 7 ngày\n• Sản phẩm phải còn nguyên tem, hộp\n• Hỗ trợ hoàn tiền 100% nếu sản phẩm lỗi\n• Liên hệ hotline: 123-456-7868 để được hỗ trợ"
+      ]
+    },
+    {
+      "tag": "faq_payment",
+      "patterns": [
+        "thanh toan",
+        "phuong thuc thanh toan",
+        "hinh thuc thanh toan",
+        "tra tien",
+        "cod",
+        "chuyen khoan"
+      ],
+      "responses": [
+        "💳 **Phương thức thanh toán:**\n• Thanh toán khi nhận hàng (COD)\n• Chuyển khoản ngân hàng\n• Ví điện tử Momo, ZaloPay\n• Thẻ tín dụng / ghi nợ"
+      ]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "huong dan",
+        "tro giup",
+        "help",
+        "ban co the lam gi",
+        "chuc nang",
+        "toi co the hoi gi"
+      ],
+      "responses": [
+        "💡 Tôi có thể giúp bạn:\n• Tìm sản phẩm bán chạy: \"bán chạy nhất\"\n• Theo độ tuổi: \"đồ chơi cho bé 3 tuổi\"\n• Theo giới tính: \"đồ chơi bé trai\"\n• Theo giá: \"dưới 20 đô\"\n• Theo danh mục: \"xe đua\", \"gấu bông\"\n• Kết hợp: \"xe đua cho bé trai 5 tuổi dưới 30 đô\"\n• Thêm giỏ hàng: \"thêm 2 gấu bông\"\n• Xem giỏ hàng: \"xem giỏ hàng\"\n• Xóa khỏi giỏ: \"xóa gấu bông\"\n• Cập nhật giỏ: \"sửa số lượng gấu bông thành 3\"\n• Lịch sử đơn hàng: \"lịch sử đơn hàng\"\n• Đơn gần nhất: \"đơn gần nhất\"\n• Xem đơn theo số: \"xem đơn 2\"\n• Tìm đơn theo tên sản phẩm: \"đơn gấu bông\"\n• Xem chi tiết sản phẩm: gõ số thứ tự (vd: 1, 2, 3)"
+      ]
     }
   ]
 }

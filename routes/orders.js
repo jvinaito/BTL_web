@@ -25,16 +25,22 @@ router.get('/cart', (req, res) => {
 });
 
 // Thêm vào giỏ (AJAX) – có ghi nhận click để cập nhật gợi ý
+// Thêm vào giỏ (AJAX) – có ghi nhận click để cập nhật gợi ý
 router.post('/cart/add/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ success: false, message: 'Sản phẩm không tồn tại' });
     }
+    // Lấy số lượng từ body, mặc định 1
+    const quantity = parseInt(req.body.quantity) || 1;
+    if (quantity < 1) {
+      return res.status(400).json({ success: false, message: 'Số lượng không hợp lệ' });
+    }
     if (!req.session.cart) req.session.cart = [];
     const existing = req.session.cart.find(item => item.product._id == product._id);
     if (existing) {
-      existing.quantity += 1;
+      existing.quantity += quantity;
     } else {
       req.session.cart.push({
         product: {
@@ -43,7 +49,7 @@ router.post('/cart/add/:id', async (req, res) => {
           salePrice: product.salePrice,
           imageUrl: product.imageUrl
         },
-        quantity: 1
+        quantity: quantity
       });
     }
     // Ghi nhận click để cập nhật gợi ý
@@ -55,7 +61,6 @@ router.post('/cart/add/:id', async (req, res) => {
     res.status(500).json({ success: false, message: 'Có lỗi xảy ra' });
   }
 });
-
 // Cập nhật số lượng (AJAX, trả về JSON)
 router.post('/cart/update/:id', (req, res) => {
   const { quantity } = req.body;

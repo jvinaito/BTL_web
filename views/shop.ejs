@@ -5,8 +5,8 @@
     <!-- Sidebar filters -->
     <aside class="col-lg-3">
       <!-- Categories -->
-      <div class="mb-5">
-        <h5 class="fw-bold mb-3 border-bottom pb-2">Danh mục sản phẩm</h5>
+      <div class="filter-group mb-4 pb-3 border-bottom">
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-tags me-2 text-info"></i>Danh mục</h5>
         <ul class="list-unstyled">
           <% categories.forEach(cat => { 
             const isActive = query.category && query.category === cat._id.toString();
@@ -16,9 +16,9 @@
             });
             const url = '/products?' + new URLSearchParams(linkParams).toString();
           %>
-            <li>
-              <a href="<%= url %>" class="d-block py-1 text-decoration-none <%= isActive ? 'text-info fw-bold' : 'text-dark fw-medium' %>">
-                + <%= cat.name %>
+            <li class="mb-1">
+              <a href="<%= url %>" class="d-block py-1 text-decoration-none rounded-3 px-2 <%= isActive ? 'bg-info text-white fw-bold' : 'text-dark fw-medium' %>">
+                <i class="fa-regular fa-circle me-2"></i><%= cat.name %>
               </a>
             </li>
           <% }) %>
@@ -26,28 +26,28 @@
       </div>
 
       <!-- Brand filter -->
-      <div class="mb-4">
-        <h5 class="fw-bold mb-3 border-bottom pb-2">Hãng sản xuất</h5>
-        <select id="brand-filter" class="form-select form-select-sm">
+      <div class="filter-group mb-4 pb-3 border-bottom">
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-building me-2 text-info"></i>Hãng sản xuất</h5>
+        <select id="brand-filter" class="form-select filter-select shadow-sm">
           <option value="">-- Tất cả hãng --</option>
         </select>
       </div>
 
       <!-- Gender filter -->
-      <div class="mb-4">
-        <h5 class="fw-bold mb-3 border-bottom pb-2">Giới tính</h5>
-        <select id="gender-filter" class="form-select form-select-sm">
+      <div class="filter-group mb-4 pb-3 border-bottom">
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-venus-mars me-2 text-info"></i>Giới tính</h5>
+        <select id="gender-filter" class="form-select filter-select shadow-sm">
           <option value="">-- Tất cả --</option>
-          <option value="Boy">Bé trai</option>
-          <option value="Girl">Bé gái</option>
-          <option value="Unisex">Unisex</option>
+          <option value="Boy">👦 Bé trai</option>
+          <option value="Girl">👧 Bé gái</option>
+          <option value="Unisex">👤 Unisex</option>
         </select>
       </div>
 
       <!-- Age range filter -->
-      <div class="mb-4">
-        <h5 class="fw-bold mb-3 border-bottom pb-2">Độ tuổi</h5>
-        <select id="age-filter" class="form-select form-select-sm">
+      <div class="filter-group mb-4 pb-3 border-bottom">
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-calendar me-2 text-info"></i>Độ tuổi</h5>
+        <select id="age-filter" class="form-select filter-select shadow-sm">
           <option value="">-- Tất cả --</option>
           <option value="0-2">0-2 tuổi</option>
           <option value="3-5">3-5 tuổi</option>
@@ -58,8 +58,8 @@
       </div>
 
       <!-- Price filter -->
-      <div class="p-4 rounded-4 bg-light border">
-        <h5 class="fw-bold mb-3">Lọc theo giá</h5>
+      <div class="filter-group mb-4 p-3 rounded-4 bg-light border">
+        <h5 class="fw-bold mb-3"><i class="fa-solid fa-dollar-sign me-2 text-info"></i>Lọc theo giá</h5>
         <form method="GET" action="/products" id="price-filter-form">
           <% 
             const hiddenParams = { ...query, page: 1 };
@@ -73,12 +73,24 @@
           <% for (let [key, value] of Object.entries(hiddenParams)) { %>
             <input type="hidden" name="<%= key %>" value="<%= value %>">
           <% } %>
-          <div class="d-flex align-items-center gap-2 mt-2">
-            <input type="number" name="min" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Tối thiểu" value="<%= query.min || 0 %>">
+          <div class="d-flex align-items-center gap-2">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text bg-white border-end-0 rounded-start-pill">
+                <i class="fa-solid fa-coins text-muted"></i>
+              </span>
+              <input type="number" name="min" class="form-control form-control-sm shadow-none border-start-0 rounded-end-pill" placeholder="Tối thiểu" value="<%= query.min || 0 %>">
+            </div>
             <span class="text-muted">-</span>
-            <input type="number" name="max" class="form-control form-control-sm rounded-pill px-3 shadow-none border-0" placeholder="Tối đa" value="<%= query.max || 100 %>">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text bg-white border-end-0 rounded-start-pill">
+                <i class="fa-solid fa-coins text-muted"></i>
+              </span>
+              <input type="number" name="max" class="form-control form-control-sm shadow-none border-start-0 rounded-end-pill" placeholder="Tối đa" value="<%= query.max || 100 %>">
+            </div>
           </div>
-          <button type="submit" class="btn btn-info text-white w-100 mt-3 fw-bold rounded-pill shadow-sm">Áp dụng</button>
+          <button type="submit" class="btn btn-info text-white w-100 mt-3 fw-bold rounded-pill shadow-sm">
+            <i class="fa-solid fa-filter me-1"></i> Áp dụng
+          </button>
         </form>
       </div>
 
@@ -110,8 +122,8 @@
               });
             %>
             <option value="/products?<%= new URLSearchParams({ ...sortBaseParams }).toString() %>" <%= !query.sort || query.sort === 'default' ? 'selected' : '' %>>Sắp xếp mặc định</option>
-            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_asc' }).toString() %>" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Giá: Thấp đến cao</option>
-            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_desc' }).toString() %>" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Giá: Cao đến thấp</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_asc' }).toString() %>" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Giá: Thấp → cao</option>
+            <option value="/products?<%= new URLSearchParams({ ...sortBaseParams, sort: 'price_desc' }).toString() %>" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Giá: Cao → thấp</option>
           </select>
           <span class="small text-muted text-nowrap">Hiển thị <%= products.length %> kết quả</span>
         </div>
@@ -122,9 +134,19 @@
         <% products.forEach(product => { %>
           <div class="col">
             <div class="card h-100 border-light-subtle shadow-sm p-2 position-relative rounded-4 bg-white d-flex flex-column">
+              <!-- Badge giảm giá -->
               <% if (product.discount > 0) { %>
-                <span class="badge bg-danger position-absolute m-2 px-2" style="font-size:10px; z-index:1;">GIẢM GIÁ</span>
+                <span class="product-badge badge-discount">-<%= product.discount %>%</span>
               <% } %>
+              <!-- Badge Bán chạy -->
+              <% if (product.sold > 50) { %>
+                <span class="product-badge badge-bestseller" style="left:10px; top:10px;">⭐ Bán chạy</span>
+              <% } %>
+              <!-- Badge Mới -->
+              <% if (product.isNew) { %>
+                <span class="product-badge badge-new" style="left:10px; top:50px;">🔥 Mới</span>
+              <% } %>
+
               <a href="/products/<%= product._id %>" class="text-decoration-none flex-grow-1 d-flex flex-column">
                 <div style="height: 180px; display: flex; align-items: center; justify-content: center;">
                   <img src="<%= product.imageUrl %>" class="p-2 rounded-4" style="max-height: 100%; max-width: 100%; object-fit: contain;">
@@ -159,17 +181,17 @@
               });
             %>
             <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage - 1 }).toString() %>" aria-label="Trang trước">
+              <a class="page-link rounded-pill" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage - 1 }).toString() %>" aria-label="Trang trước">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             <% for (let i = 1; i <= totalPages; i++) { %>
               <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: i }).toString() %>"><%= i %></a>
+                <a class="page-link rounded-pill" href="?<%= new URLSearchParams({ ...pageBaseParams, page: i }).toString() %>"><%= i %></a>
               </li>
             <% } %>
             <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-              <a class="page-link" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage + 1 }).toString() %>" aria-label="Trang sau">
+              <a class="page-link rounded-pill" href="?<%= new URLSearchParams({ ...pageBaseParams, page: currentPage + 1 }).toString() %>" aria-label="Trang sau">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>

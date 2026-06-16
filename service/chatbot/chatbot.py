@@ -1,8 +1,12 @@
+"""
+chatbot.py – Xử lý tin nhắn chatbot đồ chơi Rainbow Rattles.
+"""
+
 import re
 import json
 import logging
-import unicodedata
 import os
+from typing import Any
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
 
@@ -42,7 +46,26 @@ def get_categories_col():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TOKEN SEARCH ENGINE (giữ nguyên)
+# SESSION
+# ══════════════════════════════════════════════════════════════════════════════
+
+_session: dict[str, Any] = {
+    'last_products': [],
+    'in_checkout_flow': False,
+}
+
+def _get_session() -> dict[str, Any]:
+    return _session
+
+def _set_last_products(products: list[dict]) -> None:
+    _session['last_products'] = products
+
+def _set_checkout_flow(active: bool) -> None:
+    _session['in_checkout_flow'] = active
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TOKEN SEARCH ENGINE
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _extract_keywords(msg_norm: str) -> list[str]:
@@ -118,8 +141,8 @@ def _search_products_by_tokens(msg_norm: str, limit: int = 20) -> list[dict]:
         candidates = list(get_products_col().find(
             {'$or': [
                 {'searchName': {'$regex': regex_or, '$options': 'i'}},
-                {'name': {'$regex': regex_or, '$options': 'i'}},
-                {'description': {'$regex': regex_or, '$options': 'i'}},
+                {'name':       {'$regex': regex_or, '$options': 'i'}},
+                {'description':{'$regex': regex_or, '$options': 'i'}},
             ],
             'status': 'Active',
             'stock': {'$gt': 0}
@@ -151,14 +174,11 @@ def _fmt_products(products: list, label: str = '') -> tuple[str | None, list]:
         price_val = p.get('salePrice', 0)
         price_fmt = f"{price_val:,}".replace(',', '.') if isinstance(price_val, (int, float)) else price_val
         lines.append(f"{idx}. {p.get('name', 'N/A')} – {price_fmt}đ")
-    if len(products) >= 1:
-        lines.append("\n💡 Gõ số thứ tự để xem chi tiết (vd: 1)")
-        lines.append("🛒 Gõ 'thêm [số thứ tự]' để thêm vào giỏ (vd: thêm 2)")
-        lines.append("📦 Gõ 'thêm [số lượng] cái [số thứ tự]' (vd: thêm 3 cái 1)")
+    lines.append("💡 Gõ số (1-5) để xem chi tiết | 'thêm [số]' để thêm giỏ hàng")
     return ('\n'.join(lines), products)
 
 
-def _get_category_map():
+def _get_category_map() -> dict:
     try:
         return {
             strip_accents(cat['name']): cat['_id']
@@ -168,6 +188,27 @@ def _get_category_map():
     except PyMongoError as e:
         logger.error('MongoDB categories error: %s', e)
         return {}
+
+
+def _build_label(
+    gender: str | None,
+    age: int | None,
+    price: int | None,
+    brand: str | None,
+    product_kws: list[str],
+) -> str:
+    parts = []
+    if product_kws:
+        parts.append(f'"{" ".join(product_kws)}"')
+    if brand:
+        parts.append(f'hãng {brand}')
+    if gender:
+        parts.append('bé trai' if gender == 'Boy' else 'bé gái')
+    if age:
+        parts.append(f'{age} tuổi')
+    if price:
+        parts.append(f"dưới {price:,}đ".replace(',', '.'))
+    return 'Sản phẩm ' + ' - '.join(parts) + ':' if parts else 'Kết quả tìm kiếm:'
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -188,6 +229,7 @@ def _handle_age(age: int) -> tuple[str, list]:
         reply = f'Rất tiếc, chưa có sản phẩm nào cho bé {age} tuổi.'
     return (reply, products)
 
+
 def _handle_price(price: int) -> tuple[str, list]:
     try:
         products = list(get_products_col().find(
@@ -203,6 +245,7 @@ def _handle_price(price: int) -> tuple[str, list]:
         reply = f'Không tìm thấy sản phẩm nào có giá dưới {price_fmt}đ.'
     return (reply, products)
 
+
 def _handle_bestseller(base_response: str) -> tuple[str, list]:
     try:
         products = list(get_products_col().find(
@@ -217,10 +260,11 @@ def _handle_bestseller(base_response: str) -> tuple[str, list]:
     reply, _ = _fmt_products(products, base_response)
     return (reply, products)
 
+
 def _handle_gender(msg_norm: str) -> tuple[str, list]:
     gender = detect_gender(msg_norm)
     if gender is None:
-        return ('Bạn muốn tìm đồ chơi cho bé trai hay bé gái? Hãy cho tôi biết để tôi gợi ý chính xác hơn nhé!', [])
+        return ('Bạn muốn tìm đồ chơi cho bé trai hay bé gái? Hãy cho tôi biết nhé!', [])
     label = 'bé trai' if gender == 'Boy' else 'bé gái'
     try:
         products = list(get_products_col().find(
@@ -236,51 +280,100 @@ def _handle_gender(msg_norm: str) -> tuple[str, list]:
     return (reply, products)
 
 
+def _handle_brand(brand: str) -> tuple[str, list]:
+    try:
+        products = list(get_products_col().find(
+            {'brand': {'$regex': re.escape(brand), '$options': 'i'},
+             'status': 'Active', 'stock': {'$gt': 0}},
+            {'name': 1, 'salePrice': 1, 'imageUrl': 1}
+        ).sort('sold', -1).limit(20))
+    except PyMongoError as e:
+        logger.error('MongoDB brand error: %s', e)
+        return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
+    reply, _ = _fmt_products(products, f'Sản phẩm hãng {brand.upper()}:')
+    if reply is None:
+        reply = f'Hiện chưa có sản phẩm của hãng {brand.upper()}.'
+    return (reply, products)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
-# COMPOUND SEARCH (tên sản phẩm + tuổi + giá + giới tính + hãng)
+# COMPOUND SEARCH
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _handle_product_with_filters(msg_norm: str) -> tuple[str | None, list]:
-    """
-    Xử lý câu hỏi dạng phức hợp: từ khoá sản phẩm + bộ lọc (tuổi / giá / giới tính / hãng).
-    Trả về (None, []) nếu không đủ điều kiện để kích hoạt handler này.
-    """
+_FILTER_WORDS = frozenset({
+    'tuoi', 'gia', 'duoi', 'tren', 'khoang', 'tam', 'be', 'bé',
+    'trai', 'gai', 'cho', 'tre', 'em', 'con', 'nho',
+    'hang', 'thuonghieu', 'brand', 'chay', 'nhat',
+})
+
+def _build_product_kws(msg_norm: str, age: int | None, price: int | None) -> list[str]:
+    keywords = _extract_keywords(msg_norm)
+    age_tokens = {str(age)} if age else set()
+    price_tokens = {str(price)} if price else set()
+    return [
+        kw for kw in keywords
+        if kw not in age_tokens
+        and kw not in price_tokens
+        and kw not in _FILTER_WORDS
+        and not re.fullmatch(r'\d+', kw)
+    ]
+
+
+def _query_with_fallback(
+    query: dict,
+    product_kws: list[str],
+    label: str,
+    fallback_label: str,
+) -> tuple[str | None, list]:
+    PROJ = {'name': 1, 'salePrice': 1, 'description': 1, 'sold': 1, 'imageUrl': 1}
+    try:
+        candidates = list(get_products_col().find(query, PROJ).limit(200))
+    except PyMongoError as e:
+        logger.error('MongoDB compound error: %s', e)
+        return (None, [])
+
+    if not candidates:
+        loose = {k: v for k, v in query.items() if k not in ('ageRange', 'salePrice', 'gender')}
+        try:
+            candidates = list(get_products_col().find(loose, PROJ).limit(50))
+        except PyMongoError:
+            pass
+        if not candidates:
+            return (None, [])
+        label = fallback_label
+
+    if product_kws:
+        scored = [(p, _score_product(p, product_kws)) for p in candidates]
+        scored = [(p, s) for p, s in scored if s > 0] or [(p, 1.0) for p in candidates]
+    else:
+        scored = [(p, 1.0) for p in candidates]
+    scored.sort(key=lambda x: (-x[1], -x[0].get('sold', 0)))
+    products = [p for p, _ in scored][:20]
+
+    reply, _ = _fmt_products(products, label)
+    return (reply or 'Không tìm thấy sản phẩm phù hợp.', products)
+
+
+def _handle_compound(msg_norm: str) -> tuple[str | None, list]:
     age    = detect_age(msg_norm)
     price  = detect_price(msg_norm)
     gender = detect_gender(msg_norm)
     brand  = detect_brand(msg_norm)
 
-    logger.info('[Compound] age=%s, price=%s, gender=%s, brand=%s', age, price, gender, brand)
+    logger.info('[Compound] age=%s price=%s gender=%s brand=%s', age, price, gender, brand)
 
-    if not (age or price or gender or brand):
-        logger.info('[Compound] No filter, skip')
+    if not any([age, price, gender, brand]):
         return (None, [])
 
-    keywords = _extract_keywords(msg_norm)
-    logger.info('[Compound] raw keywords: %s', keywords)
+    product_kws = _build_product_kws(msg_norm, age, price)
 
-    age_tokens    = {str(age)} if age else set()
-    price_tokens  = {str(price)} if price else set()
-    filter_words  = {'tuoi', 'gia', 'duoi', 'tren', 'khoang', 'tam', 'bé', 'be',
-                     'trai', 'gai', 'bai', 'cho', 'tre', 'em', 'con', 'nho',
-                     'hang', 'thuonghieu', 'brand'}
-    product_kws = [
-        kw for kw in keywords
-        if kw not in age_tokens
-        and kw not in price_tokens
-        and kw not in filter_words
-        and not re.fullmatch(r'\d+', kw)
-    ]
-    logger.info('[Compound] product_kws after filtering: %s', product_kws)
-
-    # Nếu brand trùng với một trong các từ khóa sản phẩm, bỏ brand filter (tránh trùng lặp)
     if brand and brand in product_kws:
-        logger.info('[Compound] brand "%s" already in product_kws, skip brand filter', brand)
         brand = None
 
     if not product_kws and not brand:
-        logger.info('[Compound] No product keyword and no brand, skip')
-        return (None, [])
+        return _handle_filters_only(age, price, gender, msg_norm)
+
+    logger.info('[Compound] product_kws=%s', product_kws)
 
     query: dict = {'status': 'Active', 'stock': {'$gt': 0}}
     if product_kws:
@@ -289,151 +382,51 @@ def _handle_product_with_filters(msg_norm: str) -> tuple[str | None, list]:
             {'searchName': {'$regex': regex_or, '$options': 'i'}},
             {'name':       {'$regex': regex_or, '$options': 'i'}},
         ]
-        logger.info('[Compound] product_kws regex: %s', regex_or)
-    if age:
-        query['ageRange'] = {'$regex': str(age), '$options': 'i'}
-    if price:
-        query['salePrice'] = {'$lte': price}
-    if gender:
-        query['gender'] = gender
-    if brand:
-        escaped_brand = re.escape(brand)
-        query['brand'] = {'$regex': escaped_brand, '$options': 'i'}
-        logger.info('[Compound] brand regex: %s', escaped_brand)
+    if age:    query['ageRange']  = {'$regex': str(age), '$options': 'i'}
+    if price:  query['salePrice'] = {'$lte': price}
+    if gender: query['gender']    = gender
+    if brand:  query['brand']     = {'$regex': re.escape(brand), '$options': 'i'}
 
-    logger.info('[Compound] final query: %s', query)
+    label = _build_label(gender, age, price, brand, product_kws)
+    fallback_label = (
+        f'Không tìm thấy "{" ".join(product_kws)}" với bộ lọc đã chọn.\n'
+        'Đây là sản phẩm tương tự bạn có thể tham khảo:'
+    )
 
-    try:
-        candidates = list(get_products_col().find(
-            query,
-            {'name': 1, 'salePrice': 1, 'description': 1, 'sold': 1, 'imageUrl': 1, 'ageRange': 1, 'brand': 1}
-        ).limit(200))
-        logger.info('[Compound] found %d candidates', len(candidates))
-    except PyMongoError as e:
-        logger.error('MongoDB compound search error: %s', e)
+    return _query_with_fallback(query, product_kws, label, fallback_label)
+
+
+def _handle_filters_only(
+    age: int | None,
+    price: int | None,
+    gender: str | None,
+    msg_norm: str,
+) -> tuple[str | None, list]:
+    if not any([age, price, gender]):
         return (None, [])
 
-    if not candidates:
-        loose_query = {k: v for k, v in query.items() if k not in ('ageRange', 'salePrice', 'gender')}
-        logger.info('[Compound] loose query (no age/price/gender): %s', loose_query)
-        try:
-            candidates = list(get_products_col().find(
-                loose_query,
-                {'name': 1, 'salePrice': 1, 'description': 1, 'sold': 1, 'imageUrl': 1, 'ageRange': 1, 'brand': 1}
-            ).limit(50))
-            logger.info('[Compound] loose query found %d candidates', len(candidates))
-        except PyMongoError:
-            pass
+    query: dict = {'status': 'Active', 'stock': {'$gt': 0}}
+    if age:    query['ageRange']  = {'$regex': str(age), '$options': 'i'}
+    if price:  query['salePrice'] = {'$lte': price}
+    if gender: query['gender']    = gender
 
-        if not candidates:
-            logger.info('[Compound] no candidates even with loose query')
-            return (None, [])
+    PROJ = {'name': 1, 'salePrice': 1, 'imageUrl': 1}
+    try:
+        products = list(get_products_col().find(query, PROJ).sort('sold', -1).limit(20))
+    except PyMongoError as e:
+        logger.error('MongoDB filter-only error: %s', e)
+        return ('Xin lỗi, không thể truy vấn dữ liệu lúc này.', [])
 
-        if product_kws:
-            scored = [(p, _score_product(p, product_kws)) for p in candidates]
-            scored = [(p, s) for p, s in scored if s > 0]
-        else:
-            scored = [(p, 1.0) for p in candidates]
-        scored.sort(key=lambda x: (-x[1], -x[0].get('sold', 0)))
-        products = [p for p, _ in scored][:20]
-
-        label_parts = []
-        if product_kws:
-            label_parts.append(f'"{ " ".join(product_kws) }"')
-        if brand:
-            label_parts.append(f'hãng {brand}')
-        filter_note = []
-        if age:   filter_note.append(f'{age} tuổi')
-        if price: filter_note.append(f"dưới {price:,}đ".replace(',', '.'))
-        if gender: filter_note.append('bé trai' if gender == 'Boy' else 'bé gái')
-        note = ', '.join(filter_note)
-        suffix = f' cho {note}' if note else ''
-
-        reply, _ = _fmt_products(
-            products,
-            f'Không tìm thấy {" ".join(label_parts)}{suffix}.\n'
-            f'Đây là các sản phẩm tương tự bạn có thể tham khảo:'
-        )
-        return (reply or 'Rất tiếc, không có sản phẩm phù hợp.', products)
-
-    if product_kws:
-        scored = [(p, _score_product(p, product_kws)) for p in candidates]
-        scored = [(p, s) for p, s in scored if s > 0]
-    else:
-        scored = [(p, 1.0) for p in candidates]
-    if not scored:
-        scored = [(p, 1.0) for p in candidates]
-    scored.sort(key=lambda x: (-x[1], -x[0].get('sold', 0)))
-    products = [p for p, _ in scored][:20]
-
-    label_parts = []
-    if product_kws:
-        label_parts.append(f'"{ " ".join(product_kws) }"')
-    if brand:
-        label_parts.append(f'hãng {brand}')
-    if gender:
-        label_parts.append('bé trai' if gender == 'Boy' else 'bé gái')
-    if age:
-        label_parts.append(f'{age} tuổi')
-    if price:
-        label_parts.append(f"dưới {price:,}đ".replace(',', '.'))
-    label = 'Sản phẩm ' + ' - '.join(label_parts) + ':'
-
+    label = _build_label(gender, age, price, None, [])
     reply, _ = _fmt_products(products, label)
     if reply is None:
-        reply = 'Không tìm thấy sản phẩm phù hợp.'
+        reply = 'Không tìm thấy sản phẩm phù hợp với yêu cầu này.'
     return (reply, products)
 
 
-def _handle_multi_intent(msg_norm: str) -> tuple[str | None, list]:
-    age = detect_age(msg_norm)
-    price = detect_price(msg_norm)
-    gender = detect_gender(msg_norm)
-
-    if age and price:
-        query = {
-            'salePrice': {'$lte': price},
-            'ageRange': {'$regex': str(age), '$options': 'i'},
-            'status': 'Active',
-            'stock': {'$gt': 0}
-        }
-        if gender:
-            query['gender'] = gender
-        try:
-            products = list(get_products_col().find(
-                query, {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-            ).sort('sold', -1).limit(20))
-        except PyMongoError as e:
-            logger.error('MongoDB multi-intent error: %s', e)
-            return (None, [])
-        label_parts = []
-        if gender:
-            label_parts.append('bé trai' if gender == 'Boy' else 'bé gái')
-        label_parts.append(f'{age} tuổi')
-        label_parts.append(f"dưới {price:,}đ".replace(',', '.'))
-        label = 'Sản phẩm ' + ', '.join(label_parts) + ':'
-        reply, _ = _fmt_products(products, label)
-        if reply is None:
-            reply = 'Không tìm thấy sản phẩm phù hợp với yêu cầu này.'
-        return (reply, products)
-
-    if gender and age:
-        try:
-            products = list(get_products_col().find(
-                {'gender': gender, 'ageRange': {'$regex': str(age), '$options': 'i'},
-                 'status': 'Active', 'stock': {'$gt': 0}},
-                {'name': 1, 'salePrice': 1, 'imageUrl': 1}
-            ).sort('sold', -1).limit(20))
-        except PyMongoError as e:
-            logger.error('MongoDB multi-intent error: %s', e)
-            return (None, [])
-        label = f'Sản phẩm {"bé trai" if gender == "Boy" else "bé gái"} {age} tuổi:'
-        reply, _ = _fmt_products(products, label)
-        if reply is None:
-            reply = 'Không tìm thấy sản phẩm phù hợp.'
-        return (reply, products)
-
-    return (None, [])
+# ══════════════════════════════════════════════════════════════════════════════
+# CATEGORY SEARCH
+# ══════════════════════════════════════════════════════════════════════════════
 
 def _handle_category_exact(msg_norm: str) -> tuple[str | None, list]:
     cat_map = _get_category_map()
@@ -453,6 +446,7 @@ def _handle_category_exact(msg_norm: str) -> tuple[str | None, list]:
                 reply = f'Hiện chưa có sản phẩm trong danh mục {display}.'
             return (reply, products)
     return (None, [])
+
 
 def _search_category_by_tokens(msg_norm: str) -> tuple[str | None, list]:
     keywords = _extract_keywords(msg_norm)
@@ -479,87 +473,216 @@ def _search_category_by_tokens(msg_norm: str) -> tuple[str | None, list]:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# MAIN
+# INTENT MATCHING (SỬA LỖI)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Các từ khóa đặc biệt để loại trừ khi xử lý order_detail_by_product
+_EXCLUDE_PRODUCT_NAME_KEYWORDS = [
+    'lich su', 'gan nhat', 'cuoi cung', 'gan day', 'cua toi', 'hang', 'cac don'
+]
+
+def _match_intents(msg_norm: str) -> tuple[str | None, list]:
+    """
+    Dùng re.search với word-boundary. Ưu tiên các intent đặc biệt (cart_view, order_history, latest_order)
+    trước để tránh bị order_detail_by_product bắt nhầm.
+    """
+    logger.info('[MatchIntents] Checking: %s', msg_norm)
+    lower_msg = msg_norm.lower()
+
+    # 1. Ưu tiên các intent đặc biệt: cart_view, order_history, latest_order
+    special_tags = ['cart_view', 'order_history', 'latest_order']
+    for intent in _NORM_INTENTS:
+        tag = intent['tag']
+        if tag not in special_tags:
+            continue
+        for pnorm in intent['patterns_norm']:
+            escaped = r'\s+'.join(re.escape(w) for w in pnorm.split())
+            if re.search(r'\b' + escaped + r'\b', msg_norm):
+                logger.info('[MatchIntents] Matched special intent: %s', tag)
+                if tag == 'cart_view':
+                    return ('__view_cart__', [])
+                elif tag == 'order_history':
+                    return (json.dumps({'__action__': {'action': 'order_history'}}), [])
+                elif tag == 'latest_order':
+                    return (json.dumps({'__action__': {'action': 'latest_order'}}), [])
+
+    # 2. Các intent có placeholder (age, price, index, product_name, orderId)
+    for intent in _NORM_INTENTS:
+        tag = intent['tag']
+        response = intent['responses'][0]
+
+        for pnorm in intent['patterns_norm']:
+            # Xử lý age
+            if '{age}' in pnorm:
+                regex = pnorm.replace('{age}', r'(\d+)')
+                m = re.search(regex, msg_norm)
+                if m:
+                    reply, all_p = _handle_age(int(m.group(1)))
+                    return (reply, all_p)
+
+            # Xử lý price
+            elif '{price}' in pnorm:
+                regex = pnorm.replace('{price}', r'(\d+)')
+                m = re.search(regex, msg_norm)
+                if m:
+                    reply, all_p = _handle_price(int(m.group(1)))
+                    return (reply, all_p)
+
+            # Xử lý category (để riêng)
+            elif '{category}' in pnorm:
+                pass
+
+            # Xử lý index (xem đơn theo số)
+            elif '{index}' in pnorm:
+                regex = pnorm.replace('{index}', r'(\d+)')
+                m = re.search(regex, msg_norm)
+                if m:
+                    idx = int(m.group(1))
+                    if 1 <= idx <= 20:
+                        return (json.dumps({'__action__': {'action': 'order_detail_by_index', 'index': idx}}), [])
+
+            # Xử lý orderId
+            elif '{orderId}' in pnorm:
+                regex = pnorm.replace('{orderId}', r'(ORD\d+)')
+                m = re.search(regex, msg_norm)
+                if m:
+                    order_id = m.group(1)
+                    return (json.dumps({'__action__': {'action': 'order_status', 'orderId': order_id}}), [])
+
+            # Xử lý product_name (tìm đơn theo tên sản phẩm) - CÓ THÊM ĐIỀU KIỆN LOẠI TRỪ
+            elif '{product_name}' in pnorm:
+                # Loại bỏ nếu câu chứa các từ khóa đặc biệt (tránh nhầm với lịch sử, gần nhất, ...)
+                if any(kw in lower_msg for kw in _EXCLUDE_PRODUCT_NAME_KEYWORDS):
+                    continue
+
+                m = re.search(r'(?:don|tim don|xem don cua|don co)\s+(.+)', msg_norm)
+                if m:
+                    product_name = m.group(1).strip()
+                    # Nếu tên sản phẩm quá ngắn hoặc chỉ là các từ vô nghĩa -> bỏ
+                    if len(product_name) >= 2 and not any(kw in product_name for kw in ['nhat', 'cung', 'day', 'su']):
+                        return (json.dumps({'__action__': {'action': 'order_detail_by_product', 'product_name': product_name}}), [])
+
+            # Các intent khác (bestseller, gender, help, ...)
+            else:
+                escaped = r'\s+'.join(re.escape(w) for w in pnorm.split())
+                pattern = r'\b' + escaped + r'\b'
+                if re.search(pattern, msg_norm):
+                    logger.info('[MatchIntents] Matched intent: %s', tag)
+                    if tag == 'bestseller':
+                        reply, all_p = _handle_bestseller(response)
+                        return (reply, all_p)
+                    elif tag == 'gender':
+                        reply, all_p = _handle_gender(msg_norm)
+                        return (reply, all_p)
+                    elif tag == 'help':
+                        return (response, [])
+                    else:
+                        return (response, [])
+
+    return (None, [])
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# MAIN PIPELINE
 # ══════════════════════════════════════════════════════════════════════════════
 
 def process_message(msg: str) -> tuple[str, list, list]:
     msg_norm = normalize(msg)
     logger.info('raw=%r  norm=%r', msg[:80], msg_norm[:80])
 
-    # ACTION
-    action = process_action(msg_norm)
+    session = _get_session()
+
+    # ── 1. ACTION ─────────────────────────────────────────────────────────────
+    action = process_action(
+        msg_norm,
+        in_checkout_flow=session['in_checkout_flow'],
+        has_last_products=bool(session['last_products']),
+    )
     if action:
-        logger.info('ACTION DETECTED: %s', action)
+        logger.info('ACTION: %s', action)
+
+        if action['action'] == 'checkout':
+            _set_checkout_flow(True)
+            return (json.dumps({'__action__': action}), [], [])
+
+        if action['action'] == 'checkout_confirm':
+            _set_checkout_flow(False)
+            return (json.dumps({'__action__': action}), [], [])
+
+        if action['action'] == 'view_detail':
+            idx = action['index'] - 1
+            last = session['last_products']
+            if 0 <= idx < len(last):
+                p = last[idx]
+                return (json.dumps({'__action__': {'action': 'view_detail', 'product_id': str(p['_id'])}}), [], [])
+            return ('Không có sản phẩm số đó trong danh sách vừa hiển thị.', [], [])
+
+        if action['action'] == 'add_by_index':
+            idx = action['index'] - 1
+            last = session['last_products']
+            if 0 <= idx < len(last):
+                p = last[idx]
+                enriched = {**action, 'product_name': p.get('name', ''), 'product_id': str(p['_id'])}
+                return (json.dumps({'__action__': enriched}), [], [])
+            return ('Không có sản phẩm số đó trong danh sách vừa hiển thị.', [], [])
+
         return (json.dumps({'__action__': action}), [], [])
 
-    # Compound search
-    compound_reply, compound_all = _handle_product_with_filters(msg_norm)
+    # ── 2. COMPOUND ───────────────────────────────────────────────────────────
+    compound_reply, compound_all = _handle_compound(msg_norm)
     if compound_reply:
+        _set_last_products(compound_all)
         return (compound_reply, compound_all[:DISPLAY_LIMIT], compound_all)
 
-    # Multi-intent
-    multi_reply, multi_all = _handle_multi_intent(msg_norm)
-    if multi_reply:
-        return (multi_reply, multi_all[:DISPLAY_LIMIT], multi_all)
+    # ── 3. INTENT MATCHING ────────────────────────────────────────────────────
+    intent_reply, intent_all = _match_intents(msg_norm)
+    if intent_reply:
+        if intent_all:
+            _set_last_products(intent_all)
+        return (intent_reply, intent_all[:DISPLAY_LIMIT], intent_all)
 
-    # Intent matching
-    for intent in _NORM_INTENTS:
-        tag = intent['tag']
-        response = intent['responses'][0]
-        for pnorm in intent['patterns_norm']:
-            if '{age}' in pnorm:
-                m = re.search(pnorm.replace('{age}', r'(\d+)'), msg_norm)
-                if m:
-                    reply, all_p = _handle_age(int(m.group(1)))
-                    return (reply, all_p[:DISPLAY_LIMIT], all_p)
-            elif '{price}' in pnorm:
-                m = re.search(pnorm.replace('{price}', r'(\d+)'), msg_norm)
-                if m:
-                    reply, all_p = _handle_price(int(m.group(1)))
-                    return (reply, all_p[:DISPLAY_LIMIT], all_p)
-            elif '{category}' in pnorm:
-                pass
-            else:
-                if pnorm in msg_norm:
-                    if tag == 'bestseller':
-                        reply, all_p = _handle_bestseller(response)
-                        return (reply, all_p[:DISPLAY_LIMIT], all_p)
-                    elif tag == 'gender':
-                        reply, all_p = _handle_gender(msg_norm)
-                        return (reply, all_p[:DISPLAY_LIMIT], all_p)
-                    else:
-                        return (response, [], [])
-
-    # Suy luận số
-    age = detect_age(msg_norm)
+    # ── 4. INFER: detect_age / detect_price standalone ───────────────────────
+    age   = detect_age(msg_norm)
     price = detect_price(msg_norm)
     if age is not None:
         reply, all_p = _handle_age(age)
+        _set_last_products(all_p)
         return (reply, all_p[:DISPLAY_LIMIT], all_p)
     if price is not None:
         reply, all_p = _handle_price(price)
+        _set_last_products(all_p)
         return (reply, all_p[:DISPLAY_LIMIT], all_p)
 
-    # Danh mục exact
+    # ── 5. BRAND standalone ───────────────────────────────────────────────────
+    brand = detect_brand(msg_norm)
+    if brand:
+        reply, all_p = _handle_brand(brand)
+        _set_last_products(all_p)
+        return (reply, all_p[:DISPLAY_LIMIT], all_p)
+
+    # ── 6. CATEGORY exact ─────────────────────────────────────────────────────
     cat_reply, cat_all = _handle_category_exact(msg_norm)
     if cat_reply:
+        _set_last_products(cat_all)
         return (cat_reply, cat_all[:DISPLAY_LIMIT], cat_all)
 
-    # Token search sản phẩm
+    # ── 7. TOKEN search ───────────────────────────────────────────────────────
     all_products = _search_products_by_tokens(msg_norm)
     if all_products:
         keywords = _extract_keywords(msg_norm)
         kw_display = ' '.join(keywords) if keywords else msg_norm
         reply, _ = _fmt_products(all_products, f'Tìm thấy sản phẩm cho "{kw_display}":')
         if reply:
+            _set_last_products(all_products)
             return (reply, all_products[:DISPLAY_LIMIT], all_products)
 
-    # Danh mục token search
+    # ── 8. CATEGORY token search ──────────────────────────────────────────────
     cat_token_reply, cat_token_all = _search_category_by_tokens(msg_norm)
     if cat_token_reply:
+        _set_last_products(cat_token_all)
         return (cat_token_reply, cat_token_all[:DISPLAY_LIMIT], cat_token_all)
 
-    # Fallback
+    # ── 9. FALLBACK ───────────────────────────────────────────────────────────
     return (
         'Xin lỗi, tôi chưa tìm thấy kết quả phù hợp 😅\n'
         'Bạn thử gõ:\n'
@@ -567,7 +690,8 @@ def process_message(msg: str) -> tuple[str, list, list]:
         '• Độ tuổi (vd: "bé 3 tuổi", "cho trẻ 5 tuổi")\n'
         '• Giới tính (vd: "bé trai", "bé gái")\n'
         '• Giá (vd: "dưới 20 đô", "tầm 50")\n'
-        '• Sản phẩm bán chạy',
+        '• Sản phẩm bán chạy\n'
+        '• Gõ "hướng dẫn" để xem tất cả lệnh',
         [], []
     )
 
