@@ -1,18 +1,17 @@
-<nav class="position-fixed top-0 start-0 vh-100 shadow " style=" background-color: #2c3e50;width: 260px; z-index: 1030 ">
+<nav class="position-fixed top-0 start-0 vh-100 shadow" style="background-color: #2c3e50; width: 260px; z-index: 1030;">
   <div class="p-4 text-white fw-bold fs-5 border-bottom border-white border-opacity-10 mb-3">
-   <a class="navbar-brand d-flex align-items-center fw-bold" href="/" style="font-family: 'Luckiest Guy', cursive; font-size: 2.2rem; letter-spacing: 2px;">
-  <span class="text-primary">T</span>
-  <span class="text-danger">O</span>
-  <span class="text-warning">Y</span>
-  <span class="text-success">S</span>
-</a>
-    
+    <a class="navbar-brand d-flex align-items-center fw-bold" href="/" style="font-family: 'Luckiest Guy', cursive; font-size: 2.2rem; letter-spacing: 2px;">
+      <span class="text-primary">T</span>
+      <span class="text-danger">O</span>
+      <span class="text-warning">Y</span>
+      <span class="text-success">S</span>
+    </a>
   </div>
-  
+
   <div class="nav flex-column gap-1">
     <% 
-      // Kiểm tra biến currentPage có tồn tại không, nếu không thì gán bằng chuỗi rỗng
-      const page = typeof currentPage !== 'undefined' ? currentPage : ''; 
+      // Lấy currentPage từ biến truyền vào (phải được gán ở mỗi route)
+      const page = typeof currentPage !== 'undefined' ? currentPage : '';
     %>
     <a class="nav-link py-3 px-4 <%= page === 'dashboard' ? 'active' : '' %>" href="/admin/dashboard">
       <i class="fa-solid fa-chart-line me-2"></i> Bảng điều khiển
@@ -27,8 +26,14 @@
       <i class="fa-solid fa-boxes-stacked me-2"></i> Sản phẩm
     </a>
     <a class="nav-link py-3 px-4 <%= page === 'categories' ? 'active' : '' %>" href="/admin/categories">
-  <i class="fa-solid fa-tags me-2"></i> Danh mục
-</a>
+      <i class="fa-solid fa-tags me-2"></i> Danh mục
+    </a>
+
+    <!-- Nút quay lại giao diện người dùng -->
+    <a class="nav-link py-3 px-4 mt-2 border-top border-white border-opacity-10" href="/" style="color: rgba(255,255,255,0.7) !important;">
+      <i class="fa-solid fa-arrow-left me-2"></i> Quay lại trang chủ
+    </a>
+
     <a class="nav-link py-3 px-4" href="/auth/logout">
       <i class="fa-solid fa-sign-out-alt me-2"></i> Đăng xuất
     </a>

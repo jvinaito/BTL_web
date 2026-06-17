@@ -113,30 +113,83 @@ router.get('/checkout', isLoggedIn, (req, res) => {
   });
 });
 
-// Xử lý thanh toán
+// Xử lý thanh toán - ĐÃ SỬA LỖI
+// Xử lý thanh toán - ĐÃ SỬA: Kiểm tra tồn kho chi tiết và flash lỗi rõ ràng
 router.post('/checkout', isLoggedIn, async (req, res) => {
   const { street, province, district, ward, phone, fullAddress } = req.body;
-  const cart = req.session.cart || [];
+  let cart = req.session.cart || [];
+
+  // 1. Kiểm tra giỏ hàng trống
   if (cart.length === 0) {
     req.flash('error', 'Giỏ hàng trống');
     return res.redirect('/products');
   }
 
   try {
+    // 2. Kiểm tra từng sản phẩm: tồn tại và đủ hàng
+    const invalidProducts = [];   // sản phẩm không tồn tại trong DB
+    const outOfStockProducts = []; // sản phẩm không đủ hàng
+    const validItems = [];
+
+    for (let item of cart) {
+      const product = await Product.findById(item.product._id);
+      if (!product) {
+        invalidProducts.push(item.product.name || item.product._id);
+        continue;
+      }
+      if (product.stock < item.quantity) {
+        outOfStockProducts.push({
+          name: product.name,
+          stock: product.stock,
+          requested: item.quantity
+        });
+        continue;
+      }
+      validItems.push({ item, product });
+    }
+
+    // 3. Xử lý sản phẩm không đủ hàng (ưu tiên hiển thị lỗi này trước)
+    if (outOfStockProducts.length > 0) {
+      let errorMsg = '❌ Một số sản phẩm không đủ hàng:<br>';
+      outOfStockProducts.forEach(p => {
+        errorMsg += `• ${p.name}: chỉ còn <strong>${p.stock}</strong> sản phẩm, bạn yêu cầu <strong>${p.requested}</strong><br>`;
+      });
+      errorMsg += '<br>Vui lòng cập nhật giỏ hàng.';
+      req.flash('error', errorMsg);
+      return res.redirect('/orders/cart');
+    }
+
+    // 4. Xử lý sản phẩm không tồn tại
+    if (invalidProducts.length > 0) {
+      req.flash('warning', `⚠️ Sản phẩm không tồn tại: ${invalidProducts.join(', ')}. Đã xóa khỏi giỏ.`);
+      // Lọc giỏ hàng chỉ giữ lại các sản phẩm hợp lệ
+      req.session.cart = req.session.cart.filter(cartItem =>
+        validItems.some(v => v.item.product._id.toString() === cartItem.product._id.toString())
+      );
+      cart = req.session.cart; // cập nhật lại cart
+      if (cart.length === 0) {
+        req.flash('error', 'Giỏ hàng của bạn đã trống do sản phẩm không hợp lệ.');
+        return res.redirect('/products');
+      }
+    }
+
+    // 5. Xác định địa chỉ giao hàng
     let finalAddress = fullAddress;
     if (!finalAddress) {
       finalAddress = `${street ? street + ', ' : ''}${ward ? ward + ', ' : ''}${district ? district + ', ' : ''}${province || ''}`;
     }
 
+    // 6. Tính phí vận chuyển
     let shipping = 50000;
     const provinceLower = (province || '').toLowerCase();
-    const removeTones = (str) => {
-      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
-    };
+    const removeTones = (str) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
     if (removeTones(provinceLower).includes('ha noi')) shipping = 0;
 
+    // 7. Tính tổng tiền
     let subtotal = 0;
-    for (let item of cart) subtotal += item.product.salePrice * item.quantity;
+    for (let item of cart) {
+      subtotal += item.product.salePrice * item.quantity;
+    }
 
     let discount = 0;
     if (req.session.user.level === 'Vip') discount = subtotal * 0.2;
@@ -144,11 +197,17 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
 
     const total = subtotal + shipping - discount;
 
+    // 8. Cập nhật tồn kho và tạo danh sách sản phẩm cho đơn hàng
     const orderProducts = [];
     for (let item of cart) {
       const product = await Product.findById(item.product._id);
-      if (!product || product.stock < item.quantity) {
-        req.flash('error', `Sản phẩm ${item.product.name} không đủ hàng`);
+      // Kiểm tra lại (phòng trường hợp có thay đổi trong lúc xử lý)
+      if (!product) {
+        req.flash('error', `Sản phẩm "${item.product.name}" không tồn tại.`);
+        return res.redirect('/orders/cart');
+      }
+      if (product.stock < item.quantity) {
+        req.flash('error', `Sản phẩm "${product.name}" chỉ còn ${product.stock} sản phẩm.`);
         return res.redirect('/orders/cart');
       }
       product.stock -= item.quantity;
@@ -161,6 +220,7 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
       });
     }
 
+    // 9. Tạo đơn hàng
     const orderId = 'ORD' + Date.now();
     const order = new Order({
       orderId,
@@ -176,12 +236,14 @@ router.post('/checkout', isLoggedIn, async (req, res) => {
     });
     await order.save();
 
+    // 10. Xóa giỏ hàng và thông báo thành công
     req.session.cart = [];
-    req.flash('success', 'Đặt hàng thành công!');
+    req.flash('success', `🎉 Đặt hàng thành công! Mã đơn: <strong>${orderId}</strong>`);
     res.redirect('/orders/history');
+
   } catch (err) {
-    console.error(err);
-    req.flash('error', 'Có lỗi xảy ra khi đặt hàng');
+    console.error('[Checkout Error]', err);
+    req.flash('error', 'Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.');
     res.redirect('/orders/cart');
   }
 });

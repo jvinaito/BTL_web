@@ -35,7 +35,7 @@
             <select name="category" class="form-select border-0 bg-light py-2 rounded-3" required>
               <option value="">Chọn danh mục</option>
               <% categories.forEach(cat => { %>
-                <option value="<%= cat._id %>" <%= product && product.category && product.category._id == cat._id ? 'selected' : '' %>>
+                <option value="<%= cat._id %>" <%= product && product.category && product.category._id && product.category._id.toString() === cat._id.toString() ? 'selected' : '' %>>
                   <%= cat.name %>
                 </option>
               <% }) %>
@@ -92,18 +92,15 @@
     const salePriceHidden = document.getElementById('salePriceHidden');
 
     form.addEventListener('submit', function(e) {
-      // Lấy giá trị
       let original = parseFloat(originalPriceInput.value);
       let discount = parseFloat(discountInput.value);
 
-      // Kiểm tra originalPrice
       if (isNaN(original) || original <= 0) {
         e.preventDefault();
         alert('Giá gốc phải là số dương lớn hơn 0.');
         return;
       }
 
-      // Kiểm tra discount, nếu không hợp lệ hoặc rỗng thì gán 0
       if (isNaN(discount) || discount < 0) {
         discount = 0;
       }
@@ -113,15 +110,9 @@
         return;
       }
 
-      // Tính salePrice
       let salePrice = original * (1 - discount / 100);
-      // Làm tròn 2 chữ số thập phân
       salePrice = Math.round(salePrice * 100) / 100;
-
-      // Đảm bảo salePrice không âm
       if (salePrice < 0) salePrice = 0;
-
-      // Gán vào input ẩn
       salePriceHidden.value = salePrice;
     });
   })();

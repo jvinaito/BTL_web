@@ -43,8 +43,8 @@
       <tr>
         <td class="fw-bold"><%= order.orderId %></td>
         <td><%= order.user ? order.user.firstName + ' ' + order.user.lastName : 'Không có' %></td>
-       <td><%= formatDate(order.createdAt) %></td>
-        <td><%= order.total.toLocaleString('vi-VN') %>đ</td>
+        <td><%= formatDate(order.createdAt) %></td>
+        <td><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
         <td>
           <span class="badge rounded-pill 
             <%= order.status === 'Complete' ? 'bg-success-subtle text-success' : 
@@ -60,11 +60,11 @@
             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#orderDetailModal<%= order._id %>">
               <i class="fa-solid fa-eye"></i>
             </button>
-            <!-- Dropdown cập nhật trạng thái (chỉ hiển thị các lựa chọn hợp lệ) -->
+            <!-- Dropdown cập nhật trạng thái -->
             <div class="dropdown">
-            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport">
-  <i class="fa-solid fa-gear"></i>
-</button>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-boundary="viewport">
+                <i class="fa-solid fa-gear"></i>
+              </button>
               <ul class="dropdown-menu">
                 <% if (order.status === 'Pending') { %>
                   <li>
@@ -148,16 +148,16 @@
             <% order.products.forEach(item => { %>
             <tr>
               <td><%= item.product ? item.product.name : 'Không xác định' %></td>
-              <td><%= item.price.toLocaleString('vi-VN') %>đ</td>
+              <td><%= item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
               <td><%= item.quantity %></td>
-              <td><%= (item.price * item.quantity).toLocaleString('vi-VN') %>đ</td>
+              <td><%= (item.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
             </tr>
             <% }) %>
           </tbody>
           <tfoot>
             <tr>
               <th colspan="3" class="text-end">Tổng tiền:</th>
-              <th><%= order.total.toLocaleString('vi-VN') %>đ</th>
+              <th><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></th>
             </tr>
           </tfoot>
         </table>

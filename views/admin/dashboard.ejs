@@ -22,7 +22,7 @@
   <div class="col-md-3">
     <div class="p-4 rounded-4 shadow-sm border-0" style="background-color: #fff9f0;">
       <p class="text-muted small mb-1 fw-bold text-uppercase">Doanh thu</p>
-      <h2 class="fw-bold mb-0"><%= totalIncome.toLocaleString('vi-VN') %>đ</h2>
+      <h2 class="fw-bold mb-0"><%= totalIncome.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></h2>
     </div>
   </div>
 </div>
@@ -32,7 +32,7 @@
   <div class="col-md-8">
     <div class="bg-white p-4 rounded-5 shadow-sm h-100">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h5 class="fw-bold mb-0 text-info">Khách hàng nổi bật - <%= new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' }) %></h5>
+        <h5 class="fw-bold mb-0 text-info">Khách hàng nổi bật - <%= new Date().toLocaleString('vi-VN', { month: 'long', year: 'numeric' }) %></h5>
         <a href="/admin/users" class="btn btn-light btn-sm">Xem tất cả</a>
       </div>
       <div class="table-responsive">
@@ -53,8 +53,8 @@
                   <span><%= user.firstName %> <%= user.lastName %></span>
                 </div>
               </td>
-             <td class="text-muted"><%= formatDate(user.createdAt) %></td>
-              <td class="text-end fw-bold"><%= user.totalSpent.toLocaleString('vi-VN') %>đ</td>
+              <td class="text-muted"><%= formatDate(user.createdAt) %></td>
+              <td class="text-end fw-bold"><%= user.totalSpent.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
             </tr>
             <% }) %>
             <% if (recentUsers.length === 0) { %>
@@ -69,34 +69,33 @@
   </div>
 
   <!-- Cột phải: Best Sellers và New Arrivals -->
- <!-- Best Sellers - dạng bảng ngang có ảnh -->
-<div class="col-md 4">
-  <h6 class="fw-bold mb-4">Bán chạy nhất</h6>
-  <div class="table-responsive">
-    <table class="table table-sm table-borderless align-middle">
-      <thead>
-        <tr class="text-muted small">
-          <th style="width: 40px;">Ảnh</th>
-          <th>Tên sản phẩm</th>
-          <th class="text-end">Đã bán</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% bestSellers.forEach(product => { %>
-        <tr>
-          <td><img src="<%= product.imageUrl %>" style="width: 35px; height: 35px; object-fit: cover;" class="rounded-3"></td>
-          <td class="fw-bold"><%= product.name %></td>
-          <td class="text-end"><%= product.sold %></td>
-        </tr>
-        <% }) %>
-        <% if (bestSellers.length === 0) { %>
-        <tr><td colspan="3" class="text-muted small">Chưa có dữ liệu</td></tr>
-        <% } %>
-      </tbody>
-    </table>
-  </div>
+  <div class="col-md-4">
+    <h6 class="fw-bold mb-4">Bán chạy nhất</h6>
+    <div class="table-responsive">
+      <table class="table table-sm table-borderless align-middle">
+        <thead>
+          <tr class="text-muted small">
+            <th style="width: 40px;">Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th class="text-end">Đã bán</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bestSellers.forEach(product => { %>
+          <tr>
+            <td><img src="<%= product.imageUrl %>" style="width: 35px; height: 35px; object-fit: cover;" class="rounded-3"></td>
+            <td class="fw-bold"><%= product.name %></td>
+            <td class="text-end"><%= product.sold %></td>
+          </tr>
+          <% }) %>
+          <% if (bestSellers.length === 0) { %>
+          <tr><td colspan="3" class="text-muted small">Chưa có dữ liệu</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="bg-white p-4 rounded-5 shadow-sm">
+    <div class="bg-white p-4 rounded-5 shadow-sm">
       <h6 class="fw-bold mb-4">Sản phẩm mới</h6>
       <div class="d-flex flex-column gap-3">
         <% newArrivals.forEach(product => { %>
@@ -114,8 +113,4 @@
       </div>
     </div>
   </div>
-</div>
-
-  
-    
 </div>

@@ -18,21 +18,25 @@
   <%- include('../partials/header') %>
 
     <main id="content-viewport">
+      <!-- Hiển thị flash message dưới dạng Alert Bootstrap -->
       <% if (success_msg && success_msg.length> 0) { %>
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-            if (window.showToast) window.showToast('<%= success_msg %>', 'success');
-          });
-        </script>
-        <% } %>
-          <% if (error_msg && error_msg.length> 0) { %>
-            <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                if (window.showToast) window.showToast('<%= error_msg %>', 'error');
-              });
-            </script>
-            <% } %>
-              <%- body %>
+        <div class="container mt-3">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%- success_msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <% } %>
+      <% if (error_msg && error_msg.length> 0) { %>
+        <div class="container mt-3">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%- error_msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      <% } %>
+      
+      <%- body %>
     </main>
 
     <%- include('../partials/footer') %>
@@ -41,7 +45,7 @@
       <script src="/js/main.js"></script>
       <%- include('../partials/chat') %>
 </body>
-<!-- Toast thông báo -->
+<!-- Toast thông báo (vẫn giữ để dùng cho các thông báo khác nếu cần) -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
   <div id="cartToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header bg-info text-white">

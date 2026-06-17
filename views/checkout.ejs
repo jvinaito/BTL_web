@@ -3,6 +3,13 @@
 <div class="container py-5">
   <h2 class="fw-bold mb-4">Thanh toán</h2>
 
+  <% if (!user) { %>
+    <div class="alert alert-warning">
+      <i class="fa-solid fa-triangle-exclamation me-2"></i>
+      Bạn cần <a href="/auth/login" class="alert-link">đăng nhập</a> để thanh toán.
+    </div>
+  <% } else { %>
+
   <div class="row g-5">
     <!-- Cột trái: thông tin giao hàng -->
     <div class="col-lg-7">
@@ -47,7 +54,7 @@
 
           <div class="col-md-6">
             <label class="form-label small fw-bold">Số điện thoại *</label>
-            <input type="tel" name="phone" class="form-control" value="<%= user.phone %>" required>
+            <input type="tel" name="phone" class="form-control" value="<%= user.phone || '' %>" required>
           </div>
         </div>
         <input type="hidden" name="fullAddress" id="fullAddress">
@@ -101,6 +108,7 @@
       </div>
     </div>
   </div>
+  <% } %>
 </div>
 
 <script>

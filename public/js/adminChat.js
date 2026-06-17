@@ -7,9 +7,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const messagesDiv = document.getElementById('admin-chat-messages');
   const quickRepliesDiv = document.getElementById('admin-quick-replies');
 
-  // Voice output (TTS) using /api/tts proxy
   let voiceEnabled = localStorage.getItem('adminVoiceEnabled') !== 'false';
   let currentAudio = null;
+
+  // ── HÀM CHUYỂN ĐỔI TIỀN TỆ CHO TTS: bỏ dấu chấm và khoảng trắng, thêm "đồng" ──
+  function formatCurrencyForTTS(text) {
+    const formatted = text.replace(/(\d{1,3}(?:\s*\.\s*\d{3})*)\s*đ/g, function(match, number) {
+      const cleanNumber = number.replace(/[.\s]/g, '');
+      return cleanNumber + ' đồng';
+    });
+    console.log('[Admin TTS] Original:', text);
+    console.log('[Admin TTS] Formatted:', formatted);
+    return formatted;
+  }
 
   function stopSpeaking() {
     if (currentAudio) {
@@ -22,7 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function speakText(text) {
     if (!voiceEnabled || !text.trim()) return;
     stopSpeaking();
-    const url = `/api/tts?text=${encodeURIComponent(text)}&speed=1.15`;
+    const formattedText = formatCurrencyForTTS(text);
+    const url = `/api/tts?text=${encodeURIComponent(formattedText)}&speed=1.15`;
+    console.log('[Admin TTS] Final URL:', url);
     const audio = new Audio(url);
     audio.volume = 1.0;
     currentAudio = audio;

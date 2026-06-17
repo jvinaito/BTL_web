@@ -48,7 +48,7 @@
         </td>
         <td><%= product.category ? product.category.name : 'Không có' %></td>
         <td><%= product.stock %></td>
-        <td><%= product.salePrice.toLocaleString('vi-VN') %>đ</td>
+        <td><%= product.salePrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
         <td>
           <span class="badge rounded-pill <%= product.status === 'Active' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' %> px-3">
             <%= ({ Active: 'Đang bán', 'Out of Stock': 'Hết hàng' }[product.status] || product.status) %>

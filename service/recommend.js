@@ -9,7 +9,12 @@ async function getPersonalizedRecommendations(req, limit = 12) {
 
   if (req.session.user) {
     const orders = await Order.find({ user: req.session.user._id, status: 'Complete' }).populate('products.product');
-    purchasedIds = orders.flatMap(order => order.products.map(p => p.product._id.toString()));
+    // FIX: Lọc bỏ các item có product = null trước khi map
+    purchasedIds = orders.flatMap(order =>
+      order.products
+        .filter(p => p.product != null)   // <-- SỬA LỖI
+        .map(p => p.product._id.toString())
+    );
   }
 
   const allInteractedIds = [...new Set([...clickedIds, ...cartIds, ...purchasedIds])];
@@ -19,7 +24,7 @@ async function getPersonalizedRecommendations(req, limit = 12) {
     let products = await Product.find({ status: 'Active', stock: { $gt: 0 } })
       .sort({ sold: -1 })
       .limit(limit * 2)
-      .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
+      .select('name salePrice imageUrl createdAt discount originalPrice sold');
     // Shuffle toàn bộ để hiển thị ngẫu nhiên
     for (let i = products.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -62,7 +67,7 @@ async function getPersonalizedRecommendations(req, limit = 12) {
   let recommendations = await Product.find(query)
     .sort({ sold: -1 })
     .limit(limit * 2)
-    .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
+    .select('name salePrice imageUrl createdAt discount originalPrice sold');
 
   // Bổ sung bestseller nếu chưa đủ
   if (recommendations.length < limit) {
@@ -71,15 +76,14 @@ async function getPersonalizedRecommendations(req, limit = 12) {
       stock: { $gt: 0 },
       _id: { $nin: [...allInteractedIds, ...recommendations.map(p => p._id)] }
     }).sort({ sold: -1 }).limit(limit * 2 - recommendations.length)
-      .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
+      .select('name salePrice imageUrl createdAt discount originalPrice sold');
     recommendations = [...recommendations, ...bestsellers];
   }
 
   // Shuffle nhẹ: với xác suất 30%, đảo vị trí 2 phần tử bất kỳ
-  // Giữ nguyên các sản phẩm đầu (liên quan cao) vẫn có cơ hội xuất hiện sớm
   const shuffled = [...recommendations];
   for (let i = shuffled.length - 1; i > 0; i--) {
-    if (Math.random() < 0.3) {  // 30% cơ hội đảo
+    if (Math.random() < 0.3) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
@@ -107,7 +111,7 @@ async function getSimilarProducts(product, limit = 12) {
   let similar = await Product.find(query)
     .sort({ sold: -1 })
     .limit(limit)
-    .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
+    .select('name salePrice imageUrl createdAt discount originalPrice sold');
 
   if (similar.length < limit) {
     const more = await Product.find({
@@ -115,7 +119,7 @@ async function getSimilarProducts(product, limit = 12) {
       stock: { $gt: 0 },
       _id: { $ne: product._id, $nin: similar.map(p => p._id) }
     }).sort({ sold: -1 }).limit(limit - similar.length)
-      .select('name salePrice imageUrl createdAt discount originalPrice sold'); // ✅ bổ sung
+      .select('name salePrice imageUrl createdAt discount originalPrice sold');
     similar = [...similar, ...more];
   }
   return similar.slice(0, limit);

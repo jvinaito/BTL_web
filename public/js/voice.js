@@ -13,6 +13,20 @@
         let voiceEnabled = localStorage.getItem('chatVoiceEnabled') !== 'false';
         let currentAudio = null;
 
+        // ── HÀM CHUYỂN ĐỔI TIỀN TỆ CHO TTS: bỏ dấu chấm và khoảng trắng, thêm "đồng" ──
+        function formatCurrencyForTTS(text) {
+            // Match các dạng: 6.100.000đ, 6. 100. 000đ, 6.100.000 đồng, ...
+            // Lấy phần số (có thể có khoảng trắng sau dấu chấm) và đuôi "đ" hoặc "đồng"
+            const formatted = text.replace(/(\d{1,3}(?:\s*\.\s*\d{3})*)\s*đ/g, function(match, number) {
+                // Xóa tất cả dấu chấm và khoảng trắng trong số
+                const cleanNumber = number.replace(/[.\s]/g, '');
+                return cleanNumber + ' đồng';
+            });
+            console.log('[TTS] Original:', text);
+            console.log('[TTS] Formatted:', formatted);
+            return formatted;
+        }
+
         // ── Chia văn bản ──
         function splitText(text, maxLen = 180) {
             const clean = text
@@ -50,7 +64,9 @@
             if (!voiceEnabled || index >= chunks.length) return;
             stopSpeaking();
 
-            const url = `${TTS_PROXY_URL}?text=${encodeURIComponent(chunks[index])}&speed=${TTS_SPEED}`;
+            const textChunk = formatCurrencyForTTS(chunks[index]);
+            const url = `${TTS_PROXY_URL}?text=${encodeURIComponent(textChunk)}&speed=${TTS_SPEED}`;
+            console.log('[TTS] Final URL:', url);
             const audio = new Audio(url);
             audio.volume = 1.0;
             currentAudio = audio;
@@ -98,7 +114,6 @@
                 const text = e.results[0][0].transcript;
                 chatInput.value = text;
                 setMicIdle();
-                // Tự động gửi tin nhắn
                 if (sendBtn) sendBtn.click();
             };
             recognition.onerror = (e) => { console.error('[Mic]', e.error); setMicIdle(); };

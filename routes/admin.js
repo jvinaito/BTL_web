@@ -29,14 +29,13 @@ function removeVietnameseTones(str) {
   return str.toLowerCase();
 }
 
-// Cấu hình multer (giữ lại nếu sau này dùng upload)
+// Cấu hình multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'public/uploads/'),
   filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
 });
 const upload = multer({ storage });
 
-// ==================== DASHBOARD ====================
 // ==================== DASHBOARD ====================
 router.get('/dashboard', isAdmin, async (req, res) => {
   try {
@@ -49,21 +48,16 @@ router.get('/dashboard', isAdmin, async (req, res) => {
     ]);
     const totalIncome = totalIncomeAgg[0]?.total || 0;
 
-    // --- Lấy 5 user có doanh thu cao nhất tháng ---
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
-    // Lấy tất cả user (hoặc có thể giới hạn nhưng không cần)
     const allUsers = await User.find();
-
-    // Lấy đơn hàng hoàn thành trong tháng
     const completedOrdersThisMonth = await Order.find({
       status: 'Complete',
       createdAt: { $gte: startOfMonth, $lte: endOfMonth }
     }).populate('user');
 
-    // Tính tổng tiền cho từng user
     const userSpent = {};
     completedOrdersThisMonth.forEach(order => {
       if (order.user) {
@@ -72,21 +66,19 @@ router.get('/dashboard', isAdmin, async (req, res) => {
       }
     });
 
-    // Gắn totalSpent vào user và lọc user có totalSpent > 0 (tùy chọn)
     const usersWithSpent = allUsers.map(user => ({
       ...user.toObject(),
       totalSpent: userSpent[user._id.toString()] || 0
     }));
 
-    // Sắp xếp giảm dần theo totalSpent, lấy 5 user đầu
     const recentUsers = usersWithSpent
       .sort((a, b) => b.totalSpent - a.totalSpent)
       .slice(0, 5);
 
-    // --- Các phần khác giữ nguyên ---
     const bestSellers = await Product.find().sort({ sold: -1 }).limit(3);
     const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(3);
 
+    res.locals.currentPage = 'dashboard';
     res.render('admin/dashboard', {
       totalUsers,
       totalOrders,
@@ -95,7 +87,6 @@ router.get('/dashboard', isAdmin, async (req, res) => {
       recentUsers,
       bestSellers,
       newArrivals,
-      currentPage: 'dashboard',
       layout: 'layouts/admin'
     });
   } catch (err) {
@@ -104,8 +95,8 @@ router.get('/dashboard', isAdmin, async (req, res) => {
     res.redirect('/admin/dashboard');
   }
 });
+
 // ==================== USER ====================
-// Trong route /users (đoạn thay thế)
 router.get('/users', isAdmin, async (req, res) => {
   try {
     const { search, level, sort = 'date_desc' } = req.query;
@@ -121,13 +112,10 @@ router.get('/users', isAdmin, async (req, res) => {
     }
     if (level && level !== 'all') query.level = level;
 
-    // Lấy tất cả user thỏa mãn (chưa phân trang) để tính totalSpent và sắp xếp
     let users = await User.find(query).sort({ createdAt: -1 });
     const totalUsers = users.length;
 
-    // Lấy danh sách user ID
     const userIds = users.map(u => u._id);
-    // Lấy tất cả đơn hàng hoàn thành của các user này
     const completedOrders = await Order.find({ user: { $in: userIds }, status: 'Complete' });
     const userSpent = {};
     completedOrders.forEach(order => {
@@ -135,35 +123,32 @@ router.get('/users', isAdmin, async (req, res) => {
       userSpent[userId] = (userSpent[userId] || 0) + order.total;
     });
 
-    // Gắn totalSpent vào user
     users = users.map(user => ({
       ...user.toObject(),
       totalSpent: userSpent[user._id.toString()] || 0
     }));
 
-    // Sắp xếp theo yêu cầu
     if (sort === 'amount_desc') {
       users.sort((a, b) => b.totalSpent - a.totalSpent);
     } else if (sort === 'amount_asc') {
       users.sort((a, b) => a.totalSpent - b.totalSpent);
     } else {
-      // date_desc (mới nhất) – đã sắp xếp trong query, nhưng sắp lại cho chắc
       users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
-    // Phân trang
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const start = (page - 1) * limit;
     const paginatedUsers = users.slice(start, start + limit);
     const totalPages = Math.ceil(users.length / limit);
 
+    res.locals.currentPage = 'users';
     res.render('admin/user', {
       users: paginatedUsers,
       search: search || '',
       level: level || 'all',
       sort: sort,
-      currentPage: page,
+      currentPageNum: page,   // dùng cho phân trang nếu cần
       totalPages,
       limit,
       totalUsers,
@@ -253,11 +238,12 @@ router.get('/products', isAdmin, async (req, res) => {
     const totalProducts = await Product.countDocuments(query);
     const totalPages = Math.ceil(totalProducts / limit);
 
+    res.locals.currentPage = 'products';
     res.render('admin/product', {
       products,
       search: search || '',
       status: status || 'all',
-      currentPage: page,
+      currentPageNum: page,
       totalPages,
       limit,
       totalProducts,
@@ -274,7 +260,8 @@ router.get('/products', isAdmin, async (req, res) => {
 router.get('/products/add', isAdmin, async (req, res) => {
   try {
     const categories = await Category.find().sort({ name: 1 });
-    res.render('admin/add', { product: null, categories, currentPage: 'products', layout: 'layouts/admin' });
+    res.locals.currentPage = 'products';
+    res.render('admin/add', { product: null, categories, layout: 'layouts/admin' });
   } catch (err) {
     console.error(err);
     req.flash('error', 'Có lỗi xảy ra');
@@ -325,7 +312,8 @@ router.get('/products/edit/:id', isAdmin, async (req, res) => {
       req.flash('error', 'Không tìm thấy sản phẩm');
       return res.redirect('/admin/products');
     }
-    res.render('admin/add', { product, categories, currentPage: 'products', layout: 'layouts/admin' });
+    res.locals.currentPage = 'products';
+    res.render('admin/add', { product, categories, layout: 'layouts/admin' });
   } catch (err) {
     console.error(err);
     req.flash('error', 'Có lỗi xảy ra');
@@ -336,6 +324,7 @@ router.get('/products/edit/:id', isAdmin, async (req, res) => {
 router.put('/products/:id', isAdmin, async (req, res) => {
   try {
     const { name, category, stock, originalPrice, salePrice, discount, brand, ageRange, gender, description, imageUrl } = req.body;
+    
     if (category) {
       const categoryExists = await Category.findById(category);
       if (!categoryExists) {
@@ -357,12 +346,16 @@ router.put('/products/:id', isAdmin, async (req, res) => {
       description,
       status: parseInt(stock) > 0 ? 'Active' : 'Out of Stock'
     };
+    
     if (name) {
       updateData.searchName = removeVietnameseTones(name);
     }
-    if (imageUrl) updateData.imageUrl = imageUrl;
+    
+    if (imageUrl && imageUrl.trim() !== '') {
+      updateData.imageUrl = imageUrl;
+    }
 
-    await Product.findByIdAndUpdate(req.params.id, updateData);
+    await Product.findByIdAndUpdate(req.params.id, updateData, { runValidators: true });
     req.flash('success', 'Cập nhật sản phẩm thành công');
     res.redirect('/admin/products');
   } catch (err) {
@@ -390,7 +383,6 @@ router.get('/orders', isAdmin, async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
 
-    // Lấy tất cả orders (có thể lọc theo status trước để giảm dữ liệu)
     let filter = {};
     if (status && status !== 'all') filter.status = status;
 
@@ -399,7 +391,6 @@ router.get('/orders', isAdmin, async (req, res) => {
       .populate('products.product')
       .sort({ createdAt: -1 });
 
-    // Nếu có search, lọc thủ công theo orderId, user.firstName, user.lastName, user.email
     if (search) {
       const searchLower = search.toLowerCase();
       orders = orders.filter(order => {
@@ -411,17 +402,17 @@ router.get('/orders', isAdmin, async (req, res) => {
       });
     }
 
-    // Phân trang thủ công
     const totalOrders = orders.length;
     const totalPages = Math.ceil(totalOrders / limit);
     const start = (page - 1) * limit;
     const paginatedOrders = orders.slice(start, start + limit);
 
+    res.locals.currentPage = 'orders';
     res.render('admin/order', {
       orders: paginatedOrders,
       search: search || '',
       status: status || 'all',
-      currentPage: page,
+      currentPageNum: page,
       totalPages,
       limit,
       totalOrders,
@@ -467,10 +458,8 @@ router.put('/orders/:id', isAdmin, async (req, res) => {
 });
 
 // ==================== CATEGORY ====================
-// ==================== CATEGORY ====================
 router.get('/categories', isAdmin, async (req, res) => {
   try {
-    // Dùng aggregate để lấy danh sách categories kèm số lượng sản phẩm
     const categories = await Category.aggregate([
       {
         $lookup: {
@@ -490,9 +479,9 @@ router.get('/categories', isAdmin, async (req, res) => {
       { $sort: { name: 1 } }
     ]);
 
+    res.locals.currentPage = 'categories';
     res.render('admin/category', {
       categories,
-      currentPage: 'categories',
       layout: 'layouts/admin'
     });
   } catch (err) {
@@ -501,6 +490,7 @@ router.get('/categories', isAdmin, async (req, res) => {
     res.redirect('/admin/dashboard');
   }
 });
+
 router.post('/categories', isAdmin, async (req, res) => {
   try {
     const { name } = req.body;

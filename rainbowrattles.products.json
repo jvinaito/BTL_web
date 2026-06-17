@@ -1,458 +1,761 @@
-[{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0ed"
+[
+
+  {
+    "name": "Gấu bông Teddy",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "gau bong teddy",
+    "stock": 87,
+    "originalPrice": 6800000,
+    "salePrice": 5100000,
+    "discount": 25,
+    "brand": "Melissa & Doug",
+    "ageRange": "6-8",
+    "gender": "Girl",
+    "description": "Bạn gấu bông Teddy cổ điển với bộ lông mềm mịn như mây và chiếc nơ lụa xinh xắn. Sản phẩm được làm từ bông xoắn 3D cao cấp, không xơ xước lông, là người bạn ôm ngủ lý tưởng giúp bé cảm thấy an tâm và ngủ sâu giấc hơn mỗi đêm.",
+    "sold": 67,
+    "tags": ["be_gai", "gau_bong", "thong_minh", "mem_mai"]
   },
-  "name": "Gấu bông Teddy",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  {
+    "name": "Gấu bông Panda",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "gau bong panda",
+    "stock": 88,
+    "originalPrice": 8300000,
+    "salePrice": 5000000,
+    "discount": 40,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Boy",
+    "description": "Chú gấu trúc Panda tròn trịa béo tròn với đôi mắt híp đáng yêu. Thiết kế mô phỏng chân thực loài gấu trúc quý hiếm giúp kích thích trí tò mò của trẻ về thế giới tự nhiên, đồng thời mang đến cảm giác êm ái tuyệt đối khi ôm.",
+    "sold": 421,
+    "tags": ["be_gai", "gau_bong", "chat_luong_cao", "dang_yeu"]
   },
-  "searchName": "gau bong teddy",
-  "stock": 87,
-  "originalPrice": 274,
-  "salePrice": 202.76,
-  "discount": 26,
-  "brand": "Melissa & Doug",
-  "ageRange": "6-8",
-  "gender": "Girl",
-  "description": "Sản phẩm Gấu bông Teddy chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX0yBBKNgP6Ce_Z1iT9l89KlKdi36-0thsAw&s",
-  "status": "Active",
-  "sold": 67,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Thỏ bông trắng",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "tho bong trang",
+    "stock": 0,
+    "originalPrice": 2200000,
+    "salePrice": 2200000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "0-2",
+    "gender": "Boy",
+    "description": "Nàng thỏ trắng tinh khôi với đôi tai dài mềm mại mang lại trải nghiệm xúc giác tuyệt vời cho trẻ sơ sinh và trẻ nhỏ. Chất liệu vải kháng khuẩn, không rụng lông, tuyệt đối an toàn ngay cả khi bé có thói quen ngậm đồ chơi.",
+    "sold": 439,
+    "tags": ["be_gai", "gau_bong", "an_toan", "so_sinh"]
   },
-  "tags": [
-    "be_gai",
-    "gau_bong",
-    "thong_minh"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0ee"
+  {
+    "name": "Mèo bông kêu meo meo",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "meo bong keu meo meo",
+    "stock": 172,
+    "originalPrice": 3500000,
+    "salePrice": 3500000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "0-2",
+    "gender": "Boy",
+    "description": "Chú mèo bông tương tác thông minh phát ra tiếng kêu 'meo meo' êm ái khi bé vuốt ve. Sản phẩm kết hợp hoàn hảo giữa thú bông truyền thống và cơ chế âm thanh mô phỏng, nuôi dưỡng lòng yêu thương động vật cho bé từ nhỏ.",
+    "sold": 1,
+    "tags": ["be_gai", "gau_bong", "an_toan", "am_thanh"]
   },
-  "name": "Gấu bông Panda",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  {
+    "name": "Chó bông Husky",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "cho bong husky",
+    "stock": 123,
+    "originalPrice": 9000000,
+    "salePrice": 9000000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "12+",
+    "gender": "Boy",
+    "description": "Đại ngốc Husky phiên bản nhồi bông siêu cấp đáng yêu với bộ lông xám trắng đặc trưng và đôi mắt xanh thông minh. Đường may tỉ mỉ, chắc chắn, chịu được áp lực tốt ngay cả khi bé tinh nghịch kéo giãn hay đùa nghịch mạnh.",
+    "sold": 218,
+    "tags": ["be_gai", "gau_bong", "chat_luong_cao", "husky"]
   },
-  "searchName": "gau bong panda",
-  "stock": 93,
-  "originalPrice": 331,
-  "salePrice": 201.91,
-  "discount": 39,
-  "brand": "Melissa & Doug",
-  "ageRange": "3-5",
-  "gender": "Boy",
-  "description": "Sản phẩm Gấu bông Panda chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_91J04LixFo9-N18NYkTXkVxHfQ6SmDyz1A&s",
-  "status": "Active",
-  "sold": 416,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Gấu bông nâu",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "gau bong nau",
+    "stock": 39,
+    "originalPrice": 5500000,
+    "salePrice": 5500000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Chú gấu nâu ấm áp mang phong cách Bắc Âu tối giản nhưng đầy tinh tế. Được nhồi 100% bông tinh khiết đàn hồi tốt, không bị xẹp lún sau thời gian dài sử dụng hoặc sau khi giặt máy, thích hợp làm quà tặng mọi lứa tuổi.",
+    "sold": 121,
+    "tags": ["be_gai", "gau_bong", "chat_luong_cao", "ben_dep"]
   },
-  "tags": [
-    "be_gai",
-    "gau_bong",
-    "chat_luong_cao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0ef"
+  {
+    "name": "Cáo đỏ",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "cao do",
+    "stock": 34,
+    "originalPrice": 6200000,
+    "salePrice": 5000000,
+    "discount": 19,
+    "brand": "Hasbro",
+    "ageRange": "6-8",
+    "gender": "Boy",
+    "description": "Bạn cáo đỏ đuôi xù tinh nghịch sở hữu thiết kế độc đáo phá cách. Sắc cam đỏ rực rỡ giúp kích thích thị giác của trẻ phát triển, đồng thời là điểm nhấn trang trí phòng ngủ vô cùng nổi bật cho các bé trai năng động.",
+    "sold": 89,
+    "tags": ["be_trai", "gau_bong", "thong_minh", "mau_sac"]
   },
-  "name": "Thỏ bông trắng",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  {
+    "name": "Hải cẩu trắng",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "hai cau trang",
+    "stock": 28,
+    "originalPrice": 7200000,
+    "salePrice": 5800000,
+    "discount": 19,
+    "brand": "Fisher-Price",
+    "ageRange": "0-2",
+    "gender": "Girl",
+    "description": "Bé hải cẩu trắng muốt mềm xốp như bông mochi, mang lại cảm giác dễ chịu tức thì khi chạm vào. Phom dáng thuôn dài dễ ôm, nâng đỡ tốt cho phần cổ và tay của bé khi nằm chơi trên sàn hoặc trên giường ngủ.",
+    "sold": 211,
+    "tags": ["be_gai", "gau_bong", "an_toan", "mochi"]
   },
-  "searchName": "tho bong trang",
-  "stock": 3,
-  "originalPrice": 88,
-  "salePrice": 88,
-  "discount": 0,
-  "brand": "Hasbro",
-  "ageRange": "0-2",
-  "gender": "Boy",
-  "description": "Sản phẩm Thỏ bông trắng chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
-  "imageUrl": "https://api.dybiweb.com/Files/4251863b-aaab-4356-96af-0d4d5159121e/Article/Noi-san-xuat-thu-bong-tho-trang_638432659522452408.jpg",
-  "status": "Active",
-  "sold": 436,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Chó Husky xám",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "cho husky xam",
+    "stock": 52,
+    "originalPrice": 9400000,
+    "salePrice": 7500000,
+    "discount": 20,
+    "brand": "Melissa & Doug",
+    "ageRange": "12+",
+    "gender": "Boy",
+    "description": "Người bạn Husky xám trung thành với kích thước lớn vừa vặn vòng tay ôm của các bé lớn. Chất liệu vải lót nỉ nhung cao cấp không chứa chất huỳnh quang nguy hiểm, bảo vệ toàn diện làn da nhạy cảm của trẻ.",
+    "sold": 68,
+    "tags": ["be_trai", "gau_bong", "chat_luong_cao", "nhung_cao_cap"]
   },
-  "tags": [
-    "be_gai",
-    "gau_bong",
-    "an_toan"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f0"
+  {
+    "name": "Ngựa con",
+    "category": "6a0927b5e5d0bfb96c7625a8",
+    "searchName": "ngua con",
+    "stock": 41,
+    "originalPrice": 8200000,
+    "salePrice": 6600000,
+    "discount": 20,
+    "brand": "Hasbro",
+    "ageRange": "9-12",
+    "gender": "Unisex",
+    "description": "Chú ngựa con thần tiên với dải bờm nhiều màu sắc rực rỡ khơi dậy trí tưởng tượng phong phú về thế giới cổ tích. Kết cấu sợi bông nhẹ, thông thoáng khí, không gây hầm bí hay đổ mồ hôi tay khi bé ôm chặt.",
+    "sold": 156,
+    "tags": ["be_gai", "gau_bong", "nhieu_mau_sac", "co_tich"]
   },
-  "name": "Mèo bông kêu meo meo",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625a8"
+
+
+  {
+    "name": "Bộ bếp nấu ăn",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo bep nau an",
+    "stock": 75,
+    "originalPrice": 6100000,
+    "salePrice": 6100000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Girl",
+    "description": "Căn bếp mini gia đình hiện đại với đầy đủ dụng cụ nấu nướng từ xoong nồi đến bếp ga mô phỏng hiệu ứng đèn led đỏ như lửa thật. Giúp bé làm quen với các kỹ năng nội trợ cơ bản và thấu hiểu công việc nấu nướng bận rộn của mẹ hàng ngày.",
+    "sold": 471,
+    "tags": ["be_gai", "nhap_vai", "xay_dung", "an_toan"]
   },
-  "searchName": "meo bong keu meo meo",
-  "stock": 172,
-  "originalPrice": 139,
-  "salePrice": 139,
-  "discount": 0,
-  "brand": "Hasbro",
-  "ageRange": "0-2",
-  "gender": "Boy",
-  "description": "Sản phẩm Mèo bông kêu meo meo chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
-  "imageUrl": "https://cdn1.concung.com/storage/2023/05/1684319222-dsc04943.jpg",
-  "status": "Active",
-  "sold": 1,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bảng chữ cái thông minh",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bang chu cai thong minh",
+    "stock": 120,
+    "originalPrice": 2800000,
+    "salePrice": 2800000,
+    "discount": 0,
+    "brand": "Fisher-Price",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Bảng chữ cái tương tác với âm thanh và hình ảnh sinh động, giúp bé làm quen với bảng chữ cái tiếng Việt và tiếng Anh một cách tự nhiên, phát triển ngôn ngữ và tư duy logic từ sớm.",
+    "sold": 305,
+    "tags": ["do_choi_thong_minh", "hoc_tap", "am_thanh"]
   },
-  "tags": [
-    "be_gai",
-    "gau_bong",
-    "an_toan"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f1"
+  {
+    "name": "Bộ ghép hình số học",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo ghep hinh so hoc",
+    "stock": 95,
+    "originalPrice": 2100000,
+    "salePrice": 2100000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Bộ ghép hình các con số từ 0-9 kèm phép tính cộng trừ đơn giản, giúp trẻ làm quen với toán học thông qua trò chơi, rèn luyện khả năng tính nhẩm và tư duy logic.",
+    "sold": 278,
+    "tags": ["do_choi_thong_minh", "hoc_tap", "toan_hoc"]
   },
-  "name": "Chó bông Husky",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625a8"
+  {
+    "name": "Bộ thí nghiệm khoa học nhí",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo thi nghiem khoa hoc nhi",
+    "stock": 45,
+    "originalPrice": 5200000,
+    "salePrice": 5200000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "9-12",
+    "gender": "Unisex",
+    "description": "Bộ thí nghiệm khoa học với 15 thí nghiệm đơn giản an toàn như núi lửa phun trào, tinh thể muối, giúp bé khám phá thế giới khoa học kỳ thú, nuôi dưỡng niềm đam mê nghiên cứu.",
+    "sold": 56,
+    "tags": ["do_choi_thong_minh", "khoa_hoc", "stem"]
   },
-  "searchName": "cho bong husky",
-  "stock": 122,
-  "originalPrice": 358,
-  "salePrice": 358,
-  "discount": 0,
-  "brand": "Melissa & Doug",
-  "ageRange": "12+",
-  "gender": "Boy",
-  "description": "Sản phẩm Chó bông Husky chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRABkVwyEN2-gou7UwFPehzTCnshz-KkOChyw&s",
-  "status": "Active",
-  "sold": 219,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bàn tính gỗ học đếm",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "ban tinh go hoc dem",
+    "stock": 150,
+    "originalPrice": 1800000,
+    "salePrice": 1800000,
+    "discount": 0,
+    "brand": "Fisher-Price",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Bàn tính gỗ nhiều màu sắc với các hạt tròn trượt trên thanh, giúp bé học đếm và làm quen với phép cộng trừ cơ bản một cách trực quan, phát triển kỹ năng vận động tinh.",
+    "sold": 342,
+    "tags": ["do_choi_thong_minh", "hoc_tap", "toan_hoc"]
   },
-  "tags": [
-    "be_gai",
-    "gau_bong",
-    "chat_luong_cao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f2"
+  {
+    "name": "Bộ xếp hình địa lý Việt Nam",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo xep hinh dia ly viet nam",
+    "stock": 60,
+    "originalPrice": 3900000,
+    "salePrice": 3900000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "6-8",
+    "gender": "Unisex",
+    "description": "Bản đồ Việt Nam dạng ghép hình các tỉnh thành, giúp trẻ nhận biết vị trí địa lý và văn hóa các vùng miền, phát triển tình yêu quê hương đất nước.",
+    "sold": 97,
+    "tags": ["do_choi_thong_minh", "dia_ly", "hoc_tap"]
   },
-  "name": "Xe đua điều khiển từ xa",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  {
+    "name": "Bộ học tiếng Anh qua tranh",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo hoc tieng anh qua tranh",
+    "stock": 80,
+    "originalPrice": 3200000,
+    "salePrice": 3200000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Bộ thẻ học từ vựng tiếng Anh sinh động với hình ảnh minh họa, giúp bé mở rộng vốn từ và phát triển kỹ năng ngoại ngữ một cách tự nhiên.",
+    "sold": 215,
+    "tags": ["do_choi_thong_minh", "hoc_tap", "tieng_anh"]
   },
-  "searchName": "xe dua dieu khien tu xa",
-  "stock": 78,
-  "originalPrice": 164,
-  "salePrice": 159.08,
-  "discount": 3,
-  "brand": "Melissa & Doug",
-  "ageRange": "9-12",
-  "gender": "Girl",
-  "description": "Sản phẩm Xe đua điều khiển từ xa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjvqjOfsdoomkFPGSBzMLRXRE6n9v0hS7nOA&s",
-  "status": "Active",
-  "sold": 63,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bộ lắp ráp mô hình cơ thể người",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo lap rap mo hinh co the nguoi",
+    "stock": 35,
+    "originalPrice": 6800000,
+    "salePrice": 6800000,
+    "discount": 0,
+    "brand": "Fisher-Price",
+    "ageRange": "9-12",
+    "gender": "Unisex",
+    "description": "Mô hình giải phẫu cơ thể người với các cơ quan có thể tháo rời, giúp trẻ hiểu về cấu tạo cơ thể và chức năng các bộ phận, khơi dậy niềm yêu thích y học.",
+    "sold": 42,
+    "tags": ["do_choi_thong_minh", "khoa_hoc", "sinh_hoc"]
   },
-  "tags": [
-    "be_trai",
-    "o_to",
-    "dieu_khien",
-    "chat_luong_cao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f3"
+  {
+    "name": "Bộ đồ chơi mã hóa - Coding",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo do choi ma hoa coding",
+    "stock": 25,
+    "originalPrice": 9500000,
+    "salePrice": 9500000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "12+",
+    "gender": "Unisex",
+    "description": "Bộ học lập trình tư duy với các khối lệnh màu sắc, cho bé làm quen với tư duy thuật toán và logic máy tính, chuẩn bị hành trang cho tương lai công nghệ.",
+    "sold": 18,
+    "tags": ["do_choi_thong_minh", "coding", "stem"]
   },
-  "name": "Xe tải điều khiển",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  {
+    "name": "Bộ thí nghiệm ánh sáng và màu sắc",
+    "category": "6a0927b5e5d0bfb96c7625a9",
+    "searchName": "bo thi nghiem anh sang va mau sac",
+    "stock": 40,
+    "originalPrice": 4600000,
+    "salePrice": 4600000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "6-8",
+    "gender": "Unisex",
+    "description": "Bộ thí nghiệm quang học với đèn, thấu kính và lăng kính, giúp trẻ khám phá sự kỳ diệu của ánh sáng và màu sắc, phát triển tư duy khoa học.",
+    "sold": 73,
+    "tags": ["do_choi_thong_minh", "khoa_hoc", "anh_sang"]
   },
-  "searchName": "xe tai dieu khien",
-  "stock": 69,
-  "originalPrice": 127,
-  "salePrice": 113.03,
-  "discount": 11,
-  "brand": "Melissa & Doug",
-  "ageRange": "0-2",
-  "gender": "Girl",
-  "description": "Sản phẩm Xe tải điều khiển chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
-  "imageUrl": "https://jola.vn/cdn/720/Product/yemAbh-8m/xe-tai-dieu-khien-rc-11.jpg",
-  "status": "Active",
-  "sold": 418,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+
+
+  {
+    "name": "Xe đua điều khiển từ xa",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "xe dua dieu khien tu xa",
+    "stock": 78,
+    "originalPrice": 4100000,
+    "salePrice": 4000000,
+    "discount": 2,
+    "brand": "Melissa & Doug",
+    "ageRange": "9-12",
+    "gender": "Girl",
+    "description": "Siêu xe đua địa hình điều khiển từ xa với tần số kháng nhiễu ổn định và tốc độ bứt phá ngoạn mục. Khung gầm làm bằng nhựa ABS chịu lực cao giúp xe chống chọi tốt với mọi va đập từ các chướng ngại vật, giúp bé rèn luyện phản xạ tay mắt cực tốt.",
+    "sold": 63,
+    "tags": ["be_trai", "o_to", "dieu_khien", "chat_luong_cao"]
   },
-  "tags": [
-    "be_trai",
-    "o_to",
-    "dieu_khien",
-    "chat_luong_cao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f4"
+  {
+    "name": "Xe tải điều khiển",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "xe tai dieu khien",
+    "stock": 62,
+    "originalPrice": 3200000,
+    "salePrice": 2800000,
+    "discount": 12,
+    "brand": "Melissa & Doug",
+    "ageRange": "0-2",
+    "gender": "Girl",
+    "description": "Xe tải công trình điều khiển góc bo rộng, mô phỏng cơ chế nâng hạ thùng xe như thật. Hệ thống bánh đà bám đường cực chắc giúp xe di chuyển êm ái trên nhiều địa hình trong nhà và ngoài trời, khơi gợi niềm đam mê kỹ thuật cho bé.",
+    "sold": 425,
+    "tags": ["be_trai", "o_to", "dieu_khien", "chat_luong_cao"]
   },
-  "name": "Máy bay chiến đấu",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  {
+    "name": "Máy bay chiến đấu",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "may bay chien dau",
+    "stock": 70,
+    "originalPrice": 11200000,
+    "salePrice": 6900000,
+    "discount": 38,
+    "brand": "Melissa & Doug",
+    "ageRange": "12+",
+    "gender": "Girl",
+    "description": "Mô hình chiến đấu cơ phản lực tích hợp điều khiển từ xa thông minh với cảm biến giữ độ cao cân bằng. Cánh quạt làm từ vật liệu dẻo an toàn, hạn chế tối đa gãy vỡ khi hạ cánh, mang lại trải nghiệm chinh phục bầu trời đầy phấn khích.",
+    "sold": 325,
+    "tags": ["be_trai", "o_to", "dieu_khien", "chat_luong_cao"]
   },
-  "searchName": "may bay chien dau",
-  "stock": 70,
-  "originalPrice": 447,
-  "salePrice": 277.14,
-  "discount": 38,
-  "brand": "Melissa & Doug",
-  "ageRange": "12+",
-  "gender": "Girl",
-  "description": "Sản phẩm Máy bay chiến đấu chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 12+ tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREw6paeZdqg71TwJ-WO0SopM-FtWeO89tw2Q&s",
-  "status": "Active",
-  "sold": 325,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Tàu hỏa điện",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "tau hoa dien",
+    "stock": 93,
+    "originalPrice": 9000000,
+    "salePrice": 5800000,
+    "discount": 36,
+    "brand": "Bandai",
+    "ageRange": "9-12",
+    "gender": "Boy",
+    "description": "Bộ đường ray tàu hỏa điện khép kín với đầu tàu phát khói sinh học an toàn và âm thanh xình xịch vui nhộn. Bé có thể tự tay sắp xếp hệ thống đường ray theo ý thích, nâng cao tư duy không gian và khả năng sắp đặt logic.",
+    "sold": 124,
+    "tags": ["be_trai", "o_to", "dieu_khien", "an_toan"]
   },
-  "tags": [
-    "be_trai",
-    "o_to",
-    "dieu_khien",
-    "chat_luong_cao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f5"
+  {
+    "name": "Xe cứu hỏa",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "xe cuu hoa",
+    "stock": 58,
+    "originalPrice": 2700000,
+    "salePrice": 2600000,
+    "discount": 4,
+    "brand": "Fisher-Price",
+    "ageRange": "0-2",
+    "gender": "Unisex",
+    "description": "Xe cứu hỏa điều khiển từ xa trang bị thang nâng có khả năng xoay 360 độ và còi hú cứu hộ chuyên nghiệp. Sản phẩm giúp bé nhập vai chiến sĩ phòng cháy chữa cháy anh dũng, học hỏi thêm nhiều kiến thức bổ ích về an toàn cuộc sống.",
+    "sold": 18,
+    "tags": ["be_trai", "o_to", "dieu_khien", "nhieu_mau_sac"]
   },
-  "name": "Tàu hỏa điện",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  {
+    "name": "Cano tốc độ cao điều khiển",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "cano toc do cao dieu khien",
+    "stock": 42,
+    "originalPrice": 4800000,
+    "salePrice": 3840000,
+    "discount": 20,
+    "brand": "Bandai",
+    "ageRange": "9-12",
+    "gender": "Boy",
+    "description": "Du thuyền lướt sóng chống nước tuyệt đối, động cơ mạnh mẽ cho trải nghiệm xé gió kịch tính trên mặt hồ.",
+    "sold": 89,
+    "tags": ["be_trai", "o_to", "dieu_khien", "toc_do"]
   },
-  "searchName": "tau hoa dien",
-  "stock": 93,
-  "originalPrice": 360,
-  "salePrice": 230.4,
-  "discount": 36,
-  "brand": "Bandai",
-  "ageRange": "9-12",
-  "gender": "Boy",
-  "description": "Sản phẩm Tàu hỏa điện chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
-  "imageUrl": "https://bizweb.dktcdn.net/100/439/851/files/screenshot-2025-05-20-100347.png?v=1747710442903",
-  "status": "Active",
-  "sold": 124,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Robot thông minh nhảy múa",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "robot thong minh nhay mua",
+    "stock": 65,
+    "originalPrice": 5900000,
+    "salePrice": 5900000,
+    "discount": 0,
+    "brand": "Fisher-Price",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Robot tương tác từ xa qua cử chỉ tay và remote, tích hợp phát nhạc vui nhộn chuyển động theo nhịp điệu.",
+    "sold": 142,
+    "tags": ["dieu_khien", "robot", "am_thanh"]
   },
-  "tags": [
-    "be_trai",
-    "o_to",
-    "dieu_khien",
-    "an_toan"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f6"
+  {
+    "name": "Xe tăng bọc thép bắn hồng ngoại",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "xe tang boc thep ban hong ngoai",
+    "stock": 31,
+    "originalPrice": 7500000,
+    "salePrice": 6000000,
+    "discount": 20,
+    "brand": "Hasbro",
+    "ageRange": "9-12",
+    "gender": "Boy",
+    "description": "Mô hình xe chiến đấu bánh xích vượt chướng ngại vật cực tốt, có tháp pháo xoay 360 độ bắn tia hồng ngoại giả lập.",
+    "sold": 54,
+    "tags": ["be_trai", "dieu_khien", "hanh_dong"]
   },
-  "name": "Xe cứu hỏa",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625aa"
+  {
+    "name": "Trực thăng mini bốn cánh cảm biến",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "truc thang mini bon canh cam bien",
+    "stock": 50,
+    "originalPrice": 3400000,
+    "salePrice": 2990000,
+    "discount": 12,
+    "brand": "Melissa & Doug",
+    "ageRange": "6-8",
+    "gender": "Girl",
+    "description": "Flycam đồ chơi mini siêu nhẹ bảo vệ bằng khung lồng dẻo, tự động né tránh chướng ngại vật thông minh.",
+    "sold": 112,
+    "tags": ["be_gai", "dieu_khien", "an_toan"]
   },
-  "searchName": "xe cuu hoa",
-  "stock": 58,
-  "originalPrice": 107,
-  "salePrice": 103.79,
-  "discount": 3,
-  "brand": "Fisher-Price",
-  "ageRange": "0-2",
-  "gender": "Unisex",
-  "description": "Sản phẩm Xe cứu hỏa chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_JC43s-xqFmQ5tJgijV5CCIK_oSHD3Uq1Vw&s",
-  "status": "Active",
-  "sold": 18,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Xe xúc lật công trình cỡ lớn",
+    "category": "6a0927b5e5d0bfb96c7625aa",
+    "searchName": "xe xuc lat cong trinh co lon",
+    "stock": 48,
+    "originalPrice": 6800000,
+    "salePrice": 5440000,
+    "discount": 20,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Boy",
+    "description": "Điều khiển tay gầu múc cát đất chân thực bằng hệ thống thủy lực mô phỏng, rèn luyện sự khéo léo phối hợp.",
+    "sold": 95,
+    "tags": ["be_trai", "o_to", "dieu_khien", "xay_dung"]
   },
-  "tags": [
-    "be_trai",
-    "o_to",
-    "dieu_khien",
-    "nhieu_mau_sac"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f7"
+
+
+  {
+    "name": "Robot biến hình",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "robot bien hinh",
+    "stock": 112,
+    "originalPrice": 9700000,
+    "salePrice": 9700000,
+    "discount": 0,
+    "brand": "Fisher-Price",
+    "ageRange": "6-8",
+    "gender": "Unisex",
+    "description": "Robot biến hình cơ khí đa năng có thể chuyển đổi linh hoạt giữa dạng chiến binh thép kiêu hùng và siêu xe thể thao chỉ với vài bước khớp nối dễ dàng. Thử thách tư duy hình khối và độ khéo léo của các ngón tay.",
+    "sold": 372,
+    "tags": ["be_trai", "lap_rap", "robot", "sang_tao"]
   },
-  "name": "Robot biến hình",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  {
+    "name": "Robot lắp ráp 3 trong 1",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "robot lap rap 3 trong 1",
+    "stock": 77,
+    "originalPrice": 1450000,
+    "salePrice": 1450000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Girl",
+    "description": "Bộ mô hình lắp ráp đột phá cho phép biến hóa linh hoạt thành 3 hình thái hoàn toàn khác nhau từ một lượng mảnh ghép cố định. Kích thích tối đa tư duy đổi mới, khả năng tối ưu hóa tài nguyên và độ bền bỉ kiên nhẫn ở trẻ.",
+    "sold": 367,
+    "tags": ["be_trai", "lap_rap", "robot", "nhieu_mau_sac"]
   },
-  "searchName": "robot bien hinh",
-  "stock": 112,
-  "originalPrice": 388,
-  "salePrice": 388,
-  "discount": 0,
-  "brand": "Fisher-Price",
-  "ageRange": "6-8",
-  "gender": "Unisex",
-  "description": "Sản phẩm Robot biến hình chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 6-8 tuổi.",
-  "imageUrl": "https://kenhchinhhang.vn/upload/imageManage/2_1719479840.jpg",
-  "status": "Active",
-  "sold": 372,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bộ lắp ráp thành phố",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "bo lap rap thanh pho",
+    "stock": 124,
+    "originalPrice": 8700000,
+    "salePrice": 8000000,
+    "discount": 8,
+    "brand": "Hasbro",
+    "ageRange": "0-2",
+    "gender": "Boy",
+    "description": "Hệ sinh thái công trình đô thị thu nhỏ với đầy đủ nhà cao tầng, cây cối, biển báo giao thông. Các khối gạch liên kết chuẩn xác giúp trẻ tự tin xây dựng nên thành phố trong mơ của riêng mình, định hình năng lực thẩm mỹ kiến trúc sớm.",
+    "sold": 162,
+    "tags": ["be_trai", "lap_rap", "robot", "thong_minh"]
   },
-  "tags": [
-    "be_trai",
-    "lap_rap",
-    "robot",
-    "sang_tao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f8"
+  {
+    "name": "Lego du hành vũ trụ",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "lego du hanh vu tru",
+    "stock": 20,
+    "originalPrice": 11800000,
+    "salePrice": 8100000,
+    "discount": 31,
+    "brand": "Hasbro",
+    "ageRange": "9-12",
+    "gender": "Girl",
+    "description": "Hành trình khám phá dải ngân hà huyền bí cùng trạm không gian và phi thuyền Apollo thu nhỏ. Bộ sản phẩm giáo dục STEM đỉnh cao giúp truyền cảm hứng mạnh mẽ về ngành thiên văn học và vật lý không gian cho những phi hành gia tương lai.",
+    "sold": 51,
+    "tags": ["do_choi_thong_minh", "sang_tao", "stem"]
   },
-  "name": "Robot lắp ráp 3 trong 1",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  {
+    "name": "Lego Robot Chiến Giáp",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "lego robot chien giap",
+    "stock": 45,
+    "originalPrice": 4500000,
+    "salePrice": 3800000,
+    "discount": 15,
+    "brand": "Bandai",
+    "ageRange": "9-12",
+    "gender": "Boy",
+    "description": "Mô hình robot chiến giáp với các khớp nối linh hoạt, giúp bé thỏa sức sáng tạo các tư thế chiến đấu dũng mãnh.",
+    "sold": 120,
+    "tags": ["be_trai", "lap_rap", "robot", "sang_tao"]
   },
-  "searchName": "robot lap rap 3 trong 1",
-  "stock": 77,
-  "originalPrice": 58,
-  "salePrice": 58,
-  "discount": 0,
-  "brand": "Melissa & Doug",
-  "ageRange": "3-5",
-  "gender": "Girl",
-  "description": "Sản phẩm Robot lắp ráp 3 trong 1 chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
-  "imageUrl": "https://down-vn.img.susercontent.com/file/sg-11134201-7rbk0-lkslhc2d26hy7d",
-  "status": "Active",
-  "sold": 367,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bộ lắp ráp lâu đài cổ tích",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "bo lap rap lau dai co tich",
+    "stock": 30,
+    "originalPrice": 6500000,
+    "salePrice": 5200000,
+    "discount": 20,
+    "brand": "Hasbro",
+    "ageRange": "6-8",
+    "gender": "Girl",
+    "description": "Lâu đài hoàng gia lộng lẫy với nhiều chi tiết tinh xảo, khơi gợi thế giới thần tiên cho các bé gái.",
+    "sold": 85,
+    "tags": ["be_gai", "lap_rap", "co_tich", "mau_sac"]
   },
-  "tags": [
-    "be_trai",
-    "lap_rap",
-    "robot",
-    "nhieu_mau_sac"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0f9"
+  {
+    "name": "Mô hình chiến hạm quân sự",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "mo hinh chien ham quan su",
+    "stock": 25,
+    "originalPrice": 8900000,
+    "salePrice": 8900000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "12+",
+    "gender": "Boy",
+    "description": "Thử thách tư duy logic đỉnh cao với hơn 1000 mảnh ghép mô phỏng tàu chiến quân sự hiện đại tuần tra biển sâu.",
+    "sold": 42,
+    "tags": ["be_trai", "lap_rap", "thong_minh", "chat_luong_cao"]
   },
-  "name": "Bộ lắp ráp thành phố",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625ab"
+  {
+    "name": "Bộ ghép hình động vật 3D",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "bo ghep hinh dong vat 3d",
+    "stock": 110,
+    "originalPrice": 1800000,
+    "salePrice": 1500000,
+    "discount": 16,
+    "brand": "Fisher-Price",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Các mảnh ghép gỗ bo tròn an toàn giúp trẻ nhận biết cấu trúc cơ thể các loài động vật hoang dã quen thuộc.",
+    "sold": 230,
+    "tags": ["do_choi_thong_minh", "lap_rap", "an_toan"]
   },
-  "searchName": "bo lap rap thanh pho",
-  "stock": 124,
-  "originalPrice": 349,
-  "salePrice": 321.08,
-  "discount": 8,
-  "brand": "Hasbro",
-  "ageRange": "0-2",
-  "gender": "Boy",
-  "description": "Sản phẩm Bộ lắp ráp thành phố chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 0-2 tuổi.",
-  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6WlQmqiTIQDphoDBuYDswbAftOOGcYi1p0w&s",
-  "status": "Active",
-  "sold": 162,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Lego trạm cứu hỏa thành phố",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "lego tram cuu hoa thanh pho",
+    "stock": 40,
+    "originalPrice": 5500000,
+    "salePrice": 4400000,
+    "discount": 20,
+    "brand": "Melissa & Doug",
+    "ageRange": "6-8",
+    "gender": "Unisex",
+    "description": "Lắp ráp trung tâm cứu hộ khẩn cấp đi kèm xe cứu hỏa mini, rèn luyện kỹ năng nhập vai và tổ chức tình huống.",
+    "sold": 97,
+    "tags": ["lap_rap", "sang_tao", "cuu_hoa"]
   },
-  "tags": [
-    "be_trai",
-    "lap_rap",
-    "robot",
-    "thong_minh"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0fa"
+  {
+    "name": "Bộ lắp ráp khủng long bạo chúa",
+    "category": "6a0927b5e5d0bfb96c7625ab",
+    "searchName": "bo lap rap khung long bao chua",
+    "stock": 55,
+    "originalPrice": 4200000,
+    "salePrice": 4200000,
+    "discount": 0,
+    "brand": "Bandai",
+    "ageRange": "6-8",
+    "gender": "Boy",
+    "description": "Tái hiện kỷ Jura hùng vĩ với mô hình T-Rex có thể cử động hàm và đuôi sau khi hoàn thành lắp ráp.",
+    "sold": 156,
+    "tags": ["be_trai", "lap_rap", "khung_long"]
   },
-  "name": "Lego du hành vũ trụ",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625ab"
+
+ 
+  {
+    "name": "Bộ bác sĩ nhí",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo bac si nhi",
+    "stock": 45,
+    "originalPrice": 5200000,
+    "salePrice": 5200000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Trang phục bác sĩ mini kèm ống nghe, ống tiêm nhựa an toàn và hồ sơ bệnh án mô phỏng – giúp bé khám bệnh cho búp bê và bạn bè, rèn luyện lòng nhân ái và kỹ năng chăm sóc sức khỏe cơ bản từ nhỏ.",
+    "sold": 215,
+    "tags": ["be_gai", "nhap_vai", "bac_si", "cham_soc"]
   },
-  "searchName": "lego du hanh vu tru",
-  "stock": 20,
-  "originalPrice": 472,
-  "salePrice": 325.68,
-  "discount": 31,
-  "brand": "Hasbro",
-  "ageRange": "9-12",
-  "gender": "Girl",
-  "description": "Sản phẩm Lego du hành vũ trụ chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 9-12 tuổi.",
-  "imageUrl": "data:image/jpeg;base64,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",
-  "status": "Active",
-  "sold": 51,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bộ đầu bếp trứ danh",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo dau bep tru danh",
+    "stock": 38,
+    "originalPrice": 4900000,
+    "salePrice": 4900000,
+    "discount": 0,
+    "brand": "Hasbro",
+    "ageRange": "6-8",
+    "gender": "Unisex",
+    "description": "Tạp dề, mũ đầu bếp, bộ nồi chảo và dao thớt an toàn, cho bé trổ tài nấu ăn giả vờ với bạn bè, phát huy sự sáng tạo và khả năng phối hợp nhóm trong gian bếp nhỏ.",
+    "sold": 183,
+    "tags": ["be_gai", "nhap_vai", "dau_bep", "sang_tao"]
   },
-  "tags": [
-    "do_choi_thong_minh",
-    "sang_tao"
-  ],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6a2e4721fc423c522c74b0fc"
+  {
+    "name": "Trang phục cảnh sát giao thông",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "trang phuc canh sat giao thong",
+    "stock": 32,
+    "originalPrice": 6700000,
+    "salePrice": 5700000,
+    "discount": 15,
+    "brand": "Fisher-Price",
+    "ageRange": "6-8",
+    "gender": "Boy",
+    "description": "Áo mưa phản quang, còi và gậy chỉ huy giao thông mô phỏng, giúp bé hóa thân thành chiến sĩ CSGT, nắm vững luật lệ an toàn giao thông và rèn luyện phản xạ nhanh nhẹn.",
+    "sold": 112,
+    "tags": ["be_trai", "nhap_vai", "canh_sat", "giao_thong"]
   },
-  "name": "Bộ bếp nấu ăn",
-  "category": {
-    "$oid": "6a0927b5e5d0bfb96c7625a9"
+  {
+    "name": "Bộ lính cứu hỏa dũng cảm",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo linh cuu hoa dung cam",
+    "stock": 28,
+    "originalPrice": 7500000,
+    "salePrice": 6000000,
+    "discount": 20,
+    "brand": "Melissa & Doug",
+    "ageRange": "6-8",
+    "gender": "Boy",
+    "description": "Mũ bảo hiểm, áo chống cháy và bình xịt nước mini, cho bé trải nghiệm công việc cứu hỏa, phát triển tinh thần trách nhiệm và kỹ năng xử lý tình huống khẩn cấp.",
+    "sold": 94,
+    "tags": ["be_trai", "nhap_vai", "cuu_hoa", "hanh_dong"]
   },
-  "searchName": "bo bep nau an",
-  "stock": 78,
-  "originalPrice": 245,
-  "salePrice": 245,
-  "discount": 0,
-  "brand": "Melissa & Doug",
-  "ageRange": "3-5",
-  "gender": "Girl",
-  "description": "Sản phẩm Bộ bếp nấu ăn chất lượng cao, an toàn cho bé. Phù hợp với trẻ từ 3-5 tuổi.",
-  "imageUrl": "data:image/jpeg;base64,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",
-  "status": "Active",
-  "sold": 468,
-  "createdAt": {
-    "$date": "2026-05-17T08:42:32.804Z"
+  {
+    "name": "Bộ phi hành gia vũ trụ",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo phi hanh gia vu tru",
+    "stock": 20,
+    "originalPrice": 9200000,
+    "salePrice": 7360000,
+    "discount": 20,
+    "brand": "Hasbro",
+    "ageRange": "9-12",
+    "gender": "Unisex",
+    "description": "Trang phục và mặt nạ phi hành gia, kèm bảng điều khiển tàu vũ trụ mô phỏng, khơi dậy niềm đam mê khám phá không gian và khoa học cho các nhà du hành tương lai.",
+    "sold": 45,
+    "tags": ["be_gai", "nhap_vai", "phi_hanh_gia", "vu_tru"]
   },
-  "tags": [
-    "be_gai",
-    "nhap_vai",
-    "xay_dung",
-    "an_toan"
-  ],
-  "__v": 0
-}]
+  {
+    "name": "Bộ họa sĩ tài ba",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo hoa si tai ba",
+    "stock": 55,
+    "originalPrice": 4100000,
+    "salePrice": 4100000,
+    "discount": 0,
+    "brand": "Fisher-Price",
+    "ageRange": "3-5",
+    "gender": "Unisex",
+    "description": "Bảng vẽ, cọ và màu nước an toàn cho bé tự do sáng tạo nghệ thuật, giúp phát triển tư duy thẩm mỹ và kỹ năng vận động tinh qua những bức tranh đầy màu sắc.",
+    "sold": 267,
+    "tags": ["be_gai", "nhap_vai", "hoa_si", "sang_tao"]
+  },
+  {
+    "name": "Bộ thợ mộc khéo tay",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo tho moc kheo tay",
+    "stock": 40,
+    "originalPrice": 5600000,
+    "salePrice": 5000000,
+    "discount": 11,
+    "brand": "Hasbro",
+    "ageRange": "6-8",
+    "gender": "Boy",
+    "description": "Bộ dụng cụ gồm búa, đinh và gỗ mô phỏng, giúp bé rèn luyện sự khéo léo và tư duy kỹ thuật khi đóng bàn ghế mini cho búp bê.",
+    "sold": 132,
+    "tags": ["be_trai", "nhap_vai", "tho_moc", "xay_dung"]
+  },
+  {
+    "name": "Trang phục công chúa lộng lẫy",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "trang phuc cong chua long lay",
+    "stock": 35,
+    "originalPrice": 7800000,
+    "salePrice": 6240000,
+    "discount": 20,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Girl",
+    "description": "Váy dạ hội bồng bềnh, vương miện và găng tay, biến bé thành nàng công chúa trong truyện cổ tích, nuôi dưỡng trí tưởng tượng và sự tự tin.",
+    "sold": 198,
+    "tags": ["be_gai", "nhap_vai", "cong_chua", "trang_phuc"]
+  },
+  {
+    "name": "Bộ thám hiểm động vật hoang dã",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo tham hiem dong vat hoang da",
+    "stock": 30,
+    "originalPrice": 6200000,
+    "salePrice": 4960000,
+    "discount": 20,
+    "brand": "Fisher-Price",
+    "ageRange": "9-12",
+    "gender": "Unisex",
+    "description": "Kính lúp, la bàn và máy ảnh mô phỏng, cho bé khám phá thiên nhiên, học hỏi về động vật và rèn luyện tinh thần phiêu lưu.",
+    "sold": 78,
+    "tags": ["be_trai", "nhap_vai", "tham_hiem", "kham_pha"]
+  },
+  {
+    "name": "Bộ y tá thiên thần",
+    "category": "6a0927b5e5d0bfb96c7625ac",
+    "searchName": "bo y ta thien than",
+    "stock": 42,
+    "originalPrice": 4800000,
+    "salePrice": 4800000,
+    "discount": 0,
+    "brand": "Melissa & Doug",
+    "ageRange": "3-5",
+    "gender": "Girl",
+    "description": "Áo y tá hồng, khăn quàng cổ và giường bệnh mini, giúp bé nhập vai chăm sóc bệnh nhân nhí, phát triển sự tỉ mỉ và tình yêu thương.",
+    "sold": 178,
+    "tags": ["be_gai", "nhap_vai", "y_ta", "cham_soc"]
+  }
+]
